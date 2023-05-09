@@ -1,4 +1,5 @@
 import 'package:get/get.dart';
+import '../screens/auth_screens/SignUp_screen.dart';
 import '../screens/auth_screens/splash_screen.dart';
 import 'app_constants.dart';
 import 'screen_bindings.dart';
@@ -11,6 +12,11 @@ class RouteGenerator {
       GetPage(
         name: kSplashScreen,
         page: () => const SplashScreen(),
+        binding: ScreenBindings(),
+      ),
+      GetPage(
+        name: kSignUpScreen,
+        page: () => const SignUpScreen(),
         binding: ScreenBindings(),
       ),
     ];
