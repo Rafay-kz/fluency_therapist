@@ -182,8 +182,6 @@ packages:
       name: test_api
       sha256: ad540f65f92caa91bf21dfc8ffb8c589d6e4dc0c2267818b4cc2792857706206
       url: "https://pub.dev"
-    source: hosted
-    version: "0.4.16"
   vector_math:
     dependency: transitive
     description:
