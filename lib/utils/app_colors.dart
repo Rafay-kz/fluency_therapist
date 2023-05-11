@@ -10,7 +10,7 @@ class AppColors {
   static Color backgroundColor =
   const Color(0xffF1F5FB); // Scaffold background color
   static Color textHintColor =
-  const Color(0xff403B3B).withOpacity(0.5); //textfield text hint color
+  const Color(0xffA5A8AE); //textfield text hint color
   static Color textfieldColor =
   const Color(0xffE6ECF6); //textfied background color
   static Color descriptionColor = const Color(0xff000000)
