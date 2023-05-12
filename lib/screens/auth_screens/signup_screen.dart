@@ -16,242 +16,231 @@ class SignUpScreen extends GetView<SignupScreenController> {
       backgroundColor:AppColors.backgroundColor,
       body: SafeArea(
         child: SingleChildScrollView(
-          child: Padding(padding: EdgeInsets.all(15),
+          child: Padding(padding: const EdgeInsets.all(15),
             child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisAlignment: MainAxisAlignment.start,
               children: [
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  children: [
-                     Padding(padding:  EdgeInsets.only(top: 30),
-                      child: Center(
-                        child:  Image(image:  AssetImage(fluencyTherapistLogo),
-                        width: 168,
-                        height: 72),
-                      ),
-                    ),
+                 const Padding(padding:  EdgeInsets.only(top: 30),
+                  child: Center(
+                    child:  Image(image:  AssetImage(fluencyTherapistLogo),
+                    width: 168,
+                    height: 72),
+                  ),
+                ),
 
-                     Padding(
-                      padding: EdgeInsets.all(8.0),
-                      child: Text(
-                        'Register',
-                        style: Theme.of(context).textTheme.displayLarge!.copyWith(fontSize: 24),
-                      ),
-                    ),
+                 Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Text(
+                    'Register',
+                    style: Theme.of(context).textTheme.displayLarge!.copyWith(fontSize: 24),
+                  ),
+                ),
 
-                     Padding(
-                      padding: EdgeInsets.only(top: 5, left: 8),
-                      child: Text("Register now for improved communication",
-                          style: Theme.of(context).textTheme.titleLarge),
-                    ),
-                    const SizedBox(
-                      height: 8,
-                    ),
-                     Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Text(
-                        'Username',
-                        style: Theme.of(context).textTheme.headlineSmall)
-                    ),
-                    const SizedBox(
-                      height: 5,
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Center(
-                        child: SizedBox(
-                          width: 400,
-                          child: TextFormField(
-                            // cursorColor: Colors.black,
-                            controller: controller.nameTEController,
-                            decoration: InputDecoration(
-                                fillColor: AppColors.textfieldColor,
-                                filled: true,
-                                hintText: 'Enter your name',
-                                hintStyle: Theme.of(context).textTheme.titleMedium,
-                                border: OutlineInputBorder(
-                                    borderRadius: BorderRadius.circular(30),
-                                    borderSide: BorderSide.none
-                                ),
-                                prefixIcon:  Icon(Icons.perm_identity_rounded, color: AppColors.textHintColor, )
+                 Padding(
+                  padding: const EdgeInsets.only(top: 5, left: 8),
+                  child: Text("Register now for improved communication",
+                      style: Theme.of(context).textTheme.titleLarge),
+                ),
+                const SizedBox(
+                  height: 8,
+                ),
+                 Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Text(
+                    'Username',
+                    style: Theme.of(context).textTheme.headlineSmall)
+                ),
+                const SizedBox(
+                  height: 5,
+                ),
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Center(
+                    child: SizedBox(
+                      width: 400,
+                      child: TextFormField(
+                        // cursorColor: Colors.black,
+                        controller: controller.nameTEController,
+                        decoration: InputDecoration(
+                            fillColor: AppColors.textfieldColor,
+                            filled: true,
+                            hintText: 'Enter your name',
+                            hintStyle: Theme.of(context).textTheme.titleMedium,
+                            border: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(30),
+                                borderSide: BorderSide.none
                             ),
+                            prefixIcon:  Icon(Icons.perm_identity_rounded, color: AppColors.textHintColor, )
+                        ),
+                      ),
+                    ),),
+                ),
+                const SizedBox(
+                  height: 5,
+                ),
+                 Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Text(
+                    'Age',
+                    style: Theme.of(context).textTheme.headlineSmall
+                  ),
+                ),
+                const SizedBox(
+                  height: 5,
+                ),
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Center(
+                    child: SizedBox(
+                      width: 400,
+                      child: TextFormField(
+                        // cursorColor: Colors.black,
+                        controller: controller.ageTEController,
+                        decoration: InputDecoration(
+                          fillColor: AppColors.textfieldColor,
+                          filled: true,
+                          hintText: 'Enter your age',
+                          hintStyle: Theme.of(context).textTheme.titleMedium,
+                          border: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(30),
+                              borderSide: BorderSide.none
                           ),
+                            prefixIcon:  Icon(Icons.group_outlined, color: AppColors.textHintColor)
+                        ),
+                    ),
+                  ),),
+                ),
+                  const SizedBox(
+                  height: 5,
+                ),
+                 Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Text(
+                    'Email',
+                    style:  Theme.of(context).textTheme.headlineSmall
+                  ),
+                ),
+                const SizedBox(
+                  height: 2,
+                ),
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Center(
+                    child: SizedBox(
+                      width: 400,
+                      child: TextFormField(
+                        // cursorColor: Colors.black,
+                        controller: controller.emailTEController,
+                        decoration: InputDecoration(
+                          fillColor: AppColors.textfieldColor,
+                          filled: true,
+                          hintText: 'Enter your email',
+                          hintStyle: Theme.of(context).textTheme.titleMedium,
+                          border: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(30),
+                              borderSide: BorderSide.none
+                          ),
+                            prefixIcon:  Icon(Icons.email_outlined, color: AppColors.textHintColor,),
                         ),),
                     ),
-                    const SizedBox(
-                      height: 5,
-                    ),
-                     Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Text(
-                        'Age',
-                        style: Theme.of(context).textTheme.headlineSmall
-                      ),
-                    ),
-                    const SizedBox(
-                      height: 5,
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Center(
-                        child: SizedBox(
-                          width: 400,
-                          child: TextFormField(
-                            // cursorColor: Colors.black,
-                            controller: controller.ageTEController,
-                            decoration: InputDecoration(
-                              fillColor: AppColors.textfieldColor,
-                              filled: true,
-                              hintText: 'Enter your age',
-                              hintStyle: Theme.of(context).textTheme.titleMedium,
-                              border: OutlineInputBorder(
-                                  borderRadius: BorderRadius.circular(30),
-                                  borderSide: BorderSide.none
-                              ),
-                                prefixIcon:  Icon(Icons.group_outlined, color: AppColors.textHintColor)
+                  ),
+                ),
+                const SizedBox(
+                  height: 2,
+                ),
+                 Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Text(
+                    'Password',
+                    style:  Theme.of(context).textTheme.headlineSmall,
+                  ),
+                ),
+                const SizedBox(
+                  height: 2,
+                ),
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Center(
+                    child: SizedBox(
+                      width: 400,
+                      child: Obx(
+                        ()=> TextFormField(
+                          // cursorColor: Colors.black,
+                          controller: controller.passwordTEController,
+                          decoration: InputDecoration(
+                            fillColor: AppColors.textfieldColor,
+                            filled: true,
+                            hintText: 'Enter your password',
+                            hintStyle: Theme.of(context).textTheme.titleMedium,
+                            border: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(30),
+                                borderSide: BorderSide.none
                             ),
+
+
+
+                              prefixIcon:  Icon(Icons.lock_open_outlined, color: AppColors.textHintColor),),
+                          keyboardType: TextInputType.visiblePassword,
+                          obscureText: controller.obscureText.value)
                         ),
-                      ),),
-                    ),
-                      const SizedBox(
-                      height: 5,
-                    ),
-                     Padding(
-                      padding: EdgeInsets.all(8.0),
-                      child: Text(
-                        'Email',
-                        style:  Theme.of(context).textTheme.headlineSmall
                       ),
                     ),
-                    const SizedBox(
-                      height: 2,
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Center(
-                        child: SizedBox(
-                          width: 400,
-                          child: TextFormField(
-                            // cursorColor: Colors.black,
-                            controller: controller.emailTEController,
+                  ),
+
+                const SizedBox(
+                  height: 2,
+                ),
+                 Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Text(
+                    'Confirm Password',
+                    style:  Theme.of(context).textTheme.headlineSmall,
+                  ),
+                ),
+                const SizedBox(
+                  height: 5,
+                ),
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Center(
+                    child: SizedBox(
+                      width: 400,
+                      child: Obx(
+                        ()=> TextFormField(
+                          // cursorColor: Colors.black,
+                            controller: controller.nameTEController,
                             decoration: InputDecoration(
                               fillColor: AppColors.textfieldColor,
                               filled: true,
-                              hintText: 'Enter your email',
+                              hintText: 'Confirm your password',
                               hintStyle: Theme.of(context).textTheme.titleMedium,
                               border: OutlineInputBorder(
                                   borderRadius: BorderRadius.circular(30),
                                   borderSide: BorderSide.none
                               ),
-                                prefixIcon:  Icon(Icons.email_outlined, color: AppColors.textHintColor,),
-                            ),),
-                        ),
-                      ),
-                    ),
-                    const SizedBox(
-                      height: 2,
-                    ),
-                     Padding(
-                      padding: EdgeInsets.all(8.0),
-                      child: Text(
-                        'Password',
-                        style:  Theme.of(context).textTheme.headlineSmall,
-                      ),
-                    ),
-                    const SizedBox(
-                      height: 2,
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Center(
-                        child: SizedBox(
-                          width: 400,
-                          child: Obx(
-                            ()=> TextFormField(
-                              // cursorColor: Colors.black,
-                              controller: controller.passwordTEController,
-                              decoration: InputDecoration(
-                                fillColor: AppColors.textfieldColor,
-                                filled: true,
-                                hintText: 'Enter your password',
-                                hintStyle: Theme.of(context).textTheme.titleMedium,
-                                border: OutlineInputBorder(
-                                    borderRadius: BorderRadius.circular(30),
-                                    borderSide: BorderSide.none
+
+
+                              suffixIcon: GestureDetector(
+                                  onTap: () {
+                                     controller.obscureText.value = !controller.obscureText.value;
+                                  },
+                                  child: Icon(controller.obscureText.value
+                                      ? Icons.visibility_off
+                                      : Icons.visibility, color: AppColors.textHintColor),
                                 ),
 
-
-
-                                  prefixIcon:  Icon(Icons.lock_open_outlined, color: AppColors.textHintColor),),
-                              keyboardType: TextInputType.visiblePassword,
-                              obscureText: controller.obscureText.value)
-                            ),
-                          ),
+                              prefixIcon:  Icon(Icons.lock_open_outlined, color: AppColors.textHintColor)),
+                          keyboardType: TextInputType.visiblePassword,
+                          obscureText: controller.obscureText.value,
                         ),
                       ),
+                ),
+                  )
+                ),
+    ],),),),));
 
-                    const SizedBox(
-                      height: 2,
-                    ),
-                     Padding(
-                      padding: EdgeInsets.all(8.0),
-                      child: Text(
-                        'Confirm Password',
-                        style:  Theme.of(context).textTheme.headlineSmall,
-                      ),
-                    ),
-                    const SizedBox(
-                      height: 5,
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Center(
-                        child: SizedBox(
-                          width: 400,
-                          child: Obx(
-                            ()=> TextFormField(
-                              // cursorColor: Colors.black,
-                                controller: controller.nameTEController,
-                                decoration: InputDecoration(
-                                  fillColor: AppColors.textfieldColor,
-                                  filled: true,
-                                  hintText: 'Confirm your password',
-                                  hintStyle: Theme.of(context).textTheme.titleMedium,
-                                  border: OutlineInputBorder(
-                                      borderRadius: BorderRadius.circular(30),
-                                      borderSide: BorderSide.none
-                                  ),
-
-
-                                  suffixIcon: GestureDetector(
-                                      onTap: () {
-                                         controller.obscureText.value = !controller.obscureText.value;
-                                      },
-                                      child: Icon(controller.obscureText.value
-                                          ? Icons.visibility_off
-                                          : Icons.visibility, color: AppColors.textHintColor),
-                                    ),
-
-                                  prefixIcon:  Icon(Icons.lock_open_outlined, color: AppColors.textHintColor)),
-                              keyboardType: TextInputType.visiblePassword,
-                              obscureText: controller.obscureText.value,
-                            ),
-                          ),
-                          prefixIcon: const Icon(Icons.lock_open_outlined)),
-                      keyboardType: TextInputType.visiblePassword,
-                      obscureText: controller.obscureText.value,
-                    ),
-                    const SizedBox(
-                      height: 20,
-                    ),
-                    Button(onPressed: () {
-            //GetUtils.isLengthGreaterThan(EmailController.text, 6) ? print('email is valid') : print('email is invalid');
-            controller.onRegisterTap();},
-            text: "Register",
-      ),
-    ],),]),),),),);}
+  }
   }
 
 
