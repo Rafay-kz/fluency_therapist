@@ -1,3 +1,4 @@
+import 'package:fluency_therapist/screens/auth_screens/login_screen.dart';
 import 'package:get/get.dart';
 import '../screens/auth_screens/SignUp_screen.dart';
 import '../screens/auth_screens/splash_screen.dart';
@@ -19,6 +20,12 @@ class RouteGenerator {
         page: () => const SignUpScreen(),
         binding: ScreenBindings(),
       ),
+      GetPage(
+        name: kLoginScreen,
+        page: () => const LoginScreen(),
+        binding: ScreenBindings(),
+      ),
+
     ];
   }
 
