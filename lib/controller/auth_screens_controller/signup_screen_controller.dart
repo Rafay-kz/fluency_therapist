@@ -13,7 +13,7 @@ class SignupScreenController extends GetxController{
   TextEditingController confirmPasswordTEController = TextEditingController();
   TextEditingController ageTEController = TextEditingController();
 
-  RxBool obscureText=false.obs;
+  RxBool obscureText=true.obs;
 
 
 

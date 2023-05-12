@@ -1,5 +1,6 @@
 import 'package:fluency_therapist/controller/auth_screens_controller/splash_screen_controller.dart';
 import 'package:fluency_therapist/screens/auth_screens/SignUp_screen.dart';
+import 'package:fluency_therapist/screens/auth_screens/login_screen.dart';
 import 'package:fluency_therapist/utils/app_colors.dart';
 import 'package:fluency_therapist/utils/app_constants.dart';
 import 'package:flutter/material.dart';
@@ -59,7 +60,7 @@ class SplashScreen extends GetView<SplashScreenController> {
               ),
 
               Padding(padding:  const EdgeInsets.only(top: 13),
-                  child: Button(onPressed: (){}, text: "Login")),
+                  child: Button(onPressed: (){Get.to(const LoginScreen());}, text: "Login")),
 
               Padding(padding: const EdgeInsets.only(top: 15),
                 child: Button(
