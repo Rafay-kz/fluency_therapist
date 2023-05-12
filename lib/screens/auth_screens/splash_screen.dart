@@ -96,11 +96,8 @@ class SplashScreen extends GetView<SplashScreenController> {
                           borderRadius: BorderRadius.circular(10),
                           color: Colors.blueAccent),
                       child: TextButton(
-                          onPressed: () {
-                            Get.toNamed(kLoginScreen);
-                          },
+                          onPressed: () {},
                           child: const Text('Login',
-
                               style: TextStyle(
                                   fontSize: 30,
                                   fontFamily: 'FontMain',
@@ -120,7 +117,7 @@ class SplashScreen extends GetView<SplashScreenController> {
                         onPressed: () {
                           Get.toNamed(kSignUpScreen);
                         },
-                        child: const Text('SignUp',
+                        child: const Text('Register',
                             style: TextStyle(
                                 fontSize: 30,
                                 fontFamily: 'FontMain',

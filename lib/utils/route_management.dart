@@ -12,7 +12,7 @@ class RouteGenerator {
     return [
       GetPage(
         name: kSplashScreen,
-        page: () =>  SplashScreen(),
+        page: () => const SplashScreen(),
         binding: ScreenBindings(),
       ),
       GetPage(
