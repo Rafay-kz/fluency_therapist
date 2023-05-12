@@ -4,6 +4,7 @@
 const String kAppName= 'Fluency Therapy App';
 const String kSplashScreen = "/SPLASH_SCREEN";
 const String kSignUpScreen = "/SIGNUP_SCREEN";
+const String kLoginScreen = "/LOGIN_SCREEN";
 
 //Images
 const String fluencyTherapistLogo = 'assets/images/fluencyTherapistLogo.png';

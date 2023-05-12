@@ -3,6 +3,8 @@ import 'package:get/get.dart';
 
 //created by Bilal on 6-5-2023
 
+
+
 class SignupScreenController extends GetxController{
 
   TextEditingController nameTEController = TextEditingController();
@@ -12,6 +14,9 @@ class SignupScreenController extends GetxController{
   TextEditingController ageTEController = TextEditingController();
 
   RxBool obscureText=false.obs;
+
+
+
 
   void onRegisterTap(){
     GetUtils.isAlphabetOnly(
@@ -37,5 +42,7 @@ class SignupScreenController extends GetxController{
         : print('invalid age');
 
   }
+
+
 
 }

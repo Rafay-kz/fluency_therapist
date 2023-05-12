@@ -5,13 +5,13 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import'package:fluency_therapist/utils/widgets/button.dart';
 
-
 //created by Bilal on 6-5-2023
 
-class SignUpScreen extends GetView<SignupScreenController>{
+class SignUpScreen extends GetView<SignupScreenController> {
   const SignUpScreen({super.key});
   @override
   Widget build(BuildContext context) {
+    var _mediaQuery = MediaQuery.of(context);
     return Scaffold(
       backgroundColor:AppColors.backgroundColor,
       body: SafeArea(
@@ -239,8 +239,9 @@ class SignUpScreen extends GetView<SignupScreenController>{
                               obscureText: controller.obscureText.value,
                             ),
                           ),
-                        ),
-                      ),
+                          prefixIcon: const Icon(Icons.lock_open_outlined)),
+                      keyboardType: TextInputType.visiblePassword,
+                      obscureText: controller.obscureText.value,
                     ),
                     const SizedBox(
                       height: 20,
@@ -252,4 +253,6 @@ class SignUpScreen extends GetView<SignupScreenController>{
       ),
     ],),]),),),),);}
   }
+
+
 
