@@ -31,9 +31,6 @@ class Button extends StatelessWidget {
         height: height*0.075,
         child: ElevatedButton(
           onPressed: onPressed,
-          child: Center(
-            child: Text(text, style: textStyle),
-          ),
           style: ElevatedButton.styleFrom(
             elevation: 0.0,
             shape: RoundedRectangleBorder(
@@ -41,6 +38,9 @@ class Button extends StatelessWidget {
             ),
             side: side,
             backgroundColor:color,
+          ),
+          child: Center(
+            child: Text(text, style: textStyle),
           ),
         ),
       ),

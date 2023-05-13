@@ -1,8 +1,13 @@
 import 'package:fluency_therapist/controller/auth_screens_controller/login_screen_controller.dart';
+import 'package:fluency_therapist/screens/auth_screens/SignUp_screen.dart';
 
 import 'package:fluency_therapist/utils/app_colors.dart';
+import 'package:fluency_therapist/utils/app_constants.dart';
+import 'package:fluency_therapist/utils/widgets/button.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+
+import 'forget_password_screen.dart';
 
 //created by Bilal on 6-5-2023
 
@@ -10,260 +15,233 @@ class LoginScreen extends GetView<LoginScreenController> {
   const LoginScreen({super.key});
   @override
   Widget build(BuildContext context) {
-    var _mediaQuery = MediaQuery.of(context);
+    var mediaQuery = MediaQuery.of(context);
     return Scaffold(
-      backgroundColor: AppColors.whiteColor,
+      backgroundColor: AppColors.backgroundColor,
       body: SafeArea(
         child: SingleChildScrollView(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            mainAxisAlignment: MainAxisAlignment.start,
-            children: [
-              Row(
-                children: [
-                  Padding(
-                    padding: const EdgeInsets.only(left: 40, right: 10,top: 40),
-                    child: Container(
-                      height: _mediaQuery.size.width * 0.3,
-                      width: _mediaQuery.size.height * 0.12,
-                      decoration: const BoxDecoration(
-                          image: DecorationImage(
-                              image: AssetImage('assets/images/logo.jpg'),
-                              fit: BoxFit.fitWidth)),
+          child: Padding(padding: const EdgeInsets.all(15),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: [
+                 const Padding(
+                 padding: EdgeInsets.only(top: 3),
+                 child: Center(
+                   child: Image(
+                       image: AssetImage(fluencyTherapistLogo),
+                       width: 168,
+                       height: 72),
+                 ),
                     ),
-                  ),
-                  const Padding(
-                    padding: EdgeInsets.only(left: 10, right: 20,top: 40),
-                    child: Text(
-                      'fluency\ntherapist',
-                      style: TextStyle(fontSize: 25, fontFamily: 'FontMain'),
-                    ),
-                  )
-                ],
-              ),
-              const Padding(
-                padding: EdgeInsets.only(left: 20,right: 10,top: 10,bottom: 10),
-                child: Text(
-                  'Login',
-                  style: TextStyle(
-                      fontSize: 25,
-                      fontWeight: FontWeight.bold,
-                      fontFamily: 'FontMain'),
-                ),
-              ),
-              const Padding(
-                padding:
-                EdgeInsets.only(left: 20,right: 10,top: 10,bottom: 10),
-                child: Text("Welcome back! Lets continue",
-                    style: TextStyle(
-                        fontSize: 15,
-                        color: Colors.black,
-                        fontFamily: 'FontMain',
-                        )),
-              ),
-
-
-              const Padding(
-                padding:
-                EdgeInsets.only(left: 20,right: 10,top: 10,bottom: 10),
-                child: Text(
-                  'Email',
-                  style: TextStyle(
-                      fontSize: 12,
-
-                      fontFamily: 'FontMain'),
-                  textAlign: TextAlign.right,
-                ),
-              ),
-              Padding(
-                padding: const EdgeInsets.only(
-                    left: 10, right: 10, top: 10, bottom: 10),
-                child: Center(
-                  child: TextFormField(
-                    controller: controller.emailTEController,
-                    decoration: InputDecoration(
-                        hintText: 'Email',
-                        border: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(20)),
-                        prefixIcon: const Icon(Icons.email_outlined)),
+                Padding(
+                  padding: const EdgeInsets.only(top: 20, left: 8, right: 8, bottom: 8.0),
+                  child: Text(
+                    'Login',
+                    style: Theme.of(context)
+                        .textTheme
+                        .displayLarge!
+                        .copyWith(fontSize: 24),
                   ),
                 ),
-              ),
-              const Padding(
-                padding:
-                EdgeInsets.only(left: 20,right: 10,top: 10,bottom: 10),
-                child: Text(
-                  'Password',
-                  style: TextStyle(
-                      fontSize: 12,
-
-                      fontFamily: 'FontMain'),
-                  textAlign: TextAlign.right,
+                Padding(
+                  padding: const EdgeInsets.only(top: 5, left: 8),
+                  child: Text("Welcome back! Let's continue",
+                      style: Theme.of(context).textTheme.titleLarge),
                 ),
-              ),
-              Padding(
-                padding: const EdgeInsets.only(
-                    left: 10, right: 10, top: 10, bottom: 10),
-                child: Center(
-                  child: Obx(
-                        () => TextFormField(
-                      controller: controller.passwordTEController,
-                      decoration: InputDecoration(
-                          hintText: 'Password',
-                          border: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(20),
-                          ),
-                          suffixIcon: GestureDetector(
+                const SizedBox(
+                  height: 20,
+                ),
+
+                Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Text('Email',
+                        style:
+                        Theme.of(context).textTheme.headlineSmall)),
+                const SizedBox(
+                  height: 5,
+                ),
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Center(
+                    child: SizedBox(
+                      width: 400,
+                      child: TextFormField(
+                        // cursorColor: Colors.black,
+                        controller: controller.emailTEController,
+                        decoration: InputDecoration(
+                            fillColor: AppColors.textfieldColor,
+                            filled: true,
+                            hintText: 'Enter your email',
+                            hintStyle:
+                            Theme.of(context).textTheme.titleMedium,
+                            border: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(30),
+                                borderSide: BorderSide.none),
+                            prefixIcon: Icon(
+                              Icons.email_outlined,
+                              color: AppColors.textHintColor,
+                            )),
+                      ),
+                    ),
+                  ),
+                ),
+                const SizedBox(
+                  height: 2,
+                ),
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Text('Password',
+                      style: Theme.of(context).textTheme.headlineSmall),
+                ),
+                const SizedBox(
+                  height: 2,
+                ),
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Center(
+                    child: SizedBox(
+                      width: 400,
+                      child: Obx(() => TextFormField(
+                        // cursorColor: Colors.black,
+                          controller: controller.passwordTEController,
+                          decoration: InputDecoration(
+                            fillColor: AppColors.textfieldColor,
+                            filled: true,
+                            hintText: 'Enter your password',
+                            hintStyle:
+                            Theme.of(context).textTheme.titleMedium,
+                            border: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(30),
+                                borderSide: BorderSide.none),  suffixIcon: GestureDetector(
                             onTap: () {
                               controller.obscureText.value =
                               !controller.obscureText.value;
                             },
-                            child: Icon(controller.obscureText.value
-                                ? Icons.visibility_off
-                                : Icons.visibility),
+                            child: Icon(
+                                controller.obscureText.value
+                                    ? Icons.visibility_off
+                                    : Icons.visibility,
+                                color: AppColors.textHintColor),
                           ),
-                          prefixIcon: const Icon(Icons.lock_open_outlined)),
-                      keyboardType: TextInputType.visiblePassword,
-                      obscureText: controller.obscureText.value,
+                            prefixIcon: Icon(Icons.lock_open_outlined,
+                                color: AppColors.textHintColor),
+                          ),
+                          keyboardType: TextInputType.visiblePassword,
+                          obscureText: controller.obscureText.value)),
                     ),
                   ),
                 ),
-              ),
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.end,
-                  crossAxisAlignment: CrossAxisAlignment.end,
+                Padding(
+                  padding: const EdgeInsets.only(top: 8, left: 190, bottom: 20),
+                  child: GestureDetector(
+                    onTap: (){Get.to(const ForgetPassScreen());},
+                    child: Text("Forgot Password?",
+                        style: Theme.of(context).textTheme.titleLarge!.copyWith(fontSize: 14)),
+                  ),
+                ),
+
+
+                Button(onPressed: () {
+                  //GetUtils.isLengthGreaterThan(EmailController.text, 6) ? print('email is valid') : print('email is invalid');
+                  controller.onLoginTap();
+                }, text: "Login"),
+                const SizedBox(height: 20),
+                 Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Center(child: Text('Forgot Password?',)),
+                    Flexible(
+                      child: SizedBox(
+                        width: 130,
+                        child: Divider(
+
+                          color: AppColors.descriptionColor,
+                          thickness: 1,
+                        ),
+                      ),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 10),
+                      child: Text(
+                        "OR",
+                        style: Theme.of(context).textTheme.titleLarge!.copyWith(fontSize: 14)
+                      ),
+                    ),
+                     Flexible(
+                      child: SizedBox(
+                        width: 130,
+                        child: Divider(
+                          color: AppColors.descriptionColor,
+                          thickness: 1,
+                        ),
+                      ),
+                    ),
                   ],
                 ),
-              ),
 
-              Padding(
-                padding: const EdgeInsets.only(left: 10,right: 10,top: 10,bottom: 10),
-                child: Center(
-                  child: Container(
-                    height: _mediaQuery.size.height * 0.07,
-                    width: _mediaQuery.size.height * 0.4,
-                    decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(10),
-                        color: Colors.blue),
-                    child: TextButton(
-                        onPressed: () {
-                          //GetUtils.isLengthGreaterThan(EmailController.text, 6) ? print('email is valid') : print('email is invalid');
-                          controller.onLoginTap();
-                        },
-                        child: const Center(
-                            child: Text(
-                              "Login",
-                              style: TextStyle(
-                                  fontFamily: 'FontMain',
-                                  color: Colors.white,
-                                  fontWeight: FontWeight.bold),
-                            ))),
+                Padding(
+                  padding: const EdgeInsets.only(left: 10,right: 10,top: 10,bottom: 10),
+                  child: Center(
+                    child: Container(
+                      height: mediaQuery.size.height * 0.08,
+                      width: mediaQuery.size.height * 0.8,
+                      decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(30),
+                          color: AppColors.textfieldColor),
+                      child: TextButton(
+
+                          onPressed: () {
+                            //GetUtils.isLengthGreaterThan(EmailController.text, 6) ? print('email is valid') : print('email is invalid');
+                            controller.onLoginTap();
+                          },
+                          
+
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: [
+                              Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: Image.asset(googleIcon),
+                              ),
+                              
+                               Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: Text(
+                                  "Login with google",
+                                  style: Theme.of(context).textTheme.displayLarge!.copyWith(fontSize: 15, )
+
+                                ),
+                              ),
+                            ],
+                          )),
+                    ),
                   ),
                 ),
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  Padding(
-                    padding: const EdgeInsets.only(left: 20,top: 10,right: 10),
-                    child: Container(
-                      height: _mediaQuery.size.height*0.0009,
-                      width:  _mediaQuery.size.height*0.1,
-                      color: Colors.grey,
-
-
+                 Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    Padding(
+                      padding:  const EdgeInsets.only(top: 8.0, right: 5),
+                      child: Center(child: Text('New User?', style: Theme.of(context).textTheme.titleLarge!.copyWith(fontSize: 14),)),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.only(top: 8.0),
+                      child: Center(child: GestureDetector(
+                        onTap: (){Get.to(const SignUpScreen());},
+                          child: Text('Register Here',style: Theme.of(context).textTheme.displayLarge!.copyWith(fontSize: 14,color: AppColors.primaryBlue ),))),
                     ),
 
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Container(
-                      child: Text('OR'),
-                    ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.only(left: 20,top: 10,right: 10),
-                    child: Container(
-                      height: _mediaQuery.size.height*0.0009,
-                      width:  _mediaQuery.size.height*0.1,
-                      color: Colors.grey,
 
+                  ],
 
-                    ),
-
-                  ),
-                ],
-              ),
-              Padding(
-                padding: const EdgeInsets.only(left: 10,right: 10,top: 10,bottom: 10),
-                child: Center(
-                  child: Container(
-                    height: _mediaQuery.size.height * 0.07,
-                    width: _mediaQuery.size.height * 0.4,
-                    decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(10),
-                        color: Colors.black12),
-                    child: TextButton(
-
-                        onPressed: () {
-                          //GetUtils.isLengthGreaterThan(EmailController.text, 6) ? print('email is valid') : print('email is invalid');
-                          controller.onLoginTap();
-                        },
-                        
-
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          children: [
-                            Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: Container(
-                                child: Image.asset('assets/images/google-logo.png'),
-                              ),
-                            ),
-                            
-                            Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: Text(
-                                "Login with google",
-                                style: TextStyle(
-                                    fontFamily: 'FontMain',
-                                    color: Colors.black,
-                                    fontWeight: FontWeight.bold),
-
-                              ),
-                            ),
-                          ],
-                        )),
-                  ),
                 ),
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Center(child: Text('Not User?',)),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Center(child: Text('Register Here',style: TextStyle(color: Colors.blueAccent),)),
-                  ),
 
 
-                ],
 
-              ),
-
-
-              
-            ],
+              ],
+            ),
           ),
         ),
       ),
