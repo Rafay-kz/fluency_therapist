@@ -1,23 +1,22 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-//created by Bilal on 10-5-2023
-
-class LoginScreenController extends GetxController {
-  TextEditingController emailTEController = TextEditingController();
+class CreateNewPasswordScreenController extends GetxController {
   TextEditingController passwordTEController = TextEditingController();
+  TextEditingController confirmPasswordTEController = TextEditingController();
+
 
   RxBool obscureText = true.obs;
 
+
   void onLoginTap() {
 
-    GetUtils.isEmail(emailTEController.text)
-        ? print('Valid')
-        : print('Invalid Email');
     GetUtils.isAlphabetOnly(passwordTEController.text)
         ? print('Valid ')
         : print('invalid Password');
+    GetUtils.isAlphabetOnly(confirmPasswordTEController.text)
+        ? print('Password matches ')
+        : print('Password does not match');
 
 
-  }
-}
+}}
