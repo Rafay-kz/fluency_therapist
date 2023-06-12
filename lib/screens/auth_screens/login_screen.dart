@@ -1,6 +1,6 @@
 import 'package:fluency_therapist/controller/auth_screens_controller/login_screen_controller.dart';
 import 'package:fluency_therapist/screens/auth_screens/SignUp_screen.dart';
-
+import 'package:fluency_therapist/screens/home_screens/home_screen.dart';
 import 'package:fluency_therapist/utils/app_colors.dart';
 import 'package:fluency_therapist/utils/app_constants.dart';
 import 'package:fluency_therapist/utils/widgets/button.dart';
@@ -13,6 +13,7 @@ import 'forget_password_screen.dart';
 
 class LoginScreen extends GetView<LoginScreenController> {
   const LoginScreen({super.key});
+
   @override
   Widget build(BuildContext context) {
     var mediaQuery = MediaQuery.of(context);
@@ -20,22 +21,24 @@ class LoginScreen extends GetView<LoginScreenController> {
       backgroundColor: AppColors.backgroundColor,
       body: SafeArea(
         child: SingleChildScrollView(
-          child: Padding(padding: const EdgeInsets.all(15),
+          child: Padding(
+            padding: const EdgeInsets.all(15),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
-                 const Padding(
-                 padding: EdgeInsets.only(top: 3),
-                 child: Center(
-                   child: Image(
-                       image: AssetImage(fluencyTherapistLogo),
-                       width: 168,
-                       height: 72),
-                 ),
-                    ),
+                const Padding(
+                  padding: EdgeInsets.only(top: 3),
+                  child: Center(
+                    child: Image(
+                        image: AssetImage(fluencyTherapistLogo),
+                        width: 168,
+                        height: 72),
+                  ),
+                ),
                 Padding(
-                  padding: const EdgeInsets.only(top: 20, left: 8, right: 8, bottom: 8.0),
+                  padding: const EdgeInsets.only(
+                      top: 20, left: 8, right: 8, bottom: 8.0),
                   child: Text(
                     'Login',
                     style: Theme.of(context)
@@ -52,12 +55,10 @@ class LoginScreen extends GetView<LoginScreenController> {
                 const SizedBox(
                   height: 20,
                 ),
-
                 Padding(
                     padding: const EdgeInsets.all(8.0),
                     child: Text('Email',
-                        style:
-                        Theme.of(context).textTheme.headlineSmall)),
+                        style: Theme.of(context).textTheme.headlineSmall)),
                 const SizedBox(
                   height: 5,
                 ),
@@ -73,8 +74,7 @@ class LoginScreen extends GetView<LoginScreenController> {
                             fillColor: AppColors.textfieldColor,
                             filled: true,
                             hintText: 'Enter your email',
-                            hintStyle:
-                            Theme.of(context).textTheme.titleMedium,
+                            hintStyle: Theme.of(context).textTheme.titleMedium,
                             border: OutlineInputBorder(
                                 borderRadius: BorderRadius.circular(30),
                                 borderSide: BorderSide.none),
@@ -103,27 +103,27 @@ class LoginScreen extends GetView<LoginScreenController> {
                     child: SizedBox(
                       width: 400,
                       child: Obx(() => TextFormField(
-                        // cursorColor: Colors.black,
+                          // cursorColor: Colors.black,
                           controller: controller.passwordTEController,
                           decoration: InputDecoration(
                             fillColor: AppColors.textfieldColor,
                             filled: true,
                             hintText: 'Enter your password',
-                            hintStyle:
-                            Theme.of(context).textTheme.titleMedium,
+                            hintStyle: Theme.of(context).textTheme.titleMedium,
                             border: OutlineInputBorder(
                                 borderRadius: BorderRadius.circular(30),
-                                borderSide: BorderSide.none),  suffixIcon: GestureDetector(
-                            onTap: () {
-                              controller.obscureText.value =
-                              !controller.obscureText.value;
-                            },
-                            child: Icon(
-                                controller.obscureText.value
-                                    ? Icons.visibility_off
-                                    : Icons.visibility,
-                                color: AppColors.textHintColor),
-                          ),
+                                borderSide: BorderSide.none),
+                            suffixIcon: GestureDetector(
+                              onTap: () {
+                                controller.obscureText.value =
+                                    !controller.obscureText.value;
+                              },
+                              child: Icon(
+                                  controller.obscureText.value
+                                      ? Icons.visibility_off
+                                      : Icons.visibility,
+                                  color: AppColors.textHintColor),
+                            ),
                             prefixIcon: Icon(Icons.lock_open_outlined,
                                 color: AppColors.textHintColor),
                           ),
@@ -135,26 +135,31 @@ class LoginScreen extends GetView<LoginScreenController> {
                 Padding(
                   padding: const EdgeInsets.only(top: 8, left: 190, bottom: 20),
                   child: GestureDetector(
-                    onTap: (){Get.to(const ForgetPassScreen());},
+                    onTap: () {
+                      Get.to(const ForgetPassScreen());
+                    },
                     child: Text("Forgot Password?",
-                        style: Theme.of(context).textTheme.titleLarge!.copyWith(fontSize: 14)),
+                        style: Theme.of(context)
+                            .textTheme
+                            .titleLarge!
+                            .copyWith(fontSize: 14)),
                   ),
                 ),
-
-
-                Button(onPressed: () {
-                  //GetUtils.isLengthGreaterThan(EmailController.text, 6) ? print('email is valid') : print('email is invalid');
-                  controller.onLoginTap();
-                }, text: "Login"),
+                Button(
+                    onPressed: () {
+                      Get.to(() => const HomeScreen());
+                      //GetUtils.isLengthGreaterThan(EmailController.text, 6) ? print('email is valid') : print('email is invalid');
+                      controller.onLoginTap();
+                    },
+                    text: "Login"),
                 const SizedBox(height: 20),
-                 Row(
+                Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Flexible(
                       child: SizedBox(
                         width: 130,
                         child: Divider(
-
                           color: AppColors.descriptionColor,
                           thickness: 1,
                         ),
@@ -162,12 +167,13 @@ class LoginScreen extends GetView<LoginScreenController> {
                     ),
                     Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 10),
-                      child: Text(
-                        "OR",
-                        style: Theme.of(context).textTheme.titleLarge!.copyWith(fontSize: 14)
-                      ),
+                      child: Text("OR",
+                          style: Theme.of(context)
+                              .textTheme
+                              .titleLarge!
+                              .copyWith(fontSize: 14)),
                     ),
-                     Flexible(
+                    Flexible(
                       child: SizedBox(
                         width: 130,
                         child: Divider(
@@ -178,9 +184,9 @@ class LoginScreen extends GetView<LoginScreenController> {
                     ),
                   ],
                 ),
-
                 Padding(
-                  padding: const EdgeInsets.only(left: 10,right: 10,top: 10,bottom: 10),
+                  padding: const EdgeInsets.only(
+                      left: 10, right: 10, top: 10, bottom: 10),
                   child: Center(
                     child: Container(
                       height: mediaQuery.size.height * 0.08,
@@ -189,13 +195,10 @@ class LoginScreen extends GetView<LoginScreenController> {
                           borderRadius: BorderRadius.circular(30),
                           color: AppColors.textfieldColor),
                       child: TextButton(
-
                           onPressed: () {
                             //GetUtils.isLengthGreaterThan(EmailController.text, 6) ? print('email is valid') : print('email is invalid');
                             controller.onLoginTap();
                           },
-                          
-
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.center,
                             crossAxisAlignment: CrossAxisAlignment.center,
@@ -204,42 +207,55 @@ class LoginScreen extends GetView<LoginScreenController> {
                                 padding: const EdgeInsets.all(8.0),
                                 child: Image.asset(googleIcon),
                               ),
-                              
-                               Padding(
+                              Padding(
                                 padding: const EdgeInsets.all(8.0),
-                                child: Text(
-                                  "Login with google",
-                                  style: Theme.of(context).textTheme.displayLarge!.copyWith(fontSize: 15, )
-
-                                ),
+                                child: Text("Login with google",
+                                    style: Theme.of(context)
+                                        .textTheme
+                                        .displayLarge!
+                                        .copyWith(
+                                          fontSize: 15,
+                                        )),
                               ),
                             ],
                           )),
                     ),
                   ),
                 ),
-                 Row(
+                Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
                     Padding(
-                      padding:  const EdgeInsets.only(top: 8.0, right: 5),
-                      child: Center(child: Text('New User?', style: Theme.of(context).textTheme.titleLarge!.copyWith(fontSize: 14),)),
+                      padding: const EdgeInsets.only(top: 8.0, right: 5),
+                      child: Center(
+                          child: Text(
+                        'New User?',
+                        style: Theme.of(context)
+                            .textTheme
+                            .titleLarge!
+                            .copyWith(fontSize: 14),
+                      )),
                     ),
                     Padding(
                       padding: const EdgeInsets.only(top: 8.0),
-                      child: Center(child: GestureDetector(
-                        onTap: (){Get.to(const SignUpScreen());},
-                          child: Text('Register Here',style: Theme.of(context).textTheme.displayLarge!.copyWith(fontSize: 14,color: AppColors.primaryBlue ),))),
+                      child: Center(
+                          child: GestureDetector(
+                              onTap: () {
+                                Get.to(const SignUpScreen());
+                              },
+                              child: Text(
+                                'Register Here',
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .displayLarge!
+                                    .copyWith(
+                                        fontSize: 14,
+                                        color: AppColors.primaryBlue),
+                              ))),
                     ),
-
-
                   ],
-
                 ),
-
-
-
               ],
             ),
           ),
@@ -247,6 +263,4 @@ class LoginScreen extends GetView<LoginScreenController> {
       ),
     );
   }
-
-
 }
