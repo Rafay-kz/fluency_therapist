@@ -1,4 +1,5 @@
 import 'package:fluency_therapist/screens/auth_screens/login_screen.dart';
+import 'package:fluency_therapist/screens/home_screens/home_screen.dart';
 import 'package:get/get.dart';
 import '../screens/auth_screens/SignUp_screen.dart';
 import '../screens/auth_screens/create_new_password_screen.dart';
@@ -29,18 +30,23 @@ class RouteGenerator {
         binding: ScreenBindings(),
       ),
       GetPage(
-        name: kLoginScreen,
+        name: kForgetPassScreen,
         page: () => const ForgetPassScreen(),
         binding: ScreenBindings(),
       ),
       GetPage(
-        name: kForgetPassScreen,
+        name: kOtpVerificationScreen,
         page: () => const OtpVerificationScreen(),
         binding: ScreenBindings(),
       ),
       GetPage(
         name: kCreateNewPasswordScreen,
         page: () => const CreateNewPasswordScreen(),
+        binding: ScreenBindings(),
+      ),
+      GetPage(
+        name: kHomeScreen,
+        page: () => const HomeScreen(),
         binding: ScreenBindings(),
       ),
     ];
