@@ -1,9 +1,12 @@
+import 'package:fluency_therapist/screens/home_screens/search_screen.dart';
+import 'package:fluency_therapist/screens/home_screens/speech_exercises_screen.dart';
 import 'package:fluency_therapist/utils/app_colors.dart';
 import 'package:fluency_therapist/utils/app_constants.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../../controller/home_screens_controller/home_screen_controller.dart';
+import 'customized_program_screen.dart';
 
 class HomeScreen extends GetView<HomeScreenController> {
   const HomeScreen({super.key});
@@ -23,8 +26,11 @@ class HomeScreen extends GetView<HomeScreenController> {
                 children: [
                   RichText(
                     text: TextSpan(
-                        style: Theme.of(context).textTheme.headlineSmall!.copyWith(
-                            fontSize: 22, color: AppColors.primaryBlue),
+                        style: Theme.of(context)
+                            .textTheme
+                            .headlineSmall!
+                            .copyWith(
+                                fontSize: 22, color: AppColors.primaryBlue),
                         children: [
                           const TextSpan(text: "Hello,"),
                           TextSpan(
@@ -63,13 +69,19 @@ class HomeScreen extends GetView<HomeScreenController> {
                         border: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(30),
                             borderSide: BorderSide.none),
-                        prefixIcon: Padding(
-                            padding: const EdgeInsets.only(left: 25, right: 10),
-                            child: Icon(
-                              Icons.search_outlined,
-                              size: 35,
-                              color: AppColors.textHintColor,
-                            )),
+                        prefixIcon: GestureDetector(
+                          onTap: () {
+                            Get.to(const SearchScreen());
+                          },
+                          child: Padding(
+                              padding:
+                                  const EdgeInsets.only(left: 25, right: 10),
+                              child: Icon(
+                                Icons.search_outlined,
+                                size: 35,
+                                color: AppColors.textHintColor,
+                              )),
+                        ),
                       ),
                     ),
                   ),
@@ -176,65 +188,77 @@ class HomeScreen extends GetView<HomeScreenController> {
               Row(children: [
                 Padding(
                   padding: const EdgeInsets.only(right: 15, top: 20),
-                  child: Container(
-                    width: screenWidth * 0.40,
-                    height: screenHeight * 0.18,
-                    decoration: BoxDecoration(
-                        color: AppColors.secondaryBlue,
-                        borderRadius: BorderRadius.circular(35)),
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        const Image(
-                          image:  AssetImage(customizedProgramsIcon),
-                          width: 85,
-                          height: 55,
-                        ),
-                        Padding(padding: const EdgeInsets.only(top: 5),
-                          child: Text(
-                            "Customized\nPrograms",
-                            style: Theme.of(context)
-                                .textTheme
-                                .displayLarge!
-                                .copyWith(
-                                  fontSize: 16,
-                                ),
-                            textAlign: TextAlign.center,
+                  child: GestureDetector(
+                    onTap: () {
+                      Get.to(const CustomizedProgramScreen());
+                    },
+                    child: Container(
+                      width: screenWidth * 0.40,
+                      height: screenHeight * 0.18,
+                      decoration: BoxDecoration(
+                          color: AppColors.secondaryBlue,
+                          borderRadius: BorderRadius.circular(35)),
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          const Image(
+                            image: AssetImage(customizedProgramsIcon),
+                            width: 85,
+                            height: 55,
                           ),
-                        )
-                      ],
+                          Padding(
+                            padding: const EdgeInsets.only(top: 5),
+                            child: Text(
+                              "Customized\nPrograms",
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .displayLarge!
+                                  .copyWith(
+                                    fontSize: 16,
+                                  ),
+                              textAlign: TextAlign.center,
+                            ),
+                          )
+                        ],
+                      ),
                     ),
                   ),
                 ),
                 Padding(
                   padding: const EdgeInsets.only(left: 15, top: 20),
-                  child: Container(
-                    width: screenWidth * 0.40,
-                    height: screenHeight * 0.18,
-                    decoration: BoxDecoration(
-                        color: AppColors.secondaryBlue,
-                        borderRadius: BorderRadius.circular(35)),
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        const Image(
-                          image:  AssetImage(speechExercisesIcon),
-                          width: 85,
-                          height: 55,
-                        ),
-                        Padding(padding: const EdgeInsets.only(top: 5),
-                          child: Text(
-                            "Speech\nExercises",
-                            style: Theme.of(context)
-                                .textTheme
-                                .displayLarge!
-                                .copyWith(
-                              fontSize: 16,
-                            ),
-                            textAlign: TextAlign.center,
+                  child: GestureDetector(
+                    onTap: () {
+                      Get.to(const SpeechExercisesScreen());
+                    },
+                    child: Container(
+                      width: screenWidth * 0.40,
+                      height: screenHeight * 0.18,
+                      decoration: BoxDecoration(
+                          color: AppColors.secondaryBlue,
+                          borderRadius: BorderRadius.circular(35)),
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          const Image(
+                            image: AssetImage(speechExercisesIcon),
+                            width: 85,
+                            height: 55,
                           ),
-                        )
-                      ],
+                          Padding(
+                            padding: const EdgeInsets.only(top: 5),
+                            child: Text(
+                              "Speech\nExercises",
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .displayLarge!
+                                  .copyWith(
+                                    fontSize: 16,
+                                  ),
+                              textAlign: TextAlign.center,
+                            ),
+                          )
+                        ],
+                      ),
                     ),
                   ),
                 ),
@@ -252,19 +276,20 @@ class HomeScreen extends GetView<HomeScreenController> {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         const Image(
-                          image:  AssetImage(progressTrackingIcon),
+                          image: AssetImage(progressTrackingIcon),
                           width: 75,
                           height: 45,
                         ),
-                        Padding(padding: const EdgeInsets.only(top: 8),
+                        Padding(
+                          padding: const EdgeInsets.only(top: 8),
                           child: Text(
                             "Progress\nTracking",
                             style: Theme.of(context)
                                 .textTheme
                                 .displayLarge!
                                 .copyWith(
-                              fontSize: 16,
-                            ),
+                                  fontSize: 16,
+                                ),
                             textAlign: TextAlign.center,
                           ),
                         )
@@ -284,19 +309,20 @@ class HomeScreen extends GetView<HomeScreenController> {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         const Image(
-                          image:  AssetImage(consultingIcon),
+                          image: AssetImage(consultingIcon),
                           width: 85,
                           height: 55,
                         ),
-                        Padding(padding: const EdgeInsets.only(top: 8),
+                        Padding(
+                          padding: const EdgeInsets.only(top: 8),
                           child: Text(
                             "Consult\nTherapist",
                             style: Theme.of(context)
                                 .textTheme
                                 .displayLarge!
                                 .copyWith(
-                              fontSize: 16,
-                            ),
+                                  fontSize: 16,
+                                ),
                             textAlign: TextAlign.center,
                           ),
                         )
