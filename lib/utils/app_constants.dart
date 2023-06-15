@@ -27,6 +27,9 @@ const String customizedProgramsIcon = 'assets/images/customizedProgramsImage.png
 const String speechExercisesIcon = 'assets/images/speechExercisesIcon.png';
 const String progressTrackingIcon = 'assets/images/progressTrackingIcon.png';
 const String consultingIcon = 'assets/images/consultingIcon.png';
+const String clockIcon = 'assets/images/clock.png';
+const String miniclockIcon = 'assets/images/miniclock.png';
+const String downarrowIcon = 'assets/images/downarrow.png';
 
 
 
