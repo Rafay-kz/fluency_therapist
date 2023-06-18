@@ -1,5 +1,5 @@
 import 'package:fluency_therapist/controller/home_screens_controller/speech_exercises_screen_contoller.dart';
-import 'package:fluency_therapist/screens/home_screens/speech_exercises_3_screen.dart';
+import 'package:fluency_therapist/screens/home_screens/reminder_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -138,7 +138,7 @@ class SpeechExercisesScreen extends GetView<SpeechExercisesScreenController> {
                             padding: const EdgeInsets.only(left: 50, top: 10),
                             child: TextButton(
                                 onPressed: () {
-                                  Get.to(const SpeechExercises3Screen());
+                                  Get.to(const ReminderScreen());
                                 },
                                 child: Container(
                                   width: 75,
