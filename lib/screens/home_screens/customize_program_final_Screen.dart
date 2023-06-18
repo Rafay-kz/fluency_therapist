@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-import '../../controller/home_screens_controller/speech_exercises_4_screen_controller.dart';
+import '../../controller/home_screens_controller/customize_program_final_screen_controller.dart';
 import '../../utils/app_colors.dart';
 import '../../utils/app_constants.dart';
 import 'home_screen.dart';
 
-class SpeechExercises4Screen extends GetView<SpeechExercises4ScreenController> {
-  const SpeechExercises4Screen({super.key});
+class CustomizeProgramFinalScreen extends GetView<CustomizeProgramFinalScreenController> {
+  const CustomizeProgramFinalScreen({super.key});
   @override
   Widget build(BuildContext context) {
     final screenWidth = MediaQuery.of(context).size.width;

@@ -1,15 +1,15 @@
-import 'package:fluency_therapist/controller/home_screens_controller/speech_exercises_3_Screen_controller.dart';
-import 'package:fluency_therapist/screens/home_screens/speech_exercises_4_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
+import '../../controller/home_screens_controller/reminder_screen_controller.dart';
 import '../../utils/app_colors.dart';
 import '../../utils/app_constants.dart';
+import 'customize_program_final_Screen.dart';
 import 'home_screen.dart';
 
-class SpeechExercises3Screen extends GetView<SpeechExercises3ScreenController> {
+class ReminderScreen extends GetView<ReminderScreenController> {
   final TimeOfDay time = const TimeOfDay(hour: 12, minute: 00);
-  const SpeechExercises3Screen({super.key});
+  const ReminderScreen({super.key});
   @override
   Widget build(BuildContext context) {
     final screenWidth = MediaQuery.of(context).size.width;
@@ -165,7 +165,7 @@ class SpeechExercises3Screen extends GetView<SpeechExercises3ScreenController> {
                       child: Center(
                           child: GestureDetector(
                             onTap: (){
-                              Get.to(const SpeechExercises4Screen());
+                              Get.to(const CustomizeProgramFinalScreen());
                             },
                             child: Text('Next',
                                 style: Theme.of(context)
