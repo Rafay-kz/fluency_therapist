@@ -22,8 +22,10 @@ class HomeScreen extends GetView<HomeScreenController> {
       body: SingleChildScrollView(
         child: SafeArea(
           child: Padding(
-            padding: const EdgeInsets.only(right: 30, left: 30, top: 25),
+            padding: const EdgeInsets.only(right: 25, left: 25, top: 25),
             child: Column(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Row(
                   children: [
@@ -33,7 +35,8 @@ class HomeScreen extends GetView<HomeScreenController> {
                               .textTheme
                               .headlineSmall!
                               .copyWith(
-                                  fontSize: 22, color: AppColors.primaryBlue),
+                                  fontSize: screenWidth * 0.055,
+                                  color: AppColors.primaryBlue),
                           children: [
                             const TextSpan(text: "Hello,"),
                             TextSpan(
@@ -42,33 +45,36 @@ class HomeScreen extends GetView<HomeScreenController> {
                                   .textTheme
                                   .displayLarge!
                                   .copyWith(
-                                      fontSize: 25, color: AppColors.textColor),
+                                      fontSize: screenWidth * 0.060,
+                                      color: AppColors.textColor),
                             )
                           ]),
                     ),
-                    const Padding(
-                      padding: EdgeInsets.only(left: 275),
+                    Padding(
+                      padding: const EdgeInsets.only(left: 180),
                       child: CircleAvatar(
-                        radius: 22,
+                        radius: screenWidth * 0.06,
                       ),
                     ),
                   ],
                 ),
                 Padding(
-                  padding: const EdgeInsets.only(top: 35),
+                  padding: const EdgeInsets.only(top: 30),
                   child: Center(
                     child: SizedBox(
                       width: screenWidth * 0.9,
+                      height: screenHeight * 0.076,
                       child: TextField(
                         decoration: InputDecoration(
                           fillColor: AppColors.textfieldColor,
                           filled: true,
-                          hintText: 'Search a doctor or exercise',
+                          hintText: 'Search a doctor or exercise...',
                           hintStyle: Theme.of(context)
                               .textTheme
-                              .titleLarge!
+                              .headlineSmall!
                               .copyWith(
-                                  fontSize: 18, color: AppColors.textHintColor),
+                                  fontSize: screenWidth * 0.042,
+                                  color: AppColors.textHintColor),
                           border: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(30),
                               borderSide: BorderSide.none),
@@ -78,10 +84,10 @@ class HomeScreen extends GetView<HomeScreenController> {
                             },
                             child: Padding(
                                 padding:
-                                    const EdgeInsets.only(left: 25, right: 10),
+                                    const EdgeInsets.only(left: 20, right: 10),
                                 child: Icon(
-                                  Icons.search_outlined,
-                                  size: 35,
+                                  Icons.search_sharp,
+                                  size: screenWidth * 0.085,
                                   color: AppColors.textHintColor,
                                 )),
                           ),
@@ -97,25 +103,25 @@ class HomeScreen extends GetView<HomeScreenController> {
                     height: screenHeight * 0.23,
                     decoration: BoxDecoration(
                         color: AppColors.secondaryBlue,
-                        borderRadius: BorderRadius.circular(40)),
+                        borderRadius: BorderRadius.circular(35)),
                     child: Row(
-                      crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Column(
                           children: [
-                            const Padding(
-                              padding: EdgeInsets.only(top: 25, left: 20),
+                            Padding(
+                              padding:
+                                  const EdgeInsets.only(left: 15 ),
                               child: Image(
-                                image: AssetImage(parrotImage),
-                                width: 125,
-                                height: 125,
+                                image: const AssetImage(parrotImage),
+                                width: screenWidth * 0.30,
+                                height: screenHeight * 0.20,
                               ),
                             ),
                             Padding(
-                              padding: const EdgeInsets.only(left: 20, top: 10),
+                              padding:  const EdgeInsets.only(left: 30),
                               child: SizedBox(
-                                width: 135,
-                                height: 11,
+                                width: screenWidth*0.29,
+                                height: screenHeight*0.011,
                                 child: ClipRRect(
                                   borderRadius:
                                       const BorderRadius.all(Radius.circular(10)),
@@ -130,36 +136,39 @@ class HomeScreen extends GetView<HomeScreenController> {
                             ),
                           ],
                         ),
-                        Column(children: [
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+
                           Padding(
-                            padding: const EdgeInsets.only(top: 25, right: 16),
+                            padding: const EdgeInsets.only(top: 25, left:5 ),
                             child: Text(
                               "Learn Slow and\nEasy Speech",
                               style: Theme.of(context)
                                   .textTheme
                                   .displayLarge!
-                                  .copyWith(fontSize: 24),
+                                  .copyWith(fontSize: screenWidth*0.052),
                             ),
                           ),
                           Padding(
-                            padding: const EdgeInsets.only(top: 8, left: 18),
+                            padding: const EdgeInsets.only(top: 6, left: 5),
                             child: Text(
                               "The most common technique\nto counter stuttering",
                               style: Theme.of(context)
                                   .textTheme
                                   .headlineSmall!
                                   .copyWith(
-                                      fontSize: 15,
+                                      fontSize: screenWidth*0.029,
                                       color: AppColors.descriptionColor),
                             ),
                           ),
                           Padding(
-                            padding: const EdgeInsets.only(left: 50, top: 10),
+                            padding: const EdgeInsets.only(left: 45, top: 5 ),
                             child: TextButton(
-                                onPressed: () {},
+                                onPressed: () {Get.to(SpeechExercisesScreen());},
                                 child: Container(
-                                  width: 75,
-                                  height: 33,
+                                  width: screenWidth*0.19,
+                                  height: screenHeight*0.044,
                                   decoration: BoxDecoration(
                                       color: AppColors.primaryBlue,
                                       borderRadius: BorderRadius.circular(30)),
@@ -170,7 +179,7 @@ class HomeScreen extends GetView<HomeScreenController> {
                                         .textTheme
                                         .headlineSmall!
                                         .copyWith(
-                                            fontSize: 14,
+                                            fontSize: screenWidth*0.035,
                                             color: AppColors.whiteColor),
                                   )),
                                 )),
@@ -180,13 +189,18 @@ class HomeScreen extends GetView<HomeScreenController> {
                     ),
                   ),
                 ),
-                Padding(
-                  padding: const EdgeInsets.only(top: 25, right: 325),
-                  child: Text("Services",
-                      style: Theme.of(context)
-                          .textTheme
-                          .displayLarge!
-                          .copyWith(fontSize: 18)),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.only(top: 13, left: 2),
+                      child: Text("Services",
+                          style: Theme.of(context)
+                              .textTheme
+                              .displayLarge!
+                              .copyWith(fontSize: screenWidth*0.045)),
+                    ),
+                  ],
                 ),
                 Row(children: [
                   Padding(
@@ -196,33 +210,32 @@ class HomeScreen extends GetView<HomeScreenController> {
                         Get.to(const CustomizedProgramScreen());
                       },
                       child: Container(
-                        width: screenWidth * 0.40,
-                        height: screenHeight * 0.18,
+                        width: screenWidth * 0.38,
+                        height: screenHeight * 0.16,
                         decoration: BoxDecoration(
                             color: AppColors.secondaryBlue,
-                            borderRadius: BorderRadius.circular(35)),
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            const Image(
-                              image: AssetImage(customizedProgramsIcon),
-                              width: 85,
-                              height: 55,
-                            ),
-                            Padding(
-                              padding: const EdgeInsets.only(top: 5),
-                              child: Text(
+                            borderRadius: BorderRadius.circular(30)),
+                        child: Padding(
+                          padding: const EdgeInsets.all(4.5),
+                          child: Column(
+                            children: [
+                               Image(
+                                image: const AssetImage(customizedProgramsIcon),
+                                   width: screenWidth*0.16,
+                                   height: screenHeight*0.090
+                              ),
+                              Text(
                                 "Customized\nPrograms",
                                 style: Theme.of(context)
                                     .textTheme
                                     .displayLarge!
                                     .copyWith(
-                                      fontSize: 16,
+                                      fontSize: screenWidth*0.035,
                                     ),
                                 textAlign: TextAlign.center,
-                              ),
-                            )
-                          ],
+                              )
+                            ],
+                          ),
                         ),
                       ),
                     ),
@@ -234,33 +247,32 @@ class HomeScreen extends GetView<HomeScreenController> {
                         Get.to(const SpeechExercisesScreen());
                       },
                       child: Container(
-                        width: screenWidth * 0.40,
-                        height: screenHeight * 0.18,
+                        width: screenWidth * 0.38,
+                        height: screenHeight * 0.16,
                         decoration: BoxDecoration(
                             color: AppColors.secondaryBlue,
-                            borderRadius: BorderRadius.circular(35)),
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            const Image(
-                              image: AssetImage(speechExercisesIcon),
-                              width: 85,
-                              height: 55,
-                            ),
-                            Padding(
-                              padding: const EdgeInsets.only(top: 5),
-                              child: Text(
+                            borderRadius: BorderRadius.circular(30)),
+                        child: Padding(
+                          padding: const EdgeInsets.all(4.5),
+                          child: Column(
+                            children: [
+                               Image(
+                                image: AssetImage(speechExercisesIcon),
+                                  width: screenWidth*0.11,
+                                  height: screenHeight*0.090
+                              ),
+                              Text(
                                 "Speech\nExercises",
                                 style: Theme.of(context)
                                     .textTheme
                                     .displayLarge!
                                     .copyWith(
-                                      fontSize: 16,
+                                      fontSize: screenWidth*0.035,
                                     ),
                                 textAlign: TextAlign.center,
-                              ),
-                            )
-                          ],
+                              )
+                            ],
+                          ),
                         ),
                       ),
                     ),
@@ -269,37 +281,37 @@ class HomeScreen extends GetView<HomeScreenController> {
                 Row(children: [
                   Padding(
                     padding: const EdgeInsets.only(right: 15, top: 25),
-                    child: InkWell( onTap: () {
-                      Get.to(ProgressTrackingScreen());
-                    },
+                    child: InkWell(
+                      onTap: () {
+                        Get.to(ProgressTrackingScreen());
+                      },
                       child: Container(
-                        width: screenWidth * 0.40,
-                        height: screenHeight * 0.18,
+                        width: screenWidth * 0.38,
+                        height: screenHeight * 0.16,
                         decoration: BoxDecoration(
                             color: AppColors.secondaryBlue,
-                            borderRadius: BorderRadius.circular(35)),
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            const Image(
-                              image: AssetImage(progressTrackingIcon),
-                              width: 75,
-                              height: 45,
-                            ),
-                            Padding(
-                              padding: const EdgeInsets.only(top: 8),
-                              child: Text(
+                            borderRadius: BorderRadius.circular(30)),
+                        child: Padding(
+                          padding: const EdgeInsets.all(4.5),
+                          child: Column(
+                            children: [
+                               Image(
+                                image: AssetImage(progressTrackingIcon),
+                                  width: screenWidth*0.11,
+                                  height: screenHeight*0.090
+                              ),
+                              Text(
                                 "Progress\nTracking",
                                 style: Theme.of(context)
                                     .textTheme
                                     .displayLarge!
                                     .copyWith(
-                                      fontSize: 16,
+                                      fontSize: screenWidth*0.035,
                                     ),
                                 textAlign: TextAlign.center,
-                              ),
-                            )
-                          ],
+                              )
+                            ],
+                          ),
                         ),
                       ),
                     ),
@@ -311,33 +323,35 @@ class HomeScreen extends GetView<HomeScreenController> {
                         Get.to(ConsultTherapist());
                       },
                       child: Container(
-                        width: screenWidth * 0.40,
-                        height: screenHeight * 0.18,
+                        width: screenWidth * 0.38,
+                        height: screenHeight * 0.16,
                         decoration: BoxDecoration(
                             color: AppColors.secondaryBlue,
-                            borderRadius: BorderRadius.circular(35)),
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            const Image(
-                              image: AssetImage(consultingIcon),
-                              width: 85,
-                              height: 55,
-                            ),
-                            Padding(
-                              padding: const EdgeInsets.only(top: 8),
-                              child: Text(
-                                "Consult\nTherapist",
-                                style: Theme.of(context)
-                                    .textTheme
-                                    .displayLarge!
-                                    .copyWith(
-                                      fontSize: 16,
-                                    ),
-                                textAlign: TextAlign.center,
+                            borderRadius: BorderRadius.circular(30)),
+                        child: Padding(
+                          padding: const EdgeInsets.all(4.5),
+                          child: Column(
+                            children: [
+                               Image(
+                                image: AssetImage(consultingIcon),
+                                width: screenWidth*0.1,
+                                height: screenHeight*0.090
                               ),
-                            )
-                          ],
+                              Padding(
+                                padding: const EdgeInsets.only(bottom: 8),
+                                child: Text(
+                                  "Consult\nTherapist",
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .displayLarge!
+                                      .copyWith(
+                                        fontSize: screenWidth*0.035,
+                                      ),
+                                  textAlign: TextAlign.center,
+                                ),
+                              )
+                            ],
+                          ),
                         ),
                       ),
                     ),
