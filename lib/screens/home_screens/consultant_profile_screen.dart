@@ -1,4 +1,5 @@
 import 'package:fluency_therapist/controller/home_screens_controller/consultant_profile_screen_controller.dart';
+import 'package:fluency_therapist/screens/home_screens/chat_with_consultant_screen.dart';
 import 'package:fluency_therapist/screens/home_screens/ongoing_call_screen.dart';
 import 'package:fluency_therapist/utils/widgets/button.dart';
 import 'package:flutter/material.dart';
@@ -15,6 +16,8 @@ class ConsultantProfileScreen
 
   @override
   Widget build(BuildContext context) {
+    final screenWidth = MediaQuery.of(context).size.width;
+    final screenHeight = MediaQuery.of(context).size.height;
     return Scaffold(
       backgroundColor: AppColors.backgroundColor,
       body: SafeArea(
@@ -25,42 +28,42 @@ class ConsultantProfileScreen
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  IconButton(
-                    onPressed: () {
+                  InkWell(
+                    onTap: () {
                       Get.back();
                     },
-                    icon: const Icon(
+                    child: Icon(
                       Icons.arrow_back,
-                      size: 30,
+                      size: screenWidth*0.10,
                     ),
                   ),
-                  const Padding(
-                    padding: EdgeInsets.only(top: 10, right: 90, left: 90),
+                  Padding(
+                    padding: EdgeInsets.only(top: 10, right: 38, left: 38),
                     child: Center(
                       child: Image(
                         image: AssetImage(logoIcon),
-                        width: 158,
-                        height: 62,
+                        width: screenWidth * 0.42,
+                        height: screenHeight * 0.075,
                       ),
                     ),
                   ),
-                  const CircleAvatar(
-                    radius: 22,
+                  CircleAvatar(
+                    radius: screenWidth*0.06,
                   ),
                 ],
               ),
-              const Padding(
+               Padding(
                 padding:  EdgeInsets.only(top: 20),
                 child: CircleAvatar(
-                  radius: 80,
+                  radius: screenWidth*0.15,
                 ),
               ),
               Padding(
-                padding: const EdgeInsets.only(top: 25),
+                padding: const EdgeInsets.only(top: 20),
                 child: Text(
                   "Dr M Ali Nizamani",
                   style: Theme.of(context).textTheme.displayLarge!.copyWith(
-                        fontSize: 22,
+                        fontSize: screenWidth*0.050,
                         color: AppColors.textColor,
                       ),
                 ),
@@ -68,46 +71,46 @@ class ConsultantProfileScreen
               Text(
                 "Pediatric Pathologist",
                 style: Theme.of(context).textTheme.headlineSmall!.copyWith(
-                      fontSize: 16,
+                      fontSize: screenWidth*0.035,
                       color: AppColors.descriptionColor,
                     ),
               ),
               Padding(
-                padding: const EdgeInsets.only( top: 15, bottom: 10),
+                padding: const EdgeInsets.only( top: 10, bottom: 10),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    const Icon(
+                     Icon(
                       Icons.star,
                       color: Colors.orange,
-                      size: 28,
+                      size: screenWidth*0.06,
                     ),
-                    const Icon(
+                     Icon(
                       Icons.star,
                       color: Colors.orange,
-                      size: 28,
+                      size: screenWidth*0.07,
                     ),
-                    const Icon(
+                     Icon(
                       Icons.star,
                       color: Colors.orange,
-                      size: 28,
+                      size: screenWidth*0.07,
                     ),
-                    const Icon(
+                     Icon(
                       Icons.star,
                       color: Colors.orange,
-                      size: 28,
+                      size: screenWidth*0.07,
                     ),
-                    const Icon(
+                     Icon(
                       Icons.star_half,
                       color: Colors.orange,
-                      size: 28,
+                      size: screenWidth*0.07,
                     ),
                     const SizedBox(width: 8),
                     Text(
                       "109 reviews",
                       style: Theme.of(context).textTheme.headlineSmall!.copyWith(
                             color: AppColors.textHintColor,
-                        fontSize: 13,
+                        fontSize: screenWidth*0.032,
                           ),
                     ),
                   ],
@@ -116,16 +119,16 @@ class ConsultantProfileScreen
               Text(
                 "A highly skilled Pediatric pathalogosit with a proven track record of transforming lives through effective communication interventions",
                 style: Theme.of(context).textTheme.headlineSmall!.copyWith(
-                      fontSize: 15,
+                      fontSize: screenWidth*0.032,
                       color: AppColors.textHintColor,
                     ),
                 textAlign: TextAlign.center,
               ),
               Padding(
-                padding: const EdgeInsets.only(top: 20, bottom: 20),
+                padding: const EdgeInsets.only(top: 15, bottom: 15),
                 child: Container(
-                  width: 600,
-                  height: 90,
+                  width: screenWidth*0.9,
+                  height: screenHeight*0.12,
                   decoration: BoxDecoration(
                     color: AppColors.secondaryBlue,
                     borderRadius: BorderRadius.circular(25),
@@ -138,7 +141,7 @@ class ConsultantProfileScreen
                             padding: const EdgeInsets.only(top: 20, bottom: 20, left: 25),
                             child: Icon(
                               Icons.calendar_month_outlined,
-                              size: 50,
+                              size: screenWidth*0.11,
                               color: AppColors.primaryBlue,
                             ),
                           ),
@@ -148,22 +151,22 @@ class ConsultantProfileScreen
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Padding(
-                            padding: const EdgeInsets.only(left: 20, top: 24),
+                            padding: const EdgeInsets.only(left: 15, top: 24),
                             child: Text(
                               "Availability",
                               style: Theme.of(context).textTheme.displayLarge!.copyWith(
-                                fontSize: 18,
+                                fontSize: screenWidth*0.045,
                                 color: AppColors.textColor,
                               ),
                               textAlign: TextAlign.left,
                             ),
                           ),
                           Padding(
-                            padding: const EdgeInsets.only(left: 20, top: 3),
+                            padding: const EdgeInsets.only(left: 15, top: 3),
                             child: Text(
                               "08:00 AM to 05:00 PM",
                               style: Theme.of(context).textTheme.displayLarge!.copyWith(
-                                fontSize: 12,
+                                fontSize: screenWidth*0.030,
                                 color: AppColors.descriptionColor,
                               ),
                             ),
@@ -176,10 +179,10 @@ class ConsultantProfileScreen
               ),
 
               Padding(
-                padding: const EdgeInsets.only(bottom: 40),
+                padding: const EdgeInsets.only(bottom: 30),
                 child: Container(
-                  width: 600,
-                  height: 90,
+                  width: screenWidth*0.9,
+                  height: screenHeight*0.12,
                   decoration: BoxDecoration(
                     color: AppColors.secondaryBlue,
                     borderRadius: BorderRadius.circular(25),
@@ -188,10 +191,10 @@ class ConsultantProfileScreen
                     Column(
                       children: [
                         Padding(
-                          padding: const EdgeInsets.only(top: 20, bottom: 20, left: 25),
+                          padding: const EdgeInsets.only(top: 19, bottom: 19, left: 25),
                           child: Icon(
                             Icons.location_on_outlined,
-                            size: 50,
+                            size: screenWidth*0.12,
                             color: AppColors.primaryBlue,
                           ),
                         ),
@@ -200,22 +203,22 @@ class ConsultantProfileScreen
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [Padding(
-                      padding: const EdgeInsets.only(left: 20, top: 24),
+                      padding: const EdgeInsets.only(left: 15, top: 24),
                       child: Text(
                         "Location",
                         style: Theme.of(context).textTheme.displayLarge!.copyWith(
-                          fontSize: 18,
+                          fontSize: screenWidth*0.045,
                           color: AppColors.textColor,
                         ),
                         textAlign: TextAlign.left,
                       ),
                     ),
                       Padding(
-                        padding: const EdgeInsets.only(left: 20, top: 3),
+                        padding: const EdgeInsets.only(left: 15, top: 3),
                         child: Text(
                           "Lumhs, Jamshoro",
                           style: Theme.of(context).textTheme.displayLarge!.copyWith(
-                            fontSize: 12,
+                            fontSize: screenWidth*0.030,
                             color: AppColors.descriptionColor,
                           ),
                         ),
@@ -224,7 +227,7 @@ class ConsultantProfileScreen
                 ),
               ),
               Button(onPressed: () {
-                Get.to(OngoingCallScreen());
+                Get.to(ChatWithConsultantScreen());
               }, text: "Book an Appointment"),
             ],
           ),

@@ -1,3 +1,4 @@
+import 'package:fluency_therapist/utils/widgets/button.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -18,167 +19,116 @@ class ReminderScreen extends GetView<ReminderScreenController> {
       backgroundColor: AppColors.backgroundColor,
       body: SafeArea(
         child: Padding(
-          padding: const EdgeInsets.only(right: 30, left: 30, top: 5),
+          padding: const EdgeInsets.only(right: 25, left: 25, top: 25),
           child: Column(
             children: [
               Row(
+
                 children: [
-                  IconButton(
-                    onPressed: () {
+                  InkWell(
+                    onTap: () {
                       Get.to(const HomeScreen());
                     },
-                    icon: const Icon(
+                    child:  Icon(
                       Icons.arrow_back,
-                      size: 30,
+                      size: screenWidth*0.10,
                     ),
                   ),
-                  const Padding(
-                    padding: EdgeInsets.only(top: 10, right: 20, left: 60),
+                  Padding(
+                    padding: const EdgeInsets.only(top: 10, right: 38, left: 38),
                     child: Center(
                       child: Image(
-                          image: AssetImage(logoIcon), width: 168, height: 72),
+                        image: const AssetImage(logoIcon),
+                        height: screenHeight * 0.075,
+                        width: screenWidth * 0.42,),
                     ),
                   ),
-                  const Padding(
-                    padding: EdgeInsets.only(left: 80),
-                    child: CircleAvatar(
-                      radius: 22,
-                    ),
+                  CircleAvatar(
+                    radius: screenWidth*0.06,
                   ),
                 ],
               ),
               Padding(
-                  padding: const EdgeInsets.only(right: 50, top: 25, bottom: 5),
+                  padding: const EdgeInsets.only(  top: 25, bottom: 5),
                   child: Row(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    crossAxisAlignment: CrossAxisAlignment.start,
+
                     children: [
                       Text(
                         "Set reminders for daily practice",
                         style: Theme.of(context)
                             .textTheme
                             .displayLarge!
-                            .copyWith(fontSize: 20, color: AppColors.textColor),
+                            .copyWith(fontSize: screenWidth*0.049, color: AppColors.textColor),
                       ),
                     ],
                   )),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    "Practice makes you perfect and its more likely\nyou will form a habit if you practice daily at the\nsame time.",
+                    style: Theme.of(context)
+                        .textTheme
+                        .displaySmall!
+                        .copyWith(fontSize: screenWidth*0.041, color: AppColors.descriptionColor),
+                  ),
+                ],
+              ),
               Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  crossAxisAlignment: CrossAxisAlignment.start,
+                padding: const EdgeInsets.only(top: 5, bottom:25),
+                child: Column(
                   children: [
-                    Text(
-                      "Practice makes you perfect and its more likely\nyou will form a habit if you practice daily at the\nsame time.",
-                      style: Theme.of(context)
-                          .textTheme
-                          .displaySmall!
-                          .copyWith(fontSize: 15, color: AppColors.textColor),
+                     Padding(
+                      padding: EdgeInsets.only(
+                          top: 10, left: 10, right: 10, ),
+                      child: Image(
+                        image: AssetImage(reminderBellImage),
+                        width: screenWidth*0.6,
+                        height: screenHeight*0.4,
+                      ),
+                    ),
+                    Container(
+                      width: screenWidth*0.45,
+                      height: screenHeight*0.07,
+                      decoration: BoxDecoration(
+                          color: AppColors.secondaryBlue,
+                          borderRadius: BorderRadius.circular(30)),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                           Padding(
+                            padding: EdgeInsets.only(left: 25, top: 5, bottom:5,),
+                            child: Image(
+                              image: AssetImage(reminderClockIcon),
+                              width: screenWidth*0.060,
+                              height: screenHeight*0.055,
+                            ),
+                          ),
+                          Center(
+                            child: Padding(
+                              padding: const EdgeInsets.only(left: 15),
+                              child: Text(
+                                  "12:00",
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .displayLarge!
+                                      .copyWith(
+                                          fontSize: screenWidth*0.055,
+                                          color: AppColors.primaryBlue)),
+                            ),
+                          ),
+
+                        ],
+                      ),
                     ),
                   ],
                 ),
               ),
-              Padding(
-                padding: const EdgeInsets.only(top: 5),
-                child: Container(
-                  width: screenWidth * 0.9,
-                  height: screenHeight * 0.50,
-                  decoration: BoxDecoration(
-                      color: AppColors.backgroundColor,
-                      borderRadius: BorderRadius.circular(40)),
-                  child: Row(
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Column(
-                        children: [
-                          const Padding(
-                            padding: EdgeInsets.only(
-                                top: 10, left: 10, right: 10, bottom: 10),
-                            child: Image(
-                              image: AssetImage(clockIcon),
-                              width: 325,
-                              height: 325,
-                            ),
-                          ),
-                          Container(
-                            width: 185,
-                            height: 49,
-                            decoration: BoxDecoration(
-                                color: AppColors.secondaryBlue,
-                                borderRadius: BorderRadius.circular(30)),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.start,
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                const Padding(
-                                  padding: EdgeInsets.only(right: 5),
-                                  child: Image(
-                                    image: AssetImage(miniclockIcon),
-                                    width: 35,
-                                    height: 55,
-                                  ),
-                                ),
-                                Center(
-                                  child: Padding(
-                                    padding: const EdgeInsets.only(left: 25),
-                                    child: Text(
-                                        '${time.hour.toString().padLeft(2, '0')}:${time.minute.toString().padLeft(2, '0')}',
-                                        style: Theme.of(context)
-                                            .textTheme
-                                            .displayLarge!
-                                            .copyWith(
-                                                fontSize: 20,
-                                                color: AppColors.textColor)),
-                                  ),
-                                ),
-                                GestureDetector(
-                                  onTap: () async {},
-                                  child: const Padding(
-                                    padding: EdgeInsets.only(left: 30),
-                                    child: Image(
-                                      image: AssetImage(downarrowIcon),
-                                      width: 25,
-                                      height: 225,
-                                    ),
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
-                        ],
-                      ),
-                    ],
-                  ),
-                ),
-              ),
-              Padding(
-                padding: const EdgeInsets.only(top: 5, bottom: 15),
-                child: Column(
-                  children: [
-                    Container(
-                      width: screenWidth * 0.9,
-                      height: screenHeight * 0.07,
-                      decoration: BoxDecoration(
-                          color: AppColors.primaryBlue,
-                          borderRadius: BorderRadius.circular(450)),
-                      child: Center(
-                          child: GestureDetector(
-                            onTap: (){
-                              Get.to(const CustomizeProgramFinalScreen());
-                            },
-                            child: Text('Next',
-                                style: Theme.of(context)
-                                    .textTheme
-                                    .displayLarge!
-                                    .copyWith(
-                                        fontSize: 17,
-                                        color: AppColors.whiteColor)),
-                          )),
-                    )
-                  ],
-                ),
-              ),
+              Button(onPressed: () {
+                Get.to(CustomizeProgramFinalScreen());
+              }, text: "Next"),
               Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: Text(
@@ -186,7 +136,7 @@ class ReminderScreen extends GetView<ReminderScreenController> {
                   style: Theme.of(context)
                       .textTheme
                       .displayLarge!
-                      .copyWith(fontSize: 20, color: AppColors.textColor),
+                      .copyWith(fontSize: 20, color: AppColors.textColor,),
                 ),
               ),
             ],
