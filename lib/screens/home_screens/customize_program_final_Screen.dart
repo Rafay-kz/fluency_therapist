@@ -16,37 +16,37 @@ class CustomizeProgramFinalScreen extends GetView<CustomizeProgramFinalScreenCon
       backgroundColor: AppColors.backgroundColor,
       body: SafeArea(
         child: Padding(
-          padding: const EdgeInsets.only(right: 30, left: 30, top: 5),
+          padding: const EdgeInsets.only(right: 25, left: 25, top: 25),
           child: Column(
             children: [
               Row(
+
                 children: [
-                  IconButton(
-                    onPressed: () {
-                      Get.to(const HomeScreen());
+                  InkWell(
+                    onTap: () {
+                      Get.back();
                     },
-                    icon: const Icon(
+                    child:  Icon(
                       Icons.arrow_back,
-                      size: 30,
+                      size: screenWidth*0.10,
                     ),
                   ),
-                  const Padding(
-                    padding: EdgeInsets.only(top: 10, right: 20, left: 60),
+                  Padding(
+                    padding: const EdgeInsets.only(top: 10, right: 38, left: 38),
                     child: Center(
                       child: Image(
-                          image: AssetImage(logoIcon), width: 168, height: 72),
+                        image: const AssetImage(logoIcon),
+                        height: screenHeight * 0.075,
+                        width: screenWidth * 0.42,),
                     ),
                   ),
-                  const Padding(
-                    padding: EdgeInsets.only(left: 80),
-                    child: CircleAvatar(
-                      radius: 22,
-                    ),
+                  CircleAvatar(
+                    radius: screenWidth*0.06,
                   ),
                 ],
               ),
               Padding(
-                  padding: const EdgeInsets.only(right: 50, top: 25, bottom: 5),
+                  padding: const EdgeInsets.only( top: 25, bottom: 5),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.start,
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -56,163 +56,70 @@ class CustomizeProgramFinalScreen extends GetView<CustomizeProgramFinalScreenCon
                         style: Theme.of(context)
                             .textTheme
                             .displayLarge!
-                            .copyWith(fontSize: 20, color: AppColors.textColor),
+                            .copyWith(fontSize: screenWidth*0.045, ),
                       ),
                     ],
                   )),
-              Padding(
-                padding: const EdgeInsets.only(top: 15),
-                child: Container(
-                  width: screenWidth * 0.9,
-                  height: screenHeight * 0.23,
-                  decoration: BoxDecoration(
-                      color: AppColors.secondaryBlue,
-                      borderRadius: BorderRadius.circular(40)),
-                  child: Row(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Column(children: [
-                        Padding(
-                          padding: const EdgeInsets.only(
-                              top: 20, right: 190, left: 30, bottom: 5),
-                          child: Text(
-                            "May",
-                            style: Theme.of(context)
-                                .textTheme
-                                .displayMedium!
-                                .copyWith(fontSize: 20),
-                          ),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.only(
-                              top: 15, right: 50, left: 30, bottom: 10),
-                          child: Text(
-                            "Learn Slow and\nEasy Speech",
-                            style: Theme.of(context)
-                                .textTheme
-                                .displayLarge!
-                                .copyWith(fontSize: 24),
-                          ),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.only(top: 8, left: 18),
-                          child: Text(
-                            "The most common technique\nto counter stuttering",
-                            style: Theme.of(context)
-                                .textTheme
-                                .headlineSmall!
-                                .copyWith(
-                                    fontSize: 15,
-                                    color: AppColors.descriptionColor),
-                          ),
-                        ),
-                      ]),
-                    ],
-                  ),
+              Expanded(
+                child: ListView.builder(
+                itemCount: 4,
+                itemBuilder: (BuildContext context, int index) {
+                  return Padding(
+                    padding: const EdgeInsets.only(top: 15),
+                    child: Container(
+                      width: screenWidth * 0.9,
+                      height: screenHeight * 0.23,
+                      decoration: BoxDecoration(
+                          color: AppColors.secondaryBlue,
+                          borderRadius: BorderRadius.circular(40)),
+                      child: Row(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                            Padding(
+                              padding: const EdgeInsets.only(
+                                  top: 20,  left: 30, bottom: 15),
+                              child: Text(
+                                "May",
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .displayLarge!
+                                    .copyWith(fontSize: screenWidth*0.045),
+                              ),
+                            ),
+                            Padding(
+                              padding: const EdgeInsets.only(
+                                    left: 30, bottom: 6),
+                              child: Text(
+                                "Learn Slow and\nEasy Speech",
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .displayLarge!
+                                    .copyWith(fontSize: screenWidth*0.055),
+                              ),
+                            ),
+                            Padding(
+                              padding: const EdgeInsets.only( left: 30),
+                              child: Text(
+                                "The most common technique\nto counter stuttering",
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .headlineSmall!
+                                    .copyWith(
+                                        fontSize: screenWidth*0.035,
+                                        color: AppColors.descriptionColor),
+                              ),
+                            ),
+                          ]),
+                        ],
+                      ),
+                    ),
+                  ); }
                 ),
               ),
-              Padding(
-                padding: const EdgeInsets.only(top: 15),
-                child: Container(
-                  width: screenWidth * 0.9,
-                  height: screenHeight * 0.23,
-                  decoration: BoxDecoration(
-                      color: AppColors.secondaryBlue,
-                      borderRadius: BorderRadius.circular(40)),
-                  child: Row(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Column(children: [
-                        Padding(
-                          padding: const EdgeInsets.only(
-                              top: 20, right: 190, left: 30, bottom: 5),
-                          child: Text(
-                            "June",
-                            style: Theme.of(context)
-                                .textTheme
-                                .displayMedium!
-                                .copyWith(fontSize: 20),
-                          ),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.only(
-                              top: 15, right: 50, left: 30, bottom: 10),
-                          child: Text(
-                            "Learn Slow and\nEasy Speech",
-                            style: Theme.of(context)
-                                .textTheme
-                                .displayLarge!
-                                .copyWith(fontSize: 24),
-                          ),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.only(top: 8, left: 18),
-                          child: Text(
-                            "The most common technique\nto counter stuttering",
-                            style: Theme.of(context)
-                                .textTheme
-                                .headlineSmall!
-                                .copyWith(
-                                    fontSize: 15,
-                                    color: AppColors.descriptionColor),
-                          ),
-                        ),
-                      ]),
-                    ],
-                  ),
-                ),
-              ),
-              Padding(
-                padding: const EdgeInsets.only(top: 15),
-                child: Container(
-                  width: screenWidth * 0.9,
-                  height: screenHeight * 0.23,
-                  decoration: BoxDecoration(
-                      color: AppColors.secondaryBlue,
-                      borderRadius: BorderRadius.circular(40)),
-                  child: Row(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Column(children: [
-                        Padding(
-                          padding: const EdgeInsets.only(
-                              top: 20, right: 190, left: 30, bottom: 5),
-                          child: Text(
-                            "July",
-                            style: Theme.of(context)
-                                .textTheme
-                                .displayMedium!
-                                .copyWith(fontSize: 20),
-                          ),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.only(
-                              top: 15, right: 50, left: 30, bottom: 10),
-                          child: Text(
-                            "Learn Slow and\nEasy Speech",
-                            style: Theme.of(context)
-                                .textTheme
-                                .displayLarge!
-                                .copyWith(fontSize: 24),
-                          ),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.only(top: 8, left: 18),
-                          child: Text(
-                            "The most common technique\nto counter stuttering",
-                            style: Theme.of(context)
-                                .textTheme
-                                .headlineSmall!
-                                .copyWith(
-                                    fontSize: 15,
-                                    color: AppColors.descriptionColor),
-                          ),
-                        ),
-                      ]),
-                    ],
-                  ),
-                ),
-              ),
+
             ],
           ),
         ),

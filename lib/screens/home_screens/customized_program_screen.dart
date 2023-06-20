@@ -1,4 +1,5 @@
 import 'package:fluency_therapist/controller/home_screens_controller/customized_program_screen_controller.dart';
+import 'package:fluency_therapist/screens/home_screens/reminder_screen.dart';
 import 'package:fluency_therapist/utils/widgets/button.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -21,41 +22,45 @@ class CustomizedProgramScreen
         child: Padding(
           padding: const EdgeInsets.only(right: 25, left: 25, top: 25),
           child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               Row(
 
                 children: [
-                  IconButton(
-                    onPressed: () {
+                  InkWell(
+                    onTap: () {
                       Get.to(const HomeScreen());
                     },
-                    icon: const Icon(
+                    child:  Icon(
                       Icons.arrow_back,
-                      size: 30,
+                      size: screenWidth*0.10,
                     ),
                   ),
-                  const Padding(
-                    padding: EdgeInsets.only(top: 10, right: 90, left: 90),
+                   Padding(
+                    padding: const EdgeInsets.only(top: 10, right: 38, left: 38),
                     child: Center(
                       child: Image(
-                          image: AssetImage(logoIcon), width: 158, height: 62),
+                        image: const AssetImage(logoIcon),
+                        height: screenHeight * 0.075,
+                        width: screenWidth * 0.42,),
                     ),
                   ),
-                  const CircleAvatar(
-                    radius: 22,
+                   CircleAvatar(
+                    radius: screenWidth*0.06,
                   ),
                 ],
               ),
               Row(
                 children: [
                   Padding(
-                    padding: const EdgeInsets.only(left:10, top: 30),
+                    padding: const EdgeInsets.only( top: 25),
                     child: Text(
                       "What is your previous experience\nwith speech therapy?",
                       style: Theme.of(context)
                           .textTheme
                           .displayLarge!
-                          .copyWith(fontSize: 22, color: AppColors.textColor),
+                          .copyWith(fontSize: screenWidth*0.048, color: AppColors.textColor),
                     ),
                   ),
                 ],
@@ -63,71 +68,32 @@ class CustomizedProgramScreen
               Row(
                 children: [
                   Padding(
-                    padding: const EdgeInsets.only(left:10, top:7),
+                    padding: const EdgeInsets.only(top:7),
                     child: Text(
                       "We will adjust the training plan accordingly.",
                       style: Theme.of(context)
                           .textTheme
                           .displaySmall!
-                          .copyWith(fontSize: 17, color: AppColors.descriptionColor),
+                          .copyWith(fontSize: screenWidth*0.041, color: AppColors.descriptionColor),
                     ),
                   ),
                 ],
               ),
-              Padding(
-                padding: const EdgeInsets.only(top:30),
-                child: Row(
-                  children: [
-                    Container(
-                      width: screenWidth * 0.89,
-                      height: screenHeight * 0.075,
-                      decoration: BoxDecoration(
-                          color: AppColors.secondaryBlue,
-                          borderRadius: BorderRadius.circular(450)),
-                      child: Padding(
-                        padding: const EdgeInsets.only(left: 20),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          children: [
-                            Radio(
-                              value: 1,
-                              groupValue: "",
-                              onChanged: (value) {},
-                              activeColor: Colors.green,
-                              fillColor: MaterialStateProperty.all(
-                                  Colors.blueAccent),
-                            ),
-                            Padding(
-                              padding: const EdgeInsets.only(left: 10),
-                              child: Text(
-                                '0-6 months',
-                                style: Theme.of(context)
-                                    .textTheme
-                                    .displayLarge!
-                                    .copyWith(
-                                        fontSize: 18,
-                                        color: AppColors.textColor),
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-              Padding(
-                padding: const EdgeInsets.only(top: 35,),
-                child: Column(
-                  children: [
-                    Row(
+              Expanded(
+                child: ListView.builder(
+                 itemCount:4,
+                 itemBuilder: (BuildContext context, int index) {
+                  return Padding(
+                    padding: const EdgeInsets.only(top:30),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         Container(
-                          width: screenWidth * 0.89,
-                          height: screenHeight * 0.075,
+                          width: screenWidth * 0.861,
+                          height: screenHeight * 0.076,
                           decoration: BoxDecoration(
                               color: AppColors.secondaryBlue,
-                              borderRadius: BorderRadius.circular(450)),
+                              borderRadius: BorderRadius.circular(50)),
                           child: Padding(
                             padding: const EdgeInsets.only(left: 20),
                             child: Row(
@@ -144,12 +110,12 @@ class CustomizedProgramScreen
                                 Padding(
                                   padding: const EdgeInsets.only(left: 10),
                                   child: Text(
-                                    '2-3 months',
+                                    '0-6 months',
                                     style: Theme.of(context)
                                         .textTheme
                                         .displayLarge!
                                         .copyWith(
-                                            fontSize: 18,
+                                            fontSize: screenWidth*0.045,
                                             color: AppColors.textColor),
                                   ),
                                 ),
@@ -159,104 +125,16 @@ class CustomizedProgramScreen
                         ),
                       ],
                     ),
-                  ],
+                  ); }
                 ),
               ),
-              Padding(
-                padding: const EdgeInsets.only(top: 35),
-                child: Column(
-                  children: [
-                    Row(
-                      children: [
-                        Container(
-                          width: screenWidth * 0.89,
-                          height: screenHeight * 0.075,
-                          decoration: BoxDecoration(
-                              color: AppColors.secondaryBlue,
-                              borderRadius: BorderRadius.circular(450)),
-                          child: Padding(
-                            padding: const EdgeInsets.only(left: 15),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.start,
-                              children: [
-                                Radio(
-                                  value: 1,
-                                  groupValue: "",
-                                  onChanged: (value) {},
-                                  activeColor: Colors.green,
-                                  fillColor: MaterialStateProperty.all(
-                                      Colors.blueAccent),
-                                ),
-                                Padding(
-                                  padding: const EdgeInsets.only(left: 10),
-                                  child: Text(
-                                    'More than 12 months',
-                                    style: Theme.of(context)
-                                        .textTheme
-                                        .displayLarge!
-                                        .copyWith(
-                                            fontSize: 18,
-                                            color: AppColors.textColor),
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
-                  ],
-                ),
-              ),
-              Padding(
-                padding: const EdgeInsets.only(top: 35),
-                child: Column(
-                  children: [
-                    Row(
-                      children: [
-                        Container(
-                          width: screenWidth * 0.89,
-                          height: screenHeight * 0.075,
-                          decoration: BoxDecoration(
-                              color: AppColors.secondaryBlue,
-                              borderRadius: BorderRadius.circular(450)),
-                          child: Padding(
-                            padding: const EdgeInsets.only(left: 20),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.start,
-                              children: [
-                                Radio(
-                                  value: 1,
-                                  groupValue: "",
-                                  onChanged: (value) {},
-                                  activeColor: Colors.green,
-                                  fillColor: MaterialStateProperty.all(
-                                      Colors.blueAccent),
-                                ),
-                                Padding(
-                                  padding: const EdgeInsets.only(left: 10),
-                                  child: Text(
-                                    'None',
-                                    style: Theme.of(context)
-                                        .textTheme
-                                        .displayLarge!
-                                        .copyWith(
-                                            fontSize: 18,
-                                            color: AppColors.textColor),
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
-                  ],
-                ),
-              ),
+
+
              Padding(
-               padding: const EdgeInsets.only(top: 70),
-               child: Button(onPressed: () {}, text: "Next"),
+               padding: const EdgeInsets.only(bottom: 50),
+               child: Button(onPressed: () {
+                 Get.to(ReminderScreen());
+               }, text: "Next"),
              ),
             ],
           ),

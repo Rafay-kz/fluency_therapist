@@ -36,7 +36,7 @@ class SplashScreen extends GetView<SplashScreenController> {
               Padding(padding: const EdgeInsets.only(left: 15),
                 child: Image(
                   image: const AssetImage(fluencyTherapistLogo),
-                  height: screenWidth * 0.22,
+                  height: screenHeight * 0.12,
                   width: screenWidth * 0.42,
                 ),
               ),

@@ -11,6 +11,8 @@ class ConsultTherapist extends GetView<ConsultTherapistScreenController> {
 
   @override
   Widget build(BuildContext context) {
+    final screenWidth = MediaQuery.of(context).size.width;
+    final screenHeight = MediaQuery.of(context).size.height;
     return Scaffold(
       backgroundColor: AppColors.backgroundColor,
       body: SafeArea(
@@ -21,27 +23,27 @@ class ConsultTherapist extends GetView<ConsultTherapistScreenController> {
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  IconButton(
-                    onPressed: () {
+                  InkWell(
+                    onTap: () {
                       Get.back();
                     },
-                    icon: const Icon(
+                    child: Icon(
                       Icons.arrow_back,
-                      size: 30,
+                      size: screenWidth*0.10,
                     ),
                   ),
-                  const Padding(
-                    padding: EdgeInsets.only(top: 10, right: 90, left: 90),
+                   Padding(
+                    padding: EdgeInsets.only(top: 10, right: 38, left: 38),
                     child: Center(
                       child: Image(
                         image: AssetImage(logoIcon),
-                        width: 158,
-                        height: 62,
+                        width: screenWidth * 0.42,
+                        height: screenHeight * 0.075,
                       ),
                     ),
                   ),
-                  const CircleAvatar(
-                    radius: 22,
+                   CircleAvatar(
+                    radius: screenWidth*0.06,
                   ),
                 ],
               ),
@@ -55,7 +57,7 @@ class ConsultTherapist extends GetView<ConsultTherapistScreenController> {
                       style: Theme.of(context)
                           .textTheme
                           .displayLarge!
-                          .copyWith(fontSize: 18),
+                          .copyWith(fontSize: screenWidth*0.045),
                     ),
                   ),
                 ],
@@ -67,25 +69,25 @@ class ConsultTherapist extends GetView<ConsultTherapistScreenController> {
                     return Padding(
                       padding: const EdgeInsets.only(bottom: 30),
                       child: Container(
-                        width: 200,
-                        height: 170,
+                        width: screenWidth * 0.9,
+                        height: screenHeight * 0.23,
                         decoration: BoxDecoration(
                           color: AppColors.secondaryBlue,
                           borderRadius: BorderRadius.circular(40),
                         ),
                         child: Row(
                           children: [
-                            const Padding(
+                             Padding(
                               padding:  EdgeInsets.only(
                                 top: 30,
                                 bottom: 30,
-                                left: 30,
-                                right: 20,
+                                left: 20,
+                                right: 10,
                               ),
                               child: Column(
                                 children: [
                                   CircleAvatar(
-                                    radius: 55,
+                                    radius: screenWidth*0.13,
                                   ),
                                 ],
                               ),
@@ -103,7 +105,7 @@ class ConsultTherapist extends GetView<ConsultTherapistScreenController> {
                                             .textTheme
                                             .displayLarge!
                                             .copyWith(
-                                          fontSize: 20,
+                                          fontSize: screenWidth*0.040,
                                           color: AppColors.textColor,
                                         ),
                                       ),
@@ -120,7 +122,7 @@ class ConsultTherapist extends GetView<ConsultTherapistScreenController> {
                                             .textTheme
                                             .headlineSmall!
                                             .copyWith(
-                                          fontSize: 18,
+                                          fontSize: screenWidth*0.040,
                                           color: AppColors.descriptionColor,
                                         ),
                                       ),
@@ -128,35 +130,35 @@ class ConsultTherapist extends GetView<ConsultTherapistScreenController> {
                                   ),
                                 ),
                                 Padding(
-                                  padding: const EdgeInsets.only(top: 2, left: 6),
+                                  padding: const EdgeInsets.only(top: 2, left: 8),
                                   child: Row(
                                     children: [
-                                      const Icon(
+                                       Icon(
                                         Icons.star,
                                         color: Colors.orange,
-                                        size: 28,
+                                        size: screenWidth*0.07,
                                       ),
-                                     const  Icon(
+                                       Icon(
                                         Icons.star,
                                         color: Colors.orange,
-                                        size: 28,
+                                        size: screenWidth*0.07,
                                       ),
-                                     const  Icon(
+                                       Icon(
                                         Icons.star,
                                         color: Colors.orange,
-                                        size: 28,
+                                        size: screenWidth*0.07,
                                       ),
-                                      const Icon(
+                                       Icon(
                                         Icons.star,
                                         color: Colors.orange,
-                                        size: 28,
+                                        size: screenWidth*0.07,
                                       ),
                                      const Icon(
                                         Icons.star_half,
                                         color: Colors.orange,
                                         size: 28,
                                       ),
-                                      const SizedBox(width: 8),
+                                      const SizedBox(width: 2),
                                       Text(
                                         "109 reviews",
                                         style: Theme.of(context)
@@ -164,6 +166,7 @@ class ConsultTherapist extends GetView<ConsultTherapistScreenController> {
                                             .headlineSmall!
                                             .copyWith(
                                           color: AppColors.descriptionColor,
+                                          fontSize: screenWidth*0.020
                                         ),
                                       ),
                                     ],
@@ -174,8 +177,8 @@ class ConsultTherapist extends GetView<ConsultTherapistScreenController> {
                                     Get.to(ConsultantProfileScreen());
                                   },
                                   child: Container(
-                                    width: 105,
-                                    height: 33,
+                                    width: screenWidth*0.27,
+                                    height: screenHeight* 0.046,
                                     decoration: BoxDecoration(
                                       color: AppColors.primaryBlue,
                                       borderRadius: BorderRadius.circular(30),
@@ -187,7 +190,7 @@ class ConsultTherapist extends GetView<ConsultTherapistScreenController> {
                                             .textTheme
                                             .headlineSmall!
                                             .copyWith(
-                                          fontSize: 14,
+                                          fontSize: screenWidth*0.035,
                                           color: AppColors.whiteColor,
                                         ),
                                       ),

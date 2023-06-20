@@ -1,4 +1,5 @@
 import 'package:fluency_therapist/controller/home_screens_controller/speech_exercises_screen_contoller.dart';
+import 'package:fluency_therapist/screens/home_screens/customize_program_final_Screen.dart';
 import 'package:fluency_therapist/screens/home_screens/reminder_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -19,425 +20,157 @@ class SpeechExercisesScreen extends GetView<SpeechExercisesScreenController> {
       backgroundColor: AppColors.backgroundColor,
       body: SafeArea(
         child: Padding(
-          padding: const EdgeInsets.only(right: 30, left: 30, top: 5),
-          child: SingleChildScrollView(
-            child: Column(
-              children: [
-                Row(
-                  children: [
-                    IconButton(
-                      onPressed: () {
-                        Get.to(const HomeScreen());
-                      },
-                      icon: const Icon(
-                        Icons.arrow_back,
-                        size: 30,
-                      ),
+          padding: const EdgeInsets.only(right: 25, left: 25, top: 25),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              Row(
+                children: [
+                  InkWell(
+                    onTap: () {
+                      Get.to(const HomeScreen());
+                    },
+                    child:  Icon(
+                      Icons.arrow_back,
+                      size: screenWidth*0.10,
                     ),
-                    const Padding(
-                      padding: EdgeInsets.only(top: 10, right: 20, left: 60),
-                      child: Center(
-                        child: Image(
-                            image: AssetImage(logoIcon),
-                            width: 168,
-                            height: 72),
-                      ),
+                  ),
+                   Padding(
+                    padding: const EdgeInsets.only(top: 10, right: 38, left: 38),
+                    child: Center(
+                      child: Image(
+                          image: const AssetImage(logoIcon),
+                        height: screenHeight * 0.075,
+                        width: screenWidth * 0.42,),
                     ),
-                    const Padding(
-                      padding: EdgeInsets.only(left: 80),
-                      child: CircleAvatar(
-                        radius: 22,
-                      ),
-                    ),
+                  ),
+                   CircleAvatar(
+                     radius:screenWidth*0.06,
 
+                   ),
+
+                ],
+              ),
+              Padding(
+                padding: const EdgeInsets.only(right: 50,top: 10,bottom: 5),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                     Text(
+                      "Speech Exercises",
+                      style: Theme.of(context)
+                          .textTheme
+                          .displayLarge!
+                          .copyWith(
+                          fontSize: screenWidth*0.045,
+                          color: AppColors.textColor),
+                    ),
                   ],
                 ),
-                Padding(
-                  padding: const EdgeInsets.only(right: 50,top: 5,bottom: 5),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                       Text(
-                        "Speech Exerciese",
-                        style: Theme.of(context)
-                            .textTheme
-                            .displayLarge!
-                            .copyWith(
-                            fontSize: 20,
-                            color: AppColors.textColor),
-                      ),
-                    ],
-                  ),
-                ),
+              ),
 
-                Padding(
-                  padding: const EdgeInsets.only(top: 15),
-                  child: Container(
-                    width: screenWidth * 0.9,
-                    height: screenHeight * 0.23,
-                    decoration: BoxDecoration(
-                        color: AppColors.secondaryBlue,
-                        borderRadius: BorderRadius.circular(40)),
-                    child: Row(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Column(
-                          children: [
-                            const Padding(
-                              padding: EdgeInsets.only(top: 25, left: 20),
-                              child: Image(
-                                image: AssetImage(parrotImage),
-                                width: 125,
-                                height: 125,
-                              ),
-                            ),
-                            Padding(
-                              padding: const EdgeInsets.only(left: 20, top: 10),
-                              child: SizedBox(
-                                width: 135,
-                                height: 11,
-                                child: ClipRRect(
-                                  borderRadius: const BorderRadius.all(
-                                      Radius.circular(10)),
-                                  child: LinearProgressIndicator(
-                                    value: 0.0,
-                                    valueColor: AlwaysStoppedAnimation<Color>(
-                                        AppColors.primaryBlue),
-                                    backgroundColor: AppColors.textfieldColor,
-                                  ),
-                                ),
-                              ),
-                            ),
-                          ],
-                        ),
-                        Column(children: [
-                          Padding(
-                            padding: const EdgeInsets.only(top: 25, right: 16),
-                            child: Text(
-                              "Learn Slow and\nEasy Speech",
-                              style: Theme.of(context)
-                                  .textTheme
-                                  .displayLarge!
-                                  .copyWith(fontSize: 24),
-                            ),
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.only(top: 8, left: 18),
-                            child: Text(
-                              "The most common technique\nto counter stuttering",
-                              style: Theme.of(context)
-                                  .textTheme
-                                  .headlineSmall!
-                                  .copyWith(
-                                      fontSize: 15,
-                                      color: AppColors.descriptionColor),
-                            ),
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.only(left: 50, top: 10),
-                            child: TextButton(
-                                onPressed: () {
-                                  Get.to(const ReminderScreen());
-                                },
-                                child: Container(
-                                  width: 75,
-                                  height: 33,
-                                  decoration: BoxDecoration(
-                                      color: AppColors.primaryBlue,
-                                      borderRadius: BorderRadius.circular(30)),
-                                  child: Center(
-                                      child: Text(
-                                    "Start",
-                                    style: Theme.of(context)
-                                        .textTheme
-                                        .headlineSmall!
-                                        .copyWith(
-                                            fontSize: 14,
-                                            color: AppColors.whiteColor),
-                                  )),
-                                )),
-                          )
-                        ]),
-                      ],
-                    ),
-                  ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.only(top: 15),
-                  child: Container(
-                    width: screenWidth * 0.9,
-                    height: screenHeight * 0.23,
-                    decoration: BoxDecoration(
-                        color: AppColors.secondaryBlue,
-                        borderRadius: BorderRadius.circular(40)),
-                    child: Row(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Column(
-                          children: [
-                            const Padding(
-                              padding: EdgeInsets.only(top: 25, left: 20),
-                              child: Image(
-                                image: AssetImage(parrotImage),
-                                width: 125,
-                                height: 125,
-                              ),
-                            ),
-                            Padding(
-                              padding: const EdgeInsets.only(left: 20, top: 10),
-                              child: SizedBox(
-                                width: 135,
-                                height: 11,
-                                child: ClipRRect(
-                                  borderRadius: const BorderRadius.all(
-                                      Radius.circular(10)),
-                                  child: LinearProgressIndicator(
-                                    value: 0.0,
-                                    valueColor: AlwaysStoppedAnimation<Color>(
-                                        AppColors.primaryBlue),
-                                    backgroundColor: AppColors.textfieldColor,
-                                  ),
-                                ),
-                              ),
-                            ),
-                          ],
-                        ),
-                        Column(children: [
-                          Padding(
-                            padding: const EdgeInsets.only(top: 25, right: 16),
-                            child: Text(
-                              "Learn Slow and\nEasy Speech",
-                              style: Theme.of(context)
-                                  .textTheme
-                                  .displayLarge!
-                                  .copyWith(fontSize: 24),
-                            ),
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.only(top: 8, left: 18),
-                            child: Text(
-                              "The most common technique\nto counter stuttering",
-                              style: Theme.of(context)
-                                  .textTheme
-                                  .headlineSmall!
-                                  .copyWith(
-                                      fontSize: 15,
-                                      color: AppColors.descriptionColor),
-                            ),
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.only(left: 50, top: 10),
-                            child: TextButton(
-                                onPressed: () {},
-                                child: Container(
-                                  width: 75,
-                                  height: 33,
-                                  decoration: BoxDecoration(
-                                      color: AppColors.primaryBlue,
-                                      borderRadius: BorderRadius.circular(30)),
-                                  child: Center(
-                                      child: Text(
-                                    "Start",
-                                    style: Theme.of(context)
-                                        .textTheme
-                                        .headlineSmall!
-                                        .copyWith(
-                                            fontSize: 14,
-                                            color: AppColors.whiteColor),
-                                  )),
-                                )),
-                          )
-                        ]),
-                      ],
-                    ),
-                  ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.only(top: 15),
-                  child: Container(
-                    width: screenWidth * 0.9,
-                    height: screenHeight * 0.23,
-                    decoration: BoxDecoration(
-                        color: AppColors.secondaryBlue,
-                        borderRadius: BorderRadius.circular(40)),
-                    child: Row(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Column(
-                          children: [
-                            const Padding(
-                              padding: EdgeInsets.only(top: 25, left: 20),
-                              child: Image(
-                                image: AssetImage(parrotImage),
-                                width: 125,
-                                height: 125,
-                              ),
-                            ),
-                            Padding(
-                              padding: const EdgeInsets.only(left: 20, top: 10),
-                              child: SizedBox(
-                                width: 135,
-                                height: 11,
-                                child: ClipRRect(
-                                  borderRadius: const BorderRadius.all(
-                                      Radius.circular(10)),
-                                  child: LinearProgressIndicator(
-                                    value: 0.0,
-                                    valueColor: AlwaysStoppedAnimation<Color>(
-                                        AppColors.primaryBlue),
-                                    backgroundColor: AppColors.textfieldColor,
-                                  ),
-                                ),
-                              ),
-                            ),
-                          ],
-                        ),
-                        Column(children: [
-                          Padding(
-                            padding: const EdgeInsets.only(top: 25, right: 16),
-                            child: Text(
-                              "Learn Slow and\nEasy Speech",
-                              style: Theme.of(context)
-                                  .textTheme
-                                  .displayLarge!
-                                  .copyWith(fontSize: 24),
-                            ),
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.only(top: 8, left: 18),
-                            child: Text(
-                              "The most common technique\nto counter stuttering",
-                              style: Theme.of(context)
-                                  .textTheme
-                                  .headlineSmall!
-                                  .copyWith(
-                                      fontSize: 15,
-                                      color: AppColors.descriptionColor),
-                            ),
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.only(left: 50, top: 10),
-                            child: TextButton(
-                                onPressed: () {},
-                                child: Container(
-                                  width: 75,
-                                  height: 33,
-                                  decoration: BoxDecoration(
-                                      color: AppColors.primaryBlue,
-                                      borderRadius: BorderRadius.circular(30)),
-                                  child: Center(
-                                      child: Text(
-                                    "Start",
-                                    style: Theme.of(context)
-                                        .textTheme
-                                        .headlineSmall!
-                                        .copyWith(
-                                            fontSize: 14,
-                                            color: AppColors.whiteColor),
-                                  )),
-                                )),
-                          )
-                        ]),
-                      ],
-                    ),
-                  ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.only(top: 15, bottom: 10),
-                  child: Container(
-                    width: screenWidth * 0.9,
-                    height: screenHeight * 0.23,
-                    decoration: BoxDecoration(
-                        color: AppColors.secondaryBlue,
-                        borderRadius: BorderRadius.circular(40)),
-                    child: Row(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Column(
-                          children: [
-                            const Padding(
-                              padding: EdgeInsets.only(top: 25, left: 20),
-                              child: Image(
-                                image: AssetImage(parrotImage),
-                                width: 125,
-                                height: 125,
-                              ),
-                            ),
-                            Padding(
-                              padding: const EdgeInsets.only(left: 20, top: 10),
-                              child: SizedBox(
-                                width: 135,
-                                height: 11,
-                                child: ClipRRect(
-                                  borderRadius: const BorderRadius.all(
-                                      Radius.circular(10)),
-                                  child: LinearProgressIndicator(
-                                    value: 0.0,
-                                    valueColor: AlwaysStoppedAnimation<Color>(
-                                        AppColors.primaryBlue),
-                                    backgroundColor: AppColors.textfieldColor,
-                                  ),
-                                ),
-                              ),
-                            ),
-                          ],
-                        ),
-                        Column(children: [
-                          Padding(
-                            padding: const EdgeInsets.only(
-                              top: 25,
-                              right: 16,
-                            ),
-                            child: Text(
-                              "Learn Slow and\nEasy Speech",
-                              style: Theme.of(context)
-                                  .textTheme
-                                  .displayLarge!
-                                  .copyWith(fontSize: 24),
-                            ),
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.only(top: 8, left: 18),
-                            child: Text(
-                              "The most common technique\nto counter stuttering",
-                              style: Theme.of(context)
-                                  .textTheme
-                                  .headlineSmall!
-                                  .copyWith(
-                                      fontSize: 15,
-                                      color: AppColors.descriptionColor),
-                            ),
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.only(left: 50, top: 10),
-                            child: TextButton(
-                                onPressed: () {},
-                                child: Container(
-                                  width: 75,
-                                  height: 33,
-                                  decoration: BoxDecoration(
-                                      color: AppColors.primaryBlue,
-                                      borderRadius: BorderRadius.circular(30)),
-                                  child: Center(
-                                      child: Text(
-                                    "Start",
-                                    style: Theme.of(context)
-                                        .textTheme
-                                        .headlineSmall!
-                                        .copyWith(
-                                            fontSize: 14,
-                                            color: AppColors.whiteColor),
-                                  )),
-                                )),
-                          )
-                        ]),
-                      ],
-                    ),
-                  ),
-                ),
-              ],
-            ),
+             Expanded(
+               child: ListView.builder(
+                   itemCount: 4,
+                   itemBuilder: (BuildContext context, int index) {
+                 return Padding(
+                   padding: const EdgeInsets.only(top: 32),
+                   child: Container(
+                     width: screenWidth * 0.9,
+                     height: screenHeight * 0.23,
+                     decoration: BoxDecoration(
+                         color: AppColors.secondaryBlue,
+                         borderRadius: BorderRadius.circular(35)),
+                     child: Row(
+                       children: [
+                         Column(
+                           children: [
+                             Padding(
+                               padding:
+                               const EdgeInsets.only(left: 15 ),
+                               child: Image(
+                                 image: const AssetImage(parrotImage),
+                                 width: screenWidth * 0.30,
+                                 height: screenHeight * 0.20,
+                               ),
+                             ),
+                             Padding(
+                               padding:  const EdgeInsets.only(left: 30),
+                               child: SizedBox(
+                                 width: screenWidth*0.29,
+                                 height: screenHeight*0.011,
+                                 child: ClipRRect(
+                                   borderRadius:
+                                   const BorderRadius.all(Radius.circular(10)),
+                                   child: LinearProgressIndicator(
+                                     value: 0.3,
+                                     valueColor: AlwaysStoppedAnimation<Color>(
+                                         AppColors.primaryBlue),
+                                     backgroundColor: AppColors.textfieldColor,
+                                   ),
+                                 ),
+                               ),
+                             ),
+                           ],
+                         ),
+                         Column(
+                             crossAxisAlignment: CrossAxisAlignment.start,
+                             children: [
+
+                               Padding(
+                                 padding: const EdgeInsets.only(top: 25, left:5 ),
+                                 child: Text(
+                                   "Learn Slow and\nEasy Speech",
+                                   style: Theme.of(context)
+                                       .textTheme
+                                       .displayLarge!
+                                       .copyWith(fontSize: screenWidth*0.052),
+                                 ),
+                               ),
+                               Padding(
+                                 padding: const EdgeInsets.only(top: 6, left: 5),
+                                 child: Text(
+                                   "The most common technique\nto counter stuttering",
+                                   style: Theme.of(context)
+                                       .textTheme
+                                       .headlineSmall!
+                                       .copyWith(
+                                       fontSize: screenWidth*0.029,
+                                       color: AppColors.descriptionColor),
+                                 ),
+                               ),
+                               Padding(
+                                 padding: const EdgeInsets.only(left: 45, top: 5 ),
+                                 child: TextButton(
+                                     onPressed: () {Get.to(CustomizeProgramFinalScreen());},
+                                     child: Container(
+                                       width: screenWidth*0.19,
+                                       height: screenHeight*0.044,
+                                       decoration: BoxDecoration(
+                                           color: AppColors.primaryBlue,
+                                           borderRadius: BorderRadius.circular(30)),
+                                       child: Center(
+                                           child: Text(
+                                             "Start",
+                                             style: Theme.of(context)
+                                                 .textTheme
+                                                 .headlineSmall!
+                                                 .copyWith(
+                                                 fontSize: screenWidth*0.035,
+                                                 color: AppColors.whiteColor),
+                                           )),
+                                     )),
+                               )
+                             ]),
+                       ],
+                     ),
+                   ),
+                 );
+               }),
+             )
+            ],
           ),
         ),
       ),

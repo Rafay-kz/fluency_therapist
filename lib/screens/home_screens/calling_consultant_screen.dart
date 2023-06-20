@@ -11,50 +11,55 @@ class CallingConsultantScreen
 
   @override
   Widget build(BuildContext context) {
+    final screenWidth = MediaQuery.of(context).size.width;
+    final screenHeight = MediaQuery.of(context).size.height;
     return Scaffold(
       backgroundColor: AppColors.backgroundColor,
       body: SafeArea(
         child: Padding(
           padding: const EdgeInsets.only(top: 25, left: 25, right: 25),
           child: Column(children: [
-            Row(mainAxisAlignment: MainAxisAlignment.center, children: [
-              IconButton(
-                onPressed: () {
-                  Get.back();
-                },
-                icon: const Icon(
-                  Icons.arrow_back,
-                  size: 30,
-                ),
-              ),
-              const Padding(
-                padding: EdgeInsets.only(top: 10, right: 90, left: 90),
-                child: Center(
-                  child: Image(
-                    image: AssetImage(logoIcon),
-                    width: 158,
-                    height: 62,
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                InkWell(
+                  onTap: () {
+                    Get.back();
+                  },
+                  child: Icon(
+                    Icons.arrow_back,
+                    size: screenWidth*0.10,
                   ),
                 ),
-              ),
-              const CircleAvatar(
-                radius: 22,
-              ),
-            ]),
+                Padding(
+                  padding: EdgeInsets.only(top: 10, right: 38, left: 38),
+                  child: Center(
+                    child: Image(
+                      image: AssetImage(logoIcon),
+                      width: screenWidth * 0.42,
+                      height: screenHeight * 0.075,
+                    ),
+                  ),
+                ),
+                CircleAvatar(
+                  radius: screenWidth*0.06,
+                ),
+              ],
+            ),
             Padding(
-              padding: EdgeInsets.only(top: 30),
+              padding: const EdgeInsets.only(top: 30),
               child: Text(
                 "Calling",
                 style: Theme.of(context).textTheme.displayLarge!.copyWith(
-                      fontSize: 20,
-                      color: AppColors.textColor,
-                    ),
+                  fontSize: screenWidth*0.045,
+                  color: AppColors.textColor,
+                ),
               ),
             ),
-            const Padding(
-              padding: EdgeInsets.only(top: 20),
+            Padding(
+              padding: const EdgeInsets.only(top: 20),
               child: CircleAvatar(
-                radius: 80,
+                radius: screenWidth*0.15,
               ),
             ),
             Padding(
@@ -62,76 +67,76 @@ class CallingConsultantScreen
               child: Text(
                 "Dr M Ali\nNizamani",
                 style: Theme.of(context).textTheme.displayLarge!.copyWith(
-                      fontSize: 22,
-                      color: AppColors.textColor,
-                    ),
+                  fontSize: screenWidth*0.055,
+                  color: AppColors.textColor,
+                ),
                 textAlign: TextAlign.center,
               ),
             ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-              Padding(
-                padding: const EdgeInsets.only(top: 270, right: 25),
-                child: Container(
-                    width: 60,
-                    height: 60,
-                    decoration: BoxDecoration(
-                      color: AppColors.secondaryBlue,
-                      borderRadius: BorderRadius.circular(15),
+            Padding(
+              padding:  EdgeInsets.only(top: screenHeight*0.30),
+              child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.only( right: 25),
+                      child: Container(
+                          width: screenWidth*0.16,
+                          height: screenHeight*0.08,
+                          decoration: BoxDecoration(
+                            color: AppColors.secondaryBlue,
+                            borderRadius: BorderRadius.circular(15),
+                          ),
+                          child: Icon(
+                            Icons.mic_off,
+                            size: screenWidth*0.09,
+                            color: AppColors.primaryBlue,
+                          )),
                     ),
-                    child: Icon(
-                      Icons.mic_off,
-                      size: 35,
-                      color: AppColors.primaryBlue,
-                    )),
-              ),
-              Padding(
-                padding: EdgeInsets.only(top: 270, right: 25),
-                child: Container(
-                    width: 60,
-                    height: 60,
-                    decoration: BoxDecoration(
-                      color: AppColors.secondaryBlue,
-                      borderRadius: BorderRadius.circular(15),
+                    Padding(
+                      padding: const EdgeInsets.only(right: 25),
+                      child: Container(
+                          width: screenWidth*0.16,
+                          height: screenHeight*0.08,
+                          decoration: BoxDecoration(
+                            color: AppColors.secondaryBlue,
+                            borderRadius: BorderRadius.circular(15),
+                          ),
+                          child: Icon(
+                            Icons.video_call,
+                            size: screenWidth*0.09,
+                            color: AppColors.primaryBlue,
+                          )),
                     ),
-                    child: Icon(
-                      Icons.video_call,
-                      size: 35,
-                      color: AppColors.primaryBlue,
-                    )),
-              ),
-              Padding(
-                padding: EdgeInsets.only(top: 270, right: 25),
-                child: Container(
-                    width: 60,
-                    height: 60,
-                    decoration: BoxDecoration(
-                      color: AppColors.secondaryBlue,
-                      borderRadius: BorderRadius.circular(15),
+                    Padding(
+                      padding: const EdgeInsets.only( right: 25),
+                      child: Container(
+                          width: screenWidth*0.16,
+                          height: screenHeight*0.08,
+                          decoration: BoxDecoration(
+                            color: AppColors.secondaryBlue,
+                            borderRadius: BorderRadius.circular(15),
+                          ),
+                          child: Icon(
+                            Icons.volume_up_rounded,
+                            size: screenWidth*0.09,
+                            color: AppColors.primaryBlue,
+                          )),
                     ),
-                    child: Icon(
-                      Icons.volume_up_rounded,
-                      size: 35,
-                      color: AppColors.primaryBlue,
-                    )),
-              ),
-              Padding(
-                padding: EdgeInsets.only(top: 270),
-                child: Container(
-                    width: 60,
-                    height: 60,
-                    decoration: BoxDecoration(
-                      color: Colors.red,
-                      borderRadius: BorderRadius.circular(15),
-                    ),
-                    child: Icon(
-                      Icons.call_end,
-                      size: 35,
-                      color: AppColors.whiteColor,
-                    )),
-              ),
-            ]),
+                    Container(
+                        width: screenWidth*0.16,
+                        height: screenHeight*0.08,
+                        decoration: BoxDecoration(
+                          color: Colors.red,
+                          borderRadius: BorderRadius.circular(15),
+                        ),
+                        child: Icon(
+                          Icons.call_end,
+                          size: screenWidth*0.09,
+                          color: AppColors.whiteColor,
+                        )),
+                  ]),
+            ),
           ]),
         ),
       ),
