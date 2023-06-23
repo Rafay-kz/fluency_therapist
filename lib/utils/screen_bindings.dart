@@ -6,6 +6,8 @@ import '../controller/auth_screens_controller/forget_pass_screen_controller.dart
 import '../controller/auth_screens_controller/otp_verification_screen_controller.dart';
 import '../controller/auth_screens_controller/signup_screen_controller.dart';
 import '../controller/auth_screens_controller/splash_screen_controller.dart';
+import '../controller/home_screens_controller/edit_profile_screen_controller.dart';
+import '../controller/home_screens_controller/user_profile_screen_controlller.dart';
 
 //created by Abdul Rafay on 1-5-2023
 
@@ -18,5 +20,7 @@ class ScreenBindings extends Bindings {
     Get.lazyPut(() => ForgetPassScreenController());
     Get.lazyPut(() => OtpVerificationScreenController());
     Get.lazyPut(() => CreateNewPasswordScreenController());
+    Get.lazyPut(() => EditProfileScreenController());
+    Get.lazyPut(() => UserProfileScreenController());
   }
 }

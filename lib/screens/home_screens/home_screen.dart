@@ -1,6 +1,7 @@
 import 'package:fluency_therapist/screens/home_screens/progress_tracking_screen.dart';
 import 'package:fluency_therapist/screens/home_screens/search_screen.dart';
 import 'package:fluency_therapist/screens/home_screens/speech_exercises_screen.dart';
+import 'package:fluency_therapist/screens/home_screens/user_profile_screen.dart';
 import 'package:fluency_therapist/utils/app_colors.dart';
 import 'package:fluency_therapist/utils/app_constants.dart';
 import 'package:flutter/material.dart';
@@ -52,8 +53,13 @@ class HomeScreen extends GetView<HomeScreenController> {
                     ),
                     Padding(
                       padding: const EdgeInsets.only(left: 180),
-                      child: CircleAvatar(
-                        radius: screenWidth * 0.06,
+                      child: GestureDetector(
+                        onTap: () {
+                          Get.to(UserProfileScreen());
+                        },
+                        child: CircleAvatar(
+                          radius: screenWidth * 0.06,
+                        ),
                       ),
                     ),
                   ],
@@ -109,8 +115,7 @@ class HomeScreen extends GetView<HomeScreenController> {
                         Column(
                           children: [
                             Padding(
-                              padding:
-                                  const EdgeInsets.only(left: 15 ),
+                              padding: const EdgeInsets.only(left: 15),
                               child: Image(
                                 image: const AssetImage(parrotImage),
                                 width: screenWidth * 0.30,
@@ -118,13 +123,13 @@ class HomeScreen extends GetView<HomeScreenController> {
                               ),
                             ),
                             Padding(
-                              padding:  const EdgeInsets.only(left: 30),
+                              padding: const EdgeInsets.only(left: 30),
                               child: SizedBox(
-                                width: screenWidth*0.29,
-                                height: screenHeight*0.011,
+                                width: screenWidth * 0.29,
+                                height: screenHeight * 0.011,
                                 child: ClipRRect(
-                                  borderRadius:
-                                      const BorderRadius.all(Radius.circular(10)),
+                                  borderRadius: const BorderRadius.all(
+                                      Radius.circular(10)),
                                   child: LinearProgressIndicator(
                                     value: 0.3,
                                     valueColor: AlwaysStoppedAnimation<Color>(
@@ -137,54 +142,58 @@ class HomeScreen extends GetView<HomeScreenController> {
                           ],
                         ),
                         Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
+                            crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-
-                          Padding(
-                            padding: const EdgeInsets.only(top: 25, left:5 ),
-                            child: Text(
-                              "Learn Slow and\nEasy Speech",
-                              style: Theme.of(context)
-                                  .textTheme
-                                  .displayLarge!
-                                  .copyWith(fontSize: screenWidth*0.052),
-                            ),
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.only(top: 6, left: 5),
-                            child: Text(
-                              "The most common technique\nto counter stuttering",
-                              style: Theme.of(context)
-                                  .textTheme
-                                  .headlineSmall!
-                                  .copyWith(
-                                      fontSize: screenWidth*0.029,
-                                      color: AppColors.descriptionColor),
-                            ),
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.only(left: 45, top: 5 ),
-                            child: TextButton(
-                                onPressed: () {Get.to(SpeechExercisesScreen());},
-                                child: Container(
-                                  width: screenWidth*0.19,
-                                  height: screenHeight*0.044,
-                                  decoration: BoxDecoration(
-                                      color: AppColors.primaryBlue,
-                                      borderRadius: BorderRadius.circular(30)),
-                                  child: Center(
-                                      child: Text(
-                                    "Start",
-                                    style: Theme.of(context)
-                                        .textTheme
-                                        .headlineSmall!
-                                        .copyWith(
-                                            fontSize: screenWidth*0.035,
-                                            color: AppColors.whiteColor),
-                                  )),
-                                )),
-                          )
-                        ]),
+                              Padding(
+                                padding:
+                                    const EdgeInsets.only(top: 25, left: 5),
+                                child: Text(
+                                  "Learn Slow and\nEasy Speech",
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .displayLarge!
+                                      .copyWith(fontSize: screenWidth * 0.052),
+                                ),
+                              ),
+                              Padding(
+                                padding: const EdgeInsets.only(top: 6, left: 5),
+                                child: Text(
+                                  "The most common technique\nto counter stuttering",
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .headlineSmall!
+                                      .copyWith(
+                                          fontSize: screenWidth * 0.029,
+                                          color: AppColors.descriptionColor),
+                                ),
+                              ),
+                              Padding(
+                                padding:
+                                    const EdgeInsets.only(left: 45, top: 5),
+                                child: TextButton(
+                                    onPressed: () {
+                                      Get.to(SpeechExercisesScreen());
+                                    },
+                                    child: Container(
+                                      width: screenWidth * 0.19,
+                                      height: screenHeight * 0.044,
+                                      decoration: BoxDecoration(
+                                          color: AppColors.primaryBlue,
+                                          borderRadius:
+                                              BorderRadius.circular(30)),
+                                      child: Center(
+                                          child: Text(
+                                        "Start",
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .headlineSmall!
+                                            .copyWith(
+                                                fontSize: screenWidth * 0.035,
+                                                color: AppColors.whiteColor),
+                                      )),
+                                    )),
+                              )
+                            ]),
                       ],
                     ),
                   ),
@@ -198,7 +207,7 @@ class HomeScreen extends GetView<HomeScreenController> {
                           style: Theme.of(context)
                               .textTheme
                               .displayLarge!
-                              .copyWith(fontSize: screenWidth*0.045)),
+                              .copyWith(fontSize: screenWidth * 0.045)),
                     ),
                   ],
                 ),
@@ -219,18 +228,18 @@ class HomeScreen extends GetView<HomeScreenController> {
                           padding: const EdgeInsets.all(4.5),
                           child: Column(
                             children: [
-                               Image(
-                                image: const AssetImage(customizedProgramsIcon),
-                                   width: screenWidth*0.16,
-                                   height: screenHeight*0.090
-                              ),
+                              Image(
+                                  image:
+                                      const AssetImage(customizedProgramsIcon),
+                                  width: screenWidth * 0.16,
+                                  height: screenHeight * 0.090),
                               Text(
                                 "Customized\nPrograms",
                                 style: Theme.of(context)
                                     .textTheme
                                     .displayLarge!
                                     .copyWith(
-                                      fontSize: screenWidth*0.035,
+                                      fontSize: screenWidth * 0.035,
                                     ),
                                 textAlign: TextAlign.center,
                               )
@@ -256,18 +265,17 @@ class HomeScreen extends GetView<HomeScreenController> {
                           padding: const EdgeInsets.all(4.5),
                           child: Column(
                             children: [
-                               Image(
-                                image: AssetImage(speechExercisesIcon),
-                                  width: screenWidth*0.11,
-                                  height: screenHeight*0.090
-                              ),
+                              Image(
+                                  image: AssetImage(speechExercisesIcon),
+                                  width: screenWidth * 0.11,
+                                  height: screenHeight * 0.090),
                               Text(
                                 "Speech\nExercises",
                                 style: Theme.of(context)
                                     .textTheme
                                     .displayLarge!
                                     .copyWith(
-                                      fontSize: screenWidth*0.035,
+                                      fontSize: screenWidth * 0.035,
                                     ),
                                 textAlign: TextAlign.center,
                               )
@@ -295,18 +303,17 @@ class HomeScreen extends GetView<HomeScreenController> {
                           padding: const EdgeInsets.all(4.5),
                           child: Column(
                             children: [
-                               Image(
-                                image: AssetImage(progressTrackingIcon),
-                                  width: screenWidth*0.11,
-                                  height: screenHeight*0.090
-                              ),
+                              Image(
+                                  image: AssetImage(progressTrackingIcon),
+                                  width: screenWidth * 0.11,
+                                  height: screenHeight * 0.090),
                               Text(
                                 "Progress\nTracking",
                                 style: Theme.of(context)
                                     .textTheme
                                     .displayLarge!
                                     .copyWith(
-                                      fontSize: screenWidth*0.035,
+                                      fontSize: screenWidth * 0.035,
                                     ),
                                 textAlign: TextAlign.center,
                               )
@@ -332,11 +339,10 @@ class HomeScreen extends GetView<HomeScreenController> {
                           padding: const EdgeInsets.all(4.5),
                           child: Column(
                             children: [
-                               Image(
-                                image: AssetImage(consultingIcon),
-                                width: screenWidth*0.1,
-                                height: screenHeight*0.090
-                              ),
+                              Image(
+                                  image: AssetImage(consultingIcon),
+                                  width: screenWidth * 0.1,
+                                  height: screenHeight * 0.090),
                               Padding(
                                 padding: const EdgeInsets.only(bottom: 8),
                                 child: Text(
@@ -345,7 +351,7 @@ class HomeScreen extends GetView<HomeScreenController> {
                                       .textTheme
                                       .displayLarge!
                                       .copyWith(
-                                        fontSize: screenWidth*0.035,
+                                        fontSize: screenWidth * 0.035,
                                       ),
                                   textAlign: TextAlign.center,
                                 ),

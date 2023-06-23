@@ -29,6 +29,11 @@ const String progressTrackingIcon = 'assets/images/progressTrackingIcon.png';
 const String consultingIcon = 'assets/images/consultingIcon.png';
 const String reminderClockIcon = 'assets/images/reminderClockIcon.png';
 const String reminderBellImage = 'assets/images/reminderBellImage.png';
+const String editlogo = 'assets/images/Editlogo.png';
+const String progresslogo = 'assets/images/Progress.png';
+const String billinglogo = 'assets/images/Billing.png';
+const String privacylogo = 'assets/images/Privacy.png';
+const String logoutlogo = 'assets/images/Logout.png';
 
 
 
