@@ -15,7 +15,7 @@ class ChatWithConsultantScreen extends GetView<ConsultantChatScreenController> {
     final screenHeight = MediaQuery.of(context).size.height;
     return Scaffold(backgroundColor: AppColors.backgroundColor,body:
        SafeArea(
-        child: Padding(padding: EdgeInsets.only(left:25, right:25, top:25),
+        child: Padding(padding: const EdgeInsets.only(left:25, right:25, top:25),
           child: Column(children: [
           Row(
 
@@ -45,7 +45,7 @@ class ChatWithConsultantScreen extends GetView<ConsultantChatScreenController> {
               ),
             ),
             InkWell(
-              onTap: () {Get.to(CallingConsultantScreen());},
+              onTap: () {Get.to(const CallingConsultantScreen());},
               child: Icon(Icons.phone, size: screenWidth*0.065, color: AppColors.primaryBlue,),
             ),
             Padding(
