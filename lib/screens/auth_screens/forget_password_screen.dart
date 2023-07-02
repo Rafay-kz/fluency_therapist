@@ -4,8 +4,7 @@ import 'package:get/get.dart';
 import '../../controller/auth_screens_controller/forget_pass_screen_controller.dart';
 import '../../utils/app_colors.dart';
 import '../../utils/app_constants.dart';
-import '../../utils/widgets/button.dart';
-import 'otp_verification_screen.dart';
+import '../../custom widgets/button.dart';
 
 class ForgetPassScreen extends GetView<ForgetPassScreenController> {
   const ForgetPassScreen({super.key});
@@ -75,7 +74,7 @@ class ForgetPassScreen extends GetView<ForgetPassScreenController> {
                     padding: const EdgeInsets.only(top: 45),
                     child: Button(
                       onPressed: () {
-                        Get.to(const OtpVerificationScreen());
+                        Get.toNamed(kOtpVerificationScreen);
                       },
                       text: "Send Code",
                     ))

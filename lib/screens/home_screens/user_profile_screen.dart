@@ -2,10 +2,11 @@ import 'package:fluency_therapist/screens/home_screens/edit_profile_screen.dart'
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-import '../../controller/home_screens_controller/user_profile_screen_controlller.dart';
+import '../../controller/home_screens_controller/user_profile_screen_controller.dart';
 import '../../utils/app_colors.dart';
 import '../../utils/app_constants.dart';
-import '../../utils/widgets/button.dart';
+import '../../custom widgets/button.dart';
+
 
 class UserProfileScreen extends GetView<UserProfileScreenController> {
   const UserProfileScreen({super.key});
@@ -18,7 +19,7 @@ class UserProfileScreen extends GetView<UserProfileScreenController> {
       backgroundColor: AppColors.backgroundColor,
       body: SafeArea(
         child: Padding(
-          padding: const EdgeInsets.only(top: 20, left: 25, right: 25),
+          padding: const EdgeInsets.only(top: 25, left: 25, right: 25),
           child: Column(children: [
             Row(
               mainAxisAlignment: MainAxisAlignment.start,
@@ -35,13 +36,13 @@ class UserProfileScreen extends GetView<UserProfileScreenController> {
               ],
             ),
             Padding(
-              padding: const EdgeInsets.only(top: 15),
+              padding: const EdgeInsets.only(top: 10),
               child: CircleAvatar(
-                radius: screenWidth * 0.20,
+                radius: screenWidth * 0.15,
               ),
             ),
             Padding(
-              padding: const EdgeInsets.only(top: 20, bottom: 15),
+              padding: const EdgeInsets.only(top: 20, bottom: 5),
               child: Text(
                 "Dr M Ali Nizamani",
                 style: Theme.of(context).textTheme.displayLarge!.copyWith(
@@ -50,212 +51,255 @@ class UserProfileScreen extends GetView<UserProfileScreenController> {
                     ),
               ),
             ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.start,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                Padding(
-                  padding: const EdgeInsets.only(top: 20, bottom: 10),
-                  child: Image(
-                    image: const AssetImage(editlogo),
-                    width: screenWidth * 0.10,
-                    height: screenHeight * 0.05,
+            InkWell(
+              onTap: () {Get.toNamed(kEditProfileScreen);},
+              child: Row(
+                children: [
+                  Column(
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.only(top: 20),
+                        child: Image(
+                          image: const AssetImage(editProfileIcon),
+                          width: screenWidth * 0.075,
+                          height: screenHeight * 0.075,
+                        ),
+                      ),
+                    ],
                   ),
-                ),
-                Column(
-                  children: [
-                    Padding(
-                      padding: const EdgeInsets.only(right: 85),
-                      child: GestureDetector(
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      InkWell(
                         onTap: () {
                           Get.to(const EditProfileScreen());
                         },
+                        child: Padding(
+                          padding: const EdgeInsets.only(left: 15, top: 16),
+                          child: Text(
+                            "Edit Profile",
+                            style: Theme.of(context)
+                                .textTheme
+                                .displayLarge!
+                                .copyWith(
+                                  fontSize: screenWidth * 0.038,
+                                  color: AppColors.textColor,
+                                ),
+                          ),
+                        ),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.only(left: 15),
                         child: Text(
-                          "Edit Profile",
+                          'Name, photo, email etc. ',
+                          style: Theme.of(context)
+                              .textTheme
+                              .headlineSmall!
+                              .copyWith(
+                                  fontSize: screenWidth * 0.030,
+                                  color: AppColors.descriptionColor),
+                        ),
+                      ),
+                    ],
+                  )
+                ],
+              ),
+            ),
+            SizedBox(
+              width: screenWidth * 0.9,
+              child: Divider(
+                color: AppColors.textHintColor,
+              ),
+            ),Row(
+              children: [
+                Column(
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.only(top: 20),
+                      child: Icon(
+                          Icons.messenger_outline_sharp,
+                          size:  screenWidth * 0.078,
+                          color: AppColors.primaryBlue
+
+                      ),
+                    ),
+                  ],
+                ),
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    GestureDetector(
+                      onTap: () {
+                        Get.toNamed(kInboxScreen);
+                      },
+                      child: Padding(
+                        padding: const EdgeInsets.only(left: 15, top: 16),
+                        child: Text(
+                          "Inbox",
                           style: Theme.of(context)
                               .textTheme
                               .displayLarge!
                               .copyWith(
-                                fontSize: screenWidth * 0.040,
+                            fontSize: screenWidth * 0.038,
+                            color: AppColors.textColor,
+                          ),
+                        ),
+                      ),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.only(left: 15),
+                      child: Text(
+                        'Conversations with Consultants ',
+                        style: Theme.of(context)
+                            .textTheme
+                            .headlineSmall!
+                            .copyWith(
+                            fontSize: screenWidth * 0.030,
+                            color: AppColors.descriptionColor),
+                      ),
+                    ),
+                  ],
+                )
+              ],
+            ),
+            SizedBox(
+              width: screenWidth * 0.95,
+              child: Padding(
+                padding: const EdgeInsets.only(top: 10),
+                child: Divider(
+                  color: AppColors.textHintColor,
+                ),
+              ),
+            ),
+
+            Row(
+              children: [
+                Column(
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.only(top: 15),
+                      child: Image(
+                        image: const AssetImage(billingDetailsIcon),
+                        width: screenWidth * 0.075,
+                        height: screenHeight * 0.075,
+                      ),
+                    ),
+                  ],
+                ),
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    GestureDetector(
+                      onTap: () {
+                        Get.toNamed(kEditProfileScreen);
+                      },
+                      child: Padding(
+                        padding: const EdgeInsets.only(left: 15, top: 16),
+                        child: Text(
+                          "Billing Details",
+                          style: Theme.of(context)
+                              .textTheme
+                              .displayLarge!
+                              .copyWith(
+                                fontSize: screenWidth * 0.038,
                                 color: AppColors.textColor,
                               ),
                         ),
                       ),
                     ),
-                    Text(
-                      'Name, photo, email etc. ',
-                      style: Theme.of(context).textTheme.headlineSmall,
-                    ),
-                  ],
-                )
-              ],
-            ),
-            Row(
-              children: [
-                Flexible(
-                  child: SizedBox(
-                    width: 500,
-                    child: Divider(
-                      color: AppColors.descriptionColor,
-                      thickness: 1,
-                    ),
-                  ),
-                ),
-              ],
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.start,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                Padding(
-                  padding: const EdgeInsets.only(top: 20, bottom: 10, left: 5),
-                  child: Image(
-                    image: const AssetImage(progresslogo),
-                    width: screenWidth * 0.05,
-                    height: screenHeight * 0.05,
-                  ),
-                ),
-                Column(
-                  children: [
                     Padding(
-                      padding: const EdgeInsets.only(right: 85, left: 20),
+                      padding: const EdgeInsets.only(left: 15),
                       child: Text(
-                        "Progress Tracking",
-                        style:
-                            Theme.of(context).textTheme.displayLarge!.copyWith(
-                                  fontSize: screenWidth * 0.040,
-                                  color: AppColors.textColor,
-                                ),
-                      ),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.only(right: 20),
-                      child: Text(
-                        'Exercise progress, tracking',
-                        style: Theme.of(context).textTheme.headlineSmall,
+                        'Payment and billing details',
+                        style: Theme.of(context)
+                            .textTheme
+                            .headlineSmall!
+                            .copyWith(
+                                fontSize: screenWidth * 0.030,
+                                color: AppColors.descriptionColor),
                       ),
                     ),
                   ],
                 )
               ],
             ),
-            Row(
-              children: [
-                Flexible(
-                  child: SizedBox(
-                    width: 500,
-                    child: Divider(
-                      color: AppColors.descriptionColor,
-                      thickness: 1,
-                    ),
-                  ),
-                ),
-              ],
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.start,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                Padding(
-                  padding: const EdgeInsets.only(top: 20, bottom: 10),
-                  child: Image(
-                    image: const AssetImage(billinglogo),
-                    width: screenWidth * 0.10,
-                    height: screenHeight * 0.05,
-                  ),
-                ),
-                Column(
-                  children: [
-                    Padding(
-                      padding: const EdgeInsets.only(right: 85),
-                      child: Text(
-                        "Billing Details",
-                        style:
-                            Theme.of(context).textTheme.displayLarge!.copyWith(
-                                  fontSize: screenWidth * 0.040,
-                                  color: AppColors.textColor,
-                                ),
+            SizedBox(
+              width: screenWidth * 0.9,
+              child: Divider(
+                color: AppColors.textHintColor,
+              ),
+            ),InkWell(
+              onTap: () {
+                Get.toNamed(kProgressTrackingScreen);
+              },
+              child: Row(
+                children: [
+                  Column(
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.only(top: 20),
+                        child: Image(
+                            image: const AssetImage(progressIcon),
+                            width: screenWidth * 0.075,
+                            height: screenHeight *0.045
+                        ),
                       ),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.only(left: 5),
-                      child: Text(
-                        'Payment and billing details ',
-                        style: Theme.of(context).textTheme.headlineSmall,
-                      ),
-                    ),
-                  ],
-                )
-              ],
-            ),
-            Row(
-              children: [
-                Flexible(
-                  child: SizedBox(
-                    width: 500,
-                    child: Divider(
-                      color: AppColors.descriptionColor,
-                      thickness: 1,
-                    ),
+                    ],
                   ),
-                ),
-              ],
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.start,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                Padding(
-                  padding: const EdgeInsets.only(top: 20, bottom: 10),
-                  child: Image(
-                    image: const AssetImage(privacylogo),
-                    width: screenWidth * 0.10,
-                    height: screenHeight * 0.05,
-                  ),
-                ),
-                Column(
-                  children: [
-                    Padding(
-                      padding: const EdgeInsets.only(right: 85),
-                      child: Text(
-                        "Privacy Policy",
-                        style:
-                            Theme.of(context).textTheme.displayLarge!.copyWith(
-                                  fontSize: screenWidth * 0.040,
-                                  color: AppColors.textColor,
-                                ),
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      GestureDetector(
+                        onTap: () {
+                          Get.toNamed(kEditProfileScreen);
+                        },
+                        child: Padding(
+                          padding: const EdgeInsets.only(left: 15, top: 25),
+                          child: Text(
+                            "Progress Tracking",
+                            style: Theme.of(context)
+                                .textTheme
+                                .displayLarge!
+                                .copyWith(
+                              fontSize: screenWidth * 0.038,
+                              color: AppColors.textColor,
+                            ),
+                          ),
+                        ),
                       ),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.only(
-                        right: 50,
+                      Padding(
+                        padding: const EdgeInsets.only(left: 15),
+                        child: Text(
+                          'Exercise progress and tracking ',
+                          style: Theme.of(context)
+                              .textTheme
+                              .headlineSmall!
+                              .copyWith(
+                              fontSize: screenWidth * 0.030,
+                              color: AppColors.descriptionColor),
+                        ),
                       ),
-                      child: Text(
-                        'Privacy and policies ',
-                        style: Theme.of(context).textTheme.headlineSmall,
-                      ),
-                    ),
-                  ],
-                )
-              ],
-            ),
-            Row(
-              children: [
-                Flexible(
-                  child: SizedBox(
-                    width: 500,
-                    child: Divider(
-                      color: AppColors.descriptionColor,
-                      thickness: 1,
-                    ),
-                  ),
-                ),
-              ],
+                    ],
+                  )
+                ],
+              ),
             ),
             Padding(
-              padding: const EdgeInsets.only(top: 40),
-              child: Button(onPressed: () {}, text: "Logout"),
+              padding: const EdgeInsets.only(top: 10),
+              child: SizedBox(
+                width: screenWidth * 0.95,
+                child: Divider(
+                  color: AppColors.textHintColor,
+                ),
+              ),
             ),
+
+            Padding(
+              padding: const EdgeInsets.only(top: 25),
+              child: Button(onPressed: () {
+                Get.toNamed(kLoginScreen);
+              }, text: "Logout"),
+            )
           ]),
         ),
       ),

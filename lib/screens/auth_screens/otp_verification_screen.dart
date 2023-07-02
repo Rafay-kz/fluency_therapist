@@ -4,8 +4,7 @@ import 'package:get/get.dart';
 import '../../controller/auth_screens_controller/otp_verification_screen_controller.dart';
 import '../../utils/app_colors.dart';
 import '../../utils/app_constants.dart';
-import '../../utils/widgets/button.dart';
-import 'create_new_password_screen.dart';
+import '../../custom widgets/button.dart';
 
 class OtpVerificationScreen extends GetView<OtpVerificationScreenController> {
   const OtpVerificationScreen({super.key});
@@ -75,7 +74,7 @@ class OtpVerificationScreen extends GetView<OtpVerificationScreenController> {
                     padding: const EdgeInsets.only(top: 40),
                     child: Button(
                       onPressed: () {
-                        Get.to(const CreateNewPasswordScreen());
+                        Get.toNamed(kCreateNewPasswordScreen);
                       },
                       text: "Verify",
                     ))

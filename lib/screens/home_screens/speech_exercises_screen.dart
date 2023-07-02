@@ -1,6 +1,4 @@
-import 'package:fluency_therapist/controller/home_screens_controller/speech_exercises_screen_contoller.dart';
-import 'package:fluency_therapist/screens/home_screens/customize_program_final_Screen.dart';
-import 'package:fluency_therapist/screens/home_screens/reminder_screen.dart';
+import 'package:fluency_therapist/controller/home_screens_controller/speech_exercises_screen_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -45,9 +43,14 @@ class SpeechExercisesScreen extends GetView<SpeechExercisesScreenController> {
                         width: screenWidth * 0.42,),
                     ),
                   ),
-                   CircleAvatar(
-                     radius:screenWidth*0.06,
+                   InkWell(
+                     onTap: () {
+                       Get.toNamed(kUserProfileScreen);
+                     },
+                     child: CircleAvatar(
+                       radius:screenWidth*0.06,
 
+                     ),
                    ),
 
                 ],
@@ -144,7 +147,8 @@ class SpeechExercisesScreen extends GetView<SpeechExercisesScreenController> {
                                Padding(
                                  padding: const EdgeInsets.only(left: 45, top: 5 ),
                                  child: TextButton(
-                                     onPressed: () {Get.to(CustomizeProgramFinalScreen());},
+                                     onPressed: () {
+                                       Get.toNamed(kCustomizeProgramFinalScreen);},
                                      child: Container(
                                        width: screenWidth*0.19,
                                        height: screenHeight*0.044,

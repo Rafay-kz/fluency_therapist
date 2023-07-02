@@ -1,24 +1,23 @@
-import 'package:fluency_therapist/controller/home_screens_controller/calling_consultant_screen_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
+import '../../controller/home_screens_controller/video_call_screen_controller.dart';
 import '../../utils/app_colors.dart';
 import '../../utils/app_constants.dart';
 
-class CallingConsultantScreen
-    extends GetView<CallingConsultantScreenController> {
-  const CallingConsultantScreen({super.key});
+class VideoCallScreen extends GetView<VideoCallScreenController> {
+  const VideoCallScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
     final screenWidth = MediaQuery.of(context).size.width;
     final screenHeight = MediaQuery.of(context).size.height;
-    return Scaffold(
+    return  Scaffold(
       backgroundColor: AppColors.backgroundColor,
       body: SafeArea(
-        child: Padding(
-          padding: const EdgeInsets.only(top: 25, left: 25, right: 25),
-          child: SingleChildScrollView(
+        child: SingleChildScrollView(
+          child: Padding(
+            padding: const EdgeInsets.only(top: 25, left: 25, right: 25),
             child: Column(children: [
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
@@ -50,7 +49,7 @@ class CallingConsultantScreen
               Padding(
                 padding: const EdgeInsets.only(top: 30),
                 child: Text(
-                  "Calling",
+                  "Connected",
                   style: Theme.of(context).textTheme.displayLarge!.copyWith(
                     fontSize: screenWidth*0.045,
                     color: AppColors.textColor,
@@ -58,13 +57,30 @@ class CallingConsultantScreen
                 ),
               ),
               Padding(
-                padding: const EdgeInsets.only(top: 20),
-                child: CircleAvatar(
-                  radius: screenWidth*0.15,
+                padding: const EdgeInsets.only(top: 10),
+                child: Text(
+                  "01:00",
+                  style: Theme.of(context).textTheme.displayLarge!.copyWith(
+                    fontSize: screenWidth*0.045,
+                    color: AppColors.textColor,
+                  ),
                 ),
               ),
               Padding(
-                padding: const EdgeInsets.only(top: 25),
+                padding: EdgeInsets.only(top: 20),
+                child: Container(
+                  height: screenHeight*0.45,
+                  width: screenWidth*0.9,
+                  decoration: BoxDecoration(
+                    image: DecorationImage(
+                      image: NetworkImage('https://s2.dmcdn.net/v/SAnRj1Vo1k1scKler/x1080'),
+                      fit: BoxFit.cover,
+                    ),
+                  ),
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.only(top: 15),
                 child: Text(
                   "Dr M Ali\nNizamani",
                   style: Theme.of(context).textTheme.displayLarge!.copyWith(
@@ -75,7 +91,7 @@ class CallingConsultantScreen
                 ),
               ),
               Padding(
-                padding:  EdgeInsets.only(top: screenHeight*0.30),
+                padding:  EdgeInsets.only(top: screenHeight*0.040),
                 child: Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
