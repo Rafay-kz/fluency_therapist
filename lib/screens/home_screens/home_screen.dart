@@ -10,8 +10,6 @@ class HomeScreen extends GetView<HomeScreenController> {
 
   @override
   Widget build(BuildContext context) {
-    final screenWidth = MediaQuery.of(context).size.width;
-    final screenHeight = MediaQuery.of(context).size.height;
     return Scaffold(
       backgroundColor: AppColors.backgroundColor,
       body: SingleChildScrollView(
@@ -30,7 +28,7 @@ class HomeScreen extends GetView<HomeScreenController> {
                               .textTheme
                               .headlineSmall!
                               .copyWith(
-                                  fontSize: screenWidth * 0.055,
+                                  fontSize: Get.width * 0.055,
                                   color: AppColors.primaryBlue),
                           children: [
                             const TextSpan(text: "Hello,"),
@@ -40,7 +38,7 @@ class HomeScreen extends GetView<HomeScreenController> {
                                   .textTheme
                                   .displayLarge!
                                   .copyWith(
-                                      fontSize: screenWidth * 0.060,
+                                      fontSize: Get.width * 0.060,
                                       color: AppColors.textColor),
                             )
                           ]),
@@ -52,7 +50,7 @@ class HomeScreen extends GetView<HomeScreenController> {
                           Get.toNamed(kUserProfileScreen);
                         },
                         child: CircleAvatar(
-                          radius: screenWidth * 0.06,
+                          radius: Get.width * 0.06,
                         ),
                       ),
                     ),
@@ -62,8 +60,8 @@ class HomeScreen extends GetView<HomeScreenController> {
                   padding: const EdgeInsets.only(top: 30),
                   child: Center(
                     child: SizedBox(
-                      width: screenWidth * 0.9,
-                      height: screenHeight * 0.076,
+                      width: Get.width * 0.9,
+                      height: Get.height * 0.076,
                       child: TextField(
                         decoration: InputDecoration(
                           fillColor: AppColors.textfieldColor,
@@ -73,7 +71,7 @@ class HomeScreen extends GetView<HomeScreenController> {
                               .textTheme
                               .headlineSmall!
                               .copyWith(
-                                  fontSize: screenWidth * 0.042,
+                                  fontSize: Get.width * 0.042,
                                   color: AppColors.textHintColor),
                           border: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(30),
@@ -87,7 +85,7 @@ class HomeScreen extends GetView<HomeScreenController> {
                                     const EdgeInsets.only(left: 20, right: 10),
                                 child: Icon(
                                   Icons.search_sharp,
-                                  size: screenWidth * 0.085,
+                                  size: Get.width * 0.085,
                                   color: AppColors.textHintColor,
                                 )),
                           ),
@@ -99,264 +97,166 @@ class HomeScreen extends GetView<HomeScreenController> {
                 Padding(
                   padding: const EdgeInsets.only(top: 32),
                   child: Container(
-                    width: screenWidth * 0.9,
-                    height: screenHeight * 0.23,
+                    width: Get.width,
+                    padding: const EdgeInsets.symmetric(vertical: 10,horizontal: 8),
                     decoration: BoxDecoration(
                         color: AppColors.secondaryBlue,
-                        borderRadius: BorderRadius.circular(35)),
+                        borderRadius: BorderRadius.circular(30)),
                     child: Row(
                       children: [
-                        Column(
-                          children: [
-                            Padding(
-                              padding: const EdgeInsets.only(left: 15),
-                              child: Image(
-                                image: const AssetImage(parrotImage),
-                                width: screenWidth * 0.30,
-                                height: screenHeight * 0.20,
+                        Expanded(
+                          child: Column(
+                            children: [
+                              Padding(
+                                padding: const EdgeInsets.only(left: 15),
+                                child: Image(
+                                  image: const AssetImage(parrotImage),
+                                  width: Get.width * 0.30,
+                                  height: Get.height * 0.20,
+                                ),
                               ),
-                            ),
-                            Padding(
-                              padding: const EdgeInsets.only(left: 30),
-                              child: SizedBox(
-                                width: screenWidth * 0.29,
-                                height: screenHeight * 0.011,
-                                child: ClipRRect(
-                                  borderRadius: const BorderRadius.all(
-                                      Radius.circular(10)),
-                                  child: LinearProgressIndicator(
-                                    value: 0.3,
-                                    valueColor: AlwaysStoppedAnimation<Color>(
-                                        AppColors.primaryBlue),
-                                    backgroundColor: AppColors.textfieldColor,
+                              Padding(
+                                padding: const EdgeInsets.only(left: 30),
+                                child: SizedBox(
+                                  width: Get.width * 0.29,
+                                  height: Get.height * 0.011,
+                                  child: ClipRRect(
+                                    borderRadius: const BorderRadius.all(
+                                        Radius.circular(10)),
+                                    child: LinearProgressIndicator(
+                                      value: 0.3,
+                                      valueColor: AlwaysStoppedAnimation<Color>(
+                                          AppColors.primaryBlue),
+                                      backgroundColor: AppColors.textfieldColor,
+                                    ),
                                   ),
                                 ),
                               ),
-                            ),
-                          ],
+                            ],
+                          ),
                         ),
-                        Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Padding(
-                                padding:
-                                    const EdgeInsets.only(top: 25, left: 5),
-                                child: Text(
-                                  "Learn Slow and\nEasy Speech",
-                                  style: Theme.of(context)
-                                      .textTheme
-                                      .displayLarge!
-                                      .copyWith(fontSize: screenWidth * 0.052),
+                        Expanded(
+                          child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Padding(
+                                  padding:
+                                      const EdgeInsets.only(top: 25, left: 5),
+                                  child: Text(
+                                    "Learn Slow and\nEasy Speech",
+                                    style: Theme.of(context)
+                                        .textTheme
+                                        .displayLarge!
+                                        .copyWith(fontSize: Get.width * 0.052),
+                                  ),
                                 ),
-                              ),
-                              Padding(
-                                padding: const EdgeInsets.only(top: 6, left: 5),
-                                child: Text(
-                                  "The most common technique\nto counter stuttering",
-                                  style: Theme.of(context)
-                                      .textTheme
-                                      .headlineSmall!
-                                      .copyWith(
-                                          fontSize: screenWidth * 0.029,
-                                          color: AppColors.descriptionColor),
+                                Padding(
+                                  padding: const EdgeInsets.only(top: 6, left: 5),
+                                  child: Text(
+                                    "The most common technique\nto counter stuttering",
+                                    style: Theme.of(context)
+                                        .textTheme
+                                        .headlineSmall!
+                                        .copyWith(
+                                            fontSize: Get.width * 0.029,
+                                            color: AppColors.descriptionColor),
+                                  ),
                                 ),
-                              ),
-                              Padding(
-                                padding:
-                                    const EdgeInsets.only(left: 45, top: 5),
-                                child: TextButton(
-                                    onPressed: () {
-                                      Get.toNamed(kSpeechExercisesScreen);
-                                    },
-                                    child: Container(
-                                      width: screenWidth * 0.19,
-                                      height: screenHeight * 0.044,
-                                      decoration: BoxDecoration(
-                                          color: AppColors.primaryBlue,
-                                          borderRadius:
-                                              BorderRadius.circular(30)),
-                                      child: Center(
-                                          child: Text(
-                                        "Start",
-                                        style: Theme.of(context)
-                                            .textTheme
-                                            .headlineSmall!
-                                            .copyWith(
-                                                fontSize: screenWidth * 0.035,
-                                                color: AppColors.whiteColor),
+                                Padding(
+                                  padding:
+                                      const EdgeInsets.only(left: 45, top: 5),
+                                  child: TextButton(
+                                      onPressed: () {
+                                        Get.toNamed(kSpeechExercisesScreen);
+                                      },
+                                      child: Container(
+                                        decoration: BoxDecoration(
+                                            color: AppColors.primaryBlue,
+                                            borderRadius:
+                                                BorderRadius.circular(30)),
+                                        padding: const EdgeInsets.symmetric(vertical: 10,horizontal: 7),
+                                        child: Center(
+                                            child: Text(
+                                          "Start",
+                                          textAlign: TextAlign.center,
+                                          style: Theme.of(context)
+                                              .textTheme
+                                              .headlineSmall!
+                                              .copyWith(
+                                                  fontSize: Get.width * 0.035,
+                                                  color: AppColors.whiteColor),
+                                        )),
                                       )),
-                                    )),
-                              )
-                            ]),
+                                )
+                              ]),
+                        ),
                       ],
                     ),
                   ),
                 ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  children: [
-                    Padding(
-                      padding: const EdgeInsets.only(top: 13, left: 2),
-                      child: Text("Services",
-                          style: Theme.of(context)
-                              .textTheme
-                              .displayLarge!
-                              .copyWith(fontSize: screenWidth * 0.045)),
-                    ),
-                  ],
+                Align(
+                  alignment: Alignment.topLeft,
+                  child: Padding(
+                    padding: const EdgeInsets.only(top: 13, left: 2),
+                    child: Text("Services",
+                        style: Theme.of(context)
+                            .textTheme
+                            .displayLarge!
+                            .copyWith(fontSize: Get.width * 0.045)),
+                  ),
                 ),
-                Row(children: [
-                  Padding(
-                    padding: const EdgeInsets.only(right: 15, top: 20),
-                    child: GestureDetector(
-                      onTap: () {
-                        Get.toNamed(kCustomizedProgramScreen);
-                      },
-                      child: Container(
-                        width: screenWidth * 0.38,
-                        height: screenHeight * 0.16,
-                        decoration: BoxDecoration(
-                            color: AppColors.secondaryBlue,
-                            borderRadius: BorderRadius.circular(30)),
-                        child: Padding(
-                          padding: const EdgeInsets.all(4.5),
-                          child: Column(
-                            children: [
-                              Image(
-                                  image:
-                                      const AssetImage(customizedProgramsIcon),
-                                  width: screenWidth * 0.16,
-                                  height: screenHeight * 0.090),
-                              Text(
-                                "Customized\nPrograms",
-                                style: Theme.of(context)
-                                    .textTheme
-                                    .displayLarge!
-                                    .copyWith(
-                                      fontSize: screenWidth * 0.035,
-                                    ),
-                                textAlign: TextAlign.center,
-                              )
-                            ],
-                          ),
-                        ),
-                      ),
-                    ),
+                Padding(
+                  padding: const EdgeInsets.symmetric(vertical: 20),
+                  child: Row(
+                      children: [
+                        cardWidget(context: context, title: "Customized\nPrograms", image: customizedProgramsIcon, routeName: kCustomizedProgramScreen),
+                    const SizedBox(width: 20,),
+                        cardWidget(context: context, title: "Speech\nExercises", image: speechExercisesIcon,routeName: kSpeechExercisesScreen,),
+                  ]),
+                ),
+                Row(
+                    children: [
+                      cardWidget(context: context, title: "Progress\nTracking", image: progressTrackingIcon, routeName: kProgressTrackingScreen,),
+                      const SizedBox(width: 20,),
+                      cardWidget(context: context, title: "Consult\nTherapist", image: consultingIcon, routeName: kConsultTherapistScreen),
+                    ]),
+              ],
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+
+  Widget cardWidget({required BuildContext context,required String title, required String image,required String routeName}){
+    return  Expanded(
+      child: GestureDetector(
+        onTap: (){
+          Get.toNamed(routeName);
+        },
+        child: Container(
+          decoration: BoxDecoration(
+              color: AppColors.secondaryBlue,
+              borderRadius: BorderRadius.circular(30)),
+          child: Padding(
+            padding:  const EdgeInsets.symmetric(horizontal: 4.5,vertical: 10),
+            child: Column(
+              children: [
+                Image(
+                    image:
+                   AssetImage(image),
+                    width: Get.width * 0.16,
+                    height: Get.height * 0.090),
+                Text(
+                  title,
+                  style: Theme.of(context)
+                      .textTheme
+                      .displayLarge!
+                      .copyWith(
+                    fontSize: Get.width * 0.035,
                   ),
-                  Padding(
-                    padding: const EdgeInsets.only(left: 15, top: 20),
-                    child: GestureDetector(
-                      onTap: () {
-                        Get.toNamed(kSpeechExercisesScreen);
-                      },
-                      child: Container(
-                        width: screenWidth * 0.38,
-                        height: screenHeight * 0.16,
-                        decoration: BoxDecoration(
-                            color: AppColors.secondaryBlue,
-                            borderRadius: BorderRadius.circular(30)),
-                        child: Padding(
-                          padding: const EdgeInsets.all(4.5),
-                          child: Column(
-                            children: [
-                              Image(
-                                  image: const AssetImage(speechExercisesIcon),
-                                  width: screenWidth * 0.11,
-                                  height: screenHeight * 0.090),
-                              Text(
-                                "Speech\nExercises",
-                                style: Theme.of(context)
-                                    .textTheme
-                                    .displayLarge!
-                                    .copyWith(
-                                      fontSize: screenWidth * 0.035,
-                                    ),
-                                textAlign: TextAlign.center,
-                              )
-                            ],
-                          ),
-                        ),
-                      ),
-                    ),
-                  ),
-                ]),
-                Row(children: [
-                  Padding(
-                    padding: const EdgeInsets.only(right: 15, top: 25),
-                    child: InkWell(
-                      onTap: () {
-                        Get.toNamed(kProgressTrackingScreen);
-                      },
-                      child: Container(
-                        width: screenWidth * 0.38,
-                        height: screenHeight * 0.16,
-                        decoration: BoxDecoration(
-                            color: AppColors.secondaryBlue,
-                            borderRadius: BorderRadius.circular(30)),
-                        child: Padding(
-                          padding: const EdgeInsets.all(4.5),
-                          child: Column(
-                            children: [
-                              Image(
-                                  image: const AssetImage(progressTrackingIcon),
-                                  width: screenWidth * 0.11,
-                                  height: screenHeight * 0.090),
-                              Text(
-                                "Progress\nTracking",
-                                style: Theme.of(context)
-                                    .textTheme
-                                    .displayLarge!
-                                    .copyWith(
-                                      fontSize: screenWidth * 0.035,
-                                    ),
-                                textAlign: TextAlign.center,
-                              )
-                            ],
-                          ),
-                        ),
-                      ),
-                    ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.only(left: 15, top: 25),
-                    child: InkWell(
-                      onTap: () {
-                        Get.toNamed(kConsultTherapistScreen);
-                      },
-                      child: Container(
-                        width: screenWidth * 0.38,
-                        height: screenHeight * 0.16,
-                        decoration: BoxDecoration(
-                            color: AppColors.secondaryBlue,
-                            borderRadius: BorderRadius.circular(30)),
-                        child: Padding(
-                          padding: const EdgeInsets.all(4.5),
-                          child: Column(
-                            children: [
-                              Image(
-                                  image: const AssetImage(consultingIcon),
-                                  width: screenWidth * 0.1,
-                                  height: screenHeight * 0.090),
-                              Padding(
-                                padding: const EdgeInsets.only(bottom: 8),
-                                child: Text(
-                                  "Consult\nTherapist",
-                                  style: Theme.of(context)
-                                      .textTheme
-                                      .displayLarge!
-                                      .copyWith(
-                                        fontSize: screenWidth * 0.035,
-                                      ),
-                                  textAlign: TextAlign.center,
-                                ),
-                              )
-                            ],
-                          ),
-                        ),
-                      ),
-                    ),
-                  ),
-                ]),
+                  textAlign: TextAlign.center,
+                )
               ],
             ),
           ),
