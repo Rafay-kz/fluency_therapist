@@ -1,14 +1,11 @@
 import 'package:fluency_therapist/controller/home_screens_controller/consultant_profile_screen_controller.dart';
-import 'package:fluency_therapist/screens/home_screens/chat_with_consultant_screen.dart';
-import 'package:fluency_therapist/screens/home_screens/ongoing_call_screen.dart';
-import 'package:fluency_therapist/utils/widgets/button.dart';
+import '../../custom widgets/button.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../../utils/app_colors.dart';
 import '../../utils/app_constants.dart';
-import 'calling_consultant_screen.dart';
-import 'consultant_calling_screen.dart';
+
 
 class ConsultantProfileScreen
     extends GetView<ConsultantProfileScreenController> {
@@ -38,10 +35,10 @@ class ConsultantProfileScreen
                     ),
                   ),
                   Padding(
-                    padding: EdgeInsets.only(top: 10, right: 38, left: 38),
+                    padding: const EdgeInsets.only(top: 10, right: 38, left: 38),
                     child: Center(
                       child: Image(
-                        image: AssetImage(logoIcon),
+                        image: const AssetImage(logoIcon),
                         width: screenWidth * 0.42,
                         height: screenHeight * 0.075,
                       ),
@@ -53,7 +50,7 @@ class ConsultantProfileScreen
                 ],
               ),
                Padding(
-                padding:  EdgeInsets.only(top: 20),
+                padding: const EdgeInsets.only(top: 20),
                 child: CircleAvatar(
                   radius: screenWidth*0.15,
                 ),
@@ -117,7 +114,7 @@ class ConsultantProfileScreen
                 ),
               ),
               Text(
-                "A highly skilled Pediatric pathalogosit with a proven track record of transforming lives through effective communication interventions",
+                "A highly skilled Pediatric pathologist with a proven track record of transforming lives through effective communication interventions",
                 style: Theme.of(context).textTheme.headlineSmall!.copyWith(
                       fontSize: screenWidth*0.032,
                       color: AppColors.textHintColor,
@@ -227,7 +224,7 @@ class ConsultantProfileScreen
                 ),
               ),
               Button(onPressed: () {
-                Get.to(ChatWithConsultantScreen());
+                Get.toNamed(kChatWithConsultantScreen);
               }, text: "Book an Appointment"),
             ],
           ),

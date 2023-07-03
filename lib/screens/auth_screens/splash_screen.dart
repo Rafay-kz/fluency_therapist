@@ -1,12 +1,9 @@
 import 'package:fluency_therapist/controller/auth_screens_controller/splash_screen_controller.dart';
-import 'package:fluency_therapist/screens/auth_screens/SignUp_screen.dart';
-import 'package:fluency_therapist/screens/auth_screens/login_screen.dart';
 import 'package:fluency_therapist/utils/app_colors.dart';
 import 'package:fluency_therapist/utils/app_constants.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import'package:fluency_therapist/utils/widgets/button.dart';
-
+import '../../custom widgets/button.dart';
 
 
 //created by Abdul Rafay on 1-5-2023
@@ -22,7 +19,7 @@ class SplashScreen extends GetView<SplashScreenController> {
       backgroundColor: AppColors.backgroundColor,
       body: SafeArea(
         child: Padding(
-          padding: const EdgeInsets.only(right: 25, left: 25, top: 25, bottom: 25),
+          padding: const EdgeInsets.only(right: 25, left: 25, top: 20, bottom: 25),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -60,11 +57,11 @@ class SplashScreen extends GetView<SplashScreenController> {
               ),
 
               Padding(padding:  const EdgeInsets.only(top: 13),
-                  child: Button(onPressed: (){Get.to(const LoginScreen());}, text: "Login")),
+                  child: Button(onPressed: (){Get.toNamed(kLoginScreen);}, text: "Login")),
 
               Padding(padding: const EdgeInsets.only(top: 15),
                 child: Button(
-                  onPressed: (){Get.to(const SignUpScreen());},
+                  onPressed: (){Get.toNamed(kSignUpScreen);},
                     text: "Register", textStyle: TextStyle(color: AppColors.textColor, fontSize: 20,),
                     color: AppColors.backgroundColor,
 

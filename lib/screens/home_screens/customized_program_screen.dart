@@ -1,6 +1,5 @@
 import 'package:fluency_therapist/controller/home_screens_controller/customized_program_screen_controller.dart';
-import 'package:fluency_therapist/screens/home_screens/reminder_screen.dart';
-import 'package:fluency_therapist/utils/widgets/button.dart';
+import '../../custom widgets/button.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -133,7 +132,7 @@ class CustomizedProgramScreen
              Padding(
                padding: const EdgeInsets.only(bottom: 50),
                child: Button(onPressed: () {
-                 Get.to(ReminderScreen());
+                 Get.toNamed(kReminderScreen);
                }, text: "Next"),
              ),
             ],

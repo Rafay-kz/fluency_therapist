@@ -4,10 +4,9 @@ import 'package:get/get.dart';
 
 import '../../utils/app_colors.dart';
 import '../../utils/app_constants.dart';
-import 'consultant_profile_screen.dart';
 
-class ConsultTherapist extends GetView<ConsultTherapistScreenController> {
-  const ConsultTherapist({super.key});
+class ConsultTherapistScreen extends GetView<ConsultTherapistScreenController> {
+  const ConsultTherapistScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -17,7 +16,7 @@ class ConsultTherapist extends GetView<ConsultTherapistScreenController> {
       backgroundColor: AppColors.backgroundColor,
       body: SafeArea(
         child: Padding(
-          padding: const EdgeInsets.only(top: 25, right: 25, left: 25),
+          padding: const EdgeInsets.only( right: 25, left: 25),
           child: Column(
             children: [
               Row(
@@ -33,10 +32,10 @@ class ConsultTherapist extends GetView<ConsultTherapistScreenController> {
                     ),
                   ),
                    Padding(
-                    padding: EdgeInsets.only(top: 10, right: 38, left: 38),
+                    padding: const EdgeInsets.only(top: 10, right: 38, left: 38),
                     child: Center(
                       child: Image(
-                        image: AssetImage(logoIcon),
+                        image: const AssetImage(logoIcon),
                         width: screenWidth * 0.42,
                         height: screenHeight * 0.075,
                       ),
@@ -78,7 +77,7 @@ class ConsultTherapist extends GetView<ConsultTherapistScreenController> {
                         child: Row(
                           children: [
                              Padding(
-                              padding:  EdgeInsets.only(
+                              padding:  const EdgeInsets.only(
                                 top: 30,
                                 bottom: 30,
                                 left: 20,
@@ -174,7 +173,7 @@ class ConsultTherapist extends GetView<ConsultTherapistScreenController> {
                                 ),
                                 TextButton(
                                   onPressed: () {
-                                    Get.to(ConsultantProfileScreen());
+                                    Get.toNamed(kConsultantProfileScreen);
                                   },
                                   child: Container(
                                     width: screenWidth*0.27,

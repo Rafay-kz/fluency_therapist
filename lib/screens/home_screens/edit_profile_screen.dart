@@ -3,10 +3,10 @@ import 'package:get/get.dart';
 
 import '../../controller/home_screens_controller/edit_profile_screen_controller.dart';
 import '../../utils/app_colors.dart';
-import '../../utils/widgets/button.dart';
+import '../../custom widgets/button.dart';
 
 class EditProfileScreen extends GetView<EditProfileScreenController> {
-  const EditProfileScreen({super.key});
+  const EditProfileScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -15,118 +15,126 @@ class EditProfileScreen extends GetView<EditProfileScreenController> {
       backgroundColor: AppColors.backgroundColor,
       body: SafeArea(
         child: Padding(
-          padding: const EdgeInsets.only(top: 20, left: 25, right: 25),
-          child: Column(children: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.start,
-              children: [
-                InkWell(
-                  onTap: () {
-                    Get.back();
-                  },
-                  child: Icon(
-                    Icons.arrow_back,
-                    size: screenWidth * 0.10,
-                  ),
-                ),
-              ],
-            ),
-            Padding(
-              padding: const EdgeInsets.only(top: 15),
-              child: CircleAvatar(
-                radius: screenWidth * 0.20,
-              ),
-            ),
-            Padding(
-              padding: const EdgeInsets.only(top: 20, bottom: 15),
-              child: Text(
-                "Username",
-                style: Theme.of(context).textTheme.displayLarge!.copyWith(
-                      fontSize: screenWidth * 0.050,
-                      color: AppColors.textColor,
+          padding: const EdgeInsets.only(top: 25, left: 25, right: 25),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Row(
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: [
+                  InkWell(
+                    onTap: () {
+                      Get.back();
+                    },
+                    child: Icon(
+                      Icons.arrow_back,
+                      size: screenWidth * 0.10,
                     ),
+                  ),
+                ],
               ),
-            ),
-            Padding(
-                padding: const EdgeInsets.only(right: 250,top: 5,bottom: 5),
-                child: Text('Username',
-                    style: Theme.of(context).textTheme.headlineSmall)),
-            const SizedBox(
-              height: 5,
-            ),
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Center(
+              SizedBox(height: 10),
+              Center(
+                child: Column(
+                  children: [
+                    CircleAvatar(
+                      radius: screenWidth * 0.15,
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.only(top: 20, bottom: 15),
+                      child: Text(
+                        "Dr M Ali Nizamani",
+                        style: Theme.of(context).textTheme.displayLarge!.copyWith(
+                          fontSize: screenWidth * 0.050,
+                          color: AppColors.textColor,
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.only(top: 20, bottom: 10),
+                child: Text(
+                  'Username',
+                  style: Theme.of(context).textTheme.headlineSmall,
+                  textAlign: TextAlign.start,
+                ),
+              ),
+
+              Center(
                 child: SizedBox(
-                  width: 400,
+                  width: screenWidth*0.9,
                   child: TextFormField(
-                    // cursorColor: Colors.black,
                     controller: controller.nameTEController,
                     decoration: InputDecoration(
-                        fillColor: AppColors.textfieldColor,
-                        filled: true,
-                        hintText: 'Enter your name',
-                        hintStyle: Theme.of(context).textTheme.titleMedium,
-                        border: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(30),
-                            borderSide: BorderSide.none),
-                        prefixIcon: Icon(
-                          Icons.perm_identity_rounded,
-                          color: AppColors.textHintColor,
-                        )),
+                      fillColor: AppColors.textfieldColor,
+                      filled: true,
+                      hintText: 'Enter your name',
+                      hintStyle: Theme.of(context).textTheme.titleMedium,
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(30),
+                        borderSide: BorderSide.none,
+                      ),
+                      prefixIcon: Icon(
+                        Icons.perm_identity_rounded,
+                        color: AppColors.textHintColor,
+                      ),
+                    ),
                   ),
                 ),
               ),
-            ),
-            Padding(
-                padding: const EdgeInsets.only(right: 280,top: 10,bottom: 5),
-                child: Text('Email',
-                    style: Theme.of(context).textTheme.headlineSmall)),
-            const SizedBox(
-              height: 5,
-            ),
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Center(
+              SizedBox(height: 5,),
+              Padding(
+                padding: const EdgeInsets.only( top: 10, bottom: 10),
+                child: Text(
+                  'Email',
+                  style: Theme.of(context).textTheme.headlineSmall,
+                  textAlign: TextAlign.start,
+                ),
+              ),
+
+              Center(
                 child: SizedBox(
-                  width: 400,
+                  width: screenWidth*0.9,
                   child: TextFormField(
-                    // cursorColor: Colors.black,
                     controller: controller.emailTEController,
                     decoration: InputDecoration(
-                        fillColor: AppColors.textfieldColor,
-                        filled: true,
-                        hintText: 'Enter your email',
-                        hintStyle: Theme.of(context).textTheme.titleMedium,
-                        border: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(30),
-                            borderSide: BorderSide.none),
-                        prefixIcon: Icon(
-                          Icons.email_outlined,
-                          color: AppColors.textHintColor,
-                        )),
+                      fillColor: AppColors.textfieldColor,
+                      filled: true,
+                      hintText: 'Enter your email',
+                      hintStyle: Theme.of(context).textTheme.titleMedium,
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(30),
+                        borderSide: BorderSide.none,
+                      ),
+                      prefixIcon: Icon(
+                        Icons.email_outlined,
+                        color: AppColors.textHintColor,
+                      ),
+                    ),
                   ),
                 ),
               ),
-            ),
-            const SizedBox(
-              height: 2,
-            ),
-            Padding(
-              padding: const EdgeInsets.only(right: 250,top: 10,bottom: 10),
-              child: Text('Password',
-                  style: Theme.of(context).textTheme.headlineSmall),
-            ),
-            const SizedBox(
-              height: 2,
-            ),
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Center(
+              const SizedBox(
+                height: 10,
+              ),
+              Padding(
+                padding: const EdgeInsets.only( top: 10, bottom: 10),
+                child: Text(
+                  'Password',
+                  style: Theme.of(context).textTheme.headlineSmall,
+                  textAlign: TextAlign.start ,
+                ),
+              ),
+              const SizedBox(
+                height: 2,
+              ),
+              Center(
                 child: SizedBox(
                   width: 400,
-                  child: Obx(() => TextFormField(
-                      // cursorColor: Colors.black,
+                  child: Obx(
+                        () => TextFormField(
                       controller: controller.passwordTEController,
                       decoration: InputDecoration(
                         fillColor: AppColors.textfieldColor,
@@ -134,32 +142,38 @@ class EditProfileScreen extends GetView<EditProfileScreenController> {
                         hintText: 'Enter your password',
                         hintStyle: Theme.of(context).textTheme.titleMedium,
                         border: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(30),
-                            borderSide: BorderSide.none),
+                          borderRadius: BorderRadius.circular(30),
+                          borderSide: BorderSide.none,
+                        ),
                         suffixIcon: GestureDetector(
                           onTap: () {
                             controller.obscureText.value =
-                                !controller.obscureText.value;
+                            !controller.obscureText.value;
                           },
                           child: Icon(
-                              controller.obscureText.value
-                                  ? Icons.visibility_off
-                                  : Icons.visibility,
-                              color: AppColors.textHintColor),
+                            controller.obscureText.value
+                                ? Icons.visibility_off
+                                : Icons.visibility,
+                            color: AppColors.textHintColor,
+                          ),
                         ),
-                        prefixIcon: Icon(Icons.lock_open_outlined,
-                            color: AppColors.textHintColor),
+                        prefixIcon: Icon(
+                          Icons.lock_open_outlined,
+                          color: AppColors.textHintColor,
+                        ),
                       ),
                       keyboardType: TextInputType.visiblePassword,
-                      obscureText: controller.obscureText.value)),
+                      obscureText: controller.obscureText.value,
+                    ),
+                  ),
                 ),
               ),
-            ),
-            Padding(
-              padding: const EdgeInsets.only(top: 40),
-              child: Button(onPressed: () {}, text: "Update"),
-            ),
-          ]),
+              Padding(
+                padding: const EdgeInsets.only(top: 30),
+                child: Button(onPressed: () {}, text: "Update"),
+              ),
+            ],
+          ),
         ),
       ),
     );

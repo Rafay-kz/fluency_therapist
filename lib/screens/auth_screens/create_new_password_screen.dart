@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:get/get_state_manager/src/simple/get_view.dart';
-
 import '../../controller/auth_screens_controller/create_new_password_screen_controller.dart';
 import '../../utils/app_colors.dart';
-import '../../utils/widgets/button.dart';
+import '../../utils/app_constants.dart';
+import '../../custom widgets/button.dart';
 
 class CreateNewPasswordScreen
     extends GetView<CreateNewPasswordScreenController> {
@@ -125,8 +124,10 @@ class CreateNewPasswordScreen
                   Padding(
                       padding: const EdgeInsets.only(top: 40),
                       child: Button(
-                        onPressed: () {},
-                        text: "Send Code",
+                        onPressed: () {
+                          Get.toNamed(kLoginScreen);
+                        },
+                        text: "Submit",
                       ))
                 ],
               ),

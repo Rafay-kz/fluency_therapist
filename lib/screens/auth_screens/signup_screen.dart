@@ -1,7 +1,7 @@
 import 'package:fluency_therapist/controller/auth_screens_controller/signup_screen_controller.dart';
 import 'package:fluency_therapist/utils/app_colors.dart';
 import 'package:fluency_therapist/utils/app_constants.dart';
-import 'package:fluency_therapist/utils/widgets/button.dart';
+import '../../custom widgets/button.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -268,6 +268,7 @@ class SignUpScreen extends GetView<SignupScreenController> {
                         onPressed: () {
                           //GetUtils.isLengthGreaterThan(EmailController.text, 6) ? print('email is valid') : print('email is invalid');
                           controller.onRegisterTap();
+                          Get.toNamed(kHomeScreen);
                         },
                         text: "Register",
                       ),

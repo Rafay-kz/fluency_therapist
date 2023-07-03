@@ -1,13 +1,10 @@
 import 'package:fluency_therapist/controller/auth_screens_controller/login_screen_controller.dart';
-import 'package:fluency_therapist/screens/auth_screens/SignUp_screen.dart';
-import 'package:fluency_therapist/screens/home_screens/home_screen.dart';
 import 'package:fluency_therapist/utils/app_colors.dart';
 import 'package:fluency_therapist/utils/app_constants.dart';
-import 'package:fluency_therapist/utils/widgets/button.dart';
+import '../../custom widgets/button.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-import 'forget_password_screen.dart';
 
 //created by Bilal on 6-5-2023
 
@@ -136,7 +133,7 @@ class LoginScreen extends GetView<LoginScreenController> {
                   padding: const EdgeInsets.only(top: 8, left: 190, bottom: 20),
                   child: GestureDetector(
                     onTap: () {
-                      Get.to(const ForgetPassScreen());
+                      Get.toNamed(kForgetPassScreen);
                     },
                     child: Text("Forgot Password?",
                         style: Theme.of(context)
@@ -146,8 +143,7 @@ class LoginScreen extends GetView<LoginScreenController> {
                   ),
                 ),
                 Button(
-                    onPressed: () {
-                      Get.to(() => const HomeScreen());
+                    onPressed: () {Get.toNamed(kHomeScreen);
                       //GetUtils.isLengthGreaterThan(EmailController.text, 6) ? print('email is valid') : print('email is invalid');
                       controller.onLoginTap();
                     },
@@ -242,7 +238,7 @@ class LoginScreen extends GetView<LoginScreenController> {
                       child: Center(
                           child: GestureDetector(
                               onTap: () {
-                                Get.to(const SignUpScreen());
+                                Get.toNamed (kSignUpScreen);
                               },
                               child: Text(
                                 'Register Here',

@@ -1,15 +1,9 @@
-import 'package:fluency_therapist/screens/home_screens/progress_tracking_screen.dart';
-import 'package:fluency_therapist/screens/home_screens/search_screen.dart';
-import 'package:fluency_therapist/screens/home_screens/speech_exercises_screen.dart';
-import 'package:fluency_therapist/screens/home_screens/user_profile_screen.dart';
 import 'package:fluency_therapist/utils/app_colors.dart';
 import 'package:fluency_therapist/utils/app_constants.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../../controller/home_screens_controller/home_screen_controller.dart';
-import 'consult_therapist_screen.dart';
-import 'customized_program_screen.dart';
 
 class HomeScreen extends GetView<HomeScreenController> {
   const HomeScreen({super.key});
@@ -55,7 +49,7 @@ class HomeScreen extends GetView<HomeScreenController> {
                       padding: const EdgeInsets.only(left: 180),
                       child: GestureDetector(
                         onTap: () {
-                          Get.to(UserProfileScreen());
+                          Get.toNamed(kUserProfileScreen);
                         },
                         child: CircleAvatar(
                           radius: screenWidth * 0.06,
@@ -86,7 +80,7 @@ class HomeScreen extends GetView<HomeScreenController> {
                               borderSide: BorderSide.none),
                           prefixIcon: GestureDetector(
                             onTap: () {
-                              Get.to(const SearchScreen());
+                              Get.toNamed(kSearchScreen);
                             },
                             child: Padding(
                                 padding:
@@ -172,7 +166,7 @@ class HomeScreen extends GetView<HomeScreenController> {
                                     const EdgeInsets.only(left: 45, top: 5),
                                 child: TextButton(
                                     onPressed: () {
-                                      Get.to(SpeechExercisesScreen());
+                                      Get.toNamed(kSpeechExercisesScreen);
                                     },
                                     child: Container(
                                       width: screenWidth * 0.19,
@@ -216,7 +210,7 @@ class HomeScreen extends GetView<HomeScreenController> {
                     padding: const EdgeInsets.only(right: 15, top: 20),
                     child: GestureDetector(
                       onTap: () {
-                        Get.to(const CustomizedProgramScreen());
+                        Get.toNamed(kCustomizedProgramScreen);
                       },
                       child: Container(
                         width: screenWidth * 0.38,
@@ -253,7 +247,7 @@ class HomeScreen extends GetView<HomeScreenController> {
                     padding: const EdgeInsets.only(left: 15, top: 20),
                     child: GestureDetector(
                       onTap: () {
-                        Get.to(const SpeechExercisesScreen());
+                        Get.toNamed(kSpeechExercisesScreen);
                       },
                       child: Container(
                         width: screenWidth * 0.38,
@@ -266,7 +260,7 @@ class HomeScreen extends GetView<HomeScreenController> {
                           child: Column(
                             children: [
                               Image(
-                                  image: AssetImage(speechExercisesIcon),
+                                  image: const AssetImage(speechExercisesIcon),
                                   width: screenWidth * 0.11,
                                   height: screenHeight * 0.090),
                               Text(
@@ -291,7 +285,7 @@ class HomeScreen extends GetView<HomeScreenController> {
                     padding: const EdgeInsets.only(right: 15, top: 25),
                     child: InkWell(
                       onTap: () {
-                        Get.to(ProgressTrackingScreen());
+                        Get.toNamed(kProgressTrackingScreen);
                       },
                       child: Container(
                         width: screenWidth * 0.38,
@@ -304,7 +298,7 @@ class HomeScreen extends GetView<HomeScreenController> {
                           child: Column(
                             children: [
                               Image(
-                                  image: AssetImage(progressTrackingIcon),
+                                  image: const AssetImage(progressTrackingIcon),
                                   width: screenWidth * 0.11,
                                   height: screenHeight * 0.090),
                               Text(
@@ -327,7 +321,7 @@ class HomeScreen extends GetView<HomeScreenController> {
                     padding: const EdgeInsets.only(left: 15, top: 25),
                     child: InkWell(
                       onTap: () {
-                        Get.to(ConsultTherapist());
+                        Get.toNamed(kConsultTherapistScreen);
                       },
                       child: Container(
                         width: screenWidth * 0.38,
@@ -340,7 +334,7 @@ class HomeScreen extends GetView<HomeScreenController> {
                           child: Column(
                             children: [
                               Image(
-                                  image: AssetImage(consultingIcon),
+                                  image: const AssetImage(consultingIcon),
                                   width: screenWidth * 0.1,
                                   height: screenHeight * 0.090),
                               Padding(

@@ -1,11 +1,10 @@
-import 'package:fluency_therapist/utils/widgets/button.dart';
+import '../../custom widgets/button.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../../controller/home_screens_controller/reminder_screen_controller.dart';
 import '../../utils/app_colors.dart';
 import '../../utils/app_constants.dart';
-import 'customize_program_final_Screen.dart';
 import 'home_screen.dart';
 
 class ReminderScreen extends GetView<ReminderScreenController> {
@@ -80,10 +79,10 @@ class ReminderScreen extends GetView<ReminderScreenController> {
                 child: Column(
                   children: [
                      Padding(
-                      padding: EdgeInsets.only(
+                      padding: const EdgeInsets.only(
                           top: 10, left: 10, right: 10, ),
                       child: Image(
-                        image: AssetImage(reminderBellImage),
+                        image: const AssetImage(reminderBellImage),
                         width: screenWidth*0.6,
                         height: screenHeight*0.4,
                       ),
@@ -99,9 +98,9 @@ class ReminderScreen extends GetView<ReminderScreenController> {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                            Padding(
-                            padding: EdgeInsets.only(left: 25, top: 5, bottom:5,),
+                            padding: const EdgeInsets.only(left: 25, top: 5, bottom:5,),
                             child: Image(
-                              image: AssetImage(reminderClockIcon),
+                              image: const AssetImage(reminderClockIcon),
                               width: screenWidth*0.060,
                               height: screenHeight*0.055,
                             ),
@@ -127,7 +126,7 @@ class ReminderScreen extends GetView<ReminderScreenController> {
                 ),
               ),
               Button(onPressed: () {
-                Get.to(CustomizeProgramFinalScreen());
+                Get.toNamed(kCustomizeProgramFinalScreen);
               }, text: "Next"),
               Padding(
                 padding: const EdgeInsets.all(8.0),
