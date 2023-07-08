@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "1021826965250",
+    "project_id": "fluency-therapist-e79e5",
+    "storage_bucket": "fluency-therapist-e79e5.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1021826965250:android:a714815a0c6708b12eec1b",
+        "android_client_info": {
+          "package_name": "com.example.fluency_therapist"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1021826965250-n6b3r54psrigt995afgeaum0s117c4s4.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBRQs9cIGJtZDJ2FWiHm-gBHO-2TzWPd7k"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1021826965250-n6b3r54psrigt995afgeaum0s117c4s4.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

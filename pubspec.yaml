@@ -39,6 +39,13 @@ dependencies:
   cupertino_icons: ^1.0.2
   get: ^4.6.5
   percent_indicator: ^4.2.3
+  firebase_core: ^2.14.0
+  firebase_auth: ^4.6.3
+  firebase_storage: ^11.2.4
+  cloud_firestore: ^4.8.2
+  fluttertoast: ^8.2.2
+
+
 
 
 dev_dependencies:
