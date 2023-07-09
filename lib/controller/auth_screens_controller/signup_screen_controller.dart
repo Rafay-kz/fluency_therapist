@@ -1,16 +1,14 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:get/get.dart';
 import 'package:fluency_therapist/utils/app_constants.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
-
-
 
 import '../../utils/utills.dart';
 
-//created by Bilal on 6-5-2023
-
 class SignupScreenController extends GetxController {
   final FirebaseAuth _auth = FirebaseAuth.instance;
+  final FirebaseFirestore _firestore = FirebaseFirestore.instance;
   final formKey = GlobalKey<FormState>();
 
   TextEditingController nameTEController = TextEditingController();
@@ -84,6 +82,20 @@ class SignupScreenController extends GetxController {
     return null;
   }
 
+  Future<void> saveUserDetails(String username, String age, String email) async {
+    try {
+      await _firestore.collection('users').add({
+        'username': username,
+        'age': age,
+        'email': email,
+      });
+      // Data saved successfully
+    } catch (e) {
+      // Handle error
+      print('Error saving user details: $e');
+    }
+  }
+
   void onRegisterTap() {
     if (formKey.currentState!.validate()) {
       _auth
@@ -92,14 +104,17 @@ class SignupScreenController extends GetxController {
           password: passwordTEController.text.toString())
           .then((value) {
         formKey.currentState!.save();
+
         Get.toNamed(kHomeScreen);
-      })
-          .catchError((error) {
+        saveUserDetails(
+            nameTEController.text.trim(),
+            ageTEController.text.trim(),
+            emailTEController.text.trim());
+      }).catchError((error) {
         Utils().toastMessage(error.toString());
       });
     } else {
+      // Handle form validation errors if needed
     }
   }
-
-
 }
