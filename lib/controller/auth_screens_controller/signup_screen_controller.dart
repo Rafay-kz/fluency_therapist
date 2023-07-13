@@ -7,15 +7,18 @@ import 'package:flutter/material.dart';
 import '../../utils/utills.dart';
 
 class SignupScreenController extends GetxController {
+   static SignupScreenController get instance => Get.find();
   final FirebaseAuth _auth = FirebaseAuth.instance;
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
   final formKey = GlobalKey<FormState>();
+   late RxBool loading ;
 
   TextEditingController nameTEController = TextEditingController();
   TextEditingController emailTEController = TextEditingController();
   TextEditingController passwordTEController = TextEditingController();
   TextEditingController confirmPasswordTEController = TextEditingController();
   TextEditingController ageTEController = TextEditingController();
+
 
   RxBool obscureText = true.obs;
 
@@ -96,13 +99,17 @@ class SignupScreenController extends GetxController {
     }
   }
 
+
   void onRegisterTap() {
+
     if (formKey.currentState!.validate()) {
+      loading = true.obs;
       _auth
           .createUserWithEmailAndPassword(
           email: emailTEController.text.toString(),
           password: passwordTEController.text.toString())
           .then((value) {
+            loading = false.obs;
         formKey.currentState!.save();
 
         Get.toNamed(kHomeScreen);
@@ -112,6 +119,7 @@ class SignupScreenController extends GetxController {
             emailTEController.text.trim());
       }).catchError((error) {
         Utils().toastMessage(error.toString());
+        loading = false.obs;
       });
     } else {
       // Handle form validation errors if needed
