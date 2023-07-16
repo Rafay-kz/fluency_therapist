@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 
 class Button extends StatelessWidget {
-    bool loading = false;
   final VoidCallback onPressed;
   final Color color;
   final String text;
@@ -16,7 +15,6 @@ class Button extends StatelessWidget {
         color: Color(0xff7FB2F0),
         strokeAlign: BorderSide.strokeAlignInside),
     this.color = const Color(0xff7FB2F0),
-    this.loading = false,
     required this.text,
     this.textStyle = const TextStyle(
       fontFamily: "Montserrat",
@@ -44,12 +42,7 @@ class Button extends StatelessWidget {
             side: side,
             backgroundColor: color,
           ),
-          child: loading
-              ? const CircularProgressIndicator(
-                  strokeWidth: 3,
-                  color: Colors.white,
-                )
-              : Center(
+          child: Center(
                   child: Text(text, style: textStyle),
                 ),
 

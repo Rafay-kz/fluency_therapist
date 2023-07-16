@@ -1,19 +1,26 @@
-import 'package:fluency_therapist/utils/app_constants.dart';
+import 'dart:async';
+
+
+import 'package:fluency_therapist/controller/auth_screens_controller/user_session.dart';
+import 'package:fluency_therapist/screens/auth_screens/welcome_screen.dart';
+import 'package:fluency_therapist/screens/home_screens/home_screen.dart';
 import 'package:get/get.dart';
 
-//created by Abdul Rafay on 1-5-2023
-class SplashScreenController extends GetxController{
+class SplashScreenController extends GetxController {
 
 
-  void onLoginTap(){
-    Get.toNamed(kLoginScreen);
-
+  Future<void> navigate() async{
+    UserSession userSession = UserSession();
+    if(await userSession.isUserLoggedIn()) {
+      Get.off(
+              ()=> const HomeScreen(),
+          duration: const Duration(seconds: 2),
+      );
+    }else{
+      Get.off(
+              ()=> const WelcomeScreen(),
+          duration: const Duration(seconds: 2),
+      );
+    }
   }
-
-
-  void onSignUpTap(){
-    Get.toNamed(kSignUpScreen);
-
-  }
-
 }

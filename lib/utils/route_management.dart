@@ -1,4 +1,6 @@
+import 'package:fluency_therapist/screens/auth_screens/email_verification_screen.dart';
 import 'package:fluency_therapist/screens/auth_screens/login_screen.dart';
+import 'package:fluency_therapist/screens/auth_screens/welcome_screen.dart';
 import 'package:fluency_therapist/screens/home_screens/home_screen.dart';
 import 'package:get/get.dart';
 import '../screens/auth_screens/SignUp_screen.dart';
@@ -31,9 +33,15 @@ import 'screen_bindings.dart';
 class RouteGenerator {
   static List<GetPage> getPages() {
     return [
+
       GetPage(
         name: kSplashScreen,
         page: () => const SplashScreen(),
+        binding: ScreenBindings(),
+      ),
+      GetPage(
+        name: kWelcomescreen,
+        page: () => const WelcomeScreen(),
         binding: ScreenBindings(),
       ),
       GetPage(
@@ -44,6 +52,11 @@ class RouteGenerator {
       GetPage(
         name: kLoginScreen,
         page: () => const LoginScreen(),
+        binding: ScreenBindings(),
+      ),
+      GetPage(
+        name: kEmailVerificationScreen,
+        page: () => const EmailVerificationScreen(),
         binding: ScreenBindings(),
       ),
       GetPage(
