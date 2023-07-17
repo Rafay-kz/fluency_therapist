@@ -1,3 +1,4 @@
+import 'dart:io';
 import 'package:fluency_therapist/screens/home_screens/edit_profile_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -6,7 +7,6 @@ import '../../controller/home_screens_controller/user_profile_screen_controller.
 import '../../utils/app_colors.dart';
 import '../../utils/app_constants.dart';
 import '../../custom widgets/button.dart';
-
 
 class UserProfileScreen extends GetView<UserProfileScreenController> {
   const UserProfileScreen({super.key});
@@ -35,12 +35,24 @@ class UserProfileScreen extends GetView<UserProfileScreenController> {
                 ),
               ],
             ),
-            Padding(
-              padding: const EdgeInsets.only(top: 10),
-              child: CircleAvatar(
-                radius: screenWidth * 0.15,
-              ),
-            ),
+            Obx((){
+              return Column
+                (
+                children: [
+                  Center(
+                    child: CircleAvatar(
+                        radius: screenWidth * 0.15,
+
+                        backgroundImage: controller.imagePath.isNotEmpty ? FileImage(File(controller.imagePath.toString())) : null
+                    ),
+                  ),
+                  TextButton(onPressed: (){
+                    controller.imagePickerOption();
+
+                  }, child: const Text("Change Photo"))
+                ],
+              );
+            }),
             Padding(
               padding: const EdgeInsets.only(top: 20, bottom: 5),
               child: Text(
@@ -52,7 +64,9 @@ class UserProfileScreen extends GetView<UserProfileScreenController> {
               ),
             ),
             InkWell(
-              onTap: () {Get.toNamed(kEditProfileScreen);},
+              onTap: () {
+                Get.toNamed(kEditProfileScreen);
+              },
               child: Row(
                 children: [
                   Column(
@@ -72,7 +86,7 @@ class UserProfileScreen extends GetView<UserProfileScreenController> {
                     children: [
                       InkWell(
                         onTap: () {
-                          Get.to(const EditProfileScreen());
+                          Get.to( EditProfileScreen());
                         },
                         child: Padding(
                           padding: const EdgeInsets.only(left: 15, top: 16),
@@ -110,18 +124,16 @@ class UserProfileScreen extends GetView<UserProfileScreenController> {
               child: Divider(
                 color: AppColors.textHintColor,
               ),
-            ),Row(
+            ),
+            Row(
               children: [
                 Column(
                   children: [
                     Padding(
                       padding: const EdgeInsets.only(top: 20),
-                      child: Icon(
-                          Icons.messenger_outline_sharp,
-                          size:  screenWidth * 0.078,
-                          color: AppColors.primaryBlue
-
-                      ),
+                      child: Icon(Icons.messenger_outline_sharp,
+                          size: screenWidth * 0.078,
+                          color: AppColors.primaryBlue),
                     ),
                   ],
                 ),
@@ -140,9 +152,9 @@ class UserProfileScreen extends GetView<UserProfileScreenController> {
                               .textTheme
                               .displayLarge!
                               .copyWith(
-                            fontSize: screenWidth * 0.038,
-                            color: AppColors.textColor,
-                          ),
+                                fontSize: screenWidth * 0.038,
+                                color: AppColors.textColor,
+                              ),
                         ),
                       ),
                     ),
@@ -154,8 +166,8 @@ class UserProfileScreen extends GetView<UserProfileScreenController> {
                             .textTheme
                             .headlineSmall!
                             .copyWith(
-                            fontSize: screenWidth * 0.030,
-                            color: AppColors.descriptionColor),
+                                fontSize: screenWidth * 0.030,
+                                color: AppColors.descriptionColor),
                       ),
                     ),
                   ],
@@ -171,7 +183,6 @@ class UserProfileScreen extends GetView<UserProfileScreenController> {
                 ),
               ),
             ),
-
             Row(
               children: [
                 Column(
@@ -228,7 +239,8 @@ class UserProfileScreen extends GetView<UserProfileScreenController> {
               child: Divider(
                 color: AppColors.textHintColor,
               ),
-            ),InkWell(
+            ),
+            InkWell(
               onTap: () {
                 Get.toNamed(kProgressTrackingScreen);
               },
@@ -241,8 +253,7 @@ class UserProfileScreen extends GetView<UserProfileScreenController> {
                         child: Image(
                             image: const AssetImage(progressIcon),
                             width: screenWidth * 0.075,
-                            height: screenHeight *0.045
-                        ),
+                            height: screenHeight * 0.045),
                       ),
                     ],
                   ),
@@ -261,9 +272,9 @@ class UserProfileScreen extends GetView<UserProfileScreenController> {
                                 .textTheme
                                 .displayLarge!
                                 .copyWith(
-                              fontSize: screenWidth * 0.038,
-                              color: AppColors.textColor,
-                            ),
+                                  fontSize: screenWidth * 0.038,
+                                  color: AppColors.textColor,
+                                ),
                           ),
                         ),
                       ),
@@ -275,8 +286,8 @@ class UserProfileScreen extends GetView<UserProfileScreenController> {
                               .textTheme
                               .headlineSmall!
                               .copyWith(
-                              fontSize: screenWidth * 0.030,
-                              color: AppColors.descriptionColor),
+                                  fontSize: screenWidth * 0.030,
+                                  color: AppColors.descriptionColor),
                         ),
                       ),
                     ],
@@ -293,12 +304,13 @@ class UserProfileScreen extends GetView<UserProfileScreenController> {
                 ),
               ),
             ),
-
             Padding(
               padding: const EdgeInsets.only(top: 25),
-              child: Button(onPressed: () {
-                Get.toNamed(kLoginScreen);
-              }, text: "Logout"),
+              child: Button(
+                  onPressed: () {
+                    Get.toNamed(kLoginScreen);
+                  },
+                  text: "Logout"),
             )
           ]),
         ),
