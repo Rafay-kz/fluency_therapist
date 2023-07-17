@@ -1,11 +1,14 @@
 import 'package:fluency_therapist/controller/auth_screens_controller/create_new_password_screen_controller.dart';
+import 'package:fluency_therapist/controller/auth_screens_controller/email_verification_screen_controller.dart';
 import 'package:fluency_therapist/controller/auth_screens_controller/login_screen_controller.dart';
+import 'package:fluency_therapist/controller/auth_screens_controller/splash_screen_controller.dart';
+import 'package:fluency_therapist/controller/auth_screens_controller/welcome_screen_controller.dart';
+
 
 import 'package:get/get.dart';
 import '../controller/auth_screens_controller/forget_pass_screen_controller.dart';
 import '../controller/auth_screens_controller/otp_verification_screen_controller.dart';
 import '../controller/auth_screens_controller/signup_screen_controller.dart';
-import '../controller/auth_screens_controller/splash_screen_controller.dart';
 import '../controller/home_screens_controller/call_log_screen_controller.dart';
 import '../controller/home_screens_controller/calling_consultant_screen_controller.dart';
 import '../controller/home_screens_controller/chat_with_consultant_screen.dart';
@@ -31,9 +34,11 @@ class ScreenBindings extends Bindings {
   @override
   void dependencies() {
     Get.lazyPut(() => SplashScreenController());
+    Get.lazyPut(() => WelcomeScreenController());
     Get.lazyPut(() => LoginScreenController());
     Get.lazyPut(() => SignupScreenController());
     Get.lazyPut(() => ForgetPassScreenController());
+    Get.lazyPut(() => EmailVerificationScreenController());
     Get.lazyPut(() => OtpVerificationScreenController());
     Get.lazyPut(() => CreateNewPasswordScreenController());
     Get.lazyPut(() => HomeScreenController());
