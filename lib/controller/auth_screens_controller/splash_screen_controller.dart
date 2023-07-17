@@ -1,26 +1,38 @@
 import 'dart:async';
 
-
 import 'package:fluency_therapist/controller/auth_screens_controller/user_session.dart';
-import 'package:fluency_therapist/screens/auth_screens/welcome_screen.dart';
-import 'package:fluency_therapist/screens/home_screens/home_screen.dart';
+
 import 'package:get/get.dart';
 
+import '../../utils/app_constants.dart';
+
 class SplashScreenController extends GetxController {
+  final RxDouble splashLoading = 0.0.obs;
+  String logo = fluencyTherapistLogo;
 
+  Timer? timer;
 
-  Future<void> navigate() async{
+  @override
+  void onInit() {
+    super.onInit();
+    timer = Timer.periodic(
+      const Duration(milliseconds: 50),
+      (timer) {
+        splashLoading.value += 0.25;
+        if (splashLoading.value >= 1.0) {
+          navigate();
+          timer.cancel();
+        }
+      },
+    );
+  }
+
+  Future<void> navigate() async {
     UserSession userSession = UserSession();
-    if(await userSession.isUserLoggedIn()) {
-      Get.off(
-              ()=> const HomeScreen(),
-          duration: const Duration(seconds: 2),
-      );
-    }else{
-      Get.off(
-              ()=> const WelcomeScreen(),
-          duration: const Duration(seconds: 2),
-      );
+    if (await userSession.isUserLoggedIn()) {
+      Get.offNamed(kHomeScreen);
+    } else {
+      Get.offNamed(kWelcomescreen);
     }
   }
 }
