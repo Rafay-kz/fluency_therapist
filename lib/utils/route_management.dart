@@ -120,7 +120,7 @@ class RouteGenerator {
         binding: ScreenBindings(),
       ),GetPage(
         name: kEditProfileScreen,
-        page: () => const EditProfileScreen(),
+        page: () => EditProfileScreen(),
         binding: ScreenBindings(),
       ),GetPage(
         name: kUserProfileScreen,
