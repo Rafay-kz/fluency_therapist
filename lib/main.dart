@@ -7,13 +7,14 @@ import 'package:get/get.dart';
 
 
 
+
 //created by Abdul Rafay on 1-5-2023
 //Remove this comment later on
 Future main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
-
   runApp(const MyApp());
+
 }
 
 class MyApp extends StatelessWidget {

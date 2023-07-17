@@ -7,7 +7,6 @@ import 'package:flutter/material.dart';
 import '../../utils/utills.dart';
 
 class SignupScreenController extends GetxController {
-   static SignupScreenController get instance => Get.find();
   final FirebaseAuth _auth = FirebaseAuth.instance;
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
   final formKey = GlobalKey<FormState>();
@@ -99,30 +98,38 @@ class SignupScreenController extends GetxController {
     }
   }
 
-
-  void onRegisterTap() {
-
-    if (formKey.currentState!.validate()) {
-      loading = true.obs;
-      _auth
-          .createUserWithEmailAndPassword(
-          email: emailTEController.text.toString(),
-          password: passwordTEController.text.toString())
-          .then((value) {
-            loading = false.obs;
-        formKey.currentState!.save();
-
-        Get.toNamed(kHomeScreen);
-        saveUserDetails(
-            nameTEController.text.trim(),
-            ageTEController.text.trim(),
-            emailTEController.text.trim());
-      }).catchError((error) {
-        Utils().toastMessage(error.toString());
-        loading = false.obs;
-      });
-    } else {
-      // Handle form validation errors if needed
-    }
-  }
+  Future<void> signUp() async {
+   if (formKey.currentState!.validate()) {
+   try {
+   UserCredential userCredential = await _auth.createUserWithEmailAndPassword(
+   email: emailTEController.text.toString(),
+   password: passwordTEController.text.toString(),
+   );
+   if (userCredential != null) {
+     await userCredential.user!.sendEmailVerification();
+     Get.offAllNamed(kEmailVerificationScreen);
+     saveUserDetails(
+         nameTEController.text.toString(),
+         ageTEController.text.toString(),
+         emailTEController.text.toString());
+   }
+   } catch (error) {
+   Utils().toastMessage(error.toString());
+   }
+   } else {
+   // Handle form validation errors if needed
+   }
 }
+
+   Future<void> onRegisterTap() async {
+    signUp();
+
+   }
+
+
+
+
+
+}
+
+

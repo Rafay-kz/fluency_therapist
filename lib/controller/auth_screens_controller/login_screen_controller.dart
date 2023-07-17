@@ -1,5 +1,5 @@
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_core/firebase_core.dart';
+import 'package:fluency_therapist/controller/auth_screens_controller/user_session.dart';
 import 'package:fluency_therapist/utils/utills.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -9,22 +9,16 @@ import '../../utils/app_constants.dart';
 //created by Bilal on 10-5-2023
 
 class LoginScreenController extends GetxController {
-
   final formKey = GlobalKey<FormState>();
   TextEditingController emailTEController = TextEditingController();
   TextEditingController passwordTEController = TextEditingController();
   RxBool obscureText = true.obs;
+  RxBool isLoggedIn = false.obs;
+
 
   var email = '';
   var password = '';
-  final _auth = FirebaseAuth.instance;
-
-
-  @override
-  void onClose() {
-    emailTEController.dispose();
-    passwordTEController.dispose();
-  }
+  //final _auth = FirebaseAuth.instance;
 
   String? validateEmail(String value) {
     if (!GetUtils.isEmail(value)) {
@@ -40,29 +34,30 @@ class LoginScreenController extends GetxController {
     return null;
   }
 
-  void onLoginTap() {
-
+  Future<void> onLoginTap() async {
     if (formKey.currentState!.validate()) {
-
-      _auth
-          .createUserWithEmailAndPassword(
+      try {
+        final userCredential = await FirebaseAuth.instance
+            .signInWithEmailAndPassword(
           email: emailTEController.text.toString(),
-          password: passwordTEController.text.toString())
-          .then((value) {
-        formKey.currentState!.save();
+          password: passwordTEController.text.toString(),
+        );
 
-        Get.toNamed(kHomeScreen);
-
-
-
-      }).catchError((error) {
+        if (userCredential.user != null) {
+          if (userCredential.user!.emailVerified) {
+            // User is verified
+            UserSession userSession = UserSession();
+            await userSession.setLogin();
+            Get.offAllNamed(kHomeScreen);
+          } else {
+            Get.toNamed(kEmailVerificationScreen);
+          }
+        }
+      } catch (error) {
         Utils().toastMessage(error.toString());
-      });
+      }
     } else {
       // Handle form validation errors if needed
     }
   }
-
-
-
 }

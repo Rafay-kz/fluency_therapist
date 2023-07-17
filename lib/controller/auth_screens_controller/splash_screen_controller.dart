@@ -1,19 +1,38 @@
-import 'package:fluency_therapist/utils/app_constants.dart';
+import 'dart:async';
+
+import 'package:fluency_therapist/controller/auth_screens_controller/user_session.dart';
+
 import 'package:get/get.dart';
 
-//created by Abdul Rafay on 1-5-2023
-class SplashScreenController extends GetxController{
+import '../../utils/app_constants.dart';
 
+class SplashScreenController extends GetxController {
+  final RxDouble splashLoading = 0.0.obs;
+  String logo = fluencyTherapistLogo;
 
-  void onLoginTap(){
-    Get.toNamed(kLoginScreen);
+  Timer? timer;
 
+  @override
+  void onInit() {
+    super.onInit();
+    timer = Timer.periodic(
+      const Duration(milliseconds: 50),
+      (timer) {
+        splashLoading.value += 0.25;
+        if (splashLoading.value >= 1.0) {
+          navigate();
+          timer.cancel();
+        }
+      },
+    );
   }
 
-
-  void onSignUpTap(){
-    Get.toNamed(kSignUpScreen);
-
+  Future<void> navigate() async {
+    UserSession userSession = UserSession();
+    if (await userSession.isUserLoggedIn()) {
+      Get.offNamed(kHomeScreen);
+    } else {
+      Get.offNamed(kWelcomescreen);
+    }
   }
-
 }

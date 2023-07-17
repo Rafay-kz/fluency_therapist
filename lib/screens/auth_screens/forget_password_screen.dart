@@ -51,21 +51,30 @@ class ForgetPassScreen extends GetView<ForgetPassScreenController> {
                   child: Center(
                     child: SizedBox(
                       width: 400,
-                      child: TextFormField(
-                        // cursorColor: Colors.black,
-                        controller: controller.emailTEController,
-                        decoration: InputDecoration(
-                            fillColor: AppColors.textfieldColor,
-                            filled: true,
-                            hintText: 'Enter your email',
-                            hintStyle: Theme.of(context).textTheme.titleMedium,
-                            border: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(30),
-                                borderSide: BorderSide.none),
-                            prefixIcon: Icon(
-                              Icons.email_outlined,
-                              color: AppColors.textHintColor,
-                            )),
+                      child: Form(
+                      key: controller.formKey,
+                        child: TextFormField(
+                          // cursorColor: Colors.black,
+                          onSaved: (value) {
+                            controller.email = value!;
+                          },
+                          validator: (value) {
+                            return controller.validateEmail(value!);
+                          },
+                          controller: controller.emailTEController,
+                          decoration: InputDecoration(
+                              fillColor: AppColors.textfieldColor,
+                              filled: true,
+                              hintText: 'Enter your email',
+                              hintStyle: Theme.of(context).textTheme.titleMedium,
+                              border: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(30),
+                                  borderSide: BorderSide.none),
+                              prefixIcon: Icon(
+                                Icons.email_outlined,
+                                color: AppColors.textHintColor,
+                              )),
+                        ),
                       ),
                     ),
                   ),
@@ -74,9 +83,9 @@ class ForgetPassScreen extends GetView<ForgetPassScreenController> {
                     padding: const EdgeInsets.only(top: 45),
                     child: Button(
                       onPressed: () {
-                        Get.toNamed(kOtpVerificationScreen);
+                        controller.onTap();
                       },
-                      text: "Send Code",
+                      text: "Reset Password",
                     ))
               ],
             ),
