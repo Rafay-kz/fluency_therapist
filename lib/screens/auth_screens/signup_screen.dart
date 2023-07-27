@@ -342,19 +342,45 @@ class SignUpScreen extends GetView<SignupScreenController> {
                                   ),
                                 ),
                               ),
-                              const SizedBox(
-                                height: 20,
-                              ),
                             ],
                           )),
-                      Button(
 
-                        onPressed: () {
+                      Obx(
+                            () => CheckboxListTile(
+                          title: const Text('Sign up as a doctor'),
+                          value: controller.isDoctor.value,
+                          onChanged: (newValue) {
+                            controller.toggleDoctor(newValue!);
+                          },
 
-                          controller.onRegisterTap();
-                        },
-                        text: "Register",
+                              checkColor: AppColors.primaryBlue,
+                                 activeColor: AppColors.textfieldColor,
+                        ),
+
                       ),
+                      const SizedBox(height: 10),
+
+                      Obx(() {
+                        if (controller.isDoctor.value) {
+                          // Show a different button if the checkbox is ticked
+                          return Button(
+                            onPressed: () {
+                              if (controller.formKey.currentState!.validate()){
+                                Get.toNamed(kDoctorRegistrationScreen);
+                              }
+                            },
+                            text: "Next",
+                          );
+                        } else {
+                          // Show the default "Register" button
+                          return Button(
+                            onPressed: () {
+                              controller.onRegisterTap();
+                            },
+                            text: "Register",
+                          );
+                        }
+                      }),
                     ],
                   ),
                 ]),

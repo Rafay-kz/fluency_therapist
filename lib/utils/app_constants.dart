@@ -5,6 +5,7 @@ const String kAppName= 'Fluency Therapy App';
 const String kSplashScreen = "/SPLASH_SCREEN";
 const String kWelcomescreen = "/WELCOME_SCREEN";
 const String kSignUpScreen = "/SIGNUP_SCREEN";
+const String kDoctorRegistrationScreen = "/DOCTOR_REGISTRATION_SCREEN";
 const String kLoginScreen = "/LOGIN_SCREEN";
 const String kEmailVerificationScreen = "/EMAIL_VERIFICATION_SCREEN";
 const String kForgetPassScreen = "/FORGET_PASSWORD_SCREEN";
@@ -30,6 +31,11 @@ const String kEditProfileScreen = "/EDIT_PROFILE_SCREEN";
 const String kUserProfileScreen = "/USER_PROFILE_SCREEN";
 const String kInboxScreen = "/INBOX_SCREEN";
 const String kCallLogScreen = "/CALL_LOG_SCREEN";
+const String kDoctorHomeScreen = "/DOCTOR_HOME_SCREEN";
+const String kDoctorEditProfileScreen = "/DOCTOR_EDIT_PROFILE_SCREEN";
+
+
+
 
 //Images
 const String fluencyTherapistLogo = 'assets/images/fluencyTherapistLogo.png';
