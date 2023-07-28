@@ -35,34 +35,25 @@ class UserProfileScreen extends GetView<UserProfileScreenController> {
                 ),
               ],
             ),
-            Obx((){
-              return Column
-                (
+            Obx(() {
+              return Column(
                 children: [
                   Center(
                     child: CircleAvatar(
                         radius: screenWidth * 0.15,
-
-                        backgroundImage: controller.imagePath.isNotEmpty ? FileImage(File(controller.imagePath.toString())) : null
-                    ),
+                        backgroundImage: controller.imagePath.isNotEmpty
+                            ? FileImage(File(controller.imagePath.toString()))
+                            : null),
                   ),
-                  TextButton(onPressed: (){
-                    controller.imagePickerOption();
-
-                  }, child: const Text("Change Photo"))
+                  TextButton(
+                      onPressed: () {
+                        controller.imagePickerOption();
+                      },
+                      child: const Text("Change Photo"))
                 ],
               );
             }),
-            Padding(
-              padding: const EdgeInsets.only(top: 20, bottom: 5),
-              child: Text(
-                "Dr M Ali Nizamani",
-                style: Theme.of(context).textTheme.displayLarge!.copyWith(
-                      fontSize: screenWidth * 0.050,
-                      color: AppColors.textColor,
-                    ),
-              ),
-            ),
+
             InkWell(
               onTap: () {
                 Get.toNamed(kEditProfileScreen);
@@ -86,7 +77,7 @@ class UserProfileScreen extends GetView<UserProfileScreenController> {
                     children: [
                       InkWell(
                         onTap: () {
-                          Get.to( EditProfileScreen());
+                          Get.toNamed(kEditProfileScreen);
                         },
                         child: Padding(
                           padding: const EdgeInsets.only(left: 15, top: 16),

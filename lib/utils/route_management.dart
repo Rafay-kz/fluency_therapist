@@ -146,7 +146,7 @@ class RouteGenerator {
         binding: ScreenBindings(),
       ),GetPage(
         name: kUserProfileScreen,
-        page: () => const UserProfileScreen(),
+        page: () =>  UserProfileScreen(),
         binding: ScreenBindings(),
       ),GetPage(
         name: kInboxScreen,

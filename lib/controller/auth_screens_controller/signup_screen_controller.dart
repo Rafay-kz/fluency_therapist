@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:fluency_therapist/controller/auth_screens_controller/database.dart';
 import 'package:get/get.dart';
 import 'package:fluency_therapist/utils/app_constants.dart';
 import 'package:flutter/material.dart';
@@ -7,8 +8,8 @@ import 'package:flutter/material.dart';
 import '../../utils/utills.dart';
 
 class SignupScreenController extends GetxController {
+
   final FirebaseAuth _auth = FirebaseAuth.instance;
-  final FirebaseFirestore _firestore = FirebaseFirestore.instance;
   final formKey = GlobalKey<FormState>();
    late RxBool loading ;
 
@@ -20,6 +21,12 @@ class SignupScreenController extends GetxController {
 
 
   RxBool obscureText = true.obs;
+
+  var isDoctor = false.obs;
+
+  void toggleDoctor(bool value){
+    isDoctor.value = value;
+  }
 
   var name = '';
   var email = '';
@@ -84,35 +91,19 @@ class SignupScreenController extends GetxController {
     return null;
   }
 
-  Future<void> saveUserDetails(String username, String age, String email) async {
-    try {
-      await _firestore.collection('users').add({
-        'username': username,
-        'age': age,
-        'email': email,
-      });
-      // Data saved successfully
-    } catch (e) {
-      // Handle error
-      print('Error saving user details: $e');
-    }
-  }
+
+
 
   Future<void> signUp() async {
    if (formKey.currentState!.validate()) {
    try {
-   UserCredential userCredential = await _auth.createUserWithEmailAndPassword(
-   email: emailTEController.text.toString(),
-   password: passwordTEController.text.toString(),
-   );
-   if (userCredential != null) {
-     await userCredential.user!.sendEmailVerification();
-     Get.offAllNamed(kEmailVerificationScreen);
-     saveUserDetails(
+   Database database = Database();
+    database.createAccount(emailTEController.text.toString(), passwordTEController.text.toString());
+     database.saveUserDetails(
          nameTEController.text.toString(),
          ageTEController.text.toString(),
          emailTEController.text.toString());
-   }
+
    } catch (error) {
    Utils().toastMessage(error.toString());
    }
