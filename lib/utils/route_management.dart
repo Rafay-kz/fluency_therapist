@@ -1,6 +1,10 @@
+import 'package:fluency_therapist/controller/home_screens_controller/doctor_edit_profile_screen_controller.dart';
+import 'package:fluency_therapist/screens/auth_screens/doctor_registration_screen.dart';
 import 'package:fluency_therapist/screens/auth_screens/email_verification_screen.dart';
 import 'package:fluency_therapist/screens/auth_screens/login_screen.dart';
 import 'package:fluency_therapist/screens/auth_screens/welcome_screen.dart';
+import 'package:fluency_therapist/screens/home_screens/doctor_edit_profile_screen.dart';
+import 'package:fluency_therapist/screens/home_screens/doctor_home_screen.dart';
 import 'package:fluency_therapist/screens/home_screens/home_screen.dart';
 import 'package:get/get.dart';
 import '../screens/auth_screens/SignUp_screen.dart';
@@ -47,6 +51,11 @@ class RouteGenerator {
       GetPage(
         name: kSignUpScreen,
         page: () => const SignUpScreen(),
+        binding: ScreenBindings(),
+      ),
+      GetPage(
+        name: kDoctorRegistrationScreen,
+        page: () => const DoctorRegistrationScreen(),
         binding: ScreenBindings(),
       ),
       GetPage(
@@ -148,6 +157,18 @@ class RouteGenerator {
         page: () => const CallLogScreen(),
         binding: ScreenBindings(),
       ),
+      GetPage(
+        name: kDoctorHomeScreen,
+        page: () => const DoctorHomeScreen(),
+        binding: ScreenBindings(),
+      ),
+      GetPage(
+        name: kDoctorEditProfileScreen,
+        page: () => DoctorEditProfileScreen(),
+        binding: ScreenBindings(),
+      ),
+
+
     ];
   }
 

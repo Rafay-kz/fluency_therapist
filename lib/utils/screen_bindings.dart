@@ -1,4 +1,5 @@
 import 'package:fluency_therapist/controller/auth_screens_controller/create_new_password_screen_controller.dart';
+import 'package:fluency_therapist/controller/auth_screens_controller/doctor_registration_%20screen_controller.dart';
 import 'package:fluency_therapist/controller/auth_screens_controller/email_verification_screen_controller.dart';
 import 'package:fluency_therapist/controller/auth_screens_controller/login_screen_controller.dart';
 import 'package:fluency_therapist/controller/auth_screens_controller/splash_screen_controller.dart';
@@ -17,6 +18,8 @@ import '../controller/home_screens_controller/consultant_calling_screen_controll
 import '../controller/home_screens_controller/consultant_profile_screen_controller.dart';
 import '../controller/home_screens_controller/customize_program_final_screen_controller.dart';
 import '../controller/home_screens_controller/customized_program_screen_controller.dart';
+import '../controller/home_screens_controller/doctor_edit_profile_screen_controller.dart';
+import '../controller/home_screens_controller/doctor_home_screen_controller.dart';
 import '../controller/home_screens_controller/edit_profile_screen_controller.dart';
 import '../controller/home_screens_controller/home_screen_controller.dart';
 import '../controller/home_screens_controller/inbox_screen_controller.dart';
@@ -37,6 +40,7 @@ class ScreenBindings extends Bindings {
     Get.lazyPut(() => WelcomeScreenController());
     Get.lazyPut(() => LoginScreenController());
     Get.lazyPut(() => SignupScreenController());
+    Get.lazyPut(() => DoctorRegistrationScreenController());
     Get.lazyPut(() => ForgetPassScreenController());
     Get.lazyPut(() => EmailVerificationScreenController());
     Get.lazyPut(() => OtpVerificationScreenController());
@@ -59,6 +63,10 @@ class ScreenBindings extends Bindings {
     Get.lazyPut(() => UserProfileScreenController());
     Get.lazyPut(() => InboxScreenController());
     Get.lazyPut(() => CallLogScreenController());
+    Get.lazyPut(() => DoctorHomeScreenController());
+    Get.lazyPut(() => DoctorEditProfileScreenController());
+
+
 
 
 
