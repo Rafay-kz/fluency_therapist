@@ -10,6 +10,7 @@ class UserSession{
   }
 
   static const String IS_LOGIN = "IS_LOGIN";
+  static const String IS_DOCTOR = "IS_DOCTOR";
 
   Future<void> setLogin() async {
     SharedPreferences preference = await SharedPreferences.getInstance();
@@ -25,6 +26,16 @@ class UserSession{
   Future<void> logOut()async{
     final preference = await SharedPreferences.getInstance();
     preference.clear();
+  }
+
+  Future<void> setIsDoctor() async {
+    SharedPreferences preference = await SharedPreferences.getInstance();
+    preference.setBool(IS_DOCTOR, true);
+  }
+
+  Future<bool> isUserDoctor() async {
+    final preference = await SharedPreferences.getInstance();
+    return preference.getBool(IS_DOCTOR) ?? false;
   }
 
 }

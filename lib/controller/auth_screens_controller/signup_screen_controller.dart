@@ -1,38 +1,49 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:fluency_therapist/controller/auth_screens_controller/database.dart';
 import 'package:get/get.dart';
-import 'package:fluency_therapist/utils/app_constants.dart';
 import 'package:flutter/material.dart';
 
 import '../../utils/utills.dart';
 
 class SignupScreenController extends GetxController {
-
-  final FirebaseAuth _auth = FirebaseAuth.instance;
   final formKey = GlobalKey<FormState>();
-   late RxBool loading ;
+  late RxBool loading;
+  RxBool obscureText = true.obs;
 
+
+  //Regular users controllers
   TextEditingController nameTEController = TextEditingController();
   TextEditingController emailTEController = TextEditingController();
   TextEditingController passwordTEController = TextEditingController();
   TextEditingController confirmPasswordTEController = TextEditingController();
   TextEditingController ageTEController = TextEditingController();
 
+  //Doctor users controllers
+  TextEditingController fullNameController = TextEditingController();
+  TextEditingController specialityController = TextEditingController();
+  TextEditingController bioController = TextEditingController();
+  TextEditingController locationController = TextEditingController();
 
-  RxBool obscureText = true.obs;
-
+ //Checkbox method
   var isDoctor = false.obs;
-
-  void toggleDoctor(bool value){
+  void toggleDoctor(bool value) {
     isDoctor.value = value;
   }
 
+  //variables to store regular users controller data
   var name = '';
   var email = '';
   var password = '';
   var confirmPassword = '';
   var age = '';
+
+  //variables to store doctor users controller data'
+  var fullName = '';
+  var speciality = '';
+  var bio = '';
+  var location = '';
+  var availabilityStart = '';
+  var availabilityEnd = '';
+
 
   @override
   void onClose() {
@@ -41,8 +52,13 @@ class SignupScreenController extends GetxController {
     emailTEController.dispose();
     passwordTEController.dispose();
     confirmPasswordTEController.dispose();
+    fullNameController.dispose();
+    specialityController.dispose();
+    bioController.dispose();
+    locationController.dispose();
   }
 
+  //Validators for text fields
   String? validateName(String value) {
     if (value.isEmpty) {
       return 'Please enter your name';
@@ -63,7 +79,6 @@ class SignupScreenController extends GetxController {
     if (value.length > 3) {
       return 'Please enter a valid age';
     }
-    // Additional validation logic for age if needed
     return null;
   }
 
@@ -91,36 +106,83 @@ class SignupScreenController extends GetxController {
     return null;
   }
 
+  String? validateFullName(String value) {
+    if (value.isEmpty) {
+      return 'Name cannot be empty';
+    }
+    if (value.length < 4) {
+      return 'Please enter your full name';
+    }
+    return null;
+  }
+
+  String? validateSpeciality(String value) {
+    if (value.isEmpty) {
+      return 'Speciality cannot be empty';
+    }
+    if (value.length < 4) {
+      return 'Improper speciality';
+    }
+    return null;
+  }
+
+  String formatTimeOfDay(TimeOfDay timeOfDay) {
+    String hour = '${timeOfDay.hour}'.padLeft(2, '0');
+    String minute = '${timeOfDay.minute}'.padLeft(2, '0');
+    return '$hour:$minute';
+  }
 
 
+  String? validateLocation(String value) {
+    if (value.isEmpty) {
+      return 'Location cannot be empty';
+    }
+    if (value.length < 3) {
+      return 'Improper location';
+    }
+    return null;
+  }
+ //End of validators
 
+  //For registering users - Register method.
   Future<void> signUp() async {
-   if (formKey.currentState!.validate()) {
-   try {
-   Database database = Database();
-    database.createAccount(emailTEController.text.toString(), passwordTEController.text.toString());
-     database.saveUserDetails(
-         nameTEController.text.toString(),
-         ageTEController.text.toString(),
-         emailTEController.text.toString());
+    if (formKey.currentState!.validate()) {
+      try {
+        Database database = Database();
+        await database.createAccount(
+          emailTEController.text.toString(),
+          passwordTEController.text.toString(),
+        );
 
-   } catch (error) {
-   Utils().toastMessage(error.toString());
-   }
-   } else {
-   // Handle form validation errors if needed
-   }
-}
+        if (isDoctor.value) {
+          await database.saveDoctorUserDetails(
+            nameTEController.text.toString(),
+            ageTEController.text.toString(),
+            emailTEController.text.toString(),
+            fullNameController.text.toString(),
+            specialityController.text.toString(),
+            bioController.text.toString(),
+            locationController.text.toString(),
+            availabilityStart.toString(),
+            availabilityEnd.toString(),
+            isDoctor.value,
+          );
+        }
+        else {
+          database.saveUserDetails(
+            nameTEController.text.toString(),
+            ageTEController.text.toString(),
+            emailTEController.text.toString(),
+          );
+        }
+      } catch (error) {
+        Utils().toastMessage(error.toString());
+      }
+    }
+  }
 
-   Future<void> onRegisterTap() async {
+ //Button method
+  Future<void> onRegisterTap() async {
     signUp();
-
-   }
-
-
-
-
-
+  }
 }
-
-

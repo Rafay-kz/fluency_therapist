@@ -1,5 +1,3 @@
-import 'package:fluency_therapist/controller/home_screens_controller/doctor_edit_profile_screen_controller.dart';
-import 'package:fluency_therapist/screens/auth_screens/doctor_registration_screen.dart';
 import 'package:fluency_therapist/screens/auth_screens/email_verification_screen.dart';
 import 'package:fluency_therapist/screens/auth_screens/login_screen.dart';
 import 'package:fluency_therapist/screens/auth_screens/welcome_screen.dart';
@@ -53,11 +51,7 @@ class RouteGenerator {
         page: () => const SignUpScreen(),
         binding: ScreenBindings(),
       ),
-      GetPage(
-        name: kDoctorRegistrationScreen,
-        page: () => const DoctorRegistrationScreen(),
-        binding: ScreenBindings(),
-      ),
+
       GetPage(
         name: kLoginScreen,
         page: () => const LoginScreen(),

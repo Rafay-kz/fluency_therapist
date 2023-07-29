@@ -1,5 +1,4 @@
 import 'package:fluency_therapist/controller/auth_screens_controller/create_new_password_screen_controller.dart';
-import 'package:fluency_therapist/controller/auth_screens_controller/doctor_registration_%20screen_controller.dart';
 import 'package:fluency_therapist/controller/auth_screens_controller/email_verification_screen_controller.dart';
 import 'package:fluency_therapist/controller/auth_screens_controller/login_screen_controller.dart';
 import 'package:fluency_therapist/controller/auth_screens_controller/splash_screen_controller.dart';
@@ -40,7 +39,6 @@ class ScreenBindings extends Bindings {
     Get.lazyPut(() => WelcomeScreenController());
     Get.lazyPut(() => LoginScreenController());
     Get.lazyPut(() => SignupScreenController());
-    Get.lazyPut(() => DoctorRegistrationScreenController());
     Get.lazyPut(() => ForgetPassScreenController());
     Get.lazyPut(() => EmailVerificationScreenController());
     Get.lazyPut(() => OtpVerificationScreenController());

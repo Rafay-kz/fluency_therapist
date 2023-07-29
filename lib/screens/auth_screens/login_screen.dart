@@ -6,18 +6,15 @@ import '../../custom widgets/button.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-
 //created by Bilal on 6-5-2023
 
 class LoginScreen extends GetView<LoginScreenController> {
   const LoginScreen({super.key});
 
-
   @override
   Widget build(BuildContext context) {
-
     var mediaQuery = MediaQuery.of(context);
-    return  Scaffold(
+    return Scaffold(
       backgroundColor: AppColors.backgroundColor,
       body: SafeArea(
         child: SingleChildScrollView(
@@ -55,7 +52,6 @@ class LoginScreen extends GetView<LoginScreenController> {
                 const SizedBox(
                   height: 20,
                 ),
-
                 Form(
                   autovalidateMode: AutovalidateMode.onUserInteraction,
                   key: controller.formKey,
@@ -66,17 +62,17 @@ class LoginScreen extends GetView<LoginScreenController> {
                       Padding(
                           padding: const EdgeInsets.all(8.0),
                           child: Text('Email',
-                              style: Theme.of(context).textTheme.headlineSmall)),
+                              style:
+                                  Theme.of(context).textTheme.headlineSmall)),
                       const SizedBox(
                         height: 5,
                       ),
-
                       Padding(
                         padding: const EdgeInsets.all(8.0),
                         child: Center(
                           child: SizedBox(
                             width: 400,
-                            child:  TextFormField(
+                            child: TextFormField(
                               // cursorColor: Colors.black,
                               controller: controller.emailTEController,
                               onSaved: (value) {
@@ -89,7 +85,8 @@ class LoginScreen extends GetView<LoginScreenController> {
                                   fillColor: AppColors.textfieldColor,
                                   filled: true,
                                   hintText: 'Enter your email',
-                                  hintStyle: Theme.of(context).textTheme.titleMedium,
+                                  hintStyle:
+                                      Theme.of(context).textTheme.titleMedium,
                                   border: OutlineInputBorder(
                                       borderRadius: BorderRadius.circular(30),
                                       borderSide: BorderSide.none),
@@ -118,7 +115,7 @@ class LoginScreen extends GetView<LoginScreenController> {
                           child: SizedBox(
                             width: 400,
                             child: Obx(() => TextFormField(
-                              // cursorColor: Colors.black,
+                                // cursorColor: Colors.black,
                                 controller: controller.passwordTEController,
                                 onSaved: (value) {
                                   controller.password = value!;
@@ -130,14 +127,15 @@ class LoginScreen extends GetView<LoginScreenController> {
                                   fillColor: AppColors.textfieldColor,
                                   filled: true,
                                   hintText: 'Enter your password',
-                                  hintStyle: Theme.of(context).textTheme.titleMedium,
+                                  hintStyle:
+                                      Theme.of(context).textTheme.titleMedium,
                                   border: OutlineInputBorder(
                                       borderRadius: BorderRadius.circular(30),
                                       borderSide: BorderSide.none),
                                   suffixIcon: GestureDetector(
                                     onTap: () {
                                       controller.obscureText.value =
-                                      !controller.obscureText.value;
+                                          !controller.obscureText.value;
                                     },
                                     child: Icon(
                                         controller.obscureText.value
@@ -156,7 +154,6 @@ class LoginScreen extends GetView<LoginScreenController> {
                     ],
                   ),
                 ),
-
                 Padding(
                   padding: const EdgeInsets.only(top: 8, left: 190, bottom: 20),
                   child: GestureDetector(
@@ -172,9 +169,11 @@ class LoginScreen extends GetView<LoginScreenController> {
                 ),
                 Button(
                     onPressed: () {
-                      showDialog(context: context, builder: (context){
-                        return Center(child: CircularProgressIndicator());
-                      });
+                      showDialog(
+                          context: context,
+                          builder: (context) {
+                            return Center(child: CircularProgressIndicator());
+                          });
                       controller.onLoginTap();
                     },
                     text: "Login"),
@@ -223,9 +222,12 @@ class LoginScreen extends GetView<LoginScreenController> {
                       child: TextButton(
                           onPressed: () {
                             controller.signInWithGoogle(context);
-                            showDialog(context: context, builder: (context){
-                              return Center(child: CircularProgressIndicator());
-                            });
+                            showDialog(
+                                context: context,
+                                builder: (context) {
+                                  return Center(
+                                      child: CircularProgressIndicator());
+                                });
                             //GetUtils.isLengthGreaterThan(EmailController.text, 6) ? print('email is valid') : print('email is invalid');
                           },
                           child: Row(
@@ -243,8 +245,8 @@ class LoginScreen extends GetView<LoginScreenController> {
                                         .textTheme
                                         .displayLarge!
                                         .copyWith(
-                                      fontSize: 15,
-                                    )),
+                                          fontSize: 15,
+                                        )),
                               ),
                             ],
                           )),
@@ -259,19 +261,19 @@ class LoginScreen extends GetView<LoginScreenController> {
                       padding: const EdgeInsets.only(top: 8.0, right: 5),
                       child: Center(
                           child: Text(
-                            'New User?',
-                            style: Theme.of(context)
-                                .textTheme
-                                .titleLarge!
-                                .copyWith(fontSize: 14),
-                          )),
+                        'New User?',
+                        style: Theme.of(context)
+                            .textTheme
+                            .titleLarge!
+                            .copyWith(fontSize: 14),
+                      )),
                     ),
                     Padding(
                       padding: const EdgeInsets.only(top: 8.0),
                       child: Center(
                           child: GestureDetector(
                               onTap: () {
-                                Get.toNamed (kSignUpScreen);
+                                Get.toNamed(kSignUpScreen);
                               },
                               child: Text(
                                 'Register Here',
@@ -279,8 +281,8 @@ class LoginScreen extends GetView<LoginScreenController> {
                                     .textTheme
                                     .displayLarge!
                                     .copyWith(
-                                    fontSize: 14,
-                                    color: AppColors.primaryBlue),
+                                        fontSize: 14,
+                                        color: AppColors.primaryBlue),
                               ))),
                     ),
                   ],
@@ -291,6 +293,5 @@ class LoginScreen extends GetView<LoginScreenController> {
         ),
       ),
     );
-
   }
 }

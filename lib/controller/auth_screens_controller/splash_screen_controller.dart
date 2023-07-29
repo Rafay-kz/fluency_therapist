@@ -30,7 +30,11 @@ class SplashScreenController extends GetxController {
   Future<void> navigate() async {
     UserSession userSession = UserSession();
     if (await userSession.isUserLoggedIn()) {
-      Get.offNamed(kHomeScreen);
+      if (await userSession.isUserDoctor()) {
+        Get.offNamed(kDoctorHomeScreen);
+      } else {
+        Get.offNamed(kHomeScreen);
+      }
     } else {
       Get.offNamed(kWelcomescreen);
     }
