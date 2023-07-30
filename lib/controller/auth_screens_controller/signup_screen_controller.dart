@@ -1,4 +1,4 @@
-import 'package:fluency_therapist/controller/auth_screens_controller/database.dart';
+import 'package:fluency_therapist/core/database.dart';
 import 'package:get/get.dart';
 import 'package:flutter/material.dart';
 

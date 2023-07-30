@@ -1,12 +1,13 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:fluency_therapist/controller/auth_screens_controller/user_session.dart';
+import 'package:fluency_therapist/utils/user_session.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 
-import '../../utils/app_constants.dart';
-import '../../utils/utills.dart';
+import '../model/user_model.dart';
+import '../utils/app_constants.dart';
+import '../utils/utills.dart';
 
 class Database {
   final FirebaseAuth _auth = FirebaseAuth.instance;
@@ -24,7 +25,7 @@ class Database {
   }
 
   //To Log in users and Doctor users
-  Future<void> loginUser(String email, password) async {
+  Future<UserModel> loginUser(String email, password) async {
     try {
       final userCredential = await FirebaseAuth.instance.signInWithEmailAndPassword(
         email: email,
@@ -34,7 +35,7 @@ class Database {
       if (userCredential.user != null) {
         if (userCredential.user!.emailVerified) {
           // Check if the user is a doctor
-          DocumentSnapshot doctorSnapshot = await FirebaseFirestore.instance
+         /* DocumentSnapshot doctorSnapshot = await FirebaseFirestore.instance
               .collection('doctor_users')
               .doc(userCredential.user!.uid)
               .get();
@@ -45,7 +46,7 @@ class Database {
             await userSession.setIsDoctor();
             Get.offAllNamed(kDoctorHomeScreen);
             return;
-          }
+          }*/
 
           // Check if the user is a normal user
           DocumentSnapshot userSnapshot = await FirebaseFirestore.instance
@@ -55,20 +56,23 @@ class Database {
 
           if (userSnapshot.exists) {
             // User is a normal user
-            await userSession.setLogin();
-            Get.offAllNamed(kHomeScreen);
+            Map<String, dynamic> map = userSnapshot.data() as Map<String, dynamic>;
+            if(userSnapshot.data() is Map) {
+              UserModel userModel = UserModel.fromJson(map,'');
+              return userModel;
+            }
           } else {
-            // User data not found in both collections
-            debugPrint("Error: User Data not found");
+            return UserModel(age:'', email: '', userName: '', errorMsg: 'User Not Found');
           }
         } else {
-          // Email not verified, navigate to verification screen
-          Get.toNamed(kEmailVerificationScreen);
+          return UserModel(age:'', email: '', userName: '', errorMsg: 'Email is Not Verified');
+
         }
       }
     } catch (error) {
-      Utils().toastMessage(error.toString());
+      return UserModel(age:'', email: '', userName: '', errorMsg: error.toString());
     }
+    return UserModel.empty();
   }
 
 

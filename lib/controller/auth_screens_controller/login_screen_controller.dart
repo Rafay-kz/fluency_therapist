@@ -1,12 +1,14 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:fluency_therapist/controller/auth_screens_controller/database.dart';
-import 'package:fluency_therapist/controller/auth_screens_controller/user_session.dart';
+import 'package:fluency_therapist/core/database.dart';
+import 'package:fluency_therapist/model/user_model.dart';
+import 'package:fluency_therapist/utils/user_session.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
 import '../../utils/app_constants.dart';
+import '../../utils/utills.dart';
 
 //created by Bilal on 10-5-2023
 
@@ -27,6 +29,10 @@ class LoginScreenController extends GetxController {
   var email = '';
   var password = '';
 
+  Database database = Database();
+  UserModel userModel=UserModel.empty();
+  UserSession userSession=UserSession();
+
   String? validateEmail(String value) {
     if (!GetUtils.isEmail(value)) {
       return 'Provide valid email';
@@ -44,9 +50,21 @@ class LoginScreenController extends GetxController {
 
   Future<void> onLoginTap() async {
     if (formKey.currentState!.validate()) {
-      Database database = Database();
-      database.loginUser(emailTEController.text.toString(),
-          passwordTEController.text.toString());
+
+     userModel=await database.loginUser(emailTEController.text.toString(), passwordTEController.text.toString());
+     if(userModel.errorMsg==''){
+        await userSession.setLogin();
+       userSession.userInformation(userModel: userModel);
+       Get.offAllNamed(kHomeScreen);
+     }else if(userModel.errorMsg!=''&&userModel.errorMsg=='Email is Not Verified'){
+       // Email not verified, navigate to verification screen
+       Utils().toastMessage(userModel.errorMsg);
+       Get.toNamed(kEmailVerificationScreen);
+     }else{
+       Utils().toastMessage(userModel.errorMsg);
+     }
+
+
     }
   }
 

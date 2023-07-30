@@ -23,22 +23,23 @@ class HomeScreen extends GetView<HomeScreenController> {
               children: [
                 Row(
                   children: [
-                    RichText(
-                      text: TextSpan(
-                        style: Theme.of(context).textTheme.headlineSmall!.copyWith(
-                          fontSize: Get.width * 0.055,
-                          color: AppColors.primaryBlue,
-                        ),
-                        children: [
-                          const TextSpan(text: "Hello,"),
-                          TextSpan(
-                            text: "\nBilal Kz",
-                            style: Theme.of(context).textTheme.displayLarge!.copyWith(
-                              fontSize: Get.width * 0.060,
-                              color: AppColors.textColor,
-                            ),
+                    Obx(()=> RichText(
+                        text: TextSpan(
+                          style: Theme.of(context).textTheme.headlineSmall!.copyWith(
+                            fontSize: Get.width * 0.055,
+                            color: AppColors.primaryBlue,
                           ),
-                        ],
+                          children: [
+                            const TextSpan(text: "Hello,"),
+                            TextSpan(
+                              text: "\n${controller.userModel.value.userName}",
+                              style: Theme.of(context).textTheme.displayLarge!.copyWith(
+                                fontSize: Get.width * 0.060,
+                                color: AppColors.textColor,
+                              ),
+                            ),
+                          ],
+                        ),
                       ),
                     ),
                     Padding(
