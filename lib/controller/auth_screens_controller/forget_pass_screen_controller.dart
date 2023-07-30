@@ -1,9 +1,8 @@
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:fluency_therapist/utils/app_constants.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-import '../../utils/utills.dart';
+import 'database.dart';
 
 class ForgetPassScreenController extends GetxController {
   final formKey = GlobalKey<FormState>();
@@ -19,23 +18,14 @@ class ForgetPassScreenController extends GetxController {
     return null;
   }
 
-  Future<void> passwordReset() async {
-    auth.sendPasswordResetEmail(email: emailTEController.text.toString()).then((value) {
-      Utils().toastMessage2("Check your email to reset your password and log in");
-      Get.offAllNamed(kLoginScreen);
-
-    }).onError((error, stackTrace) {
-      Utils().toastMessage(error.toString());
-    });
-
-  }
 
 
 
-void onTap () {
+Future<void> onTap () async {
 if (formKey.currentState!.validate()) {
     formKey.currentState!.save();
-    passwordReset();
+    Database database = Database();
+    await database.passwordReset(emailTEController.text.toString());
   }
 }
 }

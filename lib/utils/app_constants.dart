@@ -5,7 +5,6 @@ const String kAppName= 'Fluency Therapy App';
 const String kSplashScreen = "/SPLASH_SCREEN";
 const String kWelcomescreen = "/WELCOME_SCREEN";
 const String kSignUpScreen = "/SIGNUP_SCREEN";
-const String kDoctorRegistrationScreen = "/DOCTOR_REGISTRATION_SCREEN";
 const String kLoginScreen = "/LOGIN_SCREEN";
 const String kEmailVerificationScreen = "/EMAIL_VERIFICATION_SCREEN";
 const String kForgetPassScreen = "/FORGET_PASSWORD_SCREEN";

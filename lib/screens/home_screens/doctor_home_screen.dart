@@ -1,7 +1,6 @@
 import 'package:fluency_therapist/utils/app_colors.dart';
 import 'package:fluency_therapist/utils/app_constants.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 
 import '../../controller/home_screens_controller/doctor_home_screen_controller.dart';
@@ -46,9 +45,10 @@ class DoctorHomeScreen extends GetView<DoctorHomeScreenController> {
                       child: PopupMenuButton(
                         onSelected: (value) {
                           if (value == 'logout') {
+                            controller.logout();
                             }
                           else if (value == 'profile') {
-                            Get.toNamed(kUserProfileScreen);
+                            Get.toNamed(kDoctorEditProfileScreen);
                           }
 
                         },
@@ -68,7 +68,7 @@ class DoctorHomeScreen extends GetView<DoctorHomeScreenController> {
                             ),
                           ),
                         ],
-                        child: CircleAvatar(
+                        child: const CircleAvatar(
                         ),
                       ),
                     ),
