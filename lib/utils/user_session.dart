@@ -1,5 +1,9 @@
 
+import 'dart:convert';
+
 import 'package:shared_preferences/shared_preferences.dart';
+
+import '../model/user_model.dart';
 
 class UserSession{
 
@@ -11,6 +15,7 @@ class UserSession{
 
   static const String IS_LOGIN = "IS_LOGIN";
   static const String IS_DOCTOR = "IS_DOCTOR";
+  static const String USER_DATA = "USER_INFO";
 
   Future<void> setLogin() async {
     SharedPreferences preference = await SharedPreferences.getInstance();
@@ -37,5 +42,16 @@ class UserSession{
     final preference = await SharedPreferences.getInstance();
     return preference.getBool(IS_DOCTOR) ?? false;
   }
+
+  Future<void> userInformation({required UserModel userModel}) async {
+    SharedPreferences preference = await SharedPreferences.getInstance();
+    preference.setString(USER_DATA,jsonEncode(userModel.toJson()));
+  }
+
+  Future<UserModel> getUserInformation() async{
+    SharedPreferences preference = await SharedPreferences.getInstance();
+    return UserModel.fromJson(jsonDecode(preference.getString(USER_DATA)??'{}'),'');
+  }
+
 
 }

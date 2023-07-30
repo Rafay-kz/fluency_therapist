@@ -1,12 +1,24 @@
+import 'package:fluency_therapist/model/user_model.dart';
 import 'package:fluency_therapist/utils/app_constants.dart';
 import 'package:get/get.dart';
 
-import '../auth_screens_controller/user_session.dart';
+import '../../utils/user_session.dart';
 
 class HomeScreenController extends GetxController {
+  UserSession userSession = UserSession();
+  Rx<UserModel> userModel=UserModel.empty().obs;
+
+  @override
+  void onInit(){
+    getUserInfo();
+    super.onInit();
+  }
+
+  Future<void> getUserInfo() async{
+    userModel.value=await userSession.getUserInformation();
+  }
 
   Future<void> logout () async {
-    UserSession userSession = UserSession();
     userSession.logOut();
     Get.offAllNamed(kLoginScreen);
 

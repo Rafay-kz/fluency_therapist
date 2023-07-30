@@ -2,7 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-import 'database.dart';
+import '../../core/database.dart';
 
 class ForgetPassScreenController extends GetxController {
   final formKey = GlobalKey<FormState>();

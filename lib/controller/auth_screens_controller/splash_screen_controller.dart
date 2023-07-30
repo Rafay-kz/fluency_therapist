@@ -1,6 +1,6 @@
 import 'dart:async';
 
-import 'package:fluency_therapist/controller/auth_screens_controller/user_session.dart';
+import 'package:fluency_therapist/utils/user_session.dart';
 
 import 'package:get/get.dart';
 
