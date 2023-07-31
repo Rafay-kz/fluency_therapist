@@ -7,6 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
+import '../../model/doctor_model.dart';
 import '../../utils/app_constants.dart';
 import '../../utils/utills.dart';
 
@@ -15,11 +16,9 @@ import '../../utils/utills.dart';
 class LoginScreenController extends GetxController {
   final GoogleSignIn _googleSignIn = GoogleSignIn();
 
-
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
   final formKey = GlobalKey<FormState>();
   RxBool isLoading = false.obs;
-
 
   TextEditingController emailTEController = TextEditingController();
   TextEditingController passwordTEController = TextEditingController();
@@ -30,8 +29,8 @@ class LoginScreenController extends GetxController {
   var password = '';
 
   Database database = Database();
-  UserModel userModel=UserModel.empty();
-  UserSession userSession=UserSession();
+  UserModel userModel = UserModel.empty();
+  UserSession userSession = UserSession();
 
   String? validateEmail(String value) {
     if (!GetUtils.isEmail(value)) {
@@ -47,26 +46,44 @@ class LoginScreenController extends GetxController {
     return null;
   }
 
-
   Future<void> onLoginTap() async {
     if (formKey.currentState!.validate()) {
+      dynamic userOrDoctor = await database.loginUser(
+          emailTEController.text.toString(),
+          passwordTEController.text.toString());
 
-     userModel=await database.loginUser(emailTEController.text.toString(), passwordTEController.text.toString());
-     if(userModel.errorMsg==''){
-        await userSession.setLogin();
-       userSession.userInformation(userModel: userModel);
-       Get.offAllNamed(kHomeScreen);
-     }else if(userModel.errorMsg!=''&&userModel.errorMsg=='Email is Not Verified'){
-       // Email not verified, navigate to verification screen
-       Utils().toastMessage(userModel.errorMsg);
-       Get.toNamed(kEmailVerificationScreen);
-     }else{
-       Utils().toastMessage(userModel.errorMsg);
-     }
-
-
+      if (userOrDoctor is UserModel) {
+        // User is a normal user
+        if (userOrDoctor.errorMsg == '') {
+          await userSession.setLogin();
+          userSession.userInformation(userModel: userOrDoctor);
+          Get.offAllNamed(kHomeScreen);
+        } else if (userOrDoctor.errorMsg == 'Email is Not Verified') {
+          Utils().toastMessage(userOrDoctor.errorMsg);
+          Get.toNamed(kEmailVerificationScreen);
+        } else {
+          Utils().toastMessage(userOrDoctor.errorMsg);
+        }
+      } else if (userOrDoctor is DoctorModel) {
+        // User is a doctor
+        if (userOrDoctor.errorMsg == '') {
+          await userSession.setLogin();
+          await userSession.setIsDoctor();
+          Get.offAllNamed(kDoctorHomeScreen);
+        } else if (userOrDoctor.errorMsg == 'Email is Not Verified') {
+          // Email not verified, navigate to verification screen
+          Utils().toastMessage(userOrDoctor.errorMsg);
+          Get.toNamed(kEmailVerificationScreen);
+        } else {
+          Utils().toastMessage(userOrDoctor.errorMsg);
+        }
+      } else {
+        // This means neither UserModel nor DoctorModel was returned, handle the case accordingly
+        Utils().toastMessage('Login failed. Please try again later.');
+      }
     }
   }
+
 
   Future<void> signInWithGoogle(BuildContext context) async {
     try {
@@ -76,7 +93,8 @@ class LoginScreenController extends GetxController {
         return;
       }
 
-      final GoogleSignInAuthentication googleAuth = await googleUser.authentication;
+      final GoogleSignInAuthentication googleAuth =
+          await googleUser.authentication;
 
       final AuthCredential credential = GoogleAuthProvider.credential(
         accessToken: googleAuth.accessToken,
@@ -84,7 +102,7 @@ class LoginScreenController extends GetxController {
       );
 
       final UserCredential userCredential =
-      await FirebaseAuth.instance.signInWithCredential(credential);
+          await FirebaseAuth.instance.signInWithCredential(credential);
 
       final User? user = userCredential.user;
 
@@ -99,7 +117,9 @@ class LoginScreenController extends GetxController {
         }
 
         ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text('Signed in successfully: ${user.displayName ?? 'User'}')),
+          SnackBar(
+              content: Text(
+                  'Signed in successfully: ${user.displayName ?? 'User'}')),
         );
       } else {
         // Handle null user
@@ -115,8 +135,4 @@ class LoginScreenController extends GetxController {
       );
     }
   }
-
-
-
-
 }
