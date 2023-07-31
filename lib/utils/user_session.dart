@@ -3,6 +3,7 @@ import 'dart:convert';
 
 import 'package:shared_preferences/shared_preferences.dart';
 
+import '../model/doctor_model.dart';
 import '../model/user_model.dart';
 
 class UserSession{
@@ -13,18 +14,20 @@ class UserSession{
     return _instance;
   }
 
-  static const String IS_LOGIN = "IS_LOGIN";
-  static const String IS_DOCTOR = "IS_DOCTOR";
-  static const String USER_DATA = "USER_INFO";
+  static const String isLogin = "IS_LOGIN";
+  static const String isDoctor = "IS_DOCTOR";
+  static const String userData = "USER_INFO";
+  static const String doctorData = "DOCTOR_INFO";
+
 
   Future<void> setLogin() async {
     SharedPreferences preference = await SharedPreferences.getInstance();
-    preference.setBool(IS_LOGIN,true);
+    preference.setBool(isLogin,true);
   }
 
   Future<bool> isUserLoggedIn()async{
     final preference = await SharedPreferences.getInstance();
-    return preference.getBool(IS_LOGIN)??false;
+    return preference.getBool(isLogin)??false;
   }
 
 
@@ -35,22 +38,32 @@ class UserSession{
 
   Future<void> setIsDoctor() async {
     SharedPreferences preference = await SharedPreferences.getInstance();
-    preference.setBool(IS_DOCTOR, true);
+    preference.setBool(isDoctor, true);
   }
 
   Future<bool> isUserDoctor() async {
     final preference = await SharedPreferences.getInstance();
-    return preference.getBool(IS_DOCTOR) ?? false;
+    return preference.getBool(isDoctor) ?? false;
   }
 
   Future<void> userInformation({required UserModel userModel}) async {
     SharedPreferences preference = await SharedPreferences.getInstance();
-    preference.setString(USER_DATA,jsonEncode(userModel.toJson()));
+    preference.setString(userData,jsonEncode(userModel.toJson()));
   }
 
   Future<UserModel> getUserInformation() async{
     SharedPreferences preference = await SharedPreferences.getInstance();
-    return UserModel.fromJson(jsonDecode(preference.getString(USER_DATA)??'{}'),'');
+    return UserModel.fromJson(jsonDecode(preference.getString(userData)??'{}'),'');
+  }
+
+  Future<void> doctorInformation({required DoctorModel doctorModel}) async {
+    SharedPreferences preference = await SharedPreferences.getInstance();
+    preference.setString(doctorData,jsonEncode(doctorModel.toJson()));
+  }
+
+  Future<DoctorModel> getDoctorInformation() async{
+    SharedPreferences preference = await SharedPreferences.getInstance();
+    return DoctorModel.fromJson(jsonDecode(preference.getString(doctorData)??'{}'),'');
   }
 
 
