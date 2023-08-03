@@ -148,55 +148,7 @@ class DoctorEditProfileScreen extends GetView<DoctorEditProfileScreenController>
                 const SizedBox(
                   height: 10,
                 ),
-                Padding(
-                  padding: const EdgeInsets.only(top: 10, bottom: 10),
-                  child: Text(
-                    'Password',
-                    style: Theme.of(context).textTheme.headlineSmall,
-                    textAlign: TextAlign.start,
-                  ),
-                ),
-                const SizedBox(
-                  height: 2,
-                ),
-                Center(
-                  child: SizedBox(
-                    width: 400,
-                    child: Obx(
-                          () => TextFormField(
-                        controller: controller.passwordTEController,
-                        decoration: InputDecoration(
-                          fillColor: AppColors.textfieldColor,
-                          filled: true,
-                          hintText: 'Enter your password',
-                          hintStyle: Theme.of(context).textTheme.titleMedium,
-                          border: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(30),
-                            borderSide: BorderSide.none,
-                          ),
-                          suffixIcon: GestureDetector(
-                            onTap: () {
-                              controller.obscureText.value =
-                              !controller.obscureText.value;
-                            },
-                            child: Icon(
-                              controller.obscureText.value
-                                  ? Icons.visibility_off
-                                  : Icons.visibility,
-                              color: AppColors.textHintColor,
-                            ),
-                          ),
-                          prefixIcon: Icon(
-                            Icons.lock_open_outlined,
-                            color: AppColors.textHintColor,
-                          ),
-                        ),
-                        keyboardType: TextInputType.visiblePassword,
-                        obscureText: controller.obscureText.value,
-                      ),
-                    ),
-                  ),
-                ),
+
 
                 Padding(
                   padding: const EdgeInsets.all(8.0),

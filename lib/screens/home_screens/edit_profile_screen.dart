@@ -58,13 +58,13 @@ class EditProfileScreen extends GetView<EditProfileScreenController> {
                     ],
                   );
                 }),
-                Center(
+               Obx(()=> Center(
                   child: Column(
                     children: [
                       Padding(
                         padding: const EdgeInsets.only(top: 20, bottom: 15),
                         child: Text(
-                          "Dr M Ali Nizamani",
+                          "\n${controller.userModel.value.userName}",
                           style: Theme.of(context)
                               .textTheme
                               .displayLarge!
@@ -77,6 +77,7 @@ class EditProfileScreen extends GetView<EditProfileScreenController> {
                     ],
                   ),
                 ),
+               ),
                 Padding(
                   padding: const EdgeInsets.only(top: 20, bottom: 10),
                   child: Text(
@@ -85,7 +86,7 @@ class EditProfileScreen extends GetView<EditProfileScreenController> {
                     textAlign: TextAlign.start,
                   ),
                 ),
-                Center(
+              Obx(()=>  Center(
                   child: SizedBox(
                     width: screenWidth * 0.9,
                     child: TextFormField(
@@ -93,7 +94,7 @@ class EditProfileScreen extends GetView<EditProfileScreenController> {
                       decoration: InputDecoration(
                         fillColor: AppColors.textfieldColor,
                         filled: true,
-                        hintText: 'Enter your name',
+                        labelText: "\n${controller.userModel.value.userName}",
                         hintStyle: Theme.of(context).textTheme.titleMedium,
                         border: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(30),
@@ -107,6 +108,7 @@ class EditProfileScreen extends GetView<EditProfileScreenController> {
                     ),
                   ),
                 ),
+              ),
                 const SizedBox(
                   height: 5,
                 ),
@@ -118,7 +120,7 @@ class EditProfileScreen extends GetView<EditProfileScreenController> {
                     textAlign: TextAlign.start,
                   ),
                 ),
-                Center(
+               Obx(()=> Center(
                   child: SizedBox(
                     width: screenWidth * 0.9,
                     child: TextFormField(
@@ -126,7 +128,7 @@ class EditProfileScreen extends GetView<EditProfileScreenController> {
                       decoration: InputDecoration(
                         fillColor: AppColors.textfieldColor,
                         filled: true,
-                        hintText: 'Enter your email',
+                        labelText: "\n${controller.userModel.value.email}",
                         hintStyle: Theme.of(context).textTheme.titleMedium,
                         border: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(30),
@@ -140,58 +142,11 @@ class EditProfileScreen extends GetView<EditProfileScreenController> {
                     ),
                   ),
                 ),
+               ),
                 const SizedBox(
                   height: 10,
                 ),
-                Padding(
-                  padding: const EdgeInsets.only(top: 10, bottom: 10),
-                  child: Text(
-                    'Password',
-                    style: Theme.of(context).textTheme.headlineSmall,
-                    textAlign: TextAlign.start,
-                  ),
-                ),
-                const SizedBox(
-                  height: 2,
-                ),
-                Center(
-                  child: SizedBox(
-                    width: 400,
-                    child: Obx(
-                      () => TextFormField(
-                        controller: controller.passwordTEController,
-                        decoration: InputDecoration(
-                          fillColor: AppColors.textfieldColor,
-                          filled: true,
-                          hintText: 'Enter your password',
-                          hintStyle: Theme.of(context).textTheme.titleMedium,
-                          border: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(30),
-                            borderSide: BorderSide.none,
-                          ),
-                          suffixIcon: GestureDetector(
-                            onTap: () {
-                              controller.obscureText.value =
-                                  !controller.obscureText.value;
-                            },
-                            child: Icon(
-                              controller.obscureText.value
-                                  ? Icons.visibility_off
-                                  : Icons.visibility,
-                              color: AppColors.textHintColor,
-                            ),
-                          ),
-                          prefixIcon: Icon(
-                            Icons.lock_open_outlined,
-                            color: AppColors.textHintColor,
-                          ),
-                        ),
-                        keyboardType: TextInputType.visiblePassword,
-                        obscureText: controller.obscureText.value,
-                      ),
-                    ),
-                  ),
-                ),
+
                 Padding(
                   padding: const EdgeInsets.only(top: 30),
                   child: Button(onPressed: () {}, text: "Update"),

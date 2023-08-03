@@ -6,7 +6,6 @@ import 'package:image_picker/image_picker.dart';
 class DoctorEditProfileScreenController extends GetxController {
   TextEditingController nameTEController = TextEditingController();
   TextEditingController emailTEController = TextEditingController();
-  TextEditingController passwordTEController = TextEditingController();
   TextEditingController specialityController = TextEditingController();
   TextEditingController bioController = TextEditingController();
   TextEditingController locationController = TextEditingController();
@@ -133,9 +132,7 @@ class DoctorEditProfileScreenController extends GetxController {
       GetUtils.isEmail(emailTEController.text)
           ? print('Valid')
           : print('Invalid Email');
-      GetUtils.isAlphabetOnly(passwordTEController.text)
-          ? print('Valid ')
-          : print('invalid Password');
+
     }
   }
 }

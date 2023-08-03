@@ -18,7 +18,7 @@ class LoginScreenController extends GetxController {
 
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
   final formKey = GlobalKey<FormState>();
-  RxBool isLoading = false.obs;
+  RxBool isLoading = true.obs;
 
   TextEditingController emailTEController = TextEditingController();
   TextEditingController passwordTEController = TextEditingController();
@@ -47,6 +47,8 @@ class LoginScreenController extends GetxController {
   }
 
   Future<void> onLoginTap() async {
+    isLoading.value = true;
+
     if (formKey.currentState!.validate()) {
       dynamic userOrDoctor = await database.loginUser(
           emailTEController.text.toString(),
@@ -81,6 +83,10 @@ class LoginScreenController extends GetxController {
         // This means neither UserModel nor DoctorModel was returned, handle the case accordingly
         Utils().toastMessage('Login failed. Please try again later.');
       }
+
+    isLoading.value = false;
+
+
     }
   }
 

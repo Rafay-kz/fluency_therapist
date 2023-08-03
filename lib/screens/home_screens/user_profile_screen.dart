@@ -35,24 +35,17 @@ class UserProfileScreen extends GetView<UserProfileScreenController> {
                 ),
               ],
             ),
-            Obx(() {
-              return Column(
+            Column(
                 children: [
                   Center(
                     child: CircleAvatar(
-                        radius: screenWidth * 0.15,
-                        backgroundImage: controller.imagePath.isNotEmpty
-                            ? FileImage(File(controller.imagePath.toString()))
-                            : null),
+                        radius: screenWidth * 0.15
+                           ),
                   ),
-                  TextButton(
-                      onPressed: () {
-                        controller.imagePickerOption();
-                      },
-                      child: const Text("Change Photo"))
+
                 ],
-              );
-            }),
+              ),
+
 
             InkWell(
               onTap: () {

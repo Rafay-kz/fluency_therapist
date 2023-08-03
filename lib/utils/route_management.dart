@@ -54,7 +54,7 @@ class RouteGenerator {
 
       GetPage(
         name: kLoginScreen,
-        page: () => const LoginScreen(),
+        page: () =>  LoginScreen(),
         binding: ScreenBindings(),
       ),
       GetPage(
