@@ -3,11 +3,14 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 
+import '../../model/user_model.dart';
+import '../../utils/user_session.dart';
+
 class EditProfileScreenController extends GetxController{
 
   TextEditingController nameTEController = TextEditingController();
   TextEditingController emailTEController = TextEditingController();
-  TextEditingController passwordTEController = TextEditingController();
+
 
   void imagePickerOption() {
     Get.bottomSheet(
@@ -96,10 +99,21 @@ class EditProfileScreenController extends GetxController{
       GetUtils.isEmail(emailTEController.text)
           ? print('Valid')
           : print('Invalid Email');
-      GetUtils.isAlphabetOnly(
-          passwordTEController.text)
-          ? print('Valid ')
-          : print('invalid Password');
+
     }
   }
+  UserSession userSession = UserSession();
+  Rx<UserModel> userModel=UserModel.empty().obs;
+
+  @override
+  void onInit(){
+    getUserInfo();
+    super.onInit();
+  }
+
+  Future<void> getUserInfo() async{
+    userModel.value=await userSession.getUserInformation();
+  }
+
+
 }
