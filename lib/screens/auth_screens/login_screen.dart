@@ -171,8 +171,6 @@ class LoginScreen extends GetView<LoginScreenController> {
                 ),
                 Button(
                     onPressed: () {
-
-
                       controller.onLoginTap();
 
                     },

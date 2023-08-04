@@ -7,6 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
+import '../../custom widgets/progress_indicator.dart';
 import '../../model/doctor_model.dart';
 import '../../utils/app_constants.dart';
 import '../../utils/utills.dart';
@@ -18,7 +19,6 @@ class LoginScreenController extends GetxController {
 
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
   final formKey = GlobalKey<FormState>();
-  RxBool isLoading = true.obs;
 
   TextEditingController emailTEController = TextEditingController();
   TextEditingController passwordTEController = TextEditingController();
@@ -47,13 +47,13 @@ class LoginScreenController extends GetxController {
   }
 
   Future<void> onLoginTap() async {
-    isLoading.value = true;
-
+    ProgressDialog pd = ProgressDialog();
+    pd.showDialog();
     if (formKey.currentState!.validate()) {
       dynamic userOrDoctor = await database.loginUser(
           emailTEController.text.toString(),
           passwordTEController.text.toString());
-
+      pd.dismissDialog();
       if (userOrDoctor is UserModel) {
         // User is a normal user
         if (userOrDoctor.errorMsg == '') {
@@ -83,9 +83,6 @@ class LoginScreenController extends GetxController {
         // This means neither UserModel nor DoctorModel was returned, handle the case accordingly
         Utils().toastMessage('Login failed. Please try again later.');
       }
-
-    isLoading.value = false;
-
 
     }
   }
