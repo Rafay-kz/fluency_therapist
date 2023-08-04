@@ -9,7 +9,9 @@ import 'package:get/get.dart';
 //created by Bilal on 6-5-2023
 
 class LoginScreen extends GetView<LoginScreenController> {
-  const LoginScreen({super.key});
+    LoginScreen({super.key});
+   RxBool isLoading = false.obs;
+
 
   @override
   Widget build(BuildContext context) {
@@ -169,8 +171,8 @@ class LoginScreen extends GetView<LoginScreenController> {
                 ),
                 Button(
                     onPressed: () {
-
                       controller.onLoginTap();
+
                     },
                     text: "Login"),
                 const SizedBox(height: 20),

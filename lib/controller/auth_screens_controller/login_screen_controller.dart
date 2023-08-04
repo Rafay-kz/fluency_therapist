@@ -19,7 +19,6 @@ class LoginScreenController extends GetxController {
 
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
   final formKey = GlobalKey<FormState>();
-  RxBool isLoading = false.obs;
 
   TextEditingController emailTEController = TextEditingController();
   TextEditingController passwordTEController = TextEditingController();
@@ -84,6 +83,7 @@ class LoginScreenController extends GetxController {
         // This means neither UserModel nor DoctorModel was returned, handle the case accordingly
         Utils().toastMessage('Login failed. Please try again later.');
       }
+
     }
   }
 
