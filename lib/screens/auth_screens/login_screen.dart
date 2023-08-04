@@ -169,11 +169,7 @@ class LoginScreen extends GetView<LoginScreenController> {
                 ),
                 Button(
                     onPressed: () {
-                      showDialog(
-                          context: context,
-                          builder: (context) {
-                            return Center(child: CircularProgressIndicator());
-                          });
+
                       controller.onLoginTap();
                     },
                     text: "Login"),

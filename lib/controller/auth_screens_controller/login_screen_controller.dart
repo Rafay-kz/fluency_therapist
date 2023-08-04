@@ -7,6 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
+import '../../custom widgets/progress_indicator.dart';
 import '../../model/doctor_model.dart';
 import '../../utils/app_constants.dart';
 import '../../utils/utills.dart';
@@ -47,11 +48,13 @@ class LoginScreenController extends GetxController {
   }
 
   Future<void> onLoginTap() async {
+    ProgressDialog pd = ProgressDialog();
+    pd.showDialog();
     if (formKey.currentState!.validate()) {
       dynamic userOrDoctor = await database.loginUser(
           emailTEController.text.toString(),
           passwordTEController.text.toString());
-
+      pd.dismissDialog();
       if (userOrDoctor is UserModel) {
         // User is a normal user
         if (userOrDoctor.errorMsg == '') {
