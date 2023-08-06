@@ -69,7 +69,7 @@ class ProgressTrackingScreen extends GetView<ProgressTrackingScreen> {
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    new CircularPercentIndicator(
+                    CircularPercentIndicator(
                       radius: screenWidth*0.25,
                       lineWidth: 18.0,
                       animation: true,
@@ -77,7 +77,7 @@ class ProgressTrackingScreen extends GetView<ProgressTrackingScreen> {
                       center: Column(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          new Text(
+                          Text(
                             "70.0%",
                             style:
                              Theme.of(context)
@@ -86,7 +86,7 @@ class ProgressTrackingScreen extends GetView<ProgressTrackingScreen> {
                                 .copyWith(fontSize: screenWidth * 0.092),
 
                           ),
-                          new Text(
+                          Text(
                             "Total Progress%",
                             style:
                             Theme.of(context)
@@ -117,43 +117,41 @@ class ProgressTrackingScreen extends GetView<ProgressTrackingScreen> {
               decoration: BoxDecoration(
                   color: AppColors.secondaryBlue,
                   borderRadius: BorderRadius.circular(30)),
-            child: Expanded(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  new CircularPercentIndicator(
-                    radius: screenWidth*0.09,
-                    lineWidth: 9.0,
-                    animation: true,
-                    percent: 0.43,
-                    center: new Text(
-                      "43.0%",
-                      style:
-                      Theme.of(context)
-                          .textTheme
-                          .displayLarge!
-                          .copyWith(fontSize: screenWidth * 0.035),
-
-                    ),
-                    circularStrokeCap: CircularStrokeCap.round,
-                    progressColor: AppColors.primaryBlue,
-                    backgroundColor: AppColors.secondaryBlue,
-
-
-
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.only(top: 5),
-                    child: Text("Speak Slow\nAnd Easy", textAlign: TextAlign.center, style:Theme.of(context)
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                CircularPercentIndicator(
+                  radius: screenWidth*0.09,
+                  lineWidth: 9.0,
+                  animation: true,
+                  percent: 0.43,
+                  center: Text(
+                    "43.0%",
+                    style:
+                    Theme.of(context)
                         .textTheme
                         .displayLarge!
-                        .copyWith(fontSize: screenWidth * 0.035) ,),
+                        .copyWith(fontSize: screenWidth * 0.035),
+
                   ),
-                ],
-              ),
+                  circularStrokeCap: CircularStrokeCap.round,
+                  progressColor: AppColors.primaryBlue,
+                  backgroundColor: AppColors.secondaryBlue,
+
+
+
+                ),
+                Padding(
+                  padding: const EdgeInsets.only(top: 5),
+                  child: Text("Speak Slow\nAnd Easy", textAlign: TextAlign.center, style:Theme.of(context)
+                      .textTheme
+                      .displayLarge!
+                      .copyWith(fontSize: screenWidth * 0.035) ,),
+                ),
+              ],
             ),),
 
-            SizedBox(width: 30,),
+            const SizedBox(width: 30,),
 
               Container(
                 width: screenWidth*0.36,
@@ -161,17 +159,60 @@ class ProgressTrackingScreen extends GetView<ProgressTrackingScreen> {
                 decoration: BoxDecoration(
                     color: AppColors.secondaryBlue,
                     borderRadius: BorderRadius.circular(30)),
-                child: Expanded(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    CircularPercentIndicator(
+                      radius: screenWidth*0.09,
+                      lineWidth: 9.0,
+                      animation: true,
+                      percent: 0.53,
+                      center: Text(
+                        "53.0%",
+                        style:
+                        Theme.of(context)
+                            .textTheme
+                            .displayLarge!
+                            .copyWith(fontSize: screenWidth * 0.035),
+
+                      ),
+                      circularStrokeCap: CircularStrokeCap.round,
+                      progressColor: AppColors.primaryBlue,
+                      backgroundColor: AppColors.secondaryBlue,
+
+
+
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.only(top: 5),
+                      child: Text("Stuttering\nLevel 1", textAlign: TextAlign.center, style:Theme.of(context)
+                          .textTheme
+                          .displayLarge!
+                          .copyWith(fontSize: screenWidth * 0.035) ,),
+                    ),
+                  ],
+                ),),
+          ],),
+            const SizedBox(height: 20,),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Container(
+                  width: screenWidth*0.36,
+                  height: screenHeight*0.18,
+                  decoration: BoxDecoration(
+                      color: AppColors.secondaryBlue,
+                      borderRadius: BorderRadius.circular(30)),
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      new CircularPercentIndicator(
+                      CircularPercentIndicator(
                         radius: screenWidth*0.09,
                         lineWidth: 9.0,
                         animation: true,
-                        percent: 0.53,
-                        center: new Text(
-                          "53.0%",
+                        percent: 0.23,
+                        center: Text(
+                          "23.0%",
                           style:
                           Theme.of(context)
                               .textTheme
@@ -188,61 +229,14 @@ class ProgressTrackingScreen extends GetView<ProgressTrackingScreen> {
                       ),
                       Padding(
                         padding: const EdgeInsets.only(top: 5),
-                        child: Text("Stuttering\nLevel 1", textAlign: TextAlign.center, style:Theme.of(context)
+                        child: Text("Speak Slow\nAnd Easy", textAlign: TextAlign.center, style:Theme.of(context)
                             .textTheme
                             .displayLarge!
                             .copyWith(fontSize: screenWidth * 0.035) ,),
                       ),
                     ],
-                  ),
-                ),),
-          ],),
-            SizedBox(height: 20,),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Container(
-                  width: screenWidth*0.36,
-                  height: screenHeight*0.18,
-                  decoration: BoxDecoration(
-                      color: AppColors.secondaryBlue,
-                      borderRadius: BorderRadius.circular(30)),
-                  child: Expanded(
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        new CircularPercentIndicator(
-                          radius: screenWidth*0.09,
-                          lineWidth: 9.0,
-                          animation: true,
-                          percent: 0.23,
-                          center: new Text(
-                            "23.0%",
-                            style:
-                            Theme.of(context)
-                                .textTheme
-                                .displayLarge!
-                                .copyWith(fontSize: screenWidth * 0.035),
-
-                          ),
-                          circularStrokeCap: CircularStrokeCap.round,
-                          progressColor: AppColors.primaryBlue,
-                          backgroundColor: AppColors.secondaryBlue,
-
-
-
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.only(top: 5),
-                          child: Text("Speak Slow\nAnd Easy", textAlign: TextAlign.center, style:Theme.of(context)
-                              .textTheme
-                              .displayLarge!
-                              .copyWith(fontSize: screenWidth * 0.035) ,),
-                        ),
-                      ],
-                    ),
                   ),),
-                SizedBox(width: 30,),
+                const SizedBox(width: 30,),
 
                 Container(
                   width: screenWidth*0.36,
@@ -250,40 +244,38 @@ class ProgressTrackingScreen extends GetView<ProgressTrackingScreen> {
                   decoration: BoxDecoration(
                       color: AppColors.secondaryBlue,
                       borderRadius: BorderRadius.circular(30)),
-                  child: Expanded(
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        new CircularPercentIndicator(
-                          radius: screenWidth*0.09,
-                          lineWidth: 9.0,
-                          animation: true,
-                          percent: 0.75,
-                          center: new Text(
-                            "75.0%",
-                            style:
-                            Theme.of(context)
-                                .textTheme
-                                .displayLarge!
-                                .copyWith(fontSize: screenWidth * 0.035),
-
-                          ),
-                          circularStrokeCap: CircularStrokeCap.round,
-                          progressColor: AppColors.primaryBlue,
-                          backgroundColor: AppColors.secondaryBlue,
-
-
-
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.only(top: 5),
-                          child: Text("500 words\na day", textAlign: TextAlign.center, style:Theme.of(context)
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      CircularPercentIndicator(
+                        radius: screenWidth*0.09,
+                        lineWidth: 9.0,
+                        animation: true,
+                        percent: 0.75,
+                        center: Text(
+                          "75.0%",
+                          style:
+                          Theme.of(context)
                               .textTheme
                               .displayLarge!
-                              .copyWith(fontSize: screenWidth * 0.035) ,),
+                              .copyWith(fontSize: screenWidth * 0.035),
+
                         ),
-                      ],
-                    ),
+                        circularStrokeCap: CircularStrokeCap.round,
+                        progressColor: AppColors.primaryBlue,
+                        backgroundColor: AppColors.secondaryBlue,
+
+
+
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.only(top: 5),
+                        child: Text("500 words\na day", textAlign: TextAlign.center, style:Theme.of(context)
+                            .textTheme
+                            .displayLarge!
+                            .copyWith(fontSize: screenWidth * 0.035) ,),
+                      ),
+                    ],
                   ),),
               ],)
 

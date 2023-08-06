@@ -45,7 +45,8 @@ class EditProfileScreen extends GetView<EditProfileScreenController> {
                       Center(
                         child: CircleAvatar(
                             radius: screenWidth * 0.15,
-                            backgroundImage: controller.imagePath.isNotEmpty
+                            backgroundImage: controller.userModel.value.image!=""?FileImage(
+                                File(controller.userModel.value.image)):controller.imagePath.isNotEmpty
                                 ? FileImage(
                                     File(controller.imagePath.toString()))
                                 : null),
@@ -90,11 +91,10 @@ class EditProfileScreen extends GetView<EditProfileScreenController> {
                   child: SizedBox(
                     width: screenWidth * 0.9,
                     child: TextFormField(
-                      controller: controller.nameTEController,
+                      controller: controller.nameTEController.value,
                       decoration: InputDecoration(
                         fillColor: AppColors.textfieldColor,
                         filled: true,
-                        labelText: "\n${controller.userModel.value.userName}",
                         hintStyle: Theme.of(context).textTheme.titleMedium,
                         border: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(30),
@@ -124,11 +124,11 @@ class EditProfileScreen extends GetView<EditProfileScreenController> {
                   child: SizedBox(
                     width: screenWidth * 0.9,
                     child: TextFormField(
-                      controller: controller.emailTEController,
+                      readOnly: true,
+                      controller: controller.emailTEController.value,
                       decoration: InputDecoration(
                         fillColor: AppColors.textfieldColor,
                         filled: true,
-                        labelText: "\n${controller.userModel.value.email}",
                         hintStyle: Theme.of(context).textTheme.titleMedium,
                         border: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(30),
@@ -149,7 +149,7 @@ class EditProfileScreen extends GetView<EditProfileScreenController> {
 
                 Padding(
                   padding: const EdgeInsets.only(top: 30),
-                  child: Button(onPressed: () {}, text: "Update"),
+                  child: Button(onPressed: () {controller.editProfile();}, text: "Update"),
                 ),
               ],
             ),

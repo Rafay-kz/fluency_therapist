@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -41,8 +43,13 @@ class VideoCallScreen extends GetView<VideoCallScreenController> {
                       ),
                     ),
                   ),
-                  CircleAvatar(
-                    radius: screenWidth*0.06,
+                  Obx(()=> CircleAvatar(
+                      radius:25,
+                      backgroundImage: controller.userModel.value.image!=''
+                          ? FileImage(
+                          File(controller.userModel.value.image))
+                          : null
+                  ),
                   ),
                 ],
               ),

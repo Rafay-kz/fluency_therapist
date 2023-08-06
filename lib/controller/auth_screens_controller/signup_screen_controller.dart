@@ -40,6 +40,7 @@ class SignupScreenController extends GetxController {
   var fullName = '';
   var speciality = '';
   var bio = '';
+
   var location = '';
   var availabilityStart = '';
   var availabilityEnd = '';
@@ -165,6 +166,7 @@ class SignupScreenController extends GetxController {
             locationController.text.toString(),
             availabilityStart.toString(),
             availabilityEnd.toString(),
+
             isDoctor.value,
           );
         }

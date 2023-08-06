@@ -1,4 +1,6 @@
 class DoctorModel {
+  String id = '';
+  String image = '';
   String age = '';
   String email = '';
   String userName = '';
@@ -14,6 +16,8 @@ class DoctorModel {
   DoctorModel.empty();
 
   DoctorModel({
+    required this.id,
+    required this.image,
     required this.age,
     required this.email,
     required this.userName,
@@ -26,9 +30,21 @@ class DoctorModel {
     required this.availabilityEnd,
     required this.isDoctor,
   });
-
-  factory DoctorModel.fromJson(Map<String, dynamic> json, String errorMessage) {
+  factory DoctorModel.fromJsonForSession(Map<String, dynamic> json,String errorMessage){
     return DoctorModel(
+      id:json["id"]??"",
+      errorMsg:errorMessage,
+      age: json["age"].toString() ?? '',
+      email: json['email']??'',
+      userName: json['username']??'',
+      image:json['image']??'', fullName: json["fullName"].toString() ?? '', speciality: json["speciality"].toString() ?? '', bio: json["bio"].toString() ?? '', location: json["location"].toString() ?? '', availabilityStart: json["availabilityStart"].toString() ?? '', availabilityEnd: json["availabilityEnd"].toString() ?? '', isDoctor: false,
+    );
+
+  }
+
+  factory DoctorModel.fromJson(Map<String, dynamic> json, String errorMessage,String id) {
+    return DoctorModel(
+      id:id,
       errorMsg: errorMessage,
       age: json["age"].toString() ?? '',
       email: json['email'] ?? '',
@@ -39,12 +55,15 @@ class DoctorModel {
       location: json['location'] ?? '',
       availabilityStart: json['availabilityStart'] ?? '',
       availabilityEnd: json['availabilityEnd'] ?? '',
+      image: json['image'] ?? '',
       isDoctor: json['isDoctor'] ?? false,
     );
   }
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = <String, dynamic>{};
+    data['id'] = id;
+    data['image'] = image;
     data['age'] = age;
     data['email'] = email;
     data['username'] = userName;
@@ -60,6 +79,6 @@ class DoctorModel {
 
   @override
   String toString() {
-    return 'DoctorModel{age: $age, email: $email, userName: $userName, fullName: $fullName, speciality: $speciality, bio: $bio, location: $location, availabilityStart: $availabilityStart, availabilityEnd: $availabilityEnd, isDoctor: $isDoctor}';
+    return 'DoctorModel{age: $age, email: $email, userName: $userName, fullName: $fullName, speciality: $speciality, bio: $bio, location: $location, availabilityStart: $availabilityStart, availabilityEnd: $availabilityEnd, isDoctor: $isDoctor,id: $id,image: $image}';
   }
 }

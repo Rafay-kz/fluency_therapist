@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:fluency_therapist/utils/app_colors.dart';
 import 'package:fluency_therapist/utils/app_constants.dart';
 import 'package:flutter/material.dart';
@@ -69,7 +71,13 @@ class HomeScreen extends GetView<HomeScreenController> {
                             ),
                           ),
                         ],
-                        child: CircleAvatar(
+                        child: Obx(()=> CircleAvatar(
+                            radius: 25,
+                            backgroundImage: controller.userModel.value.image!=''
+                                ? FileImage(
+                                File(controller.userModel.value.image))
+                                : null
+                        ),
                         ),
                       ),
                     ),

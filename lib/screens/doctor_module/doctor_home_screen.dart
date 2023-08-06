@@ -1,9 +1,11 @@
+import 'dart:io';
+
 import 'package:fluency_therapist/utils/app_colors.dart';
 import 'package:fluency_therapist/utils/app_constants.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-import '../../controller/home_screens_controller/doctor_home_screen_controller.dart';
+import '../../controller/doctor_screens_controller/doctor_home_screen_controller.dart';
 
 class DoctorHomeScreen extends GetView<DoctorHomeScreenController> {
   const DoctorHomeScreen({super.key});
@@ -22,53 +24,63 @@ class DoctorHomeScreen extends GetView<DoctorHomeScreenController> {
               children: [
                 Row(
                   children: [
-                    RichText(
-                      text: TextSpan(
-                        style: Theme.of(context).textTheme.headlineSmall!.copyWith(
-                          fontSize: Get.width * 0.055,
-                          color: AppColors.primaryBlue,
-                        ),
-                        children: [
-                          const TextSpan(text: "Hello,"),
-                          TextSpan(
-                            text: "\nBilal Kz",
-                            style: Theme.of(context).textTheme.displayLarge!.copyWith(
-                              fontSize: Get.width * 0.060,
-                              color: AppColors.textColor,
+                    Expanded(
+                      child: Obx(()=> RichText(
+                          text: TextSpan(
+                            style: Theme.of(context).textTheme.headlineSmall!.copyWith(
+                              fontSize: Get.width * 0.055,
+                              color: AppColors.primaryBlue,
                             ),
+                            children: [
+                              const TextSpan(text: "Hello,"),
+                              TextSpan(
+                                text: "\n Dr.${controller.doctorModel.value.userName}",
+                                style: Theme.of(context).textTheme.displayLarge!.copyWith(
+                                  fontSize: Get.width * 0.060,
+                                  color: AppColors.textColor,
+                                ),
+                              ),
+                            ],
                           ),
-                        ],
+                        ),
                       ),
                     ),
-                    Padding(
-                      padding: const EdgeInsets.only(left: 150),
-                      child: PopupMenuButton(
-                        onSelected: (value) {
-                          if (value == 'logout') {
-                            controller.logout();
+                    Expanded(
+                      child: Padding(
+                        padding: const EdgeInsets.only(left: 150),
+                        child: PopupMenuButton(
+                          onSelected: (value) {
+                            if (value == 'logout') {
+                              controller.logout();
+                              }
+                            else if (value == 'profile') {
+                              Get.toNamed(kDoctorEditProfileScreen);
                             }
-                          else if (value == 'profile') {
-                            Get.toNamed(kDoctorEditProfileScreen);
-                          }
 
-                        },
-                        itemBuilder: (context) => [
-                          const PopupMenuItem(
-                            value: 'logout',
-                            child: ListTile(
-                              leading: Icon(Icons.logout),
-                              title: Text("logout"),
+                          },
+                          itemBuilder: (context) => [
+                            const PopupMenuItem(
+                              value: 'logout',
+                              child: ListTile(
+                                leading: Icon(Icons.logout),
+                                title: Text("logout"),
+                              ),
                             ),
-                          ),
-                          const PopupMenuItem(
-                            value: 'profile',
-                            child: ListTile(
-                              leading: Icon(Icons.photo),
-                              title: Text("profile"),
+                            const PopupMenuItem(
+                              value: 'profile',
+                              child: ListTile(
+                                leading: Icon(Icons.photo),
+                                title: Text("profile"),
+                              ),
                             ),
+                          ],
+                          child:Obx(()=>  CircleAvatar(
+                              backgroundImage: controller.doctorModel.value.image!=''
+                                  ? FileImage(
+                                  File(controller.doctorModel.value.image))
+                                  : null
                           ),
-                        ],
-                        child: const CircleAvatar(
+                          ),
                         ),
                       ),
                     ),

@@ -1,10 +1,11 @@
 import 'dart:io';
 
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:fluency_therapist/screens/doctor_module/doctor_home_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-import '../../controller/home_screens_controller/doctor_edit_profile_screen_controller.dart';
+import '../../controller/doctor_screens_controller/doctor_edit_profile_screen_controller.dart';
 import '../../custom widgets/time_picker.dart';
 import '../../utils/app_colors.dart';
 import '../../custom widgets/button.dart';
@@ -34,7 +35,7 @@ class DoctorEditProfileScreen extends GetView<DoctorEditProfileScreenController>
                   children: [
                     InkWell(
                       onTap: () {
-                        Get.back();
+                       Get.to(DoctorHomeScreen ());
                       },
                       child: Icon(
                         Icons.arrow_back,
@@ -44,13 +45,14 @@ class DoctorEditProfileScreen extends GetView<DoctorEditProfileScreenController>
                   ],
                 ),
                 const SizedBox(height: 10),
-                Obx(() {
-                  return Column(
+                Obx(() =>
+                   Column(
                     children: [
                       Center(
                         child: CircleAvatar(
                             radius: screenWidth * 0.15,
-                            backgroundImage: controller.imagePath.isNotEmpty
+                            backgroundImage: controller.doctorModel.value.image!=""?FileImage(
+                                File(controller.doctorModel.value.image)):controller.imagePath.isNotEmpty
                                 ? FileImage(
                                 File(controller.imagePath.toString()))
                                 : null),
@@ -61,15 +63,15 @@ class DoctorEditProfileScreen extends GetView<DoctorEditProfileScreenController>
                           },
                           child: const Text("Change Photo"))
                     ],
-                  );
-                }),
-                Center(
+                  ),
+                ),
+                Obx(()=>Center(
                   child: Column(
                     children: [
                       Padding(
                         padding: const EdgeInsets.only(top: 20, bottom: 15),
                         child: Text(
-                          "Dr M Ali Nizamani",
+                          "\n Dr.${controller.doctorModel.value.userName}",
                           style: Theme.of(context)
                               .textTheme
                               .displayLarge!
@@ -82,6 +84,7 @@ class DoctorEditProfileScreen extends GetView<DoctorEditProfileScreenController>
                     ],
                   ),
                 ),
+                ),
                 Padding(
                   padding: const EdgeInsets.only(top: 20, bottom: 10),
                   child: Text(
@@ -90,15 +93,16 @@ class DoctorEditProfileScreen extends GetView<DoctorEditProfileScreenController>
                     textAlign: TextAlign.start,
                   ),
                 ),
-                Center(
+                Obx(()=>Center(
                   child: SizedBox(
                     width: screenWidth * 0.9,
                     child: TextFormField(
-                      controller: controller.nameTEController,
+                      controller: controller.nameTEController.value,
                       decoration: InputDecoration(
                         fillColor: AppColors.textfieldColor,
                         filled: true,
-                        hintText: 'Enter your name',
+
+
                         hintStyle: Theme.of(context).textTheme.titleMedium,
                         border: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(30),
@@ -112,6 +116,7 @@ class DoctorEditProfileScreen extends GetView<DoctorEditProfileScreenController>
                     ),
                   ),
                 ),
+                ),
                 const SizedBox(
                   height: 5,
                 ),
@@ -123,15 +128,16 @@ class DoctorEditProfileScreen extends GetView<DoctorEditProfileScreenController>
                     textAlign: TextAlign.start,
                   ),
                 ),
-                Center(
+                Obx(()=>Center(
                   child: SizedBox(
                     width: screenWidth * 0.9,
                     child: TextFormField(
-                      controller: controller.emailTEController,
+                      readOnly: true,
+                      controller: controller.emailTEController.value,
                       decoration: InputDecoration(
                         fillColor: AppColors.textfieldColor,
                         filled: true,
-                        hintText: 'Enter your email',
+
                         hintStyle: Theme.of(context).textTheme.titleMedium,
                         border: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(30),
@@ -144,6 +150,7 @@ class DoctorEditProfileScreen extends GetView<DoctorEditProfileScreenController>
                       ),
                     ),
                   ),
+                ),
                 ),
                 const SizedBox(
                   height: 10,
@@ -160,11 +167,11 @@ class DoctorEditProfileScreen extends GetView<DoctorEditProfileScreenController>
                 ),
                 Padding(
                   padding: const EdgeInsets.all(8.0),
-                  child: Center(
+                  child: Obx(()=>Center(
                     child: SizedBox(
                       width: screenWidth * 0.89,
                       child: TextFormField(
-                        controller: controller.specialityController,
+                        controller: controller.specialityController.value,
                         onSaved: (value) {
                           controller.speciality = value!;
                         },
@@ -185,6 +192,7 @@ class DoctorEditProfileScreen extends GetView<DoctorEditProfileScreenController>
                       ),
                     ),
                   ),
+                  ),
                 ),
                 Padding(
                   padding: const EdgeInsets.all(8.0),
@@ -193,11 +201,11 @@ class DoctorEditProfileScreen extends GetView<DoctorEditProfileScreenController>
                 ),
                 Padding(
                   padding: const EdgeInsets.all(8.0),
-                  child: Center(
+                  child: Obx(()=>Center(
                     child: SizedBox(
                       width: screenWidth * 0.89,
                       child: TextFormField(
-                        controller: controller.bioController,
+                        controller: controller.bioController.value,
                         maxLines: 4,
                         // Limiting the user to 3 lines for the introduction
                         onSaved: (value) {
@@ -217,6 +225,7 @@ class DoctorEditProfileScreen extends GetView<DoctorEditProfileScreenController>
                         ),
                       ),
                     ),
+                  ),
                   ),
                 ),
                 Padding(
@@ -245,11 +254,11 @@ class DoctorEditProfileScreen extends GetView<DoctorEditProfileScreenController>
                 ),
                 Padding(
                   padding: const EdgeInsets.all(8.0),
-                  child: Center(
+                  child:Obx(()=> Center(
                     child: SizedBox(
                       width: screenWidth * 0.89,
                       child: TextFormField(
-                        controller: controller.locationController,
+                        controller: controller.locationController.value,
                         onSaved: (value) {
                           controller.fullName = value!;
                         },
@@ -270,10 +279,11 @@ class DoctorEditProfileScreen extends GetView<DoctorEditProfileScreenController>
                       ),
                     ),
                   ),
+                  ),
                 ),
                 Padding(
                   padding: const EdgeInsets.only(top: 30),
-                  child: Button(onPressed: () {}, text: "Update"),
+                  child: Button(onPressed: () {controller.editProfile();}, text: "Update"),
                 ),
               ],
             ),
