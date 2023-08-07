@@ -1,32 +1,37 @@
-import 'package:fluency_therapist/screens/auth_screens/email_verification_screen.dart';
-import 'package:fluency_therapist/screens/auth_screens/login_screen.dart';
-import 'package:fluency_therapist/screens/auth_screens/welcome_screen.dart';
+
 import 'package:fluency_therapist/screens/doctor_module/doctor_edit_profile_screen.dart';
 import 'package:fluency_therapist/screens/doctor_module/doctor_home_screen.dart';
-import 'package:fluency_therapist/screens/home_screens/home_screen.dart';
-import 'package:fluency_therapist/screens/home_screens/user_profile_screen.dart';
-import 'package:fluency_therapist/screens/home_screens/video_call_screen.dart';
+
 import 'package:get/get.dart';
-import '../screens/auth_screens/SignUp_screen.dart';
-import '../screens/auth_screens/create_new_password_screen.dart';
-import '../screens/auth_screens/forget_password_screen.dart';
-import '../screens/auth_screens/otp_verification_screen.dart';
-import '../screens/auth_screens/splash_screen.dart';
-import '../screens/home_screens/call_log_screen.dart';
-import '../screens/home_screens/calling_consultant_screen.dart';
-import '../screens/home_screens/chat_with_consultant_screen.dart';
-import '../screens/home_screens/consult_therapist_screen.dart';
-import '../screens/home_screens/consultant_calling_screen.dart';
-import '../screens/home_screens/consultant_profile_screen.dart';
-import '../screens/home_screens/customize_program_final_Screen.dart';
-import '../screens/home_screens/customized_program_screen.dart';
-import '../screens/home_screens/edit_profile_screen.dart';
-import '../screens/home_screens/inbox_screen.dart';
-import '../screens/home_screens/ongoing_call_screen.dart';
-import '../screens/home_screens/progress_tracking_screen.dart';
-import '../screens/home_screens/reminder_screen.dart';
-import '../screens/home_screens/search_screen.dart';
-import '../screens/home_screens/speech_exercises_screen.dart';
+
+
+import '../screens/common_screens/auth_screens/create_new_password_screen.dart';
+import '../screens/common_screens/auth_screens/email_verification_screen.dart';
+import '../screens/common_screens/auth_screens/forget_password_screen.dart';
+import '../screens/common_screens/auth_screens/login_screen.dart';
+import '../screens/common_screens/auth_screens/otp_verification_screen.dart';
+import '../screens/common_screens/auth_screens/signup_screen.dart';
+import '../screens/common_screens/auth_screens/splash_screen.dart';
+import '../screens/common_screens/auth_screens/welcome_screen.dart';
+
+import '../screens/user_module/home_screens/call_log_screen.dart';
+import '../screens/user_module/home_screens/calling_consultant_screen.dart';
+import '../screens/user_module/home_screens/chat_with_consultant_screen.dart';
+import '../screens/user_module/home_screens/consult_therapist_screen.dart';
+import '../screens/user_module/home_screens/consultant_calling_screen.dart';
+import '../screens/user_module/home_screens/consultant_profile_screen.dart';
+import '../screens/user_module/home_screens/customize_program_final_Screen.dart';
+import '../screens/user_module/home_screens/customized_program_screen.dart';
+import '../screens/user_module/home_screens/edit_profile_screen.dart';
+import '../screens/user_module/home_screens/home_screen.dart';
+import '../screens/user_module/home_screens/inbox_screen.dart';
+import '../screens/user_module/home_screens/ongoing_call_screen.dart';
+import '../screens/user_module/home_screens/progress_tracking_screen.dart';
+import '../screens/user_module/home_screens/reminder_screen.dart';
+import '../screens/user_module/home_screens/search_screen.dart';
+import '../screens/user_module/home_screens/speech_exercises_screen.dart';
+import '../screens/user_module/home_screens/user_profile_screen.dart';
+import '../screens/user_module/home_screens/video_call_screen.dart';
 import 'app_constants.dart';
 import 'screen_bindings.dart';
 
