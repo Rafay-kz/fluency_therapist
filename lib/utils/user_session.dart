@@ -53,8 +53,10 @@ class UserSession{
 
   Future<UserModel> getUserInformation() async{
     SharedPreferences preference = await SharedPreferences.getInstance();
-    return UserModel.fromJson(jsonDecode(preference.getString(userData)??'{}'),'');
+    return UserModel.fromJsonForSession(jsonDecode(preference.getString(userData)??'{}'),'');
   }
+
+  //For dp
 
   Future<void> doctorInformation({required DoctorModel doctorModel}) async {
     SharedPreferences preference = await SharedPreferences.getInstance();
@@ -63,7 +65,7 @@ class UserSession{
 
   Future<DoctorModel> getDoctorInformation() async{
     SharedPreferences preference = await SharedPreferences.getInstance();
-    return DoctorModel.fromJson(jsonDecode(preference.getString(doctorData)??'{}'),'');
+    return DoctorModel.fromJsonForSession(jsonDecode(preference.getString(doctorData)??'{}'),'');
   }
 
 

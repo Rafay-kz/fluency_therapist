@@ -44,7 +44,7 @@ class Database {
             // User is a normal user
             Map<String, dynamic> map = userSnapshot.data() as Map<String, dynamic>;
             if (userSnapshot.data() is Map) {
-              UserModel userModel = UserModel.fromJson(map,'');
+              UserModel userModel = UserModel.fromJson(map,'',userCredential.user!.uid);
               return userModel;
             }
           } else {
@@ -58,7 +58,7 @@ class Database {
               // User is a doctor
               Map<String, dynamic> map = doctorSnapshot.data() as Map<String, dynamic>;
               if (doctorSnapshot.data() is Map) {
-                DoctorModel doctorModel = DoctorModel.fromJson(map,'');
+                DoctorModel doctorModel = DoctorModel.fromJson(map,'',userCredential.user!.uid);
                 return doctorModel;
               }
             } else {
@@ -66,11 +66,11 @@ class Database {
             }
           }
         } else {
-          return UserModel(age: '', email: '', userName: '', errorMsg: 'Email is Not Verified');
+          return UserModel(age: '', email: '', userName: '', errorMsg: 'Email is Not Verified',image: "",id: "");
         }
       }
     } catch (error) {
-      return UserModel(age: '', email: '', userName: '', errorMsg: error.toString());
+      return UserModel(age: '', email: '', userName: '', errorMsg: error.toString(),image: "",id:"");
     }
     return UserModel.empty();
   }
@@ -101,6 +101,7 @@ class Database {
           'username': username,
           'age': age,
           'email': email,
+          'image':''
         });
         // Data saved successfully
       } else {
@@ -123,6 +124,7 @@ class Database {
         await _firestore.collection('doctor_users').doc(doctorId).set({
           'userName': userName,
           'age': age,
+
           'email': email,
           'fullName': fullName,
           'speciality': speciality,
@@ -145,5 +147,6 @@ class Database {
 //To Fetch user data from firestore
   Future<DocumentSnapshot<Map<String, dynamic>>> getUserData(String userId) =>
       _firestore.collection('users').doc(userId).get();
+
 }
 

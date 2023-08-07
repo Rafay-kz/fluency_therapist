@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -8,8 +9,8 @@ import '../../utils/user_session.dart';
 
 class EditProfileScreenController extends GetxController{
 
-  TextEditingController nameTEController = TextEditingController();
-  TextEditingController emailTEController = TextEditingController();
+  Rx<TextEditingController> nameTEController = TextEditingController().obs;
+ Rx< TextEditingController> emailTEController = TextEditingController().obs;
 
 
   void imagePickerOption() {
@@ -86,17 +87,18 @@ class EditProfileScreenController extends GetxController{
     final ImagePicker _picker = ImagePicker();
     final image = await _picker.pickImage(source: ImageSource.gallery);
     if (image != null) {
+      userModel.value.image='';
       imagePath.value = image.path.toString();
     }
 
 
     void onRegisterTap() {
       GetUtils.isAlphabetOnly(
-        nameTEController.text,
+        nameTEController.value.text,
       )
           ? print('valid')
           : print('invalid Name');
-      GetUtils.isEmail(emailTEController.text)
+      GetUtils.isEmail(emailTEController.value.text)
           ? print('Valid')
           : print('Invalid Email');
 
@@ -113,6 +115,17 @@ class EditProfileScreenController extends GetxController{
 
   Future<void> getUserInfo() async{
     userModel.value=await userSession.getUserInformation();
+    nameTEController.value.text=userModel.value.userName;
+    emailTEController.value.text=userModel.value.email;
+  }
+
+  Future<void> editProfile() async {
+
+    FirebaseFirestore firebaseFirestore = FirebaseFirestore.instance;
+    await firebaseFirestore.collection('users').doc(userModel.value.id).update({
+      'image': imagePath.value,
+      'username': nameTEController.value.text,
+    });
   }
 
 

@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:fluency_therapist/controller/home_screens_controller/consultant_calling_screen_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -37,8 +39,13 @@ class ConsultantCallingScreen extends GetView<ConsultantCallingScreenController>
                   ),
                 ),
               ),
-              const CircleAvatar(
-                radius: 22,
+              Obx(()=> CircleAvatar(
+                  radius:25,
+                  backgroundImage: controller.userModel.value.image!=''
+                      ? FileImage(
+                      File(controller.userModel.value.image))
+                      : null
+              ),
               ),
             ]),
             Padding(

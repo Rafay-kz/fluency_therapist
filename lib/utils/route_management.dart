@@ -1,9 +1,11 @@
 import 'package:fluency_therapist/screens/auth_screens/email_verification_screen.dart';
 import 'package:fluency_therapist/screens/auth_screens/login_screen.dart';
 import 'package:fluency_therapist/screens/auth_screens/welcome_screen.dart';
-import 'package:fluency_therapist/screens/home_screens/doctor_edit_profile_screen.dart';
-import 'package:fluency_therapist/screens/home_screens/doctor_home_screen.dart';
+import 'package:fluency_therapist/screens/doctor_module/doctor_edit_profile_screen.dart';
+import 'package:fluency_therapist/screens/doctor_module/doctor_home_screen.dart';
 import 'package:fluency_therapist/screens/home_screens/home_screen.dart';
+import 'package:fluency_therapist/screens/home_screens/user_profile_screen.dart';
+import 'package:fluency_therapist/screens/home_screens/video_call_screen.dart';
 import 'package:get/get.dart';
 import '../screens/auth_screens/SignUp_screen.dart';
 import '../screens/auth_screens/create_new_password_screen.dart';
@@ -25,8 +27,6 @@ import '../screens/home_screens/progress_tracking_screen.dart';
 import '../screens/home_screens/reminder_screen.dart';
 import '../screens/home_screens/search_screen.dart';
 import '../screens/home_screens/speech_exercises_screen.dart';
-import '../screens/home_screens/user_profile_screen.dart';
-import '../screens/home_screens/video_call_screen.dart';
 import 'app_constants.dart';
 import 'screen_bindings.dart';
 
@@ -35,7 +35,6 @@ import 'screen_bindings.dart';
 class RouteGenerator {
   static List<GetPage> getPages() {
     return [
-
       GetPage(
         name: kSplashScreen,
         page: () => const SplashScreen(),
@@ -51,10 +50,9 @@ class RouteGenerator {
         page: () => const SignUpScreen(),
         binding: ScreenBindings(),
       ),
-
       GetPage(
         name: kLoginScreen,
-        page: () =>  LoginScreen(),
+        page: () => LoginScreen(),
         binding: ScreenBindings(),
       ),
       GetPage(
@@ -86,67 +84,83 @@ class RouteGenerator {
         name: kSearchScreen,
         page: () => const SearchScreen(),
         binding: ScreenBindings(),
-      ),GetPage(
+      ),
+      GetPage(
         name: kSpeechExercisesScreen,
         page: () => const SpeechExercisesScreen(),
         binding: ScreenBindings(),
-      ),GetPage(
+      ),
+      GetPage(
         name: kConsultTherapistScreen,
         page: () => const ConsultTherapistScreen(),
         binding: ScreenBindings(),
-      ),GetPage(
+      ),
+      GetPage(
         name: kConsultantProfileScreen,
         page: () => const ConsultantProfileScreen(),
         binding: ScreenBindings(),
-      ),GetPage(
+      ),
+      GetPage(
         name: kChatWithConsultantScreen,
         page: () => const ChatWithConsultantScreen(),
         binding: ScreenBindings(),
-      ),GetPage(
+      ),
+      GetPage(
         name: kCallingConsultantScreen,
         page: () => const CallingConsultantScreen(),
         binding: ScreenBindings(),
-      ),GetPage(
+      ),
+      GetPage(
         name: kVideoCallScreen,
         page: () => const VideoCallScreen(),
         binding: ScreenBindings(),
-      ),GetPage(
+      ),
+      GetPage(
         name: kConsultantCalLingScreen,
         page: () => const ConsultantCallingScreen(),
         binding: ScreenBindings(),
-      ),GetPage(
+      ),
+      GetPage(
         name: kOngoingCallScreen,
         page: () => const OngoingCallScreen(),
         binding: ScreenBindings(),
-      ),GetPage(
+      ),
+      GetPage(
         name: kCustomizedProgramScreen,
         page: () => const CustomizedProgramScreen(),
         binding: ScreenBindings(),
-      ),GetPage(
+      ),
+      GetPage(
         name: kReminderScreen,
         page: () => const ReminderScreen(),
         binding: ScreenBindings(),
-      ),GetPage(
+      ),
+      GetPage(
         name: kCustomizeProgramFinalScreen,
         page: () => const CustomizeProgramFinalScreen(),
         binding: ScreenBindings(),
-      ),GetPage(
+      ),
+      GetPage(
         name: kProgressTrackingScreen,
-        page: () => const ProgressTrackingScreen(),
+        page: () => ProgressTrackingScreen(),
         binding: ScreenBindings(),
-      ),GetPage(
+      ),
+      GetPage(
         name: kEditProfileScreen,
         page: () => EditProfileScreen(),
         binding: ScreenBindings(),
-      ),GetPage(
+      ),
+      GetPage(
         name: kUserProfileScreen,
-        page: () =>  UserProfileScreen(),
+        page: () => UserProfileScreen(),
         binding: ScreenBindings(),
-      ),GetPage(
+      ),
+      GetPage(
         name: kInboxScreen,
         page: () => const InboxScreen(),
         binding: ScreenBindings(),
-      ),GetPage(
+      ),
+      GetPage(
         name: kCallLogScreen,
         page: () => const CallLogScreen(),
         binding: ScreenBindings(),
@@ -161,10 +175,6 @@ class RouteGenerator {
         page: () => DoctorEditProfileScreen(),
         binding: ScreenBindings(),
       ),
-
-
     ];
   }
-
-
 }

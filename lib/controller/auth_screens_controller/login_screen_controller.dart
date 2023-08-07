@@ -1,3 +1,4 @@
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:fluency_therapist/core/database.dart';
@@ -50,34 +51,34 @@ class LoginScreenController extends GetxController {
     ProgressDialog pd = ProgressDialog();
     pd.showDialog();
     if (formKey.currentState!.validate()) {
-      dynamic userOrDoctor = await database.loginUser(
+      dynamic response = await database.loginUser(
           emailTEController.text.toString(),
           passwordTEController.text.toString());
       pd.dismissDialog();
-      if (userOrDoctor is UserModel) {
+      if (response is UserModel) {
         // User is a normal user
-        if (userOrDoctor.errorMsg == '') {
+        if (response.errorMsg == '') {
           await userSession.setLogin();
-          userSession.userInformation(userModel: userOrDoctor);
+          userSession.userInformation(userModel: response);
           Get.offAllNamed(kHomeScreen);
-        } else if (userOrDoctor.errorMsg == 'Email is Not Verified') {
-          Utils().toastMessage(userOrDoctor.errorMsg);
+        } else if (response.errorMsg == 'Email is Not Verified') {
+          Utils().toastMessage(response.errorMsg);
           Get.toNamed(kEmailVerificationScreen);
         } else {
-          Utils().toastMessage(userOrDoctor.errorMsg);
+          Utils().toastMessage(response.errorMsg);
         }
-      } else if (userOrDoctor is DoctorModel) {
+      } else if (response is DoctorModel) {
         // User is a doctor
-        if (userOrDoctor.errorMsg == '') {
+        if (response.errorMsg == '') {
           await userSession.setLogin();
-          await userSession.setIsDoctor();
+          userSession.doctorInformation(doctorModel: response);
           Get.offAllNamed(kDoctorHomeScreen);
-        } else if (userOrDoctor.errorMsg == 'Email is Not Verified') {
+        } else if (response.errorMsg == 'Email is Not Verified') {
           // Email not verified, navigate to verification screen
-          Utils().toastMessage(userOrDoctor.errorMsg);
+          Utils().toastMessage(response.errorMsg);
           Get.toNamed(kEmailVerificationScreen);
         } else {
-          Utils().toastMessage(userOrDoctor.errorMsg);
+          Utils().toastMessage(response.errorMsg);
         }
       } else {
         // This means neither UserModel nor DoctorModel was returned, handle the case accordingly

@@ -17,13 +17,13 @@ import '../controller/home_screens_controller/consultant_calling_screen_controll
 import '../controller/home_screens_controller/consultant_profile_screen_controller.dart';
 import '../controller/home_screens_controller/customize_program_final_screen_controller.dart';
 import '../controller/home_screens_controller/customized_program_screen_controller.dart';
-import '../controller/home_screens_controller/doctor_edit_profile_screen_controller.dart';
-import '../controller/home_screens_controller/doctor_home_screen_controller.dart';
+import '../controller/doctor_screens_controller/doctor_edit_profile_screen_controller.dart';
+import '../controller/doctor_screens_controller/doctor_home_screen_controller.dart';
 import '../controller/home_screens_controller/edit_profile_screen_controller.dart';
 import '../controller/home_screens_controller/home_screen_controller.dart';
 import '../controller/home_screens_controller/inbox_screen_controller.dart';
 import '../controller/home_screens_controller/ongoing_call_screen_controller.dart';
-import '../controller/home_screens_controller/progress_tracking_screen.dart';
+import '../controller/home_screens_controller/progress_tracking_screen_controller.dart';
 import '../controller/home_screens_controller/reminder_screen_controller.dart';
 import '../controller/home_screens_controller/search_screen_controller.dart';
 import '../controller/home_screens_controller/speech_exercises_screen_controller.dart';

@@ -1,23 +1,22 @@
-import 'dart:developer';
-
-import 'package:fluency_therapist/model/user_model.dart';
+import 'package:fluency_therapist/model/doctor_model.dart';
 import 'package:fluency_therapist/utils/app_constants.dart';
 import 'package:get/get.dart';
 
 import '../../utils/user_session.dart';
 
-class HomeScreenController extends GetxController {
+class DoctorHomeScreenController extends GetxController {
+
   UserSession userSession = UserSession();
-  Rx<UserModel> userModel=UserModel.empty().obs;
+  Rx<DoctorModel> doctorModel=DoctorModel.empty().obs;
 
   @override
   void onInit(){
-    getUserInfo();
+    getDoctorInfo();
     super.onInit();
   }
 
-  Future<void> getUserInfo() async{
-    userModel.value=await userSession.getUserInformation();
+  Future<void> getDoctorInfo() async{
+    doctorModel.value=await userSession.getDoctorInformation();
   }
 
   Future<void> logout () async {
@@ -25,5 +24,7 @@ class HomeScreenController extends GetxController {
     Get.offAllNamed(kLoginScreen);
 
   }
+
+
 
 }

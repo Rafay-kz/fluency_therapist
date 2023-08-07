@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:fluency_therapist/controller/home_screens_controller/search_screen_controller.dart';
 import 'package:fluency_therapist/screens/home_screens/home_screen.dart';
 import 'package:flutter/material.dart';
@@ -39,10 +41,15 @@ class SearchScreen extends GetView<SearchScreenController> {
                           height: 72),
                     ),
                   ),
-                  const Padding(
+                  Padding(
                     padding: EdgeInsets.only(left: 80),
-                    child: CircleAvatar(
-                      radius: 22,
+                    child:  Obx(()=> CircleAvatar(
+                        radius: 15,
+                        backgroundImage: controller.userModel.value.image!=''
+                            ? FileImage(
+                            File(controller.userModel.value.image))
+                            : null
+                    ),
                     ),
                   ),
                 ],

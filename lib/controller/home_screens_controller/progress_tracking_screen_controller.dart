@@ -3,7 +3,7 @@ import 'package:get/get.dart';
 import '../../model/user_model.dart';
 import '../../utils/user_session.dart';
 
-class CustomizeProgramFinalScreenController extends GetxController{
+class ProgressTrackingScreenController extends GetxController {
 
   UserSession userSession = UserSession();
   Rx<UserModel> userModel=UserModel.empty().obs;

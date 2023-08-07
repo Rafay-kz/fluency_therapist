@@ -1,10 +1,12 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../../controller/home_screens_controller/customize_program_final_screen_controller.dart';
 import '../../utils/app_colors.dart';
 import '../../utils/app_constants.dart';
-import 'home_screen.dart';
+
 
 class CustomizeProgramFinalScreen extends GetView<CustomizeProgramFinalScreenController> {
   const CustomizeProgramFinalScreen({super.key});
@@ -40,8 +42,13 @@ class CustomizeProgramFinalScreen extends GetView<CustomizeProgramFinalScreenCon
                         width: screenWidth * 0.42,),
                     ),
                   ),
-                  CircleAvatar(
-                    radius: screenWidth*0.06,
+                  Obx(()=> CircleAvatar(
+                      radius:25,
+                      backgroundImage: controller.userModel.value.image!=''
+                          ? FileImage(
+                          File(controller.userModel.value.image))
+                          : null
+                  ),
                   ),
                 ],
               ),

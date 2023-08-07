@@ -38,9 +38,14 @@ class UserProfileScreen extends GetView<UserProfileScreenController> {
             Column(
                 children: [
                   Center(
-                    child: CircleAvatar(
-                        radius: screenWidth * 0.15
-                           ),
+                    child: Obx(()=> CircleAvatar(
+                          radius: screenWidth * 0.15,
+                          backgroundImage: controller.userModel.value.image!=''
+                              ? FileImage(
+                              File(controller.userModel.value.image))
+                              : null
+                             ),
+                    ),
                   ),
 
                 ],

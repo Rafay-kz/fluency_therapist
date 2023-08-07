@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:fluency_therapist/controller/home_screens_controller/consultant_profile_screen_controller.dart';
 import '../../custom widgets/button.dart';
 import 'package:flutter/material.dart';
@@ -44,8 +46,13 @@ class ConsultantProfileScreen
                       ),
                     ),
                   ),
-                  CircleAvatar(
-                    radius: screenWidth*0.06,
+                  Obx(()=> CircleAvatar(
+                      radius:25,
+                      backgroundImage: controller.userModel.value.image!=''
+                          ? FileImage(
+                          File(controller.userModel.value.image))
+                          : null
+                  ),
                   ),
                 ],
               ),

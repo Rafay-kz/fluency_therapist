@@ -1,14 +1,20 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 
+import '../../model/doctor_model.dart';
+import '../../utils/app_constants.dart';
+import '../../utils/user_session.dart';
+
 class DoctorEditProfileScreenController extends GetxController {
-  TextEditingController nameTEController = TextEditingController();
-  TextEditingController emailTEController = TextEditingController();
-  TextEditingController specialityController = TextEditingController();
-  TextEditingController bioController = TextEditingController();
-  TextEditingController locationController = TextEditingController();
+  Rx<TextEditingController> nameTEController = TextEditingController().obs;
+  Rx< TextEditingController> emailTEController = TextEditingController().obs;
+  Rx<TextEditingController >specialityController = TextEditingController().obs;
+  Rx<TextEditingController> bioController = TextEditingController().obs;
+  Rx<TextEditingController> locationController = TextEditingController().obs;
+
 
   var fullName = '';
   var speciality = '';
@@ -112,6 +118,7 @@ class DoctorEditProfileScreenController extends GetxController {
     final ImagePicker _picker = ImagePicker();
     final image = await _picker.pickImage(source: ImageSource.camera);
     if (image != null) {
+      doctorModel.value.image='';
       imagePath.value = image.path.toString();
     }
   }
@@ -120,19 +127,54 @@ class DoctorEditProfileScreenController extends GetxController {
     final ImagePicker _picker = ImagePicker();
     final image = await _picker.pickImage(source: ImageSource.gallery);
     if (image != null) {
+      doctorModel.value.image='';
       imagePath.value = image.path.toString();
     }
 
     void onRegisterTap() {
       GetUtils.isAlphabetOnly(
-        nameTEController.text,
+        nameTEController.value.text,
       )
           ? print('valid')
           : print('invalid Name');
-      GetUtils.isEmail(emailTEController.text)
+      GetUtils.isEmail(emailTEController.value.text)
           ? print('Valid')
           : print('Invalid Email');
 
     }
   }
+  UserSession userSession = UserSession();
+  Rx<DoctorModel> doctorModel=DoctorModel.empty().obs;
+
+
+  @override
+  void onInit(){
+    getDoctorInfo();
+    super.onInit();
+  }
+
+  Future<void> getDoctorInfo() async{
+    doctorModel.value=await userSession.getDoctorInformation();
+    nameTEController.value.text=doctorModel.value.userName;
+    emailTEController.value.text=doctorModel.value.email;
+  }
+
+  Future<void> logout () async {
+    userSession.logOut();
+    Get.offAllNamed(kLoginScreen);
+
+  }
+  Future<void> editProfile() async {
+
+    FirebaseFirestore firebaseFirestore = FirebaseFirestore.instance;
+    await firebaseFirestore.collection('doctor_users').doc(doctorModel.value.id).update({
+      'image': imagePath.value,
+      'username': nameTEController.value.text,
+      'location': locationController.value.text,
+      'bio': bioController.value.text,
+      'speciality':specialityController.value.text,
+    });
+  }
+
+
 }
