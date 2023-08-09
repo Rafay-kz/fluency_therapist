@@ -3,12 +3,15 @@ import 'dart:io';
 import 'package:fluency_therapist/utils/app_colors.dart';
 import 'package:fluency_therapist/utils/app_constants.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 
-import '../../controller/doctor_screens_controller/doctor_home_screen_controller.dart';
+import '../../../controller/user_screens_controller/home_screens_controller/home_screen_controller.dart';
 
-class DoctorHomeScreen extends GetView<DoctorHomeScreenController> {
-  const DoctorHomeScreen({super.key});
+
+
+class HomeScreen extends GetView<HomeScreenController> {
+  const HomeScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -24,63 +27,59 @@ class DoctorHomeScreen extends GetView<DoctorHomeScreenController> {
               children: [
                 Row(
                   children: [
-                    Expanded(
-                      child: Obx(()=> RichText(
-                          text: TextSpan(
-                            style: Theme.of(context).textTheme.headlineSmall!.copyWith(
-                              fontSize: Get.width * 0.055,
-                              color: AppColors.primaryBlue,
-                            ),
-                            children: [
-                              const TextSpan(text: "Hello,"),
-                              TextSpan(
-                                text: "\n Dr.${controller.doctorModel.value.userName}",
-                                style: Theme.of(context).textTheme.displayLarge!.copyWith(
-                                  fontSize: Get.width * 0.060,
-                                  color: AppColors.textColor,
-                                ),
-                              ),
-                            ],
+                    Obx(()=> RichText(
+                        text: TextSpan(
+                          style: Theme.of(context).textTheme.headlineSmall!.copyWith(
+                            fontSize: Get.width * 0.055,
+                            color: AppColors.primaryBlue,
                           ),
-                        ),
-                      ),
-                    ),
-                    Expanded(
-                      child: Padding(
-                        padding: const EdgeInsets.only(left: 150),
-                        child: PopupMenuButton(
-                          onSelected: (value) {
-                            if (value == 'logout') {
-                              controller.logout();
-                              }
-                            else if (value == 'profile') {
-                              Get.toNamed(kDoctorEditProfileScreen);
-                            }
-
-                          },
-                          itemBuilder: (context) => [
-                            const PopupMenuItem(
-                              value: 'logout',
-                              child: ListTile(
-                                leading: Icon(Icons.logout),
-                                title: Text("logout"),
-                              ),
-                            ),
-                            const PopupMenuItem(
-                              value: 'profile',
-                              child: ListTile(
-                                leading: Icon(Icons.photo),
-                                title: Text("profile"),
+                          children: [
+                            const TextSpan(text: "Hello,"),
+                            TextSpan(
+                              text: "\n${controller.userModel.value.userName}",
+                              style: Theme.of(context).textTheme.displayLarge!.copyWith(
+                                fontSize: Get.width * 0.060,
+                                color: AppColors.textColor,
                               ),
                             ),
                           ],
-                          child:Obx(()=>  CircleAvatar(
-                              backgroundImage: controller.doctorModel.value.image!=''
-                                  ? FileImage(
-                                  File(controller.doctorModel.value.image))
-                                  : null
+                        ),
+                      ),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.only(left: 150),
+                      child: PopupMenuButton(
+                        onSelected: (value) {
+                          if (value == 'logout') {
+                            controller.logout();}
+                          else if (value == 'profile') {
+                              Get.toNamed(kUserProfileScreen);
+                            }
+
+                        },
+                        itemBuilder: (context) => [
+                          const PopupMenuItem(
+                            value: 'logout',
+                            child: ListTile(
+                              leading: Icon(Icons.logout),
+                              title: Text("logout"),
+                            ),
                           ),
+                         const PopupMenuItem(
+                            value: 'profile',
+                            child: ListTile(
+                              leading: Icon(Icons.photo),
+                              title: Text("profile"),
+                            ),
                           ),
+                        ],
+                        child: Obx(()=> CircleAvatar(
+                            radius: 25,
+                            backgroundImage: controller.userModel.value.image!=''
+                                ? FileImage(
+                                File(controller.userModel.value.image))
+                                : null
+                        ),
                         ),
                       ),
                     ),
@@ -96,7 +95,7 @@ class DoctorHomeScreen extends GetView<DoctorHomeScreenController> {
                         decoration: InputDecoration(
                           fillColor: AppColors.textfieldColor,
                           filled: true,
-                          hintText: 'Search exercise...',
+                          hintText: 'Search a doctor or exercise...',
                           hintStyle: Theme.of(context).textTheme.headlineSmall!.copyWith(
                             fontSize: Get.width * 0.042,
                             color: AppColors.textHintColor,
@@ -200,7 +199,7 @@ class DoctorHomeScreen extends GetView<DoctorHomeScreenController> {
                                     padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 7),
                                     child: Center(
                                       child: Text(
-                                        "View",
+                                        "Start",
                                         textAlign: TextAlign.center,
                                         style: Theme.of(context).textTheme.headlineSmall!.copyWith(
                                           fontSize: Get.width * 0.035,
@@ -223,7 +222,7 @@ class DoctorHomeScreen extends GetView<DoctorHomeScreenController> {
                   child: Padding(
                     padding: const EdgeInsets.only(top: 13, left: 2),
                     child: Text(
-                      "Features",
+                      "Services",
                       style: Theme.of(context).textTheme.displayLarge!.copyWith(
                         fontSize: Get.width * 0.045,
                       ),
@@ -236,14 +235,14 @@ class DoctorHomeScreen extends GetView<DoctorHomeScreenController> {
                     children: [
                       cardWidget(
                         context: context,
-                        title: "Inbox",
+                        title: "Customized\nPrograms",
                         image: customizedProgramsIcon,
-                        routeName: kChatWithConsultantScreen,
+                        routeName: kCustomizedProgramScreen,
                       ),
                       const SizedBox(width: 20),
                       cardWidget(
                         context: context,
-                        title: "Calls log",
+                        title: "Speech\nExercises",
                         image: speechExercisesIcon,
                         routeName: kSpeechExercisesScreen,
                       ),
@@ -254,14 +253,14 @@ class DoctorHomeScreen extends GetView<DoctorHomeScreenController> {
                   children: [
                     cardWidget(
                       context: context,
-                      title: "View\nExercises",
+                      title: "Progress\nTracking",
                       image: progressTrackingIcon,
                       routeName: kProgressTrackingScreen,
                     ),
                     const SizedBox(width: 20),
                     cardWidget(
                       context: context,
-                      title: "Other\nConsultants",
+                      title: "Consult\nTherapist",
                       image: consultingIcon,
                       routeName: kConsultTherapistScreen,
                     ),

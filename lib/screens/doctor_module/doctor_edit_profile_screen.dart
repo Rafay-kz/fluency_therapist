@@ -98,10 +98,10 @@ class DoctorEditProfileScreen extends GetView<DoctorEditProfileScreenController>
                     width: screenWidth * 0.9,
                     child: TextFormField(
                       controller: controller.nameTEController.value,
+                      style: TextStyle(color: AppColors.textColor),
                       decoration: InputDecoration(
                         fillColor: AppColors.textfieldColor,
                         filled: true,
-
 
                         hintStyle: Theme.of(context).textTheme.titleMedium,
                         border: OutlineInputBorder(
@@ -134,6 +134,7 @@ class DoctorEditProfileScreen extends GetView<DoctorEditProfileScreenController>
                     child: TextFormField(
                       readOnly: true,
                       controller: controller.emailTEController.value,
+                      style: TextStyle(color: AppColors.textColor),
                       decoration: InputDecoration(
                         fillColor: AppColors.textfieldColor,
                         filled: true,
@@ -178,6 +179,7 @@ class DoctorEditProfileScreen extends GetView<DoctorEditProfileScreenController>
                         validator: (value) {
                           return controller.validateSpeciality(value!);
                         },
+                        style: TextStyle(color: AppColors.textColor),
                         decoration: InputDecoration(
                           fillColor: AppColors.textfieldColor,
                           filled: true,
@@ -211,6 +213,7 @@ class DoctorEditProfileScreen extends GetView<DoctorEditProfileScreenController>
                         onSaved: (value) {
                           controller.bio = value!;
                         },
+                        style: TextStyle(color: AppColors.textColor),
                         decoration: InputDecoration(
                           fillColor: AppColors.textfieldColor,
                           filled: true,
@@ -265,6 +268,7 @@ class DoctorEditProfileScreen extends GetView<DoctorEditProfileScreenController>
                         validator: (value) {
                           return controller.validateLocation(value!);
                         },
+                        style: TextStyle(color: AppColors.textColor),
                         decoration: InputDecoration(
                           fillColor: AppColors.textfieldColor,
                           filled: true,
