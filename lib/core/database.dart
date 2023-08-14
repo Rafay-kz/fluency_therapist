@@ -75,9 +75,6 @@ class Database {
     return UserModel.empty();
   }
 
-
-
-
   //Forget Password
   Future<void> passwordReset(email) async {
     _auth.sendPasswordResetEmail(email: email).then((value) {
@@ -115,14 +112,14 @@ class Database {
 
   //To save Doctor user details on firestore
   Future<void> saveDoctorUserDetails(String userName, age, email, fullName,
-      speciality, bio, location, availabilityStart, availabilityEnd, bool isDoctor,) async {
+      speciality, bio, location, availabilityStart, availabilityEnd, startDay, endDay ) async {
     try {
       User? user = FirebaseAuth.instance.currentUser;
       if (user != null) {
         String doctorId =
             user.uid; // User ID obtained from Firebase Authentication
         await _firestore.collection('doctor_users').doc(doctorId).set({
-          'userName': userName,
+          'username': userName,
           'age': age,
 
           'email': email,
@@ -130,9 +127,10 @@ class Database {
           'speciality': speciality,
           'bio': bio,
           'location': location,
+          'startDay' : startDay,
+          'endDay' : endDay,
           'availabilityStart': availabilityStart,
           'availabilityEnd': availabilityEnd,
-          'isDoctor': isDoctor
         });
         // Data saved successfully
       } else {

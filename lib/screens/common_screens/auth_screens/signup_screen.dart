@@ -7,7 +7,6 @@ import '../../../controller/common_screens_controller/auth_screens_controller/si
 import '../../../custom widgets/button.dart';
 import '../../../custom widgets/time_picker.dart';
 
-
 //created by Bilal on 6-5-2023
 
 class SignUpScreen extends GetView<SignupScreenController> {
@@ -68,51 +67,43 @@ class SignUpScreen extends GetView<SignupScreenController> {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Padding(
-                                  padding: const EdgeInsets.all(8.0),
-                                  child: Text('Username',
-                                      style: Theme.of(context)
-                                          .textTheme
-                                          .headlineSmall)),
-                              const SizedBox(
-                                height: 5,
+                                padding: const EdgeInsets.all(8.0),
+                                child: Text('Username',
+                                    style: Theme.of(context)
+                                        .textTheme
+                                        .headlineSmall),
                               ),
+                              const SizedBox(height: 5),
                               Padding(
                                 padding: const EdgeInsets.all(8.0),
-                                child: Center(
-                                  child: SizedBox(
-                                    width: width * 0.89,
-                                    child: TextFormField(
-                                      controller: controller.nameTEController,
-                                      onSaved: (value) {
-                                        controller.name = value!;
-                                      },
-                                      validator: (value) {
-                                        return controller.validateName(value!);
-                                      },
-                                      style: TextStyle(color: AppColors.textColor),
-
-                                      decoration: InputDecoration(
-                                          fillColor: AppColors.textfieldColor,
-                                          filled: true,
-                                          hintText: 'Enter your name',
-                                          hintStyle: Theme.of(context)
-                                              .textTheme
-                                              .titleMedium,
-                                          border: OutlineInputBorder(
-                                              borderRadius:
-                                                  BorderRadius.circular(30),
-                                              borderSide: BorderSide.none),
-                                          prefixIcon: Icon(
-                                            Icons.perm_identity_rounded,
-                                            color: AppColors.textHintColor,
-                                          )),
+                                child: SizedBox(
+                                  width: width * 0.89, // Set the width here
+                                  child: TextFormField(
+                                    controller: controller.nameTEController,
+                                    onSaved: (value) {
+                                      controller.name = value!;
+                                    },
+                                    validator: (value) {
+                                      return controller.validateName(value!);
+                                    },
+                                    style:
+                                        TextStyle(color: AppColors.textColor),
+                                    decoration: InputDecoration(
+                                      fillColor: AppColors.textfieldColor,
+                                      filled: true,
+                                      hintText: 'Enter your name',
+                                      hintStyle: Theme.of(context)
+                                          .textTheme
+                                          .titleMedium,
+                                      border: OutlineInputBorder(
+                                        borderRadius: BorderRadius.circular(30),
+                                        borderSide: BorderSide.none,
+                                      ),
                                     ),
                                   ),
                                 ),
                               ),
-                              const SizedBox(
-                                height: 5,
-                              ),
+                              const SizedBox(height: 5),
                               Padding(
                                 padding: const EdgeInsets.all(8.0),
                                 child: Text('Age',
@@ -120,36 +111,30 @@ class SignUpScreen extends GetView<SignupScreenController> {
                                         .textTheme
                                         .headlineSmall),
                               ),
-                              const SizedBox(
-                                height: 5,
-                              ),
+                              const SizedBox(height: 5),
                               Padding(
                                 padding: const EdgeInsets.all(8.0),
-                                child: Center(
-                                  child: SizedBox(
-                                    width: 400,
-                                    child: TextFormField(
-                                      // cursorColor: Colors.black,
-                                      controller: controller.ageTEController,
-                                      onSaved: (value) {
-                                        controller.age = value!;
-                                      },
-                                      validator: (value) {
-                                        return controller.validateAge(value!);
-                                      },
-                                      decoration: InputDecoration(
-                                          fillColor: AppColors.textfieldColor,
-                                          filled: true,
-                                          hintText: 'Enter your age',
-                                          hintStyle: Theme.of(context)
-                                              .textTheme
-                                              .titleMedium,
-                                          border: OutlineInputBorder(
-                                              borderRadius:
-                                                  BorderRadius.circular(30),
-                                              borderSide: BorderSide.none),
-                                          prefixIcon: Icon(Icons.group_outlined,
-                                              color: AppColors.textHintColor)),
+                                child: SizedBox(
+                                  width: width * 0.89, // Set the width here
+                                  child: TextFormField(
+                                    controller: controller.ageTEController,
+                                    onSaved: (value) {
+                                      controller.age = value!;
+                                    },
+                                    validator: (value) {
+                                      return controller.validateAge(value!);
+                                    },
+                                    decoration: InputDecoration(
+                                      fillColor: AppColors.textfieldColor,
+                                      filled: true,
+                                      hintText: 'Enter your age',
+                                      hintStyle: Theme.of(context)
+                                          .textTheme
+                                          .titleMedium,
+                                      border: OutlineInputBorder(
+                                        borderRadius: BorderRadius.circular(30),
+                                        borderSide: BorderSide.none,
+                                      ),
                                     ),
                                   ),
                                 ),
@@ -171,7 +156,7 @@ class SignUpScreen extends GetView<SignupScreenController> {
                                 padding: const EdgeInsets.all(8.0),
                                 child: Center(
                                   child: SizedBox(
-                                    width: 400,
+                                    width: width * 0.89,
                                     child: TextFormField(
                                       // cursorColor: Colors.black,
                                       controller: controller.emailTEController,
@@ -192,10 +177,6 @@ class SignUpScreen extends GetView<SignupScreenController> {
                                             borderRadius:
                                                 BorderRadius.circular(30),
                                             borderSide: BorderSide.none),
-                                        prefixIcon: Icon(
-                                          Icons.email_outlined,
-                                          color: AppColors.textHintColor,
-                                        ),
                                       ),
                                     ),
                                   ),
@@ -219,7 +200,7 @@ class SignUpScreen extends GetView<SignupScreenController> {
                                 padding: const EdgeInsets.all(8.0),
                                 child: Center(
                                   child: SizedBox(
-                                    width: 400,
+                                    width: width * 0.89,
                                     child: Obx(
                                       () => TextFormField(
                                         // cursorColor: Colors.black,
@@ -233,33 +214,28 @@ class SignUpScreen extends GetView<SignupScreenController> {
                                               .validatePassword(value!);
                                         },
                                         decoration: InputDecoration(
-                                            fillColor: AppColors.textfieldColor,
-                                            filled: true,
-                                            hintText: 'Enter your password',
-                                            hintStyle: Theme.of(context)
-                                                .textTheme
-                                                .titleMedium,
-                                            border: OutlineInputBorder(
-                                                borderRadius:
-                                                    BorderRadius.circular(30),
-                                                borderSide: BorderSide.none),
-                                            suffixIcon: GestureDetector(
-                                              onTap: () {
-                                                controller.obscureText.value =
-                                                    !controller
-                                                        .obscureText.value;
-                                              },
-                                              child: Icon(
-                                                  controller.obscureText.value
-                                                      ? Icons.visibility_off
-                                                      : Icons.visibility,
-                                                  color:
-                                                      AppColors.textHintColor),
-                                            ),
-                                            prefixIcon: Icon(
-                                                Icons.lock_open_outlined,
-                                                color:
-                                                    AppColors.textHintColor)),
+                                          fillColor: AppColors.textfieldColor,
+                                          filled: true,
+                                          hintText: 'Enter your password',
+                                          hintStyle: Theme.of(context)
+                                              .textTheme
+                                              .titleMedium,
+                                          border: OutlineInputBorder(
+                                              borderRadius:
+                                                  BorderRadius.circular(30),
+                                              borderSide: BorderSide.none),
+                                          suffixIcon: GestureDetector(
+                                            onTap: () {
+                                              controller.obscureText.value =
+                                                  !controller.obscureText.value;
+                                            },
+                                            child: Icon(
+                                                controller.obscureText.value
+                                                    ? Icons.visibility_off
+                                                    : Icons.visibility,
+                                                color: AppColors.textHintColor),
+                                          ),
+                                        ),
                                         keyboardType:
                                             TextInputType.visiblePassword,
                                         obscureText:
@@ -287,7 +263,7 @@ class SignUpScreen extends GetView<SignupScreenController> {
                                 padding: const EdgeInsets.all(8.0),
                                 child: Center(
                                   child: SizedBox(
-                                    width: 400,
+                                    width: width * 0.89,
                                     child: Obx(
                                       () => TextFormField(
                                         // cursorColor: Colors.black,
@@ -301,33 +277,28 @@ class SignUpScreen extends GetView<SignupScreenController> {
                                               .validateConfirmPassword(value!);
                                         },
                                         decoration: InputDecoration(
-                                            fillColor: AppColors.textfieldColor,
-                                            filled: true,
-                                            hintText: 'Confirm your password',
-                                            hintStyle: Theme.of(context)
-                                                .textTheme
-                                                .titleMedium,
-                                            border: OutlineInputBorder(
-                                                borderRadius:
-                                                    BorderRadius.circular(30),
-                                                borderSide: BorderSide.none),
-                                            suffixIcon: GestureDetector(
-                                              onTap: () {
-                                                controller.obscureText.value =
-                                                    !controller
-                                                        .obscureText.value;
-                                              },
-                                              child: Icon(
-                                                  controller.obscureText.value
-                                                      ? Icons.visibility_off
-                                                      : Icons.visibility,
-                                                  color:
-                                                      AppColors.textHintColor),
-                                            ),
-                                            prefixIcon: Icon(
-                                                Icons.lock_open_outlined,
-                                                color:
-                                                    AppColors.textHintColor)),
+                                          fillColor: AppColors.textfieldColor,
+                                          filled: true,
+                                          hintText: 'Confirm your password',
+                                          hintStyle: Theme.of(context)
+                                              .textTheme
+                                              .titleMedium,
+                                          border: OutlineInputBorder(
+                                              borderRadius:
+                                                  BorderRadius.circular(30),
+                                              borderSide: BorderSide.none),
+                                          suffixIcon: GestureDetector(
+                                            onTap: () {
+                                              controller.obscureText.value =
+                                                  !controller.obscureText.value;
+                                            },
+                                            child: Icon(
+                                                controller.obscureText.value
+                                                    ? Icons.visibility_off
+                                                    : Icons.visibility,
+                                                color: AppColors.textHintColor),
+                                          ),
+                                        ),
                                         keyboardType:
                                             TextInputType.visiblePassword,
                                         obscureText:
@@ -352,7 +323,8 @@ class SignUpScreen extends GetView<SignupScreenController> {
                                 if (controller.isDoctor.value) {
                                   return Column(
                                     mainAxisAlignment: MainAxisAlignment.start,
-                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
                                     children: [
                                       Padding(
                                           padding: const EdgeInsets.all(8.0),
@@ -369,7 +341,8 @@ class SignUpScreen extends GetView<SignupScreenController> {
                                           child: SizedBox(
                                             width: width * 0.89,
                                             child: TextFormField(
-                                              controller: controller.fullNameController,
+                                              controller:
+                                                  controller.fullNameController,
                                               onSaved: (value) {
                                                 controller.fullName = value!;
                                               },
@@ -378,18 +351,23 @@ class SignUpScreen extends GetView<SignupScreenController> {
                                                     .validateFullName(value!);
                                               },
                                               decoration: InputDecoration(
-                                                fillColor: AppColors.textfieldColor,
+                                                fillColor:
+                                                    AppColors.textfieldColor,
                                                 filled: true,
                                                 contentPadding:
-                                                const EdgeInsets.only(left: 15),
-                                                hintText: 'Enter your full name',
+                                                    const EdgeInsets.only(
+                                                        left: 15),
+                                                hintText:
+                                                    'Enter your full name',
                                                 hintStyle: Theme.of(context)
                                                     .textTheme
                                                     .titleMedium,
                                                 border: OutlineInputBorder(
                                                     borderRadius:
-                                                    BorderRadius.circular(30),
-                                                    borderSide: BorderSide.none),
+                                                        BorderRadius.circular(
+                                                            30),
+                                                    borderSide:
+                                                        BorderSide.none),
                                               ),
                                             ),
                                           ),
@@ -410,8 +388,8 @@ class SignUpScreen extends GetView<SignupScreenController> {
                                           child: SizedBox(
                                             width: width * 0.89,
                                             child: TextFormField(
-                                              controller:
-                                              controller.specialityController,
+                                              controller: controller
+                                                  .specialityController,
                                               onSaved: (value) {
                                                 controller.speciality = value!;
                                               },
@@ -420,18 +398,23 @@ class SignUpScreen extends GetView<SignupScreenController> {
                                                     .validateSpeciality(value!);
                                               },
                                               decoration: InputDecoration(
-                                                fillColor: AppColors.textfieldColor,
+                                                fillColor:
+                                                    AppColors.textfieldColor,
                                                 filled: true,
                                                 contentPadding:
-                                                const EdgeInsets.only(left: 15),
-                                                hintText: 'Enter your Speciality',
+                                                    const EdgeInsets.only(
+                                                        left: 15),
+                                                hintText:
+                                                    'Enter your Speciality',
                                                 hintStyle: Theme.of(context)
                                                     .textTheme
                                                     .titleMedium,
                                                 border: OutlineInputBorder(
                                                     borderRadius:
-                                                    BorderRadius.circular(30),
-                                                    borderSide: BorderSide.none),
+                                                        BorderRadius.circular(
+                                                            30),
+                                                    borderSide:
+                                                        BorderSide.none),
                                               ),
                                             ),
                                           ),
@@ -444,30 +427,35 @@ class SignUpScreen extends GetView<SignupScreenController> {
                                                 .textTheme
                                                 .headlineSmall),
                                       ),
+                                      const SizedBox(
+                                        height: 2,
+                                      ),
                                       Padding(
                                         padding: const EdgeInsets.all(8.0),
                                         child: Center(
                                           child: SizedBox(
                                             width: width * 0.89,
                                             child: TextFormField(
-                                              controller: controller.bioController,
+                                              controller:
+                                                  controller.bioController,
                                               maxLines: 4,
                                               // Limiting the user to 3 lines for the introduction
                                               onSaved: (value) {
                                                 controller.bio = value!;
                                               },
                                               decoration: InputDecoration(
-                                                fillColor: AppColors.textfieldColor,
+                                                fillColor:
+                                                    AppColors.textfieldColor,
                                                 filled: true,
                                                 contentPadding:
-                                                const EdgeInsets.all(15),
+                                                    const EdgeInsets.all(15),
                                                 hintText: 'Enter your bio',
                                                 hintStyle: Theme.of(context)
                                                     .textTheme
                                                     .titleMedium,
                                                 border: OutlineInputBorder(
                                                   borderRadius:
-                                                  BorderRadius.circular(30),
+                                                      BorderRadius.circular(30),
                                                   borderSide: BorderSide.none,
                                                 ),
                                               ),
@@ -475,26 +463,138 @@ class SignUpScreen extends GetView<SignupScreenController> {
                                           ),
                                         ),
                                       ),
+                                      Column(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        children: [
+                                          Padding(
+                                            padding: const EdgeInsets.all(8.0),
+                                            child: Text('Availability Days',
+                                                style: Theme.of(context)
+                                                    .textTheme
+                                                    .headlineSmall),
+                                          ),
+                                          const SizedBox(
+                                            height: 2,
+                                          ),
+                                          Padding(
+                                            padding: const EdgeInsets.all(8.0),
+                                            child: Row(
+                                              crossAxisAlignment:
+                                                  CrossAxisAlignment.center,
+                                              // Aligns the children to the center vertically
+                                              children: [
+                                                DropdownButton<String>(
+                                                  value: controller.startDay
+                                                          .value.isNotEmpty
+                                                      ? controller
+                                                          .startDay.value
+                                                      : null,
+                                                  onChanged: (newValue) {
+                                                    controller.setStartDay(
+                                                        newValue!);
+                                                  },
+                                                  items: <String>[
+                                                    'Sunday',
+                                                    'Monday',
+                                                    'Tuesday',
+                                                    'Wednesday',
+                                                    'Thursday',
+                                                    'Friday',
+                                                    'Saturday',
+                                                  ].map<
+                                                          DropdownMenuItem<
+                                                              String>>(
+                                                      (String value) {
+                                                    return DropdownMenuItem<
+                                                        String>(
+                                                      value: value,
+                                                      child: Text(value,
+                                                          style: TextStyle(
+                                                              color: AppColors
+                                                                  .textColor)),
+                                                    );
+                                                  }).toList(),
+                                                ),
+                                                Padding(
+                                                  padding: const EdgeInsets
+                                                          .symmetric(
+                                                      horizontal: 15.0),
+                                                  child: Text('to',
+                                                      style: Theme.of(context)
+                                                          .textTheme
+                                                          .titleSmall!
+                                                          .copyWith(
+                                                              color: AppColors
+                                                                  .textColor,
+                                                              fontSize: 16)),
+                                                ),
+                                                DropdownButton<String>(
+                                                  value: controller.endDay
+                                                          .value.isNotEmpty
+                                                      ? controller
+                                                          .endDay.value
+                                                      : null,
+                                                  onChanged: (newValue) {
+                                                    controller.setEndDay(
+                                                        newValue!);
+                                                  },
+                                                  items: <String>[
+                                                    'Sunday',
+                                                    'Monday',
+                                                    'Tuesday',
+                                                    'Wednesday',
+                                                    'Thursday',
+                                                    'Friday',
+                                                    'Saturday',
+                                                  ].map<
+                                                          DropdownMenuItem<
+                                                              String>>(
+                                                      (String value) {
+                                                    return DropdownMenuItem<
+                                                        String>(
+                                                      value: value,
+                                                      child: Text(value,
+                                                          style: TextStyle(
+                                                              color: AppColors
+                                                                  .textColor)),
+                                                    );
+                                                  }).toList(),
+                                                ),
+                                              ],
+                                            ),
+                                          ),
+                                        ],
+                                      ),
                                       Padding(
                                           padding: const EdgeInsets.all(8.0),
-                                          child: Text('Availability',
+                                          child: Text('Availability Timing',
                                               style: Theme.of(context)
                                                   .textTheme
                                                   .headlineSmall)),
-                                      const SizedBox(height: 8),
-                                      TimePicker(onRangeCompleted: (range) {
-                                        startTime = range?.start;
-                                        endTime = range?.end;
-                                        if (startTime != null && endTime != null) {
-                                          // Format the TimeOfDay values as strings in the format "HH:mm"
-                                          controller.availabilityStart = controller.formatTimeOfDay(startTime!);
-                                          controller.availabilityEnd = controller.formatTimeOfDay(endTime!);
-
-                                        } else {
-                                          return;
-                                        }
-
-                                      }),
+                                      const SizedBox(
+                                        height: 2,
+                                      ),
+                                      Padding(
+                                        padding: const EdgeInsets.all(8.0),
+                                        child: TimePicker(
+                                            onRangeCompleted: (range) {
+                                          startTime = range?.start;
+                                          endTime = range?.end;
+                                          if (startTime != null &&
+                                              endTime != null) {
+                                            // Format the TimeOfDay values as strings in the format "HH:mm"
+                                            controller.availabilityStart =
+                                                controller.formatTimeOfDay(
+                                                    startTime!);
+                                            controller.availabilityEnd =
+                                                controller
+                                                    .formatTimeOfDay(endTime!);
+                                          } else {
+                                            return;
+                                          }
+                                        }),
+                                      ),
                                       const SizedBox(
                                         height: 8,
                                       ),
@@ -504,13 +604,17 @@ class SignUpScreen extends GetView<SignupScreenController> {
                                               style: Theme.of(context)
                                                   .textTheme
                                                   .headlineSmall)),
+                                      const SizedBox(
+                                        height: 2,
+                                      ),
                                       Padding(
                                         padding: const EdgeInsets.all(8.0),
                                         child: Center(
                                           child: SizedBox(
                                             width: width * 0.89,
                                             child: TextFormField(
-                                              controller: controller.locationController,
+                                              controller:
+                                                  controller.locationController,
                                               onSaved: (value) {
                                                 controller.fullName = value!;
                                               },
@@ -519,18 +623,23 @@ class SignUpScreen extends GetView<SignupScreenController> {
                                                     .validateLocation(value!);
                                               },
                                               decoration: InputDecoration(
-                                                fillColor: AppColors.textfieldColor,
+                                                fillColor:
+                                                    AppColors.textfieldColor,
                                                 filled: true,
                                                 contentPadding:
-                                                const EdgeInsets.only(left: 15),
-                                                hintText: 'Add Location or virtual',
+                                                    const EdgeInsets.only(
+                                                        left: 15),
+                                                hintText:
+                                                    'Add Location or virtual',
                                                 hintStyle: Theme.of(context)
                                                     .textTheme
                                                     .titleMedium,
                                                 border: OutlineInputBorder(
                                                     borderRadius:
-                                                    BorderRadius.circular(30),
-                                                    borderSide: BorderSide.none),
+                                                        BorderRadius.circular(
+                                                            30),
+                                                    borderSide:
+                                                        BorderSide.none),
                                               ),
                                             ),
                                           ),
