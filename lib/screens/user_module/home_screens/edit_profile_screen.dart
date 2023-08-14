@@ -94,10 +94,11 @@ class EditProfileScreen extends GetView<EditProfileScreenController> {
                     width: screenWidth * 0.9,
                     child: TextFormField(
                       controller: controller.nameTEController.value,
+                      style: TextStyle(color: AppColors.textColor),
+
                       decoration: InputDecoration(
                         fillColor: AppColors.textfieldColor,
                         filled: true,
-                        hintStyle: Theme.of(context).textTheme.titleMedium,
                         border: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(30),
                           borderSide: BorderSide.none,
@@ -128,10 +129,10 @@ class EditProfileScreen extends GetView<EditProfileScreenController> {
                     child: TextFormField(
                       readOnly: true,
                       controller: controller.emailTEController.value,
+                      style: TextStyle(color: AppColors.textColor),
                       decoration: InputDecoration(
                         fillColor: AppColors.textfieldColor,
                         filled: true,
-                        hintStyle: Theme.of(context).textTheme.titleMedium,
                         border: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(30),
                           borderSide: BorderSide.none,
@@ -151,7 +152,10 @@ class EditProfileScreen extends GetView<EditProfileScreenController> {
 
                 Padding(
                   padding: const EdgeInsets.only(top: 30),
-                  child: Button(onPressed: () {controller.editProfile();}, text: "Update"),
+                  child: Button(onPressed: () {
+                    controller.editProfile();
+
+                    }, text: "Update"),
                 ),
               ],
             ),

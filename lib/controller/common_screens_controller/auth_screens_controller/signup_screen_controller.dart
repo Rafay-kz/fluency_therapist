@@ -2,6 +2,7 @@ import 'package:fluency_therapist/core/database.dart';
 import 'package:get/get.dart';
 import 'package:flutter/material.dart';
 
+import '../../../custom widgets/progress_indicator.dart';
 import '../../../utils/utills.dart';
 
 
@@ -30,7 +31,21 @@ class SignupScreenController extends GetxController {
     isDoctor.value = value;
   }
 
-  //variables to store regular users controller data
+  // Drop down button values updater
+  final RxString startDay = RxString('');
+
+  void setStartDay(String day) {
+    startDay.value = day;
+  }
+
+  // Drop down button values updater2
+  final RxString endDay = RxString('');
+
+  void setEndDay(String day) {
+    endDay.value = day;
+  }
+
+    //variables to store regular users controller data
   var name = '';
   var email = '';
   var password = '';
@@ -134,7 +149,6 @@ class SignupScreenController extends GetxController {
     return '$hour:$minute';
   }
 
-
   String? validateLocation(String value) {
     if (value.isEmpty) {
       return 'Location cannot be empty';
@@ -148,6 +162,8 @@ class SignupScreenController extends GetxController {
 
   //For registering users - Register method.
   Future<void> signUp() async {
+    ProgressDialog pd = ProgressDialog();
+    pd.showDialog();
     if (formKey.currentState!.validate()) {
       try {
         Database database = Database();
@@ -155,6 +171,7 @@ class SignupScreenController extends GetxController {
           emailTEController.text.toString(),
           passwordTEController.text.toString(),
         );
+        pd.dismissDialog();
 
         if (isDoctor.value) {
           await database.saveDoctorUserDetails(
@@ -165,10 +182,12 @@ class SignupScreenController extends GetxController {
             specialityController.text.toString(),
             bioController.text.toString(),
             locationController.text.toString(),
+            startDay.toString(),
+            endDay.toString(),
             availabilityStart.toString(),
             availabilityEnd.toString(),
 
-            isDoctor.value,
+
           );
         }
         else {
@@ -179,6 +198,7 @@ class SignupScreenController extends GetxController {
           );
         }
       } catch (error) {
+        pd.dismissDialog();
         Utils().toastMessage(error.toString());
       }
     }

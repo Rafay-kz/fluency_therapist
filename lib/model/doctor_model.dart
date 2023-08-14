@@ -11,7 +11,8 @@ class DoctorModel {
   String location = '';
   String availabilityStart = '';
   String availabilityEnd = '';
-  bool isDoctor = false;
+  String startDay = ''; // New field: Start day
+  String endDay = '';   // New field: End day
 
   DoctorModel.empty();
 
@@ -28,23 +29,32 @@ class DoctorModel {
     required this.location,
     required this.availabilityStart,
     required this.availabilityEnd,
-    required this.isDoctor,
+    required this.startDay,
+    required this.endDay,
   });
-  factory DoctorModel.fromJsonForSession(Map<String, dynamic> json,String errorMessage){
-    return DoctorModel(
-      id:json["id"]??"",
-      errorMsg:errorMessage,
-      age: json["age"].toString() ?? '',
-      email: json['email']??'',
-      userName: json['username']??'',
-      image:json['image']??'', fullName: json["fullName"].toString() ?? '', speciality: json["speciality"].toString() ?? '', bio: json["bio"].toString() ?? '', location: json["location"].toString() ?? '', availabilityStart: json["availabilityStart"].toString() ?? '', availabilityEnd: json["availabilityEnd"].toString() ?? '', isDoctor: false,
-    );
 
+  factory DoctorModel.fromJsonForSession(Map<String, dynamic> json, String errorMessage) {
+    return DoctorModel(
+      id: json["id"] ?? "",
+      errorMsg: errorMessage,
+      age: json["age"].toString() ?? '',
+      email: json['email'] ?? '',
+      userName: json['username'] ?? '',
+      image: json['image'] ?? '',
+      fullName: json["fullName"].toString() ?? '',
+      speciality: json["speciality"].toString() ?? '',
+      bio: json["bio"].toString() ?? '',
+      location: json["location"].toString() ?? '',
+      availabilityStart: json["availabilityStart"].toString() ?? '',
+      availabilityEnd: json["availabilityEnd"].toString() ?? '',
+      startDay: '', // Initialize startDay
+      endDay: '',   // Initialize endDay
+    );
   }
 
-  factory DoctorModel.fromJson(Map<String, dynamic> json, String errorMessage,String id) {
+  factory DoctorModel.fromJson(Map<String, dynamic> json, String errorMessage, String id) {
     return DoctorModel(
-      id:id,
+      id: id,
       errorMsg: errorMessage,
       age: json["age"].toString() ?? '',
       email: json['email'] ?? '',
@@ -55,8 +65,9 @@ class DoctorModel {
       location: json['location'] ?? '',
       availabilityStart: json['availabilityStart'] ?? '',
       availabilityEnd: json['availabilityEnd'] ?? '',
+      startDay: '', // Initialize startDay
+      endDay: '',   // Initialize endDay
       image: json['image'] ?? '',
-      isDoctor: json['isDoctor'] ?? false,
     );
   }
 
@@ -73,12 +84,13 @@ class DoctorModel {
     data['location'] = location;
     data['availabilityStart'] = availabilityStart;
     data['availabilityEnd'] = availabilityEnd;
-    data['isDoctor'] = isDoctor;
+    data['startDay'] = startDay; // Include startDay
+    data['endDay'] = endDay;     // Include endDay
     return data;
   }
 
   @override
   String toString() {
-    return 'DoctorModel{age: $age, email: $email, userName: $userName, fullName: $fullName, speciality: $speciality, bio: $bio, location: $location, availabilityStart: $availabilityStart, availabilityEnd: $availabilityEnd, isDoctor: $isDoctor,id: $id,image: $image}';
+    return 'DoctorModel{age: $age, email: $email, userName: $userName, fullName: $fullName, speciality: $speciality, bio: $bio, location: $location, availabilityStart: $availabilityStart, availabilityEnd: $availabilityEnd, startDay: $startDay, endDay: $endDay, id: $id, image: $image}';
   }
 }

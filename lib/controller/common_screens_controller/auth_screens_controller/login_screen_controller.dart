@@ -73,6 +73,7 @@ class LoginScreenController extends GetxController {
         // User is a doctor
         if (response.errorMsg == '') {
           await userSession.setLogin();
+          userSession.setIsDoctor();
           userSession.doctorInformation(doctorModel: response);
           Get.offAllNamed(kDoctorHomeScreen);
         } else if (response.errorMsg == 'Email is Not Verified') {
