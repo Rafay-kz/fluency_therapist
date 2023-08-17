@@ -231,6 +231,109 @@ class DoctorEditProfileScreen extends GetView<DoctorEditProfileScreenController>
                   ),
                   ),
                 ),
+                Column(
+                  crossAxisAlignment:
+                  CrossAxisAlignment.start,
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Text('Availability Days',
+                          style: Theme.of(context)
+                              .textTheme
+                              .headlineSmall),
+                    ),
+                    const SizedBox(
+                      height: 2,
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Row(
+                        crossAxisAlignment:
+                        CrossAxisAlignment.center,
+                        // Aligns the children to the center vertically
+                        children: [
+                          DropdownButton<String>(
+                            value: controller.startDay
+                                .value.isNotEmpty
+                                ? controller
+                                .startDay.value
+                                : null,
+                            onChanged: (newValue) {
+                              controller.setStartDay(
+                                  newValue!);
+                            },
+                            items: <String>[
+                              'Sunday',
+                              'Monday',
+                              'Tuesday',
+                              'Wednesday',
+                              'Thursday',
+                              'Friday',
+                              'Saturday',
+                            ].map<
+                                DropdownMenuItem<
+                                    String>>(
+                                    (String value) {
+                                  return DropdownMenuItem<
+                                      String>(
+                                    value: value,
+                                    child: Text(value,
+                                        style: TextStyle(
+                                            color: AppColors
+                                                .textColor)),
+                                  );
+                                }).toList(),
+                          ),
+                          Padding(
+                            padding: const EdgeInsets
+                                .symmetric(
+                                horizontal: 15.0),
+                            child: Text('to',
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .titleSmall!
+                                    .copyWith(
+                                    color: AppColors
+                                        .textColor,
+                                    fontSize: 16)),
+                          ),
+                          DropdownButton<String>(
+                            value: controller.endDay
+                                .value.isNotEmpty
+                                ? controller
+                                .endDay.value
+                                : null,
+                            onChanged: (newValue) {
+                              controller.setEndDay(
+                                  newValue!);
+                            },
+                            items: <String>[
+                              'Sunday',
+                              'Monday',
+                              'Tuesday',
+                              'Wednesday',
+                              'Thursday',
+                              'Friday',
+                              'Saturday',
+                            ].map<
+                                DropdownMenuItem<
+                                    String>>(
+                                    (String value) {
+                                  return DropdownMenuItem<
+                                      String>(
+                                    value: value,
+                                    child: Text(value,
+                                        style: TextStyle(
+                                            color: AppColors
+                                                .textColor)),
+                                  );
+                                }).toList(),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ],
+                ),
                 Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: Text('Availability',

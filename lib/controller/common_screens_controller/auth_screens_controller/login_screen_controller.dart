@@ -51,8 +51,8 @@ class LoginScreenController extends GetxController {
 
   Future<void> onLoginTap() async {
     ProgressDialog pd = ProgressDialog();
-    pd.showDialog();
     if (formKey.currentState!.validate()) {
+      pd.showDialog();
       dynamic response = await database.loginUser(
           emailTEController.text.toString(),
           passwordTEController.text.toString());

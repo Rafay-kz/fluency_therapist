@@ -163,8 +163,8 @@ class SignupScreenController extends GetxController {
   //For registering users - Register method.
   Future<void> signUp() async {
     ProgressDialog pd = ProgressDialog();
-    pd.showDialog();
     if (formKey.currentState!.validate()) {
+      pd.showDialog();
       try {
         Database database = Database();
         await database.createAccount(

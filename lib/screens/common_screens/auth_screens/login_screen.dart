@@ -82,6 +82,7 @@ class LoginScreen extends GetView<LoginScreenController> {
                               validator: (value) {
                                 return controller.validateEmail(value!);
                               },
+                              style: TextStyle(color: AppColors.textColor),
                               decoration: InputDecoration(
                                   fillColor: AppColors.textfieldColor,
                                   filled: true,
@@ -91,10 +92,7 @@ class LoginScreen extends GetView<LoginScreenController> {
                                   border: OutlineInputBorder(
                                       borderRadius: BorderRadius.circular(30),
                                       borderSide: BorderSide.none),
-                                  prefixIcon: Icon(
-                                    Icons.email_outlined,
-                                    color: AppColors.textHintColor,
-                                  )),
+                                  ),
                             ),
                           ),
                         ),
@@ -124,6 +122,7 @@ class LoginScreen extends GetView<LoginScreenController> {
                                 validator: (value) {
                                   return controller.validatePassword(value!);
                                 },
+                                style: TextStyle(color: AppColors.textColor),
                                 decoration: InputDecoration(
                                   fillColor: AppColors.textfieldColor,
                                   filled: true,
@@ -144,8 +143,7 @@ class LoginScreen extends GetView<LoginScreenController> {
                                             : Icons.visibility,
                                         color: AppColors.textHintColor),
                                   ),
-                                  prefixIcon: Icon(Icons.lock_open_outlined,
-                                      color: AppColors.textHintColor),
+
                                 ),
                                 keyboardType: TextInputType.visiblePassword,
                                 obscureText: controller.obscureText.value)),
