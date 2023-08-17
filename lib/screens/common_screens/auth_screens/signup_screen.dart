@@ -124,6 +124,8 @@ class SignUpScreen extends GetView<SignupScreenController> {
                                     validator: (value) {
                                       return controller.validateAge(value!);
                                     },
+                                    style: TextStyle(color: AppColors.textColor),
+
                                     decoration: InputDecoration(
                                       fillColor: AppColors.textfieldColor,
                                       filled: true,
@@ -166,6 +168,7 @@ class SignUpScreen extends GetView<SignupScreenController> {
                                       validator: (value) {
                                         return controller.validateEmail(value!);
                                       },
+                                      style: TextStyle(color: AppColors.textColor),
                                       decoration: InputDecoration(
                                         fillColor: AppColors.textfieldColor,
                                         filled: true,
@@ -213,6 +216,7 @@ class SignUpScreen extends GetView<SignupScreenController> {
                                           return controller
                                               .validatePassword(value!);
                                         },
+                                        style: TextStyle(color: AppColors.textColor),
                                         decoration: InputDecoration(
                                           fillColor: AppColors.textfieldColor,
                                           filled: true,
@@ -276,6 +280,7 @@ class SignUpScreen extends GetView<SignupScreenController> {
                                           return controller
                                               .validateConfirmPassword(value!);
                                         },
+                                        style: TextStyle(color: AppColors.textColor),
                                         decoration: InputDecoration(
                                           fillColor: AppColors.textfieldColor,
                                           filled: true,
@@ -350,6 +355,7 @@ class SignUpScreen extends GetView<SignupScreenController> {
                                                 return controller
                                                     .validateFullName(value!);
                                               },
+                                              style: TextStyle(color: AppColors.textColor),
                                               decoration: InputDecoration(
                                                 fillColor:
                                                     AppColors.textfieldColor,
@@ -397,6 +403,7 @@ class SignUpScreen extends GetView<SignupScreenController> {
                                                 return controller
                                                     .validateSpeciality(value!);
                                               },
+                                              style: TextStyle(color: AppColors.textColor),
                                               decoration: InputDecoration(
                                                 fillColor:
                                                     AppColors.textfieldColor,
@@ -443,6 +450,7 @@ class SignUpScreen extends GetView<SignupScreenController> {
                                               onSaved: (value) {
                                                 controller.bio = value!;
                                               },
+                                              style: TextStyle(color: AppColors.textColor),
                                               decoration: InputDecoration(
                                                 fillColor:
                                                     AppColors.textfieldColor,
@@ -622,6 +630,7 @@ class SignUpScreen extends GetView<SignupScreenController> {
                                                 return controller
                                                     .validateLocation(value!);
                                               },
+                                              style: TextStyle(color: AppColors.textColor),
                                               decoration: InputDecoration(
                                                 fillColor:
                                                     AppColors.textfieldColor,

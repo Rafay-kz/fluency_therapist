@@ -23,6 +23,20 @@ class DoctorEditProfileScreenController extends GetxController {
   var availabilityStart = TimeOfDay(hour: 9, minute: 0);
   var availabilityEnd = TimeOfDay(hour: 22, minute: 0);
 
+  // Drop down button values updater
+  final RxString startDay = RxString('');
+
+  void setStartDay(String day) {
+    startDay.value = day;
+  }
+
+  // Drop down button values updater2
+  final RxString endDay = RxString('');
+
+  void setEndDay(String day) {
+    endDay.value = day;
+  }
+
 
   String? validateFullName(String value) {
     if (value.isEmpty) {
