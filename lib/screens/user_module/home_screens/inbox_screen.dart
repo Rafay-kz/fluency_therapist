@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:fluency_therapist/utils/app_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -45,9 +46,14 @@ class InboxScreen extends GetView<InboxScreenController> {
                       ),
                     ),
                   ),
-                  CircleAvatar(
-                    radius: screenWidth * 0.06,
-                  ),
+                 Obx(()=> CircleAvatar(
+                     radius: 25,
+                     backgroundImage: controller.doctorModel.value.image!=''
+                         ? CachedNetworkImageProvider(
+                         controller.doctorModel.value.image
+                     )
+                         : const AssetImage('assets/images/person.png') as ImageProvider
+                 ),),
                 ],
               ),
               Padding(

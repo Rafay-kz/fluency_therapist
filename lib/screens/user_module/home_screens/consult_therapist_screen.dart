@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -45,12 +46,13 @@ class ConsultTherapistScreen extends GetView<ConsultTherapistScreenController> {
                       ),
                     ),
                   ),
-                  Obx(()=> CircleAvatar(
-                      radius:25,
-                      backgroundImage: controller.userModel.value.image!=''
-                          ? FileImage(
-                          File(controller.userModel.value.image))
-                          : null
+                  Obx(()=>  CircleAvatar(
+                      radius: 25,
+                      backgroundImage: controller.doctorModel.value.image!=''
+                          ? CachedNetworkImageProvider(
+                          controller.doctorModel.value.image
+                      )
+                          : const AssetImage('assets/images/person.png') as ImageProvider
                   ),
                   ),
                 ],
@@ -108,7 +110,7 @@ class ConsultTherapistScreen extends GetView<ConsultTherapistScreenController> {
                                   child: Row(
                                     children: [
                                       Text(
-                                        "Dr M Ali Nizamani",
+                                        "\n Dr.${controller.doctorModel.value.userName}",
                                         style: Theme.of(context)
                                             .textTheme
                                             .displayLarge!

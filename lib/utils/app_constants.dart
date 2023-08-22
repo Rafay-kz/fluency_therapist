@@ -55,6 +55,11 @@ const String progressIcon = 'assets/images/progressIcon.png';
 const String billingDetailsIcon = 'assets/images/billingDetailsIcon.png';
 const String privacyPolicyIcon = 'assets/images/privacyPolicyIcon.png';
 
+//Controllers
+const String kHomeScreenController = 'kHomeScreenController';
+const String kDoctorHomeScreenController = 'kDoctorHomeScreenController';
+
+
 
 
 

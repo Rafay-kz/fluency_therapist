@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:fluency_therapist/utils/app_colors.dart';
 import 'package:fluency_therapist/utils/app_constants.dart';
 import 'package:flutter/material.dart';
@@ -9,9 +10,11 @@ import '../../controller/doctor_screens_controller/doctor_home_screen_controller
 
 class DoctorHomeScreen extends GetView<DoctorHomeScreenController> {
   const DoctorHomeScreen({super.key});
+  final String tag=kDoctorHomeScreenController;
 
   @override
   Widget build(BuildContext context) {
+    final screenWidth = MediaQuery.of(context).size.width;
     return Scaffold(
       backgroundColor: AppColors.backgroundColor,
       body: SingleChildScrollView(
@@ -75,10 +78,12 @@ class DoctorHomeScreen extends GetView<DoctorHomeScreenController> {
                             ),
                           ],
                           child:Obx(()=>  CircleAvatar(
+                              radius: 30,
                               backgroundImage: controller.doctorModel.value.image!=''
-                                  ? FileImage(
-                                  File(controller.doctorModel.value.image))
-                                  : null
+                                  ? CachedNetworkImageProvider(
+                                  controller.doctorModel.value.image
+                              )
+                                  : const AssetImage('assets/images/person.png') as ImageProvider
                           ),
                           ),
                         ),

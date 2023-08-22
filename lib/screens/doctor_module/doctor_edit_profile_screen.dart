@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:fluency_therapist/screens/doctor_module/doctor_home_screen.dart';
 import 'package:flutter/material.dart';
@@ -49,12 +50,14 @@ class DoctorEditProfileScreen extends GetView<DoctorEditProfileScreenController>
                    Column(
                     children: [
                       Center(
-                        child: CircleAvatar(
+                        child:CircleAvatar(
                             radius: screenWidth * 0.15,
-                            backgroundImage: controller.doctorModel.value.image!=""?FileImage(
-                                File(controller.doctorModel.value.image)):controller.imagePath.isNotEmpty
+                            backgroundImage: controller.doctorModel.value.image!=''
+                                ? CachedNetworkImageProvider(
+                                controller.doctorModel.value.image
+                            ):controller.doctorModel.value.image==''&&controller.imagePath.isEmpty?const AssetImage('assets/images/person.png'):controller.imagePath.isNotEmpty
                                 ? FileImage(
-                                File(controller.imagePath.toString()))
+                                File(controller.imagePath.toString())) as ImageProvider
                                 : null),
                       ),
                       TextButton(
@@ -172,7 +175,7 @@ class DoctorEditProfileScreen extends GetView<DoctorEditProfileScreenController>
                     child: SizedBox(
                       width: screenWidth * 0.89,
                       child: TextFormField(
-                        controller: controller.specialityController.value,
+                        controller: controller.specialityTEController.value,
                         onSaved: (value) {
                           controller.speciality = value!;
                         },
@@ -207,7 +210,7 @@ class DoctorEditProfileScreen extends GetView<DoctorEditProfileScreenController>
                     child: SizedBox(
                       width: screenWidth * 0.89,
                       child: TextFormField(
-                        controller: controller.bioController.value,
+                        controller: controller.bioTEController.value,
                         maxLines: 4,
                         // Limiting the user to 3 lines for the introduction
                         onSaved: (value) {
@@ -364,7 +367,7 @@ class DoctorEditProfileScreen extends GetView<DoctorEditProfileScreenController>
                     child: SizedBox(
                       width: screenWidth * 0.89,
                       child: TextFormField(
-                        controller: controller.locationController.value,
+                        controller: controller.locationTEController.value,
                         onSaved: (value) {
                           controller.fullName = value!;
                         },

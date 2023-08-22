@@ -18,6 +18,7 @@ class HomeScreenController extends GetxController {
 
   Future<void> getUserInfo() async{
     userModel.value=await userSession.getUserInformation();
+    print('------------------>>${userModel.value.image}');
   }
 
   Future<void> logout () async {

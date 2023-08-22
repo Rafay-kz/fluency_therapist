@@ -1,21 +1,27 @@
+import 'dart:io';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 
+import '../../custom widgets/progress_indicator.dart';
 import '../../model/doctor_model.dart';
 import '../../utils/app_constants.dart';
 import '../../utils/user_session.dart';
+import 'package:firebase_storage/firebase_storage.dart';
+
+import 'doctor_home_screen_controller.dart';
 
 class DoctorEditProfileScreenController extends GetxController {
   Rx<TextEditingController> nameTEController = TextEditingController().obs;
   Rx< TextEditingController> emailTEController = TextEditingController().obs;
-  Rx<TextEditingController >specialityController = TextEditingController().obs;
-  Rx<TextEditingController> bioController = TextEditingController().obs;
-  Rx<TextEditingController> locationController = TextEditingController().obs;
-
-
+  Rx<TextEditingController >specialityTEController = TextEditingController().obs;
+  Rx<TextEditingController> bioTEController = TextEditingController().obs;
+  Rx<TextEditingController> locationTEController = TextEditingController().obs;
+  DoctorHomeScreenController doctorhomeScreenController=Get.find(tag:kDoctorHomeScreenController);
+  RxString imageUrl=''.obs;
   var fullName = '';
   var speciality = '';
   var bio = '';
@@ -127,19 +133,24 @@ class DoctorEditProfileScreenController extends GetxController {
 
   RxBool obscureText = true.obs;
   RxString imagePath = ''.obs;
+  ProgressDialog pd = ProgressDialog();
 
   Future getImage() async {
     final ImagePicker _picker = ImagePicker();
-    final image = await _picker.pickImage(source: ImageSource.camera);
+    final XFile? image = await _picker.pickImage(source: ImageSource.camera);
+    print('${image?.path}');
+
     if (image != null) {
-      doctorModel.value.image='';
+
       imagePath.value = image.path.toString();
     }
   }
 
   Future getGalleryImage() async {
     final ImagePicker _picker = ImagePicker();
-    final image = await _picker.pickImage(source: ImageSource.gallery);
+    final XFile? image = await _picker.pickImage(source: ImageSource.gallery);
+
+
     if (image != null) {
       doctorModel.value.image='';
       imagePath.value = image.path.toString();
@@ -171,6 +182,10 @@ class DoctorEditProfileScreenController extends GetxController {
     doctorModel.value=await userSession.getDoctorInformation();
     nameTEController.value.text=doctorModel.value.userName;
     emailTEController.value.text=doctorModel.value.email;
+    specialityTEController.value.text=doctorModel.value.speciality;
+    bioTEController.value.text=doctorModel.value.bio;
+    locationTEController.value.text=doctorModel.value.location;
+    imageUrl.value=doctorModel.value.image;
   }
 
   Future<void> logout () async {
@@ -179,15 +194,40 @@ class DoctorEditProfileScreenController extends GetxController {
 
   }
   Future<void> editProfile() async {
-
-    FirebaseFirestore firebaseFirestore = FirebaseFirestore.instance;
-    await firebaseFirestore.collection('doctor_users').doc(doctorModel.value.id).update({
-      'image': imagePath.value,
+    pd.showDialog();
+    String uniqueFileName=DateTime.now().millisecondsSinceEpoch.toString();
+    Reference referenceRoot=FirebaseStorage.instance.ref();
+    Reference referenceDirImages=referenceRoot.child('images');
+    Reference referenceImageToUpload=referenceDirImages.child(uniqueFileName);
+    try{
+      await referenceImageToUpload.putFile(File(imagePath.value));
+      imageUrl.value= await referenceImageToUpload.getDownloadURL();
+    }catch(error){}
+    FirebaseFirestore firebaseFireStore = FirebaseFirestore.instance;
+    await firebaseFireStore.collection('doctor_users').doc(doctorModel.value.id).update({
+      'image': imageUrl.value,
       'username': nameTEController.value.text,
-      'location': locationController.value.text,
-      'bio': bioController.value.text,
-      'speciality':specialityController.value.text,
-    });
+      'location':locationTEController.value.text,
+    'speciality' :specialityTEController.value.text,
+     'bio ':bioTEController.value.text,
+    }).then((value) async{
+      DocumentSnapshot userSnapshot = await FirebaseFirestore.instance
+          .collection('doctor_users')
+          .doc(doctorModel.value.id)
+          .get();
+      Map<String, dynamic> map = userSnapshot.data() as Map<String, dynamic>;
+      if (userSnapshot.data() is Map) {
+        DoctorModel doctorModelX = DoctorModel.fromJson(map,'',doctorModel.value.id);
+        userSession.doctorInformation(doctorModel: doctorModelX );
+        doctorhomeScreenController.doctorModel.value=doctorModelX;
+      }
+      pd.dismissDialog();
+      Get.offAllNamed(kDoctorHomeScreen);
+    }
+
+
+    );
+
   }
 
 

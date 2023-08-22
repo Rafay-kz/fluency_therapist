@@ -118,6 +118,12 @@ class LoginScreenController extends GetxController {
           // User is verified
           UserSession userSession = UserSession();
           await userSession.setLogin();
+          userModel.email=user.email??'';
+          userModel.id=user.uid??'';
+          userModel.image=user.photoURL??'';
+          userModel.userName=user.displayName??'';
+
+          userSession.userInformation(userModel:userModel);
           Get.offAllNamed(kHomeScreen);
         } else {
           Get.toNamed(kEmailVerificationScreen);
