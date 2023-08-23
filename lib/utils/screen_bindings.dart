@@ -2,6 +2,7 @@
 
 //created by Abdul Rafay on 1-5-2023
 
+import 'package:fluency_therapist/utils/app_constants.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:get/get_instance/src/bindings_interface.dart';
@@ -29,6 +30,7 @@ import '../controller/user_screens_controller/home_screens_controller/home_scree
 import '../controller/user_screens_controller/home_screens_controller/inbox_screen_controller.dart';
 import '../controller/user_screens_controller/home_screens_controller/ongoing_call_screen_controller.dart';
 import '../controller/user_screens_controller/home_screens_controller/progress_tracking_screen.dart';
+import '../controller/user_screens_controller/home_screens_controller/progress_tracking_screen_controller.dart';
 import '../controller/user_screens_controller/home_screens_controller/reminder_screen_controller.dart';
 import '../controller/user_screens_controller/home_screens_controller/search_screen_controller.dart';
 import '../controller/user_screens_controller/home_screens_controller/speech_exercises_screen_controller.dart';
@@ -46,7 +48,7 @@ class ScreenBindings extends Bindings {
     Get.lazyPut(() => EmailVerificationScreenController());
     Get.lazyPut(() => OtpVerificationScreenController());
     Get.lazyPut(() => CreateNewPasswordScreenController());
-    Get.lazyPut(() => HomeScreenController());
+    Get.lazyPut(() => HomeScreenController(),tag: kHomeScreenController);
     Get.lazyPut(() => SearchScreenController());
     Get.lazyPut(() => SpeechExercisesScreenController());
     Get.lazyPut(() => ConsultTherapistScreenController());
@@ -64,7 +66,7 @@ class ScreenBindings extends Bindings {
     Get.lazyPut(() => UserProfileScreenController());
     Get.lazyPut(() => InboxScreenController());
     Get.lazyPut(() => CallLogScreenController());
-    Get.lazyPut(() => DoctorHomeScreenController());
+    Get.lazyPut(() => DoctorHomeScreenController(),tag: kDoctorHomeScreenController);
     Get.lazyPut(() => DoctorEditProfileScreenController());
 
 

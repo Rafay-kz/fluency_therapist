@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -50,12 +51,13 @@ class SpeechExercisesScreen extends GetView<SpeechExercisesScreenController> {
                      onTap: () {
                        Get.toNamed(kUserProfileScreen);
                      },
-                     child:  Obx(()=> CircleAvatar(
-                         radius:25,
+                     child:  Obx(()=>CircleAvatar(
+                         radius: 25,
                          backgroundImage: controller.userModel.value.image!=''
-                             ? FileImage(
-                             File(controller.userModel.value.image))
-                             : null
+                             ? CachedNetworkImageProvider(
+                             controller.userModel.value.image
+                         )
+                             : const AssetImage('assets/images/person.png') as ImageProvider
                      ),
                      ),
                    ),

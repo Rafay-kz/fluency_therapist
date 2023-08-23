@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -47,10 +48,12 @@ class EditProfileScreen extends GetView<EditProfileScreenController> {
                       Center(
                         child: CircleAvatar(
                             radius: screenWidth * 0.15,
-                            backgroundImage: controller.userModel.value.image!=""?FileImage(
-                                File(controller.userModel.value.image)):controller.imagePath.isNotEmpty
+                            backgroundImage: controller.userModel.value.image!=''
+                                ? CachedNetworkImageProvider(
+                                controller.userModel.value.image
+                            ):controller.userModel.value.image==''&&controller.imagePath.isEmpty?const AssetImage('assets/images/person.png'):controller.imagePath.isNotEmpty
                                 ? FileImage(
-                                    File(controller.imagePath.toString()))
+                                    File(controller.imagePath.toString())) as ImageProvider
                                 : null),
                       ),
                       TextButton(

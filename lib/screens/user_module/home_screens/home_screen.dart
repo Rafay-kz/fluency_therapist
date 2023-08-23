@@ -1,5 +1,4 @@
-import 'dart:io';
-
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:fluency_therapist/utils/app_colors.dart';
 import 'package:fluency_therapist/utils/app_constants.dart';
 import 'package:flutter/material.dart';
@@ -13,6 +12,8 @@ import '../../../controller/user_screens_controller/home_screens_controller/home
 class HomeScreen extends GetView<HomeScreenController> {
   const HomeScreen({super.key});
 
+@override
+final String tag=kHomeScreenController;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -76,9 +77,10 @@ class HomeScreen extends GetView<HomeScreenController> {
                         child: Obx(()=> CircleAvatar(
                             radius: 25,
                             backgroundImage: controller.userModel.value.image!=''
-                                ? FileImage(
-                                File(controller.userModel.value.image))
-                                : null
+                                ? CachedNetworkImageProvider(
+                                controller.userModel.value.image
+                            )
+                                : const AssetImage('assets/images/person.png') as ImageProvider
                         ),
                         ),
                       ),

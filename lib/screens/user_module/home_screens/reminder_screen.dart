@@ -1,3 +1,5 @@
+import 'package:cached_network_image/cached_network_image.dart';
+
 import '../../../controller/user_screens_controller/home_screens_controller/reminder_screen_controller.dart';
 import '../../../custom widgets/button.dart';
 import '../../../utils/app_colors.dart';
@@ -44,9 +46,14 @@ class ReminderScreen extends GetView<ReminderScreenController> {
                     ),
                   ),
                 ),
-                CircleAvatar(
-                  radius: screenWidth * 0.06,
-                ),
+                Obx(()=>CircleAvatar(
+                    radius: 25,
+                    backgroundImage: controller.userModel.value.image!=''
+                        ? CachedNetworkImageProvider(
+                        controller.userModel.value.image
+                    )
+                        : const AssetImage('assets/images/person.png') as ImageProvider
+                ),),
               ],
             ),
             Padding(

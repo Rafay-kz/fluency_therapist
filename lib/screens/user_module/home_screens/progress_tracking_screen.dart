@@ -40,10 +40,11 @@ class ProgressTrackingScreen extends GetView<ProgressTrackingScreen> {
                       width: screenWidth * 0.42,),
                   ),
                 ),
-                CircleAvatar(
-                  radius:screenWidth*0.06,
+                  CircleAvatar(
+                    radius: 25,
 
                 ),
+
 
               ],
             ),

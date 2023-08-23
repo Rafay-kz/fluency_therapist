@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -40,12 +41,13 @@ class UserProfileScreen extends GetView<UserProfileScreenController> {
                 children: [
                   Center(
                     child: Obx(()=> CircleAvatar(
-                          radius: screenWidth * 0.15,
-                          backgroundImage: controller.userModel.value.image!=''
-                              ? FileImage(
-                              File(controller.userModel.value.image))
-                              : null
-                             ),
+                        radius: 25,
+                        backgroundImage: controller.userModel.value.image!=''
+                            ? CachedNetworkImageProvider(
+                            controller.userModel.value.image
+                        )
+                            : const AssetImage('assets/images/person.png') as ImageProvider
+                    ),
                     ),
                   ),
 
