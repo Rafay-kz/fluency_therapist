@@ -50,6 +50,7 @@ dependencies:
   time_range: ^1.1.0
   cached_network_image: ^3.2.3
   firebase_database: ^10.2.5
+  intl: ^0.18.1
 
 
 

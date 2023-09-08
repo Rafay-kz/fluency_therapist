@@ -5,7 +5,6 @@ import 'package:get/get.dart';
 
 import '../../../controller/common_screens_controller/auth_screens_controller/signup_screen_controller.dart';
 import '../../../custom widgets/button.dart';
-import '../../../custom widgets/time_picker.dart';
 
 //created by Bilal on 6-5-2023
 
@@ -444,7 +443,7 @@ class SignUpScreen extends GetView<SignupScreenController> {
                                             width: width * 0.89,
                                             child: TextFormField(
                                               controller:
-                                                  controller.bioController,
+                                                  controller.bioTEController,
                                               maxLines: 4,
                                               // Limiting the user to 3 lines for the introduction
                                               onSaved: (value) {
@@ -471,141 +470,7 @@ class SignUpScreen extends GetView<SignupScreenController> {
                                           ),
                                         ),
                                       ),
-                                      Column(
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.start,
-                                        children: [
-                                          Padding(
-                                            padding: const EdgeInsets.all(8.0),
-                                            child: Text('Availability Days',
-                                                style: Theme.of(context)
-                                                    .textTheme
-                                                    .headlineSmall),
-                                          ),
-                                          const SizedBox(
-                                            height: 2,
-                                          ),
-                                          Padding(
-                                            padding: const EdgeInsets.all(8.0),
-                                            child: Row(
-                                              crossAxisAlignment:
-                                                  CrossAxisAlignment.center,
-                                              // Aligns the children to the center vertically
-                                              children: [
-                                                DropdownButton<String>(
-                                                  value: controller.startDay
-                                                          .value.isNotEmpty
-                                                      ? controller
-                                                          .startDay.value
-                                                      : null,
-                                                  onChanged: (newValue) {
-                                                    controller.setStartDay(
-                                                        newValue!);
-                                                  },
-                                                  items: <String>[
-                                                    'Sunday',
-                                                    'Monday',
-                                                    'Tuesday',
-                                                    'Wednesday',
-                                                    'Thursday',
-                                                    'Friday',
-                                                    'Saturday',
-                                                  ].map<
-                                                          DropdownMenuItem<
-                                                              String>>(
-                                                      (String value) {
-                                                    return DropdownMenuItem<
-                                                        String>(
-                                                      value: value,
-                                                      child: Text(value,
-                                                          style: TextStyle(
-                                                              color: AppColors
-                                                                  .textColor)),
-                                                    );
-                                                  }).toList(),
-                                                ),
-                                                Padding(
-                                                  padding: const EdgeInsets
-                                                          .symmetric(
-                                                      horizontal: 15.0),
-                                                  child: Text('to',
-                                                      style: Theme.of(context)
-                                                          .textTheme
-                                                          .titleSmall!
-                                                          .copyWith(
-                                                              color: AppColors
-                                                                  .textColor,
-                                                              fontSize: 16)),
-                                                ),
-                                                DropdownButton<String>(
-                                                  value: controller.endDay
-                                                          .value.isNotEmpty
-                                                      ? controller
-                                                          .endDay.value
-                                                      : null,
-                                                  onChanged: (newValue) {
-                                                    controller.setEndDay(
-                                                        newValue!);
-                                                  },
-                                                  items: <String>[
-                                                    'Sunday',
-                                                    'Monday',
-                                                    'Tuesday',
-                                                    'Wednesday',
-                                                    'Thursday',
-                                                    'Friday',
-                                                    'Saturday',
-                                                  ].map<
-                                                          DropdownMenuItem<
-                                                              String>>(
-                                                      (String value) {
-                                                    return DropdownMenuItem<
-                                                        String>(
-                                                      value: value,
-                                                      child: Text(value,
-                                                          style: TextStyle(
-                                                              color: AppColors
-                                                                  .textColor)),
-                                                    );
-                                                  }).toList(),
-                                                ),
-                                              ],
-                                            ),
-                                          ),
-                                        ],
-                                      ),
-                                      Padding(
-                                          padding: const EdgeInsets.all(8.0),
-                                          child: Text('Availability Timing',
-                                              style: Theme.of(context)
-                                                  .textTheme
-                                                  .headlineSmall)),
-                                      const SizedBox(
-                                        height: 2,
-                                      ),
-                                      Padding(
-                                        padding: const EdgeInsets.all(8.0),
-                                        child: TimePicker(
-                                            onRangeCompleted: (range) {
-                                          startTime = range?.start;
-                                          endTime = range?.end;
-                                          if (startTime != null &&
-                                              endTime != null) {
-                                            // Format the TimeOfDay values as strings in the format "HH:mm"
-                                            controller.availabilityStart =
-                                                controller.formatTimeOfDay(
-                                                    startTime!);
-                                            controller.availabilityEnd =
-                                                controller
-                                                    .formatTimeOfDay(endTime!);
-                                          } else {
-                                            return;
-                                          }
-                                        }),
-                                      ),
-                                      const SizedBox(
-                                        height: 8,
-                                      ),
+
                                       Padding(
                                           padding: const EdgeInsets.all(8.0),
                                           child: Text('Location',

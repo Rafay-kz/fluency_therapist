@@ -1,4 +1,3 @@
-import 'dart:io';
 
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:fluency_therapist/utils/app_colors.dart';
@@ -248,9 +247,9 @@ class DoctorHomeScreen extends GetView<DoctorHomeScreenController> {
                       const SizedBox(width: 20),
                       cardWidget(
                         context: context,
-                        title: "Calls log",
+                        title: "Availability Scheduling",
                         image: speechExercisesIcon,
-                        routeName: kSpeechExercisesScreen,
+                        routeName: kDoctorSchedulingScreen,
                       ),
                     ],
                   ),

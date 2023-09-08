@@ -1,4 +1,3 @@
-import 'dart:io';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -15,6 +14,7 @@ class ConsultantProfileScreen extends GetView<ConsultantProfileScreenController>
 
   @override
   Widget build(BuildContext context) {
+
     final screenWidth = MediaQuery.of(context).size.width;
     final screenHeight = MediaQuery.of(context).size.height;
     return Scaffold(
@@ -46,27 +46,40 @@ class ConsultantProfileScreen extends GetView<ConsultantProfileScreenController>
                       ),
                     ),
                   ),
-                  Obx(()=>  CircleAvatar(
+                  Obx(() {
+                    final isDoctor = controller.doctorModel.value.id.isNotEmpty;
+                    print("Is Doctor: $isDoctor");
+                    print("Image URL: ${controller.doctorModel.value.image}");
+                    final image = isDoctor
+                        ? controller.doctorModel.value.image
+                        : controller.userModel.value.image;
+
+                    return CircleAvatar(
                       radius: 25,
-                      backgroundImage: controller.userModel.value.image!=''
-                          ? CachedNetworkImageProvider(
-                          controller.userModel.value.image
-                      )
-                          : const AssetImage('assets/images/person.png') as ImageProvider
-                  ),
-                  ),
+                      backgroundImage: image.isNotEmpty
+                          ? CachedNetworkImageProvider(image)
+                          : const AssetImage('assets/images/person.png') as ImageProvider,
+                    );
+                  }),
                 ],
               ),
                Padding(
                 padding: const EdgeInsets.only(top: 20),
-                child: CircleAvatar(
-                  radius: screenWidth*0.15,
+                child: Obx (()=>
+                   CircleAvatar(
+                    radius: screenWidth*0.15,
+                    backgroundImage: controller.doctorModel.value.image!=''
+                   ? CachedNetworkImageProvider(
+                   controller.doctorModel.value.image
+                   )
+                        : const AssetImage('assets/images/person.png') as ImageProvider
+                  ),
                 ),
               ),
               Padding(
                 padding: const EdgeInsets.only(top: 20),
                 child: Text(
-                  "\n Dr.${controller.doctorModel.value.userName}",
+                  "\n Dr.${controller.doctorModel.value.fullName}",
                   style: Theme.of(context).textTheme.displayLarge!.copyWith(
                         fontSize: screenWidth*0.050,
                         color: AppColors.textColor,
@@ -74,7 +87,7 @@ class ConsultantProfileScreen extends GetView<ConsultantProfileScreenController>
                 ),
               ),
               Text(
-                "Pediatric Pathologist",
+                controller.doctorModel.value.speciality,
                 style: Theme.of(context).textTheme.headlineSmall!.copyWith(
                       fontSize: screenWidth*0.035,
                       color: AppColors.descriptionColor,
@@ -122,7 +135,7 @@ class ConsultantProfileScreen extends GetView<ConsultantProfileScreenController>
                 ),
               ),
               Obx(()=>Text(
-                "\n ${controller.doctorModel.value.bio}",
+                'Bio: ${controller.doctorModel.value.bio}',
                 style: Theme.of(context).textTheme.headlineSmall!.copyWith(
                       fontSize: screenWidth*0.032,
                       color: AppColors.textHintColor,
@@ -159,7 +172,7 @@ class ConsultantProfileScreen extends GetView<ConsultantProfileScreenController>
                           Padding(
                             padding: const EdgeInsets.only(left: 15, top: 24),
                             child: Text(
-                              "\n Dr.${controller.doctorModel.value.availabilityStart}",
+                             "Availability",
                               style: Theme.of(context).textTheme.displayLarge!.copyWith(
                                 fontSize: screenWidth*0.045,
                                 color: AppColors.textColor,
@@ -233,7 +246,7 @@ class ConsultantProfileScreen extends GetView<ConsultantProfileScreenController>
                 ),
               ),
               Button(onPressed: () {
-                Get.toNamed(kChatWithConsultantScreen);
+                Get.toNamed(kAppointmentBookingScreen);
               }, text: "Book an Appointment"),
             ],
           ),
