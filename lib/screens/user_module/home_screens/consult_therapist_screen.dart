@@ -48,9 +48,9 @@ class ConsultTherapistScreen extends GetView<ConsultTherapistScreenController> {
                   ),
                   Obx(()=>  CircleAvatar(
                       radius: 25,
-                      backgroundImage: controller.doctorModel.value.image!=''
+                      backgroundImage: controller.userModel.value.image!=''
                           ? CachedNetworkImageProvider(
-                          controller.doctorModel.value.image
+                          controller.userModel.value.image
                       )
                           : const AssetImage('assets/images/person.png') as ImageProvider
                   ),

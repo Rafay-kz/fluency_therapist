@@ -1,9 +1,16 @@
+import 'dart:io';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_storage/firebase_storage.dart';
+import 'package:fluency_therapist/controller/doctor_screens_controller/doctor_edit_profile_screen_controller.dart';
 import 'package:fluency_therapist/utils/user_session.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
+import 'package:image_picker/image_picker.dart';
 
+import '../controller/doctor_screens_controller/doctor_home_screen_controller.dart';
+import '../custom widgets/progress_indicator.dart';
 import '../model/doctor_model.dart';
 import '../model/user_model.dart';
 import '../utils/app_constants.dart';
@@ -12,6 +19,9 @@ import '../utils/utills.dart';
 class Database {
   final FirebaseAuth _auth = FirebaseAuth.instance;
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
+  DoctorHomeScreenController doctorhomeScreenController =
+      Get.find(tag: kDoctorHomeScreenController);
+
   UserSession userSession = UserSession();
 
 //For registering regular users on sign up screen
@@ -27,7 +37,8 @@ class Database {
   //To Log in users and Doctor users
   Future<dynamic> loginUser(String email, password) async {
     try {
-      final userCredential = await FirebaseAuth.instance.signInWithEmailAndPassword(
+      final userCredential =
+          await FirebaseAuth.instance.signInWithEmailAndPassword(
         email: email,
         password: password,
       );
@@ -42,9 +53,11 @@ class Database {
 
           if (userSnapshot.exists) {
             // User is a normal user
-            Map<String, dynamic> map = userSnapshot.data() as Map<String, dynamic>;
+            Map<String, dynamic> map =
+                userSnapshot.data() as Map<String, dynamic>;
             if (userSnapshot.data() is Map) {
-              UserModel userModel = UserModel.fromJson(map,'',userCredential.user!.uid);
+              UserModel userModel =
+                  UserModel.fromJson(map, '', userCredential.user!.uid);
               return userModel;
             }
           } else {
@@ -56,9 +69,11 @@ class Database {
 
             if (doctorSnapshot.exists) {
               // User is a doctor
-              Map<String, dynamic> map = doctorSnapshot.data() as Map<String, dynamic>;
+              Map<String, dynamic> map =
+                  doctorSnapshot.data() as Map<String, dynamic>;
               if (doctorSnapshot.data() is Map) {
-                DoctorModel doctorModel = DoctorModel.fromJson(map,'',userCredential.user!.uid);
+                DoctorModel doctorModel =
+                    DoctorModel.fromJson(map, '', userCredential.user!.uid);
                 return doctorModel;
               }
             } else {
@@ -66,11 +81,23 @@ class Database {
             }
           }
         } else {
-          return UserModel(age: '', email: '', userName: '', errorMsg: 'Email is Not Verified',image: "",id: "");
+          return UserModel(
+              age: '',
+              email: '',
+              userName: '',
+              errorMsg: 'Email is Not Verified',
+              image: "",
+              id: "");
         }
       }
     } catch (error) {
-      return UserModel(age: '', email: '', userName: '', errorMsg: error.toString(),image: "",id:"");
+      return UserModel(
+          age: '',
+          email: '',
+          userName: '',
+          errorMsg: error.toString(),
+          image: "",
+          id: "");
     }
     return UserModel.empty();
   }
@@ -94,12 +121,8 @@ class Database {
       if (user != null) {
         String userId =
             user.uid; // User ID obtained from Firebase Authentication
-        await _firestore.collection('users').doc(userId).set({
-          'username': username,
-          'age': age,
-          'email': email,
-          'image':''
-        });
+        await _firestore.collection('users').doc(userId).set(
+            {'username': username, 'age': age, 'email': email, 'image': ''});
         // Data saved successfully
       } else {
         print('No user is currently logged in.');
@@ -111,8 +134,18 @@ class Database {
   }
 
   //To save Doctor user details on firestore
-  Future<void> saveDoctorUserDetails(String userName, age, email, fullName,
-      speciality, bio, location, availabilityStart, availabilityEnd, startDay, endDay ) async {
+  Future<void> saveDoctorUserDetails(
+      String userName,
+      age,
+      email,
+      fullName,
+      speciality,
+      bio,
+      location,
+      availabilityStart,
+      availabilityEnd,
+      startDay,
+      endDay) async {
     try {
       User? user = FirebaseAuth.instance.currentUser;
       if (user != null) {
@@ -121,14 +154,13 @@ class Database {
         await _firestore.collection('doctor_users').doc(doctorId).set({
           'username': userName,
           'age': age,
-
           'email': email,
           'fullName': fullName,
           'speciality': speciality,
           'bio': bio,
           'location': location,
-          'startDay' : startDay,
-          'endDay' : endDay,
+          'startDay': startDay,
+          'endDay': endDay,
           'availabilityStart': availabilityStart,
           'availabilityEnd': availabilityEnd,
         });
@@ -145,6 +177,4 @@ class Database {
 //To Fetch user data from firestore
   Future<DocumentSnapshot<Map<String, dynamic>>> getUserData(String userId) =>
       _firestore.collection('users').doc(userId).get();
-
 }
-

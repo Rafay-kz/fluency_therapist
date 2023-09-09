@@ -16,11 +16,11 @@ class ConsultTherapistScreenController extends GetxController {
 
   @override
   void onInit(){
-    getDoctorInfo();
+    getUserInfo();
     super.onInit();
   }
-  Future<void> getDoctorInfo() async{
-    doctorModel.value=await userSession.getDoctorInformation();
+  Future<void> getUserInfo() async{
+    userModel.value=await userSession.getUserInformation();
 
 
   }

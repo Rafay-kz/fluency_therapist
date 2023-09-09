@@ -29,7 +29,6 @@ import '../controller/user_screens_controller/home_screens_controller/edit_profi
 import '../controller/user_screens_controller/home_screens_controller/home_screen_controller.dart';
 import '../controller/user_screens_controller/home_screens_controller/inbox_screen_controller.dart';
 import '../controller/user_screens_controller/home_screens_controller/ongoing_call_screen_controller.dart';
-import '../controller/user_screens_controller/home_screens_controller/progress_tracking_screen.dart';
 import '../controller/user_screens_controller/home_screens_controller/progress_tracking_screen_controller.dart';
 import '../controller/user_screens_controller/home_screens_controller/reminder_screen_controller.dart';
 import '../controller/user_screens_controller/home_screens_controller/search_screen_controller.dart';
@@ -55,7 +54,7 @@ class ScreenBindings extends Bindings {
     Get.lazyPut(() => ConsultantProfileScreenController());
     Get.lazyPut(() => ChatWithConsultantScreenController());
     Get.lazyPut(() => CallingConsultantScreenController());
-    Get.lazyPut(() => VideoCallScreenController());
+    Get.lazyPut(() => VideoCallScreenController ());
     Get.lazyPut(() => ConsultantCallingScreenController());
     Get.lazyPut(() => OngoingCallScreenController());
     Get.lazyPut(() => CustomizedProgramScreenController());
