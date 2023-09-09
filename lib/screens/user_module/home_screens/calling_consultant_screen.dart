@@ -8,8 +8,6 @@ import '../../../controller/user_screens_controller/home_screens_controller/call
 import '../../../utils/app_colors.dart';
 import '../../../utils/app_constants.dart';
 
-
-
 class CallingConsultantScreen
     extends GetView<CallingConsultantScreenController> {
   const CallingConsultantScreen({super.key});
@@ -34,7 +32,7 @@ class CallingConsultantScreen
                     },
                     child: Icon(
                       Icons.arrow_back,
-                      size: screenWidth*0.10,
+                      size: screenWidth * 0.10,
                     ),
                   ),
                   Padding(
@@ -47,14 +45,14 @@ class CallingConsultantScreen
                       ),
                     ),
                   ),
-                  Obx(()=>  CircleAvatar(
-                      radius: 25,
-                      backgroundImage: controller.userModel.value.image!=''
-                          ? CachedNetworkImageProvider(
-                          controller.userModel.value.image
-                      )
-                          : const AssetImage('assets/images/person.png') as ImageProvider
-                  ),
+                  Obx(
+                    () => CircleAvatar(
+                        radius: 25,
+                        backgroundImage: controller.userModel.value.image != ''
+                            ? CachedNetworkImageProvider(
+                                controller.userModel.value.image)
+                            : const AssetImage('assets/images/person.png')
+                                as ImageProvider),
                   ),
                 ],
               ),
@@ -63,15 +61,15 @@ class CallingConsultantScreen
                 child: Text(
                   "Calling",
                   style: Theme.of(context).textTheme.displayLarge!.copyWith(
-                    fontSize: screenWidth*0.045,
-                    color: AppColors.textColor,
-                  ),
+                        fontSize: screenWidth * 0.045,
+                        color: AppColors.textColor,
+                      ),
                 ),
               ),
               Padding(
                 padding: const EdgeInsets.only(top: 20),
                 child: CircleAvatar(
-                  radius: screenWidth*0.15,
+                  radius: screenWidth * 0.15,
                 ),
               ),
               Padding(
@@ -79,75 +77,74 @@ class CallingConsultantScreen
                 child: Text(
                   "Dr M Ali\nNizamani",
                   style: Theme.of(context).textTheme.displayLarge!.copyWith(
-                    fontSize: screenWidth*0.055,
-                    color: AppColors.textColor,
-                  ),
+                        fontSize: screenWidth * 0.055,
+                        color: AppColors.textColor,
+                      ),
                   textAlign: TextAlign.center,
                 ),
               ),
               Padding(
-                padding:  EdgeInsets.only(top: screenHeight*0.30),
-                child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Padding(
-                        padding: const EdgeInsets.only( right: 25),
-                        child: Container(
-                            width: screenWidth*0.16,
-                            height: screenHeight*0.08,
-                            decoration: BoxDecoration(
-                              color: AppColors.secondaryBlue,
-                              borderRadius: BorderRadius.circular(15),
-                            ),
-                            child: Icon(
-                              Icons.mic_off,
-                              size: screenWidth*0.09,
-                              color: AppColors.primaryBlue,
-                            )),
+                padding: EdgeInsets.only(top: screenHeight * 0.30),
+                child:
+                    Row(mainAxisAlignment: MainAxisAlignment.center, children: [
+                  Padding(
+                    padding: const EdgeInsets.only(right: 25),
+                    child: Container(
+                        width: screenWidth * 0.16,
+                        height: screenHeight * 0.08,
+                        decoration: BoxDecoration(
+                          color: AppColors.secondaryBlue,
+                          borderRadius: BorderRadius.circular(15),
+                        ),
+                        child: Icon(
+                          Icons.mic_off,
+                          size: screenWidth * 0.09,
+                          color: AppColors.primaryBlue,
+                        )),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.only(right: 25),
+                    child: Container(
+                        width: screenWidth * 0.16,
+                        height: screenHeight * 0.08,
+                        decoration: BoxDecoration(
+                          color: AppColors.secondaryBlue,
+                          borderRadius: BorderRadius.circular(15),
+                        ),
+                        child: Icon(
+                          Icons.video_call,
+                          size: screenWidth * 0.09,
+                          color: AppColors.primaryBlue,
+                        )),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.only(right: 25),
+                    child: Container(
+                        width: screenWidth * 0.16,
+                        height: screenHeight * 0.08,
+                        decoration: BoxDecoration(
+                          color: AppColors.secondaryBlue,
+                          borderRadius: BorderRadius.circular(15),
+                        ),
+                        child: Icon(
+                          Icons.volume_up_rounded,
+                          size: screenWidth * 0.09,
+                          color: AppColors.primaryBlue,
+                        )),
+                  ),
+                  Container(
+                      width: screenWidth * 0.16,
+                      height: screenHeight * 0.08,
+                      decoration: BoxDecoration(
+                        color: Colors.red,
+                        borderRadius: BorderRadius.circular(15),
                       ),
-                      Padding(
-                        padding: const EdgeInsets.only(right: 25),
-                        child: Container(
-                            width: screenWidth*0.16,
-                            height: screenHeight*0.08,
-                            decoration: BoxDecoration(
-                              color: AppColors.secondaryBlue,
-                              borderRadius: BorderRadius.circular(15),
-                            ),
-                            child: Icon(
-                              Icons.video_call,
-                              size: screenWidth*0.09,
-                              color: AppColors.primaryBlue,
-                            )),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.only( right: 25),
-                        child: Container(
-                            width: screenWidth*0.16,
-                            height: screenHeight*0.08,
-                            decoration: BoxDecoration(
-                              color: AppColors.secondaryBlue,
-                              borderRadius: BorderRadius.circular(15),
-                            ),
-                            child: Icon(
-                              Icons.volume_up_rounded,
-                              size: screenWidth*0.09,
-                              color: AppColors.primaryBlue,
-                            )),
-                      ),
-                      Container(
-                          width: screenWidth*0.16,
-                          height: screenHeight*0.08,
-                          decoration: BoxDecoration(
-                            color: Colors.red,
-                            borderRadius: BorderRadius.circular(15),
-                          ),
-                          child: Icon(
-                            Icons.call_end,
-                            size: screenWidth*0.09,
-                            color: AppColors.whiteColor,
-                          )),
-                    ]),
+                      child: Icon(
+                        Icons.call_end,
+                        size: screenWidth * 0.09,
+                        color: AppColors.whiteColor,
+                      )),
+                ]),
               ),
             ]),
           ),

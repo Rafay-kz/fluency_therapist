@@ -1,14 +1,17 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:percent_indicator/circular_percent_indicator.dart';
 
+import '../../../controller/user_screens_controller/home_screens_controller/progress_tracking_screen_controller.dart';
 import '../../../utils/app_colors.dart';
 import '../../../utils/app_constants.dart';
 
 
 
-class ProgressTrackingScreen extends GetView<ProgressTrackingScreen> {
+class ProgressTrackingScreen extends GetView<ProgressTrackingScreenController> {
   const ProgressTrackingScreen({super.key});
+
 
   @override
   Widget build(BuildContext context) {
@@ -40,10 +43,17 @@ class ProgressTrackingScreen extends GetView<ProgressTrackingScreen> {
                       width: screenWidth * 0.42,),
                   ),
                 ),
-                  CircleAvatar(
+                  Obx(()=>CircleAvatar(
                     radius: 25,
+                      backgroundImage: controller.userModel.value.image!=''
+                          ? CachedNetworkImageProvider(
+                          controller.userModel.value.image
+                      )
+                          : const AssetImage('assets/images/person.png') as ImageProvider
+
 
                 ),
+        ),
 
 
               ],

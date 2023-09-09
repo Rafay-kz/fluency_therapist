@@ -1,10 +1,17 @@
+import 'dart:io';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_storage/firebase_storage.dart';
+import 'package:fluency_therapist/controller/doctor_screens_controller/doctor_edit_profile_screen_controller.dart';
 import 'package:fluency_therapist/utils/user_session.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
+import 'package:image_picker/image_picker.dart';
 
+import '../controller/doctor_screens_controller/doctor_home_screen_controller.dart';
+import '../custom widgets/progress_indicator.dart';
 import '../model/doctor_model.dart';
 import '../model/timeslots_model.dart';
 import '../model/user_model.dart';
@@ -14,6 +21,9 @@ import '../utils/utills.dart';
 class Database {
   final FirebaseAuth _auth = FirebaseAuth.instance;
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
+  DoctorHomeScreenController doctorhomeScreenController =
+      Get.find(tag: kDoctorHomeScreenController);
+
   UserSession userSession = UserSession();
 
 //For registering regular users on sign up screen

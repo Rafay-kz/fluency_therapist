@@ -34,9 +34,8 @@ class ConsultTherapistScreenController extends GetxController {
     Get.offAllNamed(kLoginScreen);
   }
 
-  final FirebaseFirestore _firestore = FirebaseFirestore.instance;
 
-  // Method to fetch all doctor user data from Firestore
+// Method to fetch all doctor user data from Firestore
   Future<void> fetchDoctorUsers() async {
     try {
       final QuerySnapshot querySnapshot =
@@ -66,5 +65,4 @@ class ConsultTherapistScreenController extends GetxController {
     } catch (e) {
       print('Error fetching doctor users: $e');
     }
-  }
-}
+  }}

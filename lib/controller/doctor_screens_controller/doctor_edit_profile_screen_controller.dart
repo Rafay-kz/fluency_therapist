@@ -178,6 +178,7 @@ class DoctorEditProfileScreenController extends GetxController {
     super.onInit();
   }
 
+
   Future<void> getDoctorInfo() async{
     doctorModel.value=await userSession.getDoctorInformation();
     nameTEController.value.text=doctorModel.value.userName;

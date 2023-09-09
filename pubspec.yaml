@@ -50,6 +50,9 @@ dependencies:
   time_range: ^1.1.0
   cached_network_image: ^3.2.3
   firebase_database: ^10.2.5
+  zego_uikit_prebuilt_call: ^3.13.0
+  zego_uikit_signaling_plugin: ^2.3.2
+  zego_zimkit: ^1.8.0
   intl: ^0.18.1
 
 

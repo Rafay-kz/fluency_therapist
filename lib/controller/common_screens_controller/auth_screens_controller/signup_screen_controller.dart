@@ -163,6 +163,8 @@ class SignupScreenController extends GetxController {
             specialityController.text.toString(),
             bioTEController.text.toString(),
             locationController.text.toString(),
+
+
           );
         }
         else {

@@ -20,4 +20,5 @@ class CallingConsultantScreenController extends GetxController {
   Future<void> getUserInfo() async{
     userModel.value=await userSession.getUserInformation();
   }
+
 }
