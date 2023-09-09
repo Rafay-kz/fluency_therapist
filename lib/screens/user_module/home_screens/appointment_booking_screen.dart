@@ -25,7 +25,7 @@ class AppointmentBookingScreen
             child: Column(
               children: [
                 Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     InkWell(
                       onTap: () {
@@ -38,7 +38,7 @@ class AppointmentBookingScreen
                     ),
                     Padding(
                       padding:
-                          const EdgeInsets.only(top: 10, right: 48, left: 48),
+                          const EdgeInsets.only(top: 10),
                       child: Center(
                         child: Image(
                           image: const AssetImage(logoIcon),
@@ -133,8 +133,7 @@ class AppointmentBookingScreen
                     final slot = controller.timeSlotsMap[tabIndex]?[index];
                     return Padding(
                       padding: const EdgeInsets.symmetric(vertical: 8),
-                      child: Obx(
-                        () => Container(
+                      child: Container(
                           decoration: BoxDecoration(
                             color: AppColors.textfieldColor,
                             borderRadius: BorderRadius.circular(15),
@@ -169,7 +168,7 @@ class AppointmentBookingScreen
                             ),
                           ),
                         ),
-                      ),
+
                     );
                   });
             }

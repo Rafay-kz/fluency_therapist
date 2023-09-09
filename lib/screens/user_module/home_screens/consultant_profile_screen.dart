@@ -26,7 +26,7 @@ class ConsultantProfileScreen extends GetView<ConsultantProfileScreenController>
           child: Column(
             children: [
               Row(
-                mainAxisAlignment: MainAxisAlignment.center,
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   InkWell(
                     onTap: () {
@@ -38,7 +38,7 @@ class ConsultantProfileScreen extends GetView<ConsultantProfileScreenController>
                     ),
                   ),
                   Padding(
-                    padding: const EdgeInsets.only(top: 10, right: 38, left: 38),
+                    padding: const EdgeInsets.only(top: 10),
                     child: Center(
                       child: Image(
                         image: const AssetImage(logoIcon),
@@ -236,7 +236,7 @@ class ConsultantProfileScreen extends GetView<ConsultantProfileScreenController>
                       Padding(
                         padding: const EdgeInsets.only(left: 15, top: 3),
                         child: Text(
-                          "Lumhs, Jamshoro",
+                          controller.doctorModel.value.location,
                           style: Theme.of(context).textTheme.displayLarge!.copyWith(
                             fontSize: screenWidth*0.030,
                             color: AppColors.descriptionColor,
@@ -247,7 +247,7 @@ class ConsultantProfileScreen extends GetView<ConsultantProfileScreenController>
                 ),
               ),
               Button(onPressed: () {
-                Get.toNamed(kAppointmentBookingScreen);
+                Get.toNamed(kAppointmentBookingScreen,arguments:controller.doctorModel.value );
               }, text: "Book an Appointment"),
             ],
           ),

@@ -53,7 +53,7 @@ class ConsultTherapistScreenController extends GetxController {
           bio: data['bio'] ?? '',
           location: data['location'] ?? '',
           image: data['image'] ?? '',
-          id: data['id'] ?? '',
+          id: doc.id ?? '',
           errorMsg: '',
         );
       }).toList();
