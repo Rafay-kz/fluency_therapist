@@ -32,7 +32,8 @@ const String kInboxScreen = "/INBOX_SCREEN";
 const String kCallLogScreen = "/CALL_LOG_SCREEN";
 const String kDoctorHomeScreen = "/DOCTOR_HOME_SCREEN";
 const String kDoctorEditProfileScreen = "/DOCTOR_EDIT_PROFILE_SCREEN";
-
+const String kDoctorSchedulingScreen = "/DOCTOR_SCHEDULING_SCREEN";
+const String kAppointmentBookingScreen = "/APPOINTMENT_BOOKING_SCREEN";
 
 
 

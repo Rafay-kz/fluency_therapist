@@ -9,10 +9,7 @@ class DoctorModel {
   String speciality = '';
   String bio = '';
   String location = '';
-  String availabilityStart = '';
-  String availabilityEnd = '';
-  String startDay = ''; // New field: Start day
-  String endDay = '';   // New field: End day
+
 
   DoctorModel.empty();
 
@@ -27,10 +24,7 @@ class DoctorModel {
     required this.speciality,
     required this.bio,
     required this.location,
-    required this.availabilityStart,
-    required this.availabilityEnd,
-    required this.startDay,
-    required this.endDay,
+
   });
 
   factory DoctorModel.fromJsonForSession(Map<String, dynamic> json, String errorMessage) {
@@ -45,10 +39,7 @@ class DoctorModel {
       speciality: json["speciality"].toString() ?? '',
       bio: json["bio"].toString() ?? '',
       location: json["location"].toString() ?? '',
-      availabilityStart: json["availabilityStart"].toString() ?? '',
-      availabilityEnd: json["availabilityEnd"].toString() ?? '',
-      startDay: '', // Initialize startDay
-      endDay: '',   // Initialize endDay
+
     );
   }
 
@@ -63,10 +54,6 @@ class DoctorModel {
       speciality: json['speciality'] ?? '',
       bio: json['bio'] ?? '',
       location: json['location'] ?? '',
-      availabilityStart: json['availabilityStart'] ?? '',
-      availabilityEnd: json['availabilityEnd'] ?? '',
-      startDay: '', // Initialize startDay
-      endDay: '',   // Initialize endDay
       image: json['image'] ?? '',
     );
   }
@@ -82,15 +69,11 @@ class DoctorModel {
     data['speciality'] = speciality;
     data['bio'] = bio;
     data['location'] = location;
-    data['availabilityStart'] = availabilityStart;
-    data['availabilityEnd'] = availabilityEnd;
-    data['startDay'] = startDay; // Include startDay
-    data['endDay'] = endDay;     // Include endDay
     return data;
   }
 
   @override
   String toString() {
-    return 'DoctorModel{age: $age, email: $email, userName: $userName, fullName: $fullName, speciality: $speciality, bio: $bio, location: $location, availabilityStart: $availabilityStart, availabilityEnd: $availabilityEnd, startDay: $startDay, endDay: $endDay, id: $id, image: $image}';
+    return 'DoctorModel{age: $age, email: $email, userName: $userName, fullName: $fullName, speciality: $speciality, bio: $bio, location: $location,  id: $id, image: $image}';
   }
 }

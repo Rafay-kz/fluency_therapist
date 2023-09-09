@@ -1,6 +1,7 @@
 
 import 'package:fluency_therapist/screens/doctor_module/doctor_edit_profile_screen.dart';
 import 'package:fluency_therapist/screens/doctor_module/doctor_home_screen.dart';
+import 'package:fluency_therapist/screens/doctor_module/doctor_scheduling_screen.dart';
 
 import 'package:get/get.dart';
 
@@ -14,6 +15,7 @@ import '../screens/common_screens/auth_screens/signup_screen.dart';
 import '../screens/common_screens/auth_screens/splash_screen.dart';
 import '../screens/common_screens/auth_screens/welcome_screen.dart';
 
+import '../screens/user_module/home_screens/appointment_booking_screen.dart';
 import '../screens/user_module/home_screens/call_log_screen.dart';
 import '../screens/user_module/home_screens/calling_consultant_screen.dart';
 import '../screens/user_module/home_screens/chat_with_consultant_screen.dart';
@@ -178,6 +180,17 @@ class RouteGenerator {
       GetPage(
         name: kDoctorEditProfileScreen,
         page: () => DoctorEditProfileScreen(),
+        binding: ScreenBindings(),
+      ),
+
+      GetPage(
+        name: kDoctorSchedulingScreen,
+        page: () => const DoctorSchedulingScreen(),
+        binding: ScreenBindings(),
+      ),
+      GetPage(
+        name: kAppointmentBookingScreen,
+        page: () => const AppointmentBookingScreen(),
         binding: ScreenBindings(),
       ),
     ];

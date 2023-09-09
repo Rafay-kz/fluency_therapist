@@ -1,14 +1,11 @@
-import 'dart:io';
-
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../../../controller/user_screens_controller/home_screens_controller/consult_therapist_screen_controller.dart';
+import '../../../model/doctor_model.dart';
 import '../../../utils/app_colors.dart';
 import '../../../utils/app_constants.dart';
-
-
 
 class ConsultTherapistScreen extends GetView<ConsultTherapistScreenController> {
   const ConsultTherapistScreen({super.key});
@@ -21,7 +18,7 @@ class ConsultTherapistScreen extends GetView<ConsultTherapistScreenController> {
       backgroundColor: AppColors.backgroundColor,
       body: SafeArea(
         child: Padding(
-          padding: const EdgeInsets.only( right: 25, left: 25),
+          padding: const EdgeInsets.only(right: 25, left: 25),
           child: Column(
             children: [
               Row(
@@ -33,10 +30,10 @@ class ConsultTherapistScreen extends GetView<ConsultTherapistScreenController> {
                     },
                     child: Icon(
                       Icons.arrow_back,
-                      size: screenWidth*0.10,
+                      size: screenWidth * 0.10,
                     ),
                   ),
-                   Padding(
+                  Padding(
                     padding: const EdgeInsets.only(top: 10, right: 38, left: 38),
                     child: Center(
                       child: Image(
@@ -46,14 +43,20 @@ class ConsultTherapistScreen extends GetView<ConsultTherapistScreenController> {
                       ),
                     ),
                   ),
-                  Obx(()=>  CircleAvatar(
+                  Obx(() {
+                    final isDoctor = controller.doctorModel.value.id.isNotEmpty;
+                    final image = isDoctor
+                        ? controller.doctorModel.value.image
+                        : controller.userModel.value.image;
+
+                    return CircleAvatar(
                       radius: 25,
                       backgroundImage: controller.userModel.value.image!=''
                           ? CachedNetworkImageProvider(
                           controller.userModel.value.image
                       )
                           : const AssetImage('assets/images/person.png') as ImageProvider
-                  ),
+                  );}
                   ),
                 ],
               ),

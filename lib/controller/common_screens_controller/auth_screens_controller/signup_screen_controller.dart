@@ -22,7 +22,7 @@ class SignupScreenController extends GetxController {
   //Doctor users controllers
   TextEditingController fullNameController = TextEditingController();
   TextEditingController specialityController = TextEditingController();
-  TextEditingController bioController = TextEditingController();
+  TextEditingController bioTEController = TextEditingController();
   TextEditingController locationController = TextEditingController();
 
  //Checkbox method
@@ -31,19 +31,6 @@ class SignupScreenController extends GetxController {
     isDoctor.value = value;
   }
 
-  // Drop down button values updater
-  final RxString startDay = RxString('');
-
-  void setStartDay(String day) {
-    startDay.value = day;
-  }
-
-  // Drop down button values updater2
-  final RxString endDay = RxString('');
-
-  void setEndDay(String day) {
-    endDay.value = day;
-  }
 
     //variables to store regular users controller data
   var name = '';
@@ -58,8 +45,7 @@ class SignupScreenController extends GetxController {
   var bio = '';
 
   var location = '';
-  var availabilityStart = '';
-  var availabilityEnd = '';
+
 
 
   @override
@@ -71,7 +57,7 @@ class SignupScreenController extends GetxController {
     confirmPasswordTEController.dispose();
     fullNameController.dispose();
     specialityController.dispose();
-    bioController.dispose();
+    bioTEController.dispose();
     locationController.dispose();
   }
 
@@ -143,11 +129,6 @@ class SignupScreenController extends GetxController {
     return null;
   }
 
-  String formatTimeOfDay(TimeOfDay timeOfDay) {
-    String hour = '${timeOfDay.hour}'.padLeft(2, '0');
-    String minute = '${timeOfDay.minute}'.padLeft(2, '0');
-    return '$hour:$minute';
-  }
 
   String? validateLocation(String value) {
     if (value.isEmpty) {
@@ -180,12 +161,8 @@ class SignupScreenController extends GetxController {
             emailTEController.text.toString(),
             fullNameController.text.toString(),
             specialityController.text.toString(),
-            bioController.text.toString(),
+            bioTEController.text.toString(),
             locationController.text.toString(),
-            startDay.toString(),
-            endDay.toString(),
-            availabilityStart.toString(),
-            availabilityEnd.toString(),
 
 
           );
