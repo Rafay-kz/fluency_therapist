@@ -22,8 +22,8 @@ class AppointmentBookingScreenController extends GetxController {
       .obs;
   RxBool isInitialized = false.obs;
 
-  Future<void> getDoctorInfo() async {
-    doctorModel.value = await userSession.getDoctorInformation();
+  void getDoctorInfo()  {
+    doctorModel.value = Get.arguments;
   }
 
   Future<void> getUserInfo() async {
@@ -33,7 +33,7 @@ class AppointmentBookingScreenController extends GetxController {
   @override
   void onInit() async {
     getUserInfo();
-    await getDoctorInfo();
+    getDoctorInfo();
     for (int i = 0; i < 5; i++) {
       timeSlotsMap[i] = <TimeSlot>[].obs;
       loadTimeSlotsFromFirestore(i);
