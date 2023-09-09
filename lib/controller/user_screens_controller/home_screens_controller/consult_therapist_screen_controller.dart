@@ -44,7 +44,7 @@ class ConsultTherapistScreenController extends GetxController {
 
       final List<DoctorModel> users = querySnapshot.docs.map((doc) {
         final data = doc.data() as Map<String, dynamic>;
-        final String doctorId = doc.id;
+
         return DoctorModel(
           userName: data['username'] ?? '',
           age: data['age'] ?? '',

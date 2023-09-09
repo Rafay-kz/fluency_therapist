@@ -26,7 +26,6 @@ class ConsultantProfileScreenController extends GetxController {
     if (doctor != null) {
       // If doctor data is available, set it in the controller
       setDoctor(doctor);
-      print("doctor: $doctor");
     }
     super.onInit();
   }
