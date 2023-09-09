@@ -15,6 +15,7 @@ class ConsultantProfileScreen extends GetView<ConsultantProfileScreenController>
   @override
   Widget build(BuildContext context) {
 
+
     final screenWidth = MediaQuery.of(context).size.width;
     final screenHeight = MediaQuery.of(context).size.height;
     return Scaffold(
@@ -47,9 +48,8 @@ class ConsultantProfileScreen extends GetView<ConsultantProfileScreenController>
                     ),
                   ),
                   Obx(() {
-                    final isDoctor = controller.doctorModel.value.id.isNotEmpty;
-                    print("Is Doctor: $isDoctor");
-                    print("Image URL: ${controller.doctorModel.value.image}");
+                    final doctorId = controller.doctorModel.value.id;
+                    final isDoctor = doctorId.isNotEmpty;
                     final image = isDoctor
                         ? controller.doctorModel.value.image
                         : controller.userModel.value.image;
@@ -60,6 +60,7 @@ class ConsultantProfileScreen extends GetView<ConsultantProfileScreenController>
                           ? CachedNetworkImageProvider(image)
                           : const AssetImage('assets/images/person.png') as ImageProvider,
                     );
+
                   }),
                 ],
               ),
