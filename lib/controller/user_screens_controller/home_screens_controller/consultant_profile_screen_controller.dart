@@ -12,14 +12,30 @@ class ConsultantProfileScreenController extends GetxController {
   Rx<UserModel> userModel=UserModel.empty().obs;
   Rx<DoctorModel> doctorModel=DoctorModel.empty().obs;
 
+  Future<void> getUserInfo() async {
+    userModel.value = await userSession.getUserInformation();
+  }
+
   @override
-  void onInit(){
-    getDoctorInfo();
+  void onInit()async{
+    getUserInfo();
+     // getDoctorInfo();
+    final DoctorModel? doctor =
+    Get.arguments as DoctorModel?; // Get the doctor's data argument
+
+    if (doctor != null) {
+      // If doctor data is available, set it in the controller
+      setDoctor(doctor);
+      print("doctor: $doctor");
+    }
     super.onInit();
   }
   Future<void> getDoctorInfo() async{
     doctorModel.value=await userSession.getDoctorInformation();
 
+  }
+  void setDoctor(DoctorModel doctor) {
+    doctorModel.value = doctor;
   }
 
 

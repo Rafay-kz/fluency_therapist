@@ -1,9 +1,11 @@
 
 import 'dart:convert';
 
+import 'package:get/get_rx/src/rx_types/rx_types.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../model/doctor_model.dart';
+import '../model/timeslots_model.dart';
 import '../model/user_model.dart';
 
 class UserSession{
@@ -68,5 +70,21 @@ class UserSession{
     return DoctorModel.fromJsonForSession(jsonDecode(preference.getString(doctorData)??'{}'),'');
   }
 
+  Future<void> saveTimeSlotsToLocal(
+      int tabIndex, Map<int, RxList<TimeSlot>> timeSlotsMap) async {
+    final timeSlots = timeSlotsMap[tabIndex]?.map((slot) => slot.toJson()).toList();
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.setString('time_slots_$tabIndex', jsonEncode(timeSlots));
+  }
 
+  Future<void> loadTimeSlotsFromLocal(
+      int tabIndex, Map<int, RxList<TimeSlot>> timeSlotsMap) async {
+    final prefs = await SharedPreferences.getInstance();
+    final timeSlotsJson = prefs.getString('time_slots_$tabIndex');
+    if (timeSlotsJson != null) {
+      final List<dynamic> timeSlotsData = jsonDecode(timeSlotsJson);
+      final timeSlots = timeSlotsData.map((data) => TimeSlot.fromJson(data)).toList();
+      timeSlotsMap[tabIndex]?.assignAll(timeSlots);
+    }
+  }
 }
