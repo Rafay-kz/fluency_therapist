@@ -1,13 +1,13 @@
 
 import 'package:fluency_therapist/exercises/exercises_screen_three.dart';
 import 'package:fluency_therapist/exercises/exercises_screen_two.dart';
+import 'package:fluency_therapist/screens/doctor_module/doctor_booked_appointments_screen.dart';
 import 'package:fluency_therapist/screens/doctor_module/doctor_edit_profile_screen.dart';
 import 'package:fluency_therapist/screens/doctor_module/doctor_home_screen.dart';
 import 'package:fluency_therapist/screens/doctor_module/doctor_scheduling_screen.dart';
+import 'package:fluency_therapist/screens/user_module/home_screens/booked_appointment_screen.dart';
 
 import 'package:get/get.dart';
-
-
 import '../exercises/exercises_screen_one.dart';
 import '../screens/common_screens/auth_screens/create_new_password_screen.dart';
 import '../screens/common_screens/auth_screens/email_verification_screen.dart';
@@ -122,7 +122,7 @@ class RouteGenerator {
       ),
       GetPage(
         name: kVideoCallScreen,
-        page: () =>  VideoCallScreen(),
+        page: () => VideoCallScreen(),
         binding: ScreenBindings(),
       ),
       GetPage(
@@ -185,7 +185,6 @@ class RouteGenerator {
         page: () => DoctorEditProfileScreen(),
         binding: ScreenBindings(),
       ),
-
       GetPage(
         name: kDoctorSchedulingScreen,
         page: () => const DoctorSchedulingScreen(),
@@ -209,6 +208,15 @@ class RouteGenerator {
         page: () =>  ExcerisesScreenThree(),
         binding: ScreenBindings(),
       ),
+        name: kBookedAppointmentScreen,
+        page: () => const BookedAppointmentScreen(),
+        binding: ScreenBindings(),
+      ),
+      GetPage(
+        name: kDoctorBookedAppointmentsScreen,
+        page: () => const DoctorBookedAppointmentsScreen(),
+        binding: ScreenBindings(),
+      )
     ];
   }
 }

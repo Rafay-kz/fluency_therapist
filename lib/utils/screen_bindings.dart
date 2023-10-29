@@ -2,6 +2,7 @@
 
 //created by Abdul Rafay on 1-5-2023
 
+import 'package:fluency_therapist/controller/doctor_screens_controller/doctor_booked_appointments_screen_controller.dart';
 import 'package:fluency_therapist/controller/doctor_screens_controller/doctor_scheduling_screen_controller.dart';
 import 'package:fluency_therapist/controller/user_screens_controller/home_screens_controller/appointment_booking_screen_controller.dart';
 import 'package:fluency_therapist/utils/app_constants.dart';
@@ -21,6 +22,7 @@ import '../controller/doctor_screens_controller/doctor_edit_profile_screen_contr
 import '../controller/doctor_screens_controller/doctor_home_screen_controller.dart';
 import '../controller/exercises_screens_controller/exercises_screen_three_controller.dart';
 import '../controller/exercises_screens_controller/exercises_screen_two_controller.dart';
+import '../controller/user_screens_controller/home_screens_controller/booked_appointment_screen_controller.dart';
 import '../controller/user_screens_controller/home_screens_controller/call_log_screen_controller.dart';
 import '../controller/user_screens_controller/home_screens_controller/calling_consultant_screen_controller.dart';
 import '../controller/user_screens_controller/home_screens_controller/chat_with_consultant_screen.dart';
@@ -76,6 +78,8 @@ class ScreenBindings extends Bindings {
     Get.lazyPut(() => CustomizeProgramFinalScreenController());
     Get.lazyPut(() => ExercisesScreenTwoController());
     Get.lazyPut(() => ExercisesScreenThreeController());
+    Get.lazyPut(() => BookedAppointmentScreenController());
+    Get.lazyPut(() => DoctorBookedAppointmentsScreenController());
 
 
 

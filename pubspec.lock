@@ -458,10 +458,10 @@ packages:
     dependency: transitive
     description:
       name: flutter_logs
-      sha256: dd037783f0f22fe03f359b65f913af275aeac4a1474c18c41b2ed9fdbd4f83f1
+      sha256: "0fb84868b02e5880a1488f5282a4e193a1293280b85be7a56e58f29c0d1e6bea"
       url: "https://pub.dev"
     source: hosted
-    version: "2.1.10"
+    version: "2.1.11"
   flutter_plugin_android_lifecycle:
     dependency: transitive
     description:
@@ -588,10 +588,10 @@ packages:
     dependency: transitive
     description:
       name: image_picker_android
-      sha256: d32a997bcc4ee135aebca8e272b7c517927aa65a74b9c60a81a2764ef1a0462d
+      sha256: "47da2161c2e9f8f8a9cbbd89d466d174333fbdd769aeed848912e0b16d9cb369"
       url: "https://pub.dev"
     source: hosted
-    version: "0.8.7+5"
+    version: "0.8.8"
   image_picker_for_web:
     dependency: transitive
     description:
@@ -1193,42 +1193,42 @@ packages:
     dependency: transitive
     description:
       name: zego_plugin_adapter
-      sha256: bc4a2dc6230ff30c9ac6436c001fbaee3b1cbc2c350277d0ad69c27a11e0418c
+      sha256: cc84ed252efcb101975fcd7bd76c46ca7244195ceee15cbcd2d63ead4a32bfc6
       url: "https://pub.dev"
     source: hosted
-    version: "2.6.0"
+    version: "2.7.0"
   zego_uikit:
     dependency: transitive
     description:
       name: zego_uikit
-      sha256: "6b2fad7f96a7533a03f75142a0f0c32a32f518fea9bb44dd58bf812207a47e7c"
+      sha256: "3a5ef2f21ac4e13290b42ca3e0d3c0c523f36db38efe4d42daee6638500b66e9"
       url: "https://pub.dev"
     source: hosted
-    version: "2.11.1"
+    version: "2.12.0"
   zego_uikit_prebuilt_call:
     dependency: "direct main"
     description:
       name: zego_uikit_prebuilt_call
-      sha256: "3224040bee06bd4015714bf8006437f519fe8cea02325c38d0cde436ca2913d6"
+      sha256: "18cc189fbae66e870b33f9b23c4f7b955a3f607fd9392b0b7c606ebe2c48f98e"
       url: "https://pub.dev"
     source: hosted
-    version: "3.13.5"
+    version: "3.14.0"
   zego_uikit_signaling_plugin:
     dependency: "direct main"
     description:
       name: zego_uikit_signaling_plugin
-      sha256: b521b3b112d9789e1012e958d89a80b97f6021157c1deacac09386b807d8843a
+      sha256: "3f752cdc917716f93704cdc8e0a36bb92b46ec229bf624606b274764ccc88735"
       url: "https://pub.dev"
     source: hosted
-    version: "2.4.0"
+    version: "2.5.0"
   zego_zim:
     dependency: transitive
     description:
       name: zego_zim
-      sha256: "0441d537977e29fa8d6727ee4efea5d12eac82e41e9311158e437ebd066d6b3b"
+      sha256: cf6ae75c97fecbdb8164b5edf1074b6e149e43a3263d95548e321accfea971f3
       url: "https://pub.dev"
     source: hosted
-    version: "2.9.0"
+    version: "2.10.0+3"
   zego_zimkit:
     dependency: "direct main"
     description:

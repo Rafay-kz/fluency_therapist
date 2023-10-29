@@ -1,39 +1,48 @@
+import 'package:fluency_therapist/model/user_model.dart';
 import 'package:flutter/material.dart';
 
-class TimeSlot {
+import 'doctor_model.dart';
+
+class BookedSlot {
+  String doctorId;
+  String userId;
   final DateTime date;
   final TimeOfDay startTime;
   final TimeOfDay endTime;
-  bool isAvailable;
-  String bookedByUserId;
+  final DoctorModel? doctor;
+  final UserModel? user;
 
-  TimeSlot({
+  BookedSlot({
+    this.doctorId = '',
+    this.userId = '',
     required this.date,
     required this.startTime,
     required this.endTime,
-    this.isAvailable = true,
-    this.bookedByUserId = '',
+     this.doctor,
+    this.user,
   });
 
-  // Convert a TimeSlot to JSON
   Map<String, dynamic> toJson() {
     return {
-      'date': date.toIso8601String(),
+      'doctorId': doctorId,
+      'userId': userId,
+      'date': date.toIso8601String(), // Store as DateTime
       'start_time': '${startTime.hour}:${startTime.minute}',
       'end_time': '${endTime.hour}:${endTime.minute}',
-      'is_available': isAvailable,
-      'booked_by_user_id': bookedByUserId,
+      'doctorModel' : doctor,
+      'userModel' : user,
     };
   }
 
-  // Create a TimeSlot from JSON
-  factory TimeSlot.fromJson(Map<String, dynamic> json) {
-    return TimeSlot(
+  factory BookedSlot.fromJson(Map<String, dynamic> json) {
+    return BookedSlot(
+      doctorId: json['doctorId'],
+      userId: json['userId'],
       date: DateTime.parse(json['date']),
       startTime: _parseTime(json['start_time']),
       endTime: _parseTime(json['end_time']),
-      isAvailable: json['is_available'] ?? true,
-      bookedByUserId: json['booked_by_user_id'] ?? '',
+      doctor: json['doctor'],
+      user: json['user']
     );
   }
 

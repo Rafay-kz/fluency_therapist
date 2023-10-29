@@ -48,7 +48,7 @@ class ConsultantProfileScreen extends GetView<ConsultantProfileScreenController>
                     ),
                   ),
                   Obx(() {
-                    final doctorId = controller.doctorModel.value.id;
+                    final doctorId = controller.currentDoctorModel.value.id;
                     final isDoctor = doctorId.isNotEmpty;
                     final image = isDoctor
                         ? controller.doctorModel.value.image
@@ -144,56 +144,62 @@ class ConsultantProfileScreen extends GetView<ConsultantProfileScreenController>
                 textAlign: TextAlign.center,
               ),
               ),
-              Padding(
-                padding: const EdgeInsets.only(top: 15, bottom: 15),
-                child: Container(
-                  width: screenWidth*0.9,
-                  height: screenHeight*0.12,
-                  decoration: BoxDecoration(
-                    color: AppColors.secondaryBlue,
-                    borderRadius: BorderRadius.circular(25),
-                  ),
-                  child: Row(
-                    children: [
-                      Column(
-                        children: [
-                          Padding(
-                            padding: const EdgeInsets.only(top: 20, bottom: 20, left: 25),
-                            child: Icon(
-                              Icons.calendar_month_outlined,
-                              size: screenWidth*0.11,
-                              color: AppColors.primaryBlue,
-                            ),
-                          ),
-                        ],
-                      ),
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Padding(
-                            padding: const EdgeInsets.only(left: 15, top: 24),
-                            child: Text(
-                             "Availability",
-                              style: Theme.of(context).textTheme.displayLarge!.copyWith(
-                                fontSize: screenWidth*0.045,
-                                color: AppColors.textColor,
-                              ),
-                              textAlign: TextAlign.left,
-                            ),
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.only(left: 15, top: 3),
-                            child: Text(
-                              "08:00 AM to 05:00 PM",
-                              style: Theme.of(context).textTheme.displayLarge!.copyWith(
-                                fontSize: screenWidth*0.030,
-                                color: AppColors.descriptionColor,
+              InkWell(
+                onTap: () {
+                  Get.toNamed(kAppointmentBookingScreen,
+                      arguments:controller.doctorModel.value );
+                },
+                child: Padding(
+                  padding: const EdgeInsets.only(top: 15, bottom: 15),
+                  child: Container(
+                    width: screenWidth*0.9,
+                    height: screenHeight*0.12,
+                    decoration: BoxDecoration(
+                      color: AppColors.secondaryBlue,
+                      borderRadius: BorderRadius.circular(25),
+                    ),
+                    child: Row(
+                      children: [
+                        Column(
+                          children: [
+                            Padding(
+                              padding: const EdgeInsets.only(top: 20, bottom: 20, left: 25),
+                              child: Icon(
+                                Icons.calendar_month_outlined,
+                                size: screenWidth*0.11,
+                                color: AppColors.primaryBlue,
                               ),
                             ),
-                          ),
-                        ],
-                      )
-                    ],
+                          ],
+                        ),
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Padding(
+                              padding: const EdgeInsets.only(left: 15, top: 24),
+                              child: Text(
+                               "Availability",
+                                style: Theme.of(context).textTheme.displayLarge!.copyWith(
+                                  fontSize: screenWidth*0.045,
+                                  color: AppColors.textColor,
+                                ),
+                                textAlign: TextAlign.left,
+                              ),
+                            ),
+                            Padding(
+                              padding: const EdgeInsets.only(left: 15, top: 3),
+                              child: Text(
+                                "Tap here to see",
+                                style: Theme.of(context).textTheme.displayLarge!.copyWith(
+                                  fontSize: screenWidth*0.030,
+                                  color: AppColors.descriptionColor,
+                                ),
+                              ),
+                            ),
+                          ],
+                        )
+                      ],
+                    ),
                   ),
                 ),
               ),
@@ -247,7 +253,8 @@ class ConsultantProfileScreen extends GetView<ConsultantProfileScreenController>
                 ),
               ),
               Button(onPressed: () {
-                Get.toNamed(kAppointmentBookingScreen,arguments:controller.doctorModel.value );
+                Get.toNamed(kAppointmentBookingScreen,
+                    arguments:controller.doctorModel.value );
               }, text: "Book an Appointment"),
             ],
           ),

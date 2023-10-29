@@ -37,6 +37,8 @@ const String kAppointmentBookingScreen = "/APPOINTMENT_BOOKING_SCREEN";
 const String kExercisesScreenOne = "/EXERCISES_SCREEN_ONE";
 const String kExercisesScreenTwo = "/EXERCISES_SCREEN_TWO";
 const String kExercisesScreenThree = "/EXERCISES_SCREEN_THREE";
+const String kBookedAppointmentScreen = "/BOOKED_APPOINTMENT_SCREEN";
+const String kDoctorBookedAppointmentsScreen = "/DOCTOR_BOOKED_APPOINTMENTS_SCREEN";
 
 
 
