@@ -11,15 +11,22 @@ class ConsultantProfileScreenController extends GetxController {
   UserSession userSession = UserSession();
   Rx<UserModel> userModel=UserModel.empty().obs;
   Rx<DoctorModel> doctorModel=DoctorModel.empty().obs;
+  Rx<DoctorModel> currentDoctorModel =DoctorModel.empty().obs;
+
+
 
   Future<void> getUserInfo() async {
     userModel.value = await userSession.getUserInformation();
+  }
+  Future<void> getDoctorInfo() async{
+    currentDoctorModel.value=await userSession.getDoctorInformation();
+
   }
 
   @override
   void onInit()async{
     getUserInfo();
-     // getDoctorInfo();
+     getDoctorInfo();
     final DoctorModel? doctor =
     Get.arguments as DoctorModel?; // Get the doctor's data argument
 
@@ -29,10 +36,9 @@ class ConsultantProfileScreenController extends GetxController {
     }
     super.onInit();
   }
-  Future<void> getDoctorInfo() async{
-    doctorModel.value=await userSession.getDoctorInformation();
 
-  }
+
+
   void setDoctor(DoctorModel doctor) {
     doctorModel.value = doctor;
   }

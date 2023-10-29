@@ -2,6 +2,7 @@
 
 //created by Abdul Rafay on 1-5-2023
 
+import 'package:fluency_therapist/controller/doctor_screens_controller/doctor_booked_appointments_screen_controller.dart';
 import 'package:fluency_therapist/controller/doctor_screens_controller/doctor_scheduling_screen_controller.dart';
 import 'package:fluency_therapist/controller/user_screens_controller/home_screens_controller/appointment_booking_screen_controller.dart';
 import 'package:fluency_therapist/utils/app_constants.dart';
@@ -19,6 +20,7 @@ import '../controller/common_screens_controller/auth_screens_controller/splash_s
 import '../controller/common_screens_controller/auth_screens_controller/welcome_screen_controller.dart';
 import '../controller/doctor_screens_controller/doctor_edit_profile_screen_controller.dart';
 import '../controller/doctor_screens_controller/doctor_home_screen_controller.dart';
+import '../controller/user_screens_controller/home_screens_controller/booked_appointment_screen_controller.dart';
 import '../controller/user_screens_controller/home_screens_controller/call_log_screen_controller.dart';
 import '../controller/user_screens_controller/home_screens_controller/calling_consultant_screen_controller.dart';
 import '../controller/user_screens_controller/home_screens_controller/chat_with_consultant_screen.dart';
@@ -71,6 +73,9 @@ class ScreenBindings extends Bindings {
     Get.lazyPut(() => DoctorEditProfileScreenController());
     Get.lazyPut(() => DoctorSchedulingScreenController());
     Get.lazyPut(() => AppointmentBookingScreenController());
+    Get.lazyPut(() => BookedAppointmentScreenController());
+    Get.lazyPut(() => DoctorBookedAppointmentsScreenController());
+
 
 
 

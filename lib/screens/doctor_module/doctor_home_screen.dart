@@ -240,9 +240,9 @@ class DoctorHomeScreen extends GetView<DoctorHomeScreenController> {
                     children: [
                       cardWidget(
                         context: context,
-                        title: "Inbox",
+                        title: "Booked Appointments",
                         image: customizedProgramsIcon,
-                        routeName: kChatWithConsultantScreen,
+                        routeName: kDoctorBookedAppointmentsScreen,
                       ),
                       const SizedBox(width: 20),
                       cardWidget(
