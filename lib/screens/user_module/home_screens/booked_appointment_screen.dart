@@ -228,7 +228,7 @@ class AppointmentCard extends StatelessWidget {
                 ),
                 TextButton(
                   onPressed: () {
-                    Get.toNamed(kConsultantProfileScreen, arguments: doctor);
+                    Get.toNamed(kVideoCallScreen);
                   },
                   child: Container(
                     width: screenWidth * 0.27,

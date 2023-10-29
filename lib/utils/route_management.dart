@@ -203,11 +203,13 @@ class RouteGenerator {
         name: kExercisesScreenTwo,
         page: () =>  ExcerisesScreenTwo(),
         binding: ScreenBindings(),
-      ),GetPage(
+      ),
+    GetPage(
         name: kExercisesScreenThree,
         page: () =>  ExcerisesScreenThree(),
         binding: ScreenBindings(),
       ),
+      GetPage(
         name: kBookedAppointmentScreen,
         page: () => const BookedAppointmentScreen(),
         binding: ScreenBindings(),
