@@ -1,5 +1,6 @@
 
 import 'package:fluency_therapist/core/database.dart';
+import 'package:fluency_therapist/utils/utills.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
@@ -12,6 +13,7 @@ import '../../model/timeslots_model.dart';
 
 class DoctorSchedulingScreenController extends GetxController {
   //Declaration
+  Utils utils = Utils();
   UserSession userSession = UserSession();
   Rx<UserModel> userModel = UserModel.empty().obs;
   Rx<DoctorModel> doctorModel = DoctorModel.empty().obs;
@@ -72,27 +74,44 @@ class DoctorSchedulingScreenController extends GetxController {
 
 //Method to add time slots
   void addTimeSlot(int dayIndex, TimeSlot newSlot) {
-    timeSlotsMap[dayIndex]?.add(newSlot);
-    addTimeSlotToFirestore(dayIndex, newSlot);
-    saveTimeSlotsToLocal(dayIndex);
+    // Check if the same time slot already exists
+    if (!isDuplicateTimeSlot(dayIndex, newSlot)) {
+      timeSlotsMap[dayIndex]?.add(newSlot);
+      addTimeSlotToFirestore(dayIndex, newSlot);
+      saveTimeSlotsToLocal(dayIndex);
+    } else {
+      // Handle the case where a duplicate slot is being added
+      // You can show an error message or take any appropriate action here
+      utils.toastMessage("Slot already added");
+    }
+  }
 
+  bool isDuplicateTimeSlot(int dayIndex, TimeSlot newSlot) {
+    // Check if a time slot with the same date, start time, and end time exists in the list
+    final existingSlots = timeSlotsMap[dayIndex] ?? <TimeSlot>[];
+    return existingSlots.any((slot) =>
+    slot.date == newSlot.date &&
+        slot.startTime == newSlot.startTime &&
+        slot.endTime == newSlot.endTime);
   }
 
 
 
+
 //Method to remove time slots.
-  void removeTimeSlot(int dayIndex, int index) {
+  Future<void> removeTimeSlot(int dayIndex, int index) async {
+    print('Attempting to remove time slot at dayIndex: $dayIndex, index: $index');
     final removedSlot = timeSlotsMap[dayIndex]?[index];
     if (removedSlot != null) {
-      // Remove the slot from the local list
-      timeSlotsMap[dayIndex]?.removeAt(index);
 
-      // Remove the slot from Firestore
-      removeTimeSlotFromFirestore(dayIndex, index);
+      print('Removed slot: $removedSlot');
+      // Remove the slot from Firestore and wait for it to complete
+      await removeTimeSlotFromFirestore(dayIndex, index);
+      utils.toastMessage('Slot removed successfully');
 
-      saveTimeSlotsToLocal(dayIndex);
-    }  }
-
+      await saveTimeSlotsToLocal(dayIndex);
+    }
+  }
 
   //Method to add data to firestore
   Future<void> addTimeSlotToFirestore(int dayIndex, TimeSlot newSlot) async {
@@ -122,17 +141,26 @@ class DoctorSchedulingScreenController extends GetxController {
 
 
   Future<void> removeTimeSlotFromFirestore(int dayIndex, int index) async {
+    print('Attempting to remove time slot from Firestore at dayIndex: $dayIndex, index: $index');
     Database database = Database();
-    final removedSlot = timeSlotsMap[dayIndex]?[index];
-    if (removedSlot != null) {
-      final doctorId = doctorModel.value.id;
-      await database.removeTimeSlotFromFirestore(doctorId, dayIndex, removedSlot);
-
-      // Remove the slot from the local list
-      timeSlotsMap[dayIndex]?.removeAt(index);
-      saveTimeSlotsToLocal(dayIndex);
+    if (timeSlotsMap[dayIndex] != null && timeSlotsMap[dayIndex]!.isNotEmpty) {
+      final removedSlot = timeSlotsMap[dayIndex]?[index];
+      if (removedSlot != null) {
+        final doctorId = doctorModel.value.id;
+        await database.removeTimeSlotFromFirestore(doctorId, dayIndex, removedSlot);
+        print('Successfully removed time slot from Firestore');
+        // Remove the slot from the local list
+        timeSlotsMap[dayIndex]?.removeAt(index);
+        print('Time slots after removal from Firestore: ${timeSlotsMap[dayIndex]}');
+      } else {
+        print('No time slot found at dayIndex: $dayIndex, index: $index');
+      }
+    } else {
+      print('No time slots available for removal at dayIndex: $dayIndex');
     }
   }
+
+
 }
 
 
