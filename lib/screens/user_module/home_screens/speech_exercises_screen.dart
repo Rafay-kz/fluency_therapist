@@ -17,6 +17,12 @@ class SpeechExercisesScreen extends GetView<SpeechExercisesScreenController> {
   Widget build(BuildContext context) {
     final screenWidth = MediaQuery.of(context).size.width;
     final screenHeight = MediaQuery.of(context).size.height;
+    List<String> screenNames = [
+      kExercisesScreenOne,
+      kExercisesScreenTwo,
+      kExercisesScreenThree// Add more screen names as needed
+    ];
+
 
     return Scaffold(
       backgroundColor: AppColors.backgroundColor,
@@ -85,8 +91,9 @@ class SpeechExercisesScreen extends GetView<SpeechExercisesScreenController> {
 
              Expanded(
                child: ListView.builder(
-                   itemCount: 4,
-                   itemBuilder: (BuildContext context, int index) {
+    itemCount: controller.exerciseData.length,
+    itemBuilder: (BuildContext context, int index) {
+    ExerciseData data = controller.exerciseData[index];{
                  return Padding(
                    padding: const EdgeInsets.only(top: 32),
                    child: Container(
@@ -130,58 +137,64 @@ class SpeechExercisesScreen extends GetView<SpeechExercisesScreenController> {
                          Column(
                              crossAxisAlignment: CrossAxisAlignment.start,
                              children: [
-
                                Padding(
-                                 padding: const EdgeInsets.only(top: 25, left:5 ),
+                                 padding: const EdgeInsets.only(top: 25, left: 5),
                                  child: Text(
-                                   "Learn Slow and\nEasy Speech",
-                                   style: Theme.of(context)
-                                       .textTheme
-                                       .displayLarge!
-                                       .copyWith(fontSize: screenWidth*0.052),
+                                   data.title,
+                                   // Use the title from ExerciseData
+                                   style: Theme.of(context).textTheme.displayLarge!.copyWith(fontSize: screenWidth * 0.055,),
+
                                  ),
                                ),
                                Padding(
                                  padding: const EdgeInsets.only(top: 6, left: 5),
                                  child: Text(
-                                   "The most common technique\nto counter stuttering",
-                                   style: Theme.of(context)
-                                       .textTheme
-                                       .headlineSmall!
-                                       .copyWith(
-                                       fontSize: screenWidth*0.029,
-                                       color: AppColors.descriptionColor),
+                                   data.description, // Use the description from ExerciseData
+                                   style: Theme.of(context).textTheme.headlineSmall!.copyWith(
+                                     fontSize: screenWidth * 0.030,
+                                     color: AppColors.textColor,
+                                   ),
                                  ),
                                ),
+
+
                                Padding(
-                                 padding: const EdgeInsets.only(left: 45, top: 5 ),
+                                 padding: const EdgeInsets.only(left: 45, top: 25),
                                  child: TextButton(
-                                     onPressed: () {
-                                       Get.toNamed(kCustomizeProgramFinalScreen);},
-                                     child: Container(
-                                       width: screenWidth*0.19,
-                                       height: screenHeight*0.044,
-                                       decoration: BoxDecoration(
-                                           color: AppColors.primaryBlue,
-                                           borderRadius: BorderRadius.circular(30)),
-                                       child: Center(
-                                           child: Text(
-                                             "Start",
-                                             style: Theme.of(context)
-                                                 .textTheme
-                                                 .headlineSmall!
-                                                 .copyWith(
-                                                 fontSize: screenWidth*0.035,
-                                                 color: AppColors.whiteColor),
-                                           )),
-                                     )),
+                                   onPressed: () {
+                                     if (index < screenNames.length) {
+                                       String screenName = screenNames[index];
+                                       Get.toNamed(screenName);
+                                     } else {
+                                       // Handle index out of bounds error
+                                     }
+                                   },
+                                   child: Container(
+                                     width: screenWidth * 0.19,
+                                     height: screenHeight * 0.044,
+                                     decoration: BoxDecoration(
+                                       color: AppColors.primaryBlue,
+                                       borderRadius: BorderRadius.circular(30),
+                                     ),
+                                     child: Center(
+                                       child: Text(
+                                         "Start",
+                                         style: Theme.of(context).textTheme.headlineSmall!.copyWith(
+                                           fontSize: screenWidth * 0.035,
+                                           color: AppColors.whiteColor,
+                                         ),
+                                       ),
+                                     ),
+                                   ),
+                                 ),
                                )
+
                              ]),
                        ],
                      ),
                    ),
                  );
-               }),
+               }}),
              )
             ],
           ),

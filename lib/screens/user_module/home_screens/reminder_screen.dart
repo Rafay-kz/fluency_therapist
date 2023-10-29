@@ -147,7 +147,7 @@ class ReminderScreen extends GetView<ReminderScreenController> {
                   ),
                   Button(
                       onPressed: () {
-                        Get.toNamed(kCustomizeProgramFinalScreen);
+                        Get.toNamed(kSpeechExercisesScreen);
                       },
                       text: "Next"),
                   Padding(

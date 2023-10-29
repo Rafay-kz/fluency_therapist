@@ -7,10 +7,11 @@ import '../../../controller/user_screens_controller/home_screens_controller/cust
 import '../../../custom widgets/videoplayer.dart';
 import '../../../utils/app_colors.dart';
 import '../../../utils/app_constants.dart';
+import '../controller/exercises_screens_controller/exercises_screen_two_controller.dart';
 
-class CustomizeProgramFinalScreen
-    extends GetView<CustomizeProgramFinalScreenController> {
-  const CustomizeProgramFinalScreen({super.key});
+class ExcerisesScreenTwo
+    extends GetView<ExercisesScreenTwoController> {
+  const ExcerisesScreenTwo({super.key});
   @override
   Widget build(BuildContext context) {
     final screenWidth = MediaQuery.of(context).size.width;
@@ -35,7 +36,7 @@ class CustomizeProgramFinalScreen
                   ),
                   Padding(
                     padding:
-                        const EdgeInsets.only(top: 10, right: 38, left: 38),
+                    const EdgeInsets.only(top: 10, right: 38, left: 38),
                     child: Center(
                       child: Image(
                         image: const AssetImage(logoIcon),
@@ -45,13 +46,13 @@ class CustomizeProgramFinalScreen
                     ),
                   ),
                   Obx(
-                    () => CircleAvatar(
+                        () => CircleAvatar(
                         radius: 25,
                         backgroundImage: controller.userModel.value.image != ''
                             ? CachedNetworkImageProvider(
-                                controller.userModel.value.image)
+                            controller.userModel.value.image)
                             : const AssetImage('assets/images/person.png')
-                                as ImageProvider),
+                        as ImageProvider),
                   ),
                 ],
               ),
@@ -62,11 +63,11 @@ class CustomizeProgramFinalScreen
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        "Congratulations! Your Personalized\nTraining Plan Has Been Generated\nSuccessfully!",
+                        "Exercises for kids",
                         style:
-                            Theme.of(context).textTheme.displayLarge!.copyWith(
-                                  fontSize: screenWidth * 0.045,
-                                ),
+                        Theme.of(context).textTheme.displayLarge!.copyWith(
+                          fontSize: screenWidth * 0.045,
+                        ),
                       ),
                     ],
                   )),
