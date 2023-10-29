@@ -1,4 +1,6 @@
 
+import 'package:fluency_therapist/exercises/exercises_screen_three.dart';
+import 'package:fluency_therapist/exercises/exercises_screen_two.dart';
 import 'package:fluency_therapist/screens/doctor_module/doctor_edit_profile_screen.dart';
 import 'package:fluency_therapist/screens/doctor_module/doctor_home_screen.dart';
 import 'package:fluency_therapist/screens/doctor_module/doctor_scheduling_screen.dart';
@@ -6,6 +8,7 @@ import 'package:fluency_therapist/screens/doctor_module/doctor_scheduling_screen
 import 'package:get/get.dart';
 
 
+import '../exercises/exercises_screen_one.dart';
 import '../screens/common_screens/auth_screens/create_new_password_screen.dart';
 import '../screens/common_screens/auth_screens/email_verification_screen.dart';
 import '../screens/common_screens/auth_screens/forget_password_screen.dart';
@@ -191,6 +194,19 @@ class RouteGenerator {
       GetPage(
         name: kAppointmentBookingScreen,
         page: () => const AppointmentBookingScreen(),
+        binding: ScreenBindings(),
+      ),
+      GetPage(
+        name: kExercisesScreenOne,
+        page: () =>  ExcerisesScreenOne(),
+        binding: ScreenBindings(),
+      ),GetPage(
+        name: kExercisesScreenTwo,
+        page: () =>  ExcerisesScreenTwo(),
+        binding: ScreenBindings(),
+      ),GetPage(
+        name: kExercisesScreenThree,
+        page: () =>  ExcerisesScreenThree(),
         binding: ScreenBindings(),
       ),
     ];

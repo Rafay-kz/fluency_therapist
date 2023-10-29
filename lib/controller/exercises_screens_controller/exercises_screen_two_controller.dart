@@ -6,7 +6,7 @@ import '../../../custom widgets/progress_indicator.dart';
 import '../../../model/user_model.dart';
 import '../../../utils/user_session.dart';
 
-class CustomizeProgramFinalScreenController extends GetxController {
+class ExercisesScreenTwoController extends GetxController {
   UserSession userSession = UserSession();
   Rx<UserModel> userModel = UserModel.empty().obs;
   ProgressDialog progressDialog = ProgressDialog(); // Add this line
@@ -31,7 +31,7 @@ class CustomizeProgramFinalScreenController extends GetxController {
       final List<String> urls = [];
       final ListResult result = await firebase_storage.FirebaseStorage.instance
           .ref(
-          'videos/exercises/Speech Disorders in Children')
+          'videos/exercises/Exercises for kids')
           .listAll();
 
       for (final Reference ref in result.items) {
@@ -58,6 +58,4 @@ class CustomizeProgramFinalScreenController extends GetxController {
       isPlaying.value = true; // Set playing state to true for next video
     }
   }
-
-
 }

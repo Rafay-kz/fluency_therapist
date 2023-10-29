@@ -1,12 +1,13 @@
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:get/get.dart';
 import 'package:firebase_storage/firebase_storage.dart' as firebase_storage;
+import 'package:video_player/video_player.dart';
 
 import '../../../custom widgets/progress_indicator.dart';
 import '../../../model/user_model.dart';
 import '../../../utils/user_session.dart';
 
-class CustomizeProgramFinalScreenController extends GetxController {
+class ExercisesScreenOneController extends GetxController {
   UserSession userSession = UserSession();
   Rx<UserModel> userModel = UserModel.empty().obs;
   ProgressDialog progressDialog = ProgressDialog(); // Add this line
@@ -44,6 +45,7 @@ class CustomizeProgramFinalScreenController extends GetxController {
       // Handle error
     }
   }
+
 
   // Function to unlock the next video
   void unlockNextVideo() {

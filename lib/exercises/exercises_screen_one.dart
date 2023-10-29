@@ -8,9 +8,9 @@ import '../../../custom widgets/videoplayer.dart';
 import '../../../utils/app_colors.dart';
 import '../../../utils/app_constants.dart';
 
-class CustomizeProgramFinalScreen
+class ExcerisesScreenOne
     extends GetView<CustomizeProgramFinalScreenController> {
-  const CustomizeProgramFinalScreen({super.key});
+  const ExcerisesScreenOne({super.key});
   @override
   Widget build(BuildContext context) {
     final screenWidth = MediaQuery.of(context).size.width;
@@ -35,7 +35,7 @@ class CustomizeProgramFinalScreen
                   ),
                   Padding(
                     padding:
-                        const EdgeInsets.only(top: 10, right: 38, left: 38),
+                    const EdgeInsets.only(top: 10, right: 38, left: 38),
                     child: Center(
                       child: Image(
                         image: const AssetImage(logoIcon),
@@ -45,13 +45,13 @@ class CustomizeProgramFinalScreen
                     ),
                   ),
                   Obx(
-                    () => CircleAvatar(
+                        () => CircleAvatar(
                         radius: 25,
                         backgroundImage: controller.userModel.value.image != ''
                             ? CachedNetworkImageProvider(
-                                controller.userModel.value.image)
+                            controller.userModel.value.image)
                             : const AssetImage('assets/images/person.png')
-                                as ImageProvider),
+                        as ImageProvider),
                   ),
                 ],
               ),
@@ -62,46 +62,44 @@ class CustomizeProgramFinalScreen
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        "Congratulations! Your Personalized\nTraining Plan Has Been Generated\nSuccessfully!",
+                        "Recognition of disease",
                         style:
-                            Theme.of(context).textTheme.displayLarge!.copyWith(
-                                  fontSize: screenWidth * 0.045,
-                                ),
+                        Theme.of(context).textTheme.displayLarge!.copyWith(
+                          fontSize: screenWidth * 0.038,
+                        ),
                       ),
                     ],
                   )),
-              Expanded(
-                child: Obx(() {
-                  if (controller.videoUrls.isEmpty) {
-                    return const CircularProgressIndicator();
-                  }
+              Obx(() {
+                if (controller.videoUrls.isEmpty) {
+                  return const Center(child: CircularProgressIndicator(),);
+                }
 
-                  return ListView.builder(
-                    itemCount: controller.videoUrls.length,
-                    itemBuilder: (BuildContext context, int index) {
-                      return Padding(
-                        padding: EdgeInsets.only(bottom: 20), // Add some space between containers
-                        child: Container(
-                          width: screenWidth * 0.8, // Adjusted width for responsiveness
-                          height: screenHeight * 0.23, // Adjusted height for responsiveness
-                          decoration: BoxDecoration(
-                            color: AppColors.secondaryBlue,
-                            borderRadius: BorderRadius.circular(40),
-                          ),
-                          child: VideoWidget(
-                            videoUrl: controller.videoUrls[index],
-                            unlocked: index <= controller.unlockedVideoIndex.value,
-                            isPlaying: index == controller.unlockedVideoIndex.value,
-                            onVideoComplete: () {
-                              controller.onVideoComplete();
-                            },
-                          ),
+                return Expanded(child: ListView.builder(
+                  itemCount: controller.videoUrls.length,
+                  itemBuilder: (BuildContext context, int index) {
+                    return Padding(
+                      padding: EdgeInsets.only(bottom: 20), // Add some space between containers
+                      child: Container(
+                        width: screenWidth * 0.8, // Adjusted width for responsiveness
+                        height: screenHeight * 0.23, // Adjusted height for responsiveness
+                        decoration: BoxDecoration(
+                          color: AppColors.secondaryBlue,
+                          borderRadius: BorderRadius.circular(40),
                         ),
-                      );
-                    },
-                  );
-                }),
-              ),
+                        child: VideoWidget(
+                          videoUrl: controller.videoUrls[index],
+                          unlocked: index <= controller.unlockedVideoIndex.value,
+                          isPlaying: index == controller.unlockedVideoIndex.value,
+                          onVideoComplete: () {
+                            controller.onVideoComplete();
+                          },
+                        ),
+                      ),
+                    );
+                  },
+                ));
+              }),
             ],
           ),
         ),

@@ -1,5 +1,6 @@
 
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:fluency_therapist/controller/exercises_screens_controller/exercises_screen_three_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -8,9 +9,9 @@ import '../../../custom widgets/videoplayer.dart';
 import '../../../utils/app_colors.dart';
 import '../../../utils/app_constants.dart';
 
-class CustomizeProgramFinalScreen
-    extends GetView<CustomizeProgramFinalScreenController> {
-  const CustomizeProgramFinalScreen({super.key});
+class ExcerisesScreenThree
+    extends GetView<ExercisesScreenThreeController> {
+  const ExcerisesScreenThree({super.key});
   @override
   Widget build(BuildContext context) {
     final screenWidth = MediaQuery.of(context).size.width;
@@ -35,7 +36,7 @@ class CustomizeProgramFinalScreen
                   ),
                   Padding(
                     padding:
-                        const EdgeInsets.only(top: 10, right: 38, left: 38),
+                    const EdgeInsets.only(top: 10, right: 38, left: 38),
                     child: Center(
                       child: Image(
                         image: const AssetImage(logoIcon),
@@ -45,13 +46,13 @@ class CustomizeProgramFinalScreen
                     ),
                   ),
                   Obx(
-                    () => CircleAvatar(
+                        () => CircleAvatar(
                         radius: 25,
                         backgroundImage: controller.userModel.value.image != ''
                             ? CachedNetworkImageProvider(
-                                controller.userModel.value.image)
+                            controller.userModel.value.image)
                             : const AssetImage('assets/images/person.png')
-                                as ImageProvider),
+                        as ImageProvider),
                   ),
                 ],
               ),
@@ -62,11 +63,11 @@ class CustomizeProgramFinalScreen
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        "Congratulations! Your Personalized\nTraining Plan Has Been Generated\nSuccessfully!",
+                        "Fluency exercises for clear speak",
                         style:
-                            Theme.of(context).textTheme.displayLarge!.copyWith(
-                                  fontSize: screenWidth * 0.045,
-                                ),
+                        Theme.of(context).textTheme.displayLarge!.copyWith(
+                          fontSize: screenWidth * 0.045,
+                        ),
                       ),
                     ],
                   )),

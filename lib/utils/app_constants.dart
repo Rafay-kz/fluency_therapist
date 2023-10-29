@@ -34,6 +34,9 @@ const String kDoctorHomeScreen = "/DOCTOR_HOME_SCREEN";
 const String kDoctorEditProfileScreen = "/DOCTOR_EDIT_PROFILE_SCREEN";
 const String kDoctorSchedulingScreen = "/DOCTOR_SCHEDULING_SCREEN";
 const String kAppointmentBookingScreen = "/APPOINTMENT_BOOKING_SCREEN";
+const String kExercisesScreenOne = "/EXERCISES_SCREEN_ONE";
+const String kExercisesScreenTwo = "/EXERCISES_SCREEN_TWO";
+const String kExercisesScreenThree = "/EXERCISES_SCREEN_THREE";
 
 
 
@@ -59,6 +62,7 @@ const String privacyPolicyIcon = 'assets/images/privacyPolicyIcon.png';
 //Controllers
 const String kHomeScreenController = 'kHomeScreenController';
 const String kDoctorHomeScreenController = 'kDoctorHomeScreenController';
+
 
 
 
