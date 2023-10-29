@@ -23,7 +23,7 @@ class VideoCallScreen extends GetView<VideoCallScreenController> {
           config:ZegoUIKitPrebuiltCallConfig.oneOnOneVideoCall()..onOnlySelfInRoom = (context) => Navigator.pop(context),
           callID:'callID' ,
           userName: "taha 2",
-          userID: "1234",
+          userID: "12345",
         ),
       ),
     );
