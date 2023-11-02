@@ -7,9 +7,10 @@ import '../../../controller/user_screens_controller/home_screens_controller/cust
 import '../../../custom widgets/videoplayer.dart';
 import '../../../utils/app_colors.dart';
 import '../../../utils/app_constants.dart';
+import '../controller/exercises_screens_controller/exercises_screen_one_controller.dart';
 
 class ExcerisesScreenOne
-    extends GetView<CustomizeProgramFinalScreenController> {
+    extends GetView<ExercisesScreenOneController> {
   const ExcerisesScreenOne({super.key});
   @override
   Widget build(BuildContext context) {
@@ -46,12 +47,13 @@ class ExcerisesScreenOne
                   ),
                   Obx(
                         () => CircleAvatar(
-                        radius: 25,
-                        backgroundImage: controller.userModel.value.image != ''
-                            ? CachedNetworkImageProvider(
-                            controller.userModel.value.image)
-                            : const AssetImage('assets/images/person.png')
-                        as ImageProvider),
+                      radius: 25,
+                      backgroundImage: controller.doctorModel.value.image != ''
+                          ? CachedNetworkImageProvider(controller.doctorModel.value.image)
+                          : (controller.userModel.value.image != ''
+                          ? CachedNetworkImageProvider(controller.userModel.value.image)
+                          : const AssetImage('assets/images/person.png') as ImageProvider),
+                    ),
                   ),
                 ],
               ),

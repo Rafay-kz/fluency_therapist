@@ -3,12 +3,14 @@ import 'package:get/get.dart';
 import 'package:firebase_storage/firebase_storage.dart' as firebase_storage;
 
 import '../../../custom widgets/progress_indicator.dart';
+import '../../../model/doctor_model.dart';
 import '../../../model/user_model.dart';
 import '../../../utils/user_session.dart';
 
 class CustomizeProgramFinalScreenController extends GetxController {
   UserSession userSession = UserSession();
   Rx<UserModel> userModel = UserModel.empty().obs;
+  Rx<DoctorModel> doctorModel=DoctorModel.empty().obs;
   ProgressDialog progressDialog = ProgressDialog(); // Add this line
   RxInt unlockedVideoIndex = 0.obs;
   RxBool isPlaying = false.obs; // Track the unlocked video index
@@ -16,8 +18,13 @@ class CustomizeProgramFinalScreenController extends GetxController {
   @override
   void onInit() {
     getUserInfo();
+    getDoctorInfo();
     fetchVideoUrls(); // Combine both initialization tasks here
     super.onInit();
+  }
+  Future<void> getDoctorInfo() async{
+    doctorModel.value=await userSession.getDoctorInformation();
+
   }
 
   Future<void> getUserInfo() async {

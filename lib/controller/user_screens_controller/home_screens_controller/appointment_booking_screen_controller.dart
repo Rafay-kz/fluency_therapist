@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
+import 'dart:math';
 
 import '../../../core/database.dart';
 import '../../../model/doctor_model.dart';
@@ -16,6 +17,12 @@ class AppointmentBookingScreenController extends GetxController {
   Rx<UserModel> userModel = UserModel.empty().obs;
   Rx<DoctorModel> doctorModel = DoctorModel.empty().obs;
   RxBool isInitialized = false.obs;
+
+
+
+  // Generates a random integer between 0 and 99
+
+
 
   void getDoctorInfo() {
     doctorModel.value = Get.arguments;
@@ -81,6 +88,11 @@ class AppointmentBookingScreenController extends GetxController {
     }
   }
 
+  int generateRandomCallId() {
+    Random random = Random();
+    return random.nextInt(10000);
+  }
+
   Utils utils = Utils();
 
   void bookAppointment(int tabIndex) {
@@ -99,8 +111,10 @@ class AppointmentBookingScreenController extends GetxController {
 
         // Create a new document to represent the booked appointment
         final newAppointment = bookedAppointmentsCollection.doc();
+        int callId = generateRandomCallId();
 
         final appointmentData = {
+          'callId' : callId,
           'date': selectedSlot?.date,
           'start_time': '${selectedSlot?.startTime.hour}:${selectedSlot?.startTime.minute}',
           'end_time': '${selectedSlot?.endTime.hour}:${selectedSlot?.endTime.minute}',

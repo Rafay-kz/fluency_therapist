@@ -15,11 +15,18 @@ class ProgressTrackingScreenController extends GetxController {
   @override
   void onInit(){
     getUserInfo();
+    getDoctorInfo();
+
     super.onInit();
   }
 
   Future<void> getUserInfo() async{
     userModel.value=await userSession.getUserInformation();
   }
+  Future<void> getDoctorInfo() async{
+    doctorModel.value=await userSession.getDoctorInformation();
+
+  }
+
 
 }// TODO Implement this library.

@@ -122,7 +122,7 @@ class RouteGenerator {
       ),
       GetPage(
         name: kVideoCallScreen,
-        page: () => VideoCallScreen(),
+        page: () => const VideoCallScreen(),
         binding: ScreenBindings(),
       ),
       GetPage(

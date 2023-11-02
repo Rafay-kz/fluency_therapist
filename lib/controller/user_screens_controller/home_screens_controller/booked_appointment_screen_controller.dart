@@ -12,6 +12,7 @@ import '../../../utils/user_session.dart';
 class BookedAppointmentScreenController extends GetxController {
   Database database = Database();
   UserSession userSession = UserSession();
+  Rx<DoctorModel> doctorModel = DoctorModel.empty().obs;
   Rx<UserModel> userModel = UserModel.empty().obs;
   RxList<DoctorModel> doctorUsers = <DoctorModel>[].obs;
   RxList<BookedSlot> bookedSlots = <BookedSlot>[].obs;
@@ -20,10 +21,14 @@ class BookedAppointmentScreenController extends GetxController {
   Future<void> getUserInfo() async {
     userModel.value = await userSession.getUserInformation();
   }
+  Future<void> getDoctorInfo() async {
+    doctorModel.value = await userSession.getDoctorInformation();
+  }
 
   @override
   void onInit() async {
     await getUserInfo();
+    getDoctorInfo();
     fetchDoctorUsers();
     await fetchDay();
     isLoading.value = false;
@@ -93,6 +98,7 @@ class BookedAppointmentScreenController extends GetxController {
         final data = doc.data() as Map<String, dynamic>;
 
         return BookedSlot(
+          callId: data['callId'],
           doctorId: data['doctorId'], // Retrieve doctorId
           date: data['date'].toDate() as DateTime,
           startTime: database.parseTimeOfDay(data['start_time'] as String),

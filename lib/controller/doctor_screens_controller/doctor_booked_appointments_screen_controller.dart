@@ -94,6 +94,7 @@ class DoctorBookedAppointmentsScreenController extends GetxController {
 
         print("Booked Slot User ID: ${data['userId']}");
         return BookedSlot(
+          callId: data['callId'],
           doctorId: data['userId'],
           date: data['date'].toDate() as DateTime,
           startTime: database.parseTimeOfDay(data['start_time'] as String),

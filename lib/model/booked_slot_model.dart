@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'doctor_model.dart';
 
 class BookedSlot {
+  int callId;
   String doctorId;
   String userId;
   final DateTime date;
@@ -20,10 +21,12 @@ class BookedSlot {
     required this.endTime,
      this.doctor,
     this.user,
+    this.callId = 0,
   });
 
   Map<String, dynamic> toJson() {
     return {
+      'callId': callId,
       'doctorId': doctorId,
       'userId': userId,
       'date': date.toIso8601String(), // Store as DateTime
@@ -36,6 +39,7 @@ class BookedSlot {
 
   factory BookedSlot.fromJson(Map<String, dynamic> json) {
     return BookedSlot(
+      callId: json['callId'],
       doctorId: json['doctorId'],
       userId: json['userId'],
       date: DateTime.parse(json['date']),
