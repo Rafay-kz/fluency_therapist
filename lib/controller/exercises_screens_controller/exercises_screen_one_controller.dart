@@ -6,10 +6,12 @@ import 'package:video_player/video_player.dart';
 import '../../../custom widgets/progress_indicator.dart';
 import '../../../model/user_model.dart';
 import '../../../utils/user_session.dart';
+import '../../model/doctor_model.dart';
 
 class ExercisesScreenOneController extends GetxController {
   UserSession userSession = UserSession();
   Rx<UserModel> userModel = UserModel.empty().obs;
+  Rx<DoctorModel> doctorModel = DoctorModel.empty().obs;
   ProgressDialog progressDialog = ProgressDialog(); // Add this line
   RxInt unlockedVideoIndex = 0.obs;
   RxBool isPlaying = false.obs; // Track the unlocked video index
@@ -17,8 +19,12 @@ class ExercisesScreenOneController extends GetxController {
   @override
   void onInit() {
     getUserInfo();
+    getDoctorInfo();
     fetchVideoUrls(); // Combine both initialization tasks here
     super.onInit();
+  }
+  Future<void> getDoctorInfo() async {
+    doctorModel.value = await userSession.getDoctorInformation();
   }
 
   Future<void> getUserInfo() async {

@@ -231,7 +231,10 @@ class AppointmentCard extends StatelessWidget {
                   ),
                 ),
                 TextButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    //bookedSlot.callId
+                    Get.toNamed(kVideoCallScreen,arguments: 1234);
+                  },
                   child: Container(
                     width: screenWidth * 0.27,
                     height: MediaQuery.of(context).size.height * 0.046,

@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:fluency_therapist/controller/user_screens_controller/home_screens_controller/speech_exercises_screen_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -28,7 +29,7 @@ class SearchScreen extends GetView<SearchScreenController> {
                 children: [
                   IconButton(
                     onPressed: () {
-                      Get.to(const HomeScreen());
+                      Get.back();
                     },
                     icon: const Icon(
                       Icons.arrow_back,
@@ -45,15 +46,16 @@ class SearchScreen extends GetView<SearchScreenController> {
                     ),
                   ),
                   Padding(
-                    padding: EdgeInsets.only(left: 80),
-                    child:  Obx(()=>CircleAvatar(
+                    padding: EdgeInsets.only(left: 8),
+                    child:  Obx(
+                          () => CircleAvatar(
                         radius: 25,
-                        backgroundImage: controller.userModel.value.image!=''
-                            ? CachedNetworkImageProvider(
-                            controller.userModel.value.image
-                        )
-                            : const AssetImage('assets/images/person.png') as ImageProvider
-                    ),
+                        backgroundImage: controller.doctorModel.value.image != ''
+                            ? CachedNetworkImageProvider(controller.doctorModel.value.image)
+                            : (controller.userModel.value.image != ''
+                            ? CachedNetworkImageProvider(controller.userModel.value.image)
+                            : const AssetImage('assets/images/person.png') as ImageProvider),
+                      ),
                     ),
                   ),
                 ],

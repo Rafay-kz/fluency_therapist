@@ -47,21 +47,16 @@ class ConsultantProfileScreen extends GetView<ConsultantProfileScreenController>
                       ),
                     ),
                   ),
-                  Obx(() {
-                    final doctorId = controller.currentDoctorModel.value.id;
-                    final isDoctor = doctorId.isNotEmpty;
-                    final image = isDoctor
-                        ? controller.doctorModel.value.image
-                        : controller.userModel.value.image;
-
-                    return CircleAvatar(
+                  Obx(
+                        () => CircleAvatar(
                       radius: 25,
-                      backgroundImage: image.isNotEmpty
-                          ? CachedNetworkImageProvider(image)
-                          : const AssetImage('assets/images/person.png') as ImageProvider,
-                    );
-
-                  }),
+                      backgroundImage: controller.doctorModel.value.image != ''
+                          ? CachedNetworkImageProvider(controller.doctorModel.value.image)
+                          : (controller.userModel.value.image != ''
+                          ? CachedNetworkImageProvider(controller.userModel.value.image)
+                          : const AssetImage('assets/images/person.png') as ImageProvider),
+                    ),
+                  ),
                 ],
               ),
                Padding(

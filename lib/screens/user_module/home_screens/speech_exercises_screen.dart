@@ -37,7 +37,7 @@ class SpeechExercisesScreen extends GetView<SpeechExercisesScreenController> {
                 children: [
                   InkWell(
                     onTap: () {
-                      Get.to(const HomeScreen());
+                      Get.back();
                     },
                     child:  Icon(
                       Icons.arrow_back,
@@ -57,14 +57,15 @@ class SpeechExercisesScreen extends GetView<SpeechExercisesScreenController> {
                      onTap: () {
                        Get.toNamed(kUserProfileScreen);
                      },
-                     child:  Obx(()=>CircleAvatar(
+                     child: Obx(
+                           () => CircleAvatar(
                          radius: 25,
-                         backgroundImage: controller.userModel.value.image!=''
-                             ? CachedNetworkImageProvider(
-                             controller.userModel.value.image
-                         )
-                             : const AssetImage('assets/images/person.png') as ImageProvider
-                     ),
+                         backgroundImage: controller.doctorModel.value.image != ''
+                             ? CachedNetworkImageProvider(controller.doctorModel.value.image)
+                             : (controller.userModel.value.image != ''
+                             ? CachedNetworkImageProvider(controller.userModel.value.image)
+                             : const AssetImage('assets/images/person.png') as ImageProvider),
+                       ),
                      ),
                    ),
 
@@ -97,27 +98,52 @@ class SpeechExercisesScreen extends GetView<SpeechExercisesScreenController> {
                  return Padding(
                    padding: const EdgeInsets.only(top: 32),
                    child: Container(
-                     width: screenWidth * 0.9,
-                     height: screenHeight * 0.23,
+                     padding: const EdgeInsets.symmetric(horizontal: 15,vertical: 8),
                      decoration: BoxDecoration(
                          color: AppColors.secondaryBlue,
                          borderRadius: BorderRadius.circular(35)),
-                     child: Row(
+                     child: Column(
+                       crossAxisAlignment: CrossAxisAlignment.start,
+                       mainAxisAlignment: MainAxisAlignment.start,
                        children: [
-                         Column(
+                         Row(
+                           mainAxisAlignment: MainAxisAlignment.start,
+                           crossAxisAlignment: CrossAxisAlignment.center,
                            children: [
-                             Padding(
-                               padding:
-                               const EdgeInsets.only(left: 15 ),
-                               child: Image(
-                                 image: const AssetImage(parrotImage),
-                                 width: screenWidth * 0.30,
-                                 height: screenHeight * 0.20,
-                               ),
+                             Image(
+                               image: const AssetImage(parrotImage),
+                               width: screenWidth * 0.30,
+                               height: screenHeight * 0.20,
                              ),
-                             Padding(
-                               padding:  const EdgeInsets.only(left: 30),
-                               child: SizedBox(
+                             const SizedBox(width: 10,),
+                             Expanded(
+                               child: Column(
+                                 crossAxisAlignment: CrossAxisAlignment.start,
+                                 children: [
+                                   Text(
+                                     data.title,
+                                     // Use the title from ExerciseData
+                                     style: Theme.of(context).textTheme.displayLarge!.copyWith(fontSize: screenWidth * 0.055,),
+
+                                   ),
+                                   const SizedBox(height: 5,),
+                                   Text(
+                                     data.description, // Use the description from ExerciseData
+                                     style: Theme.of(context).textTheme.headlineSmall!.copyWith(
+                                       fontSize: screenWidth * 0.030,
+                                       color: AppColors.textColor,
+                                     ),
+                                   ),
+                                 ],
+                               ),
+                             )
+                           ],
+                         ),
+                         Row(
+                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                             crossAxisAlignment: CrossAxisAlignment.center,
+                             children: [
+                               SizedBox(
                                  width: screenWidth*0.29,
                                  height: screenHeight*0.011,
                                  child: ClipRRect(
@@ -131,58 +157,28 @@ class SpeechExercisesScreen extends GetView<SpeechExercisesScreenController> {
                                    ),
                                  ),
                                ),
-                             ),
-                           ],
-                         ),
-                         Column(
-                             crossAxisAlignment: CrossAxisAlignment.start,
-                             children: [
-                               Padding(
-                                 padding: const EdgeInsets.only(top: 25, left: 5),
-                                 child: Text(
-                                   data.title,
-                                   // Use the title from ExerciseData
-                                   style: Theme.of(context).textTheme.displayLarge!.copyWith(fontSize: screenWidth * 0.055,),
-
-                                 ),
-                               ),
-                               Padding(
-                                 padding: const EdgeInsets.only(top: 6, left: 5),
-                                 child: Text(
-                                   data.description, // Use the description from ExerciseData
-                                   style: Theme.of(context).textTheme.headlineSmall!.copyWith(
-                                     fontSize: screenWidth * 0.030,
-                                     color: AppColors.textColor,
+                               TextButton(
+                                 onPressed: () {
+                                   if (index < screenNames.length) {
+                                     String screenName = screenNames[index];
+                                     Get.toNamed(screenName);
+                                   } else {
+                                     // Handle index out of bounds error
+                                   }
+                                 },
+                                 child: Container(
+                                   width: screenWidth * 0.19,
+                                   height: screenHeight * 0.044,
+                                   decoration: BoxDecoration(
+                                     color: AppColors.primaryBlue,
+                                     borderRadius: BorderRadius.circular(30),
                                    ),
-                                 ),
-                               ),
-
-
-                               Padding(
-                                 padding: const EdgeInsets.only(left: 45, top: 25),
-                                 child: TextButton(
-                                   onPressed: () {
-                                     if (index < screenNames.length) {
-                                       String screenName = screenNames[index];
-                                       Get.toNamed(screenName);
-                                     } else {
-                                       // Handle index out of bounds error
-                                     }
-                                   },
-                                   child: Container(
-                                     width: screenWidth * 0.19,
-                                     height: screenHeight * 0.044,
-                                     decoration: BoxDecoration(
-                                       color: AppColors.primaryBlue,
-                                       borderRadius: BorderRadius.circular(30),
-                                     ),
-                                     child: Center(
-                                       child: Text(
-                                         "Start",
-                                         style: Theme.of(context).textTheme.headlineSmall!.copyWith(
-                                           fontSize: screenWidth * 0.035,
-                                           color: AppColors.whiteColor,
-                                         ),
+                                   child: Center(
+                                     child: Text(
+                                       "Start",
+                                       style: Theme.of(context).textTheme.headlineSmall!.copyWith(
+                                         fontSize: screenWidth * 0.035,
+                                         color: AppColors.whiteColor,
                                        ),
                                      ),
                                    ),

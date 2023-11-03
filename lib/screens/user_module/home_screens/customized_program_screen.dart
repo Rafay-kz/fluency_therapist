@@ -48,14 +48,15 @@ class CustomizedProgramScreen extends GetView<CustomizedProgramScreenController>
                       ),
                     ),
                   ),
-                  Obx(()=> CircleAvatar(
+                  Obx(
+                        () => CircleAvatar(
                       radius: 25,
-                      backgroundImage: controller.userModel.value.image!=''
-                          ? CachedNetworkImageProvider(
-                          controller.userModel.value.image
-                      )
-                          : const AssetImage('assets/images/person.png') as ImageProvider
-                  ),
+                      backgroundImage: controller.doctorModel.value.image != ''
+                          ? CachedNetworkImageProvider(controller.doctorModel.value.image)
+                          : (controller.userModel.value.image != ''
+                          ? CachedNetworkImageProvider(controller.userModel.value.image)
+                          : const AssetImage('assets/images/person.png') as ImageProvider),
+                    ),
                   ),
                 ],
               ),

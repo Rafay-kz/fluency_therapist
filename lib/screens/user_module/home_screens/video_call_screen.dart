@@ -12,18 +12,32 @@ class VideoCallScreen extends GetView<VideoCallScreenController> {
 
   @override
   Widget build(BuildContext context) {
-    final screenWidth = MediaQuery.of(context).size.width;
-    final screenHeight = MediaQuery.of(context).size.height;
-    return  Scaffold(
+    return Scaffold(
       backgroundColor: AppColors.backgroundColor,
       body: SafeArea(
-        child: ZegoUIKitPrebuiltCall(
-          appSign:"54af721df83d1ec78fe57c966043a8ecf4433e79836acc70b7b858c54902b81a" ,
-          appID:281108079,
-          config:ZegoUIKitPrebuiltCallConfig.oneOnOneVideoCall()..onOnlySelfInRoom = (context) => Navigator.pop(context),
-          callID:'callID' ,
-          userName: "taha 2",
-          userID: "12345",
+        child: FutureBuilder<void>(
+          future: controller.initializeData(),
+          builder: (context, snapshot) {
+            if (snapshot.connectionState == ConnectionState.waiting) {
+              return Center(
+                child: CircularProgressIndicator(),
+              );
+            } else if (snapshot.hasError) {
+              return Center(
+                child: Text('Error: ${snapshot.error}'),
+              );
+            } else {
+              return ZegoUIKitPrebuiltCall(
+                appSign: "02c7e54412ee3fa49fe967537819ec3afe59d4a76ba99834dec88f87ddc36e67",
+                appID: 718328905,
+                config: ZegoUIKitPrebuiltCallConfig.oneOnOneVideoCall()
+                  ..onOnlySelfInRoom = (context) => Navigator.pop(context),
+                callID: '${controller.callId}',
+                userName: controller.userName,
+                userID: controller.userId,
+              );
+            }
+          },
         ),
       ),
     );

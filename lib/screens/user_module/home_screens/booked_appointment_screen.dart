@@ -49,13 +49,14 @@ class BookedAppointmentScreen
                     ),
                   ),
                   Obx(
-                    () => CircleAvatar(
-                        radius: 25,
-                        backgroundImage: controller.userModel.value.image != ''
-                            ? CachedNetworkImageProvider(
-                                controller.userModel.value.image)
-                            : const AssetImage('assets/images/person.png')
-                                as ImageProvider),
+                        () => CircleAvatar(
+                      radius: 25,
+                      backgroundImage: controller.doctorModel.value.image != ''
+                          ? CachedNetworkImageProvider(controller.doctorModel.value.image)
+                          : (controller.userModel.value.image != ''
+                          ? CachedNetworkImageProvider(controller.userModel.value.image)
+                          : const AssetImage('assets/images/person.png') as ImageProvider),
+                    ),
                   ),
                 ],
               ),
@@ -133,7 +134,7 @@ class AppointmentCard extends StatelessWidget {
           children: [
             Padding(
               padding: const EdgeInsets.only(
-                  top: 30, bottom: 20, left: 20, right: 10),
+                  top: 30, bottom: 20, left: 5, right: 0),
               child: Column(
                 children: [
                   CircleAvatar(
@@ -228,7 +229,8 @@ class AppointmentCard extends StatelessWidget {
                 ),
                 TextButton(
                   onPressed: () {
-                    Get.toNamed(kVideoCallScreen);
+                    //bookedSlot.callId
+                    Get.toNamed(kVideoCallScreen,arguments: 1234);
                   },
                   child: Container(
                     width: screenWidth * 0.27,

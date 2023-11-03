@@ -4,6 +4,7 @@
 
 import 'package:fluency_therapist/controller/doctor_screens_controller/doctor_booked_appointments_screen_controller.dart';
 import 'package:fluency_therapist/controller/doctor_screens_controller/doctor_scheduling_screen_controller.dart';
+import 'package:fluency_therapist/controller/exercises_screens_controller/exercises_screen_one_controller.dart';
 import 'package:fluency_therapist/controller/user_screens_controller/home_screens_controller/appointment_booking_screen_controller.dart';
 import 'package:fluency_therapist/utils/app_constants.dart';
 import 'package:get/get.dart';
@@ -75,7 +76,7 @@ class ScreenBindings extends Bindings {
     Get.lazyPut(() => DoctorEditProfileScreenController());
     Get.lazyPut(() => DoctorSchedulingScreenController());
     Get.lazyPut(() => AppointmentBookingScreenController());
-    Get.lazyPut(() => CustomizeProgramFinalScreenController());
+    Get.lazyPut(() => ExercisesScreenOneController());
     Get.lazyPut(() => ExercisesScreenTwoController());
     Get.lazyPut(() => ExercisesScreenThreeController());
     Get.lazyPut(() => BookedAppointmentScreenController());
