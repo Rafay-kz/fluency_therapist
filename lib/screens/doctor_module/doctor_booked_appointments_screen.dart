@@ -227,33 +227,49 @@ class AppointmentCard extends StatelessWidget {
                                   color: AppColors.descriptionColor,
                                 ),
                       ),
+                      if (bookedSlot.date.isAfter(controller.now))
+                        GestureDetector(
+                          onTap: () {
+                            controller.deleteAppointmentsForUser(controller.doctorModel.value.id);
+                          },
+                          child: Icon(
+                            Icons.delete,
+                            color: AppColors.descriptionColor,
+                            size: screenWidth * 0.05,
+                          ),
+                        )
                     ],
                   ),
                 ),
                 TextButton(
-                  onPressed: () {
-                    //bookedSlot.callId
-                    Get.toNamed(kVideoCallScreen,arguments: 1234);
-                  },
+                  onPressed: controller.isButtonEnabled(bookedSlot)
+                      ? () {
+                    Get.toNamed(kVideoCallScreen,
+                        arguments: bookedSlot.callId);
+                  }
+                      : null,
                   child: Container(
                     width: screenWidth * 0.27,
                     height: MediaQuery.of(context).size.height * 0.046,
                     decoration: BoxDecoration(
-                      color: AppColors.primaryBlue,
+                      color: controller.isButtonEnabled(bookedSlot)
+                          ? AppColors.primaryBlue
+                          : AppColors.descriptionColor,
                       borderRadius: BorderRadius.circular(30),
                     ),
                     child: Center(
                       child: Text(
                         "Start",
                         style:
-                            Theme.of(context).textTheme.headlineSmall!.copyWith(
-                                  fontSize: screenWidth * 0.035,
-                                  color: AppColors.whiteColor,
-                                ),
+                        Theme.of(context).textTheme.headlineSmall!.copyWith(
+                          fontSize: screenWidth * 0.035,
+                          color: AppColors.whiteColor,
+                        ),
                       ),
                     ),
                   ),
                 ),
+
               ],
             )
           ],

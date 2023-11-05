@@ -1,4 +1,3 @@
-
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:fluency_therapist/model/booked_slot_model.dart';
 import 'package:flutter/material.dart';
@@ -49,13 +48,16 @@ class BookedAppointmentScreen
                     ),
                   ),
                   Obx(
-                        () => CircleAvatar(
+                    () => CircleAvatar(
                       radius: 25,
                       backgroundImage: controller.doctorModel.value.image != ''
-                          ? CachedNetworkImageProvider(controller.doctorModel.value.image)
+                          ? CachedNetworkImageProvider(
+                              controller.doctorModel.value.image)
                           : (controller.userModel.value.image != ''
-                          ? CachedNetworkImageProvider(controller.userModel.value.image)
-                          : const AssetImage('assets/images/person.png') as ImageProvider),
+                              ? CachedNetworkImageProvider(
+                                  controller.userModel.value.image)
+                              : const AssetImage('assets/images/person.png')
+                                  as ImageProvider),
                     ),
                   ),
                 ],
@@ -133,8 +135,8 @@ class AppointmentCard extends StatelessWidget {
         child: Row(
           children: [
             Padding(
-              padding: const EdgeInsets.only(
-                  top: 30, bottom: 20, left: 5, right: 0),
+              padding:
+                  const EdgeInsets.only(top: 30, bottom: 10, left: 10, right: 0),
               child: Column(
                 children: [
                   CircleAvatar(
@@ -162,6 +164,17 @@ class AppointmentCard extends StatelessWidget {
                                   color: AppColors.textColor,
                                 ),
                       ),
+                      if (bookedSlot.date.isBefore(controller.now))
+                        GestureDetector(
+                          onTap: () {
+                                controller.deleteAppointmentsForUser(controller.userModel.value.id);
+                          },
+                          child: Icon(
+                            Icons.delete,
+                            color: AppColors.descriptionColor,
+                            size: screenWidth * 0.05,
+                          ),
+                        )
                     ],
                   ),
                 ),
@@ -228,15 +241,19 @@ class AppointmentCard extends StatelessWidget {
                   ),
                 ),
                 TextButton(
-                  onPressed: () {
-                    //bookedSlot.callId
-                    Get.toNamed(kVideoCallScreen,arguments: 1234);
-                  },
+                  onPressed: controller.isButtonEnabled(bookedSlot)
+                      ? () {
+                          Get.toNamed(kVideoCallScreen,
+                              arguments: bookedSlot.callId);
+                        }
+                      : null,
                   child: Container(
                     width: screenWidth * 0.27,
                     height: MediaQuery.of(context).size.height * 0.046,
                     decoration: BoxDecoration(
-                      color: AppColors.primaryBlue,
+                      color: controller.isButtonEnabled(bookedSlot)
+                          ? AppColors.primaryBlue
+                          : AppColors.descriptionColor,
                       borderRadius: BorderRadius.circular(30),
                     ),
                     child: Center(
@@ -251,6 +268,7 @@ class AppointmentCard extends StatelessWidget {
                     ),
                   ),
                 ),
+
               ],
             )
           ],

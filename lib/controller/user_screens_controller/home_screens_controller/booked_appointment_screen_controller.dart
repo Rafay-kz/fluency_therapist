@@ -70,7 +70,7 @@ class BookedAppointmentScreenController extends GetxController {
   }
 
   Future<void> fetchDay() async {
-    final daysOfWeek = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday'];
+    final daysOfWeek = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
     for (final dayName in daysOfWeek) {
       List<BookedSlot> slots =
           await fetchBookedSlots(userModel.value.id, dayName);
@@ -121,4 +121,38 @@ class BookedAppointmentScreenController extends GetxController {
       return [];
     }
   }
+  final now = DateTime.now();
+
+  bool isButtonEnabled(BookedSlot bookedSlot) {
+    final startTime = DateTime(
+        bookedSlot.date.year, bookedSlot.date.month, bookedSlot.date.day,
+        bookedSlot.startTime.hour, bookedSlot.startTime.minute);
+    final endTime = DateTime(
+        bookedSlot.date.year, bookedSlot.date.month, bookedSlot.date.day,
+        bookedSlot.endTime.hour, bookedSlot.endTime.minute);
+
+    // Enable the button if the current time is between the start and end times
+    return now.isAfter(startTime) && now.isBefore(endTime);
+  }
+
+  Future<void> deleteAppointmentsForUser(String userId) async {
+    final QuerySnapshot querySnapshot = await FirebaseFirestore.instance
+        .collection('booked_appointments')
+        .where('userId', isEqualTo: userId)
+        .get();
+
+    if (querySnapshot.docs.isNotEmpty) {
+      for (QueryDocumentSnapshot document in querySnapshot.docs) {
+        final appointmentId = document.id;
+        await FirebaseFirestore.instance
+            .collection('booked_appointments')
+            .doc(appointmentId)
+            .delete();
+      }
+
+    }
+  }
+
+
+
 }
