@@ -36,7 +36,7 @@ class AppointmentBookingScreenController extends GetxController {
   void onInit() async {
     getUserInfo();
     getDoctorInfo();
-    for (int i = 0; i < 5; i++) {
+    for (int i = 0; i < 7; i++) {
       timeSlotsMap[i] = <TimeSlot>[].obs;
       loadTimeSlotsFromFirestore(i);
     }
@@ -60,7 +60,7 @@ class AppointmentBookingScreenController extends GetxController {
     }
   }
 
-  List<RxInt> selectedSlotIndices = List.generate(5, (index) => RxInt(-1));
+  List<RxInt> selectedSlotIndices = List.generate(7, (index) => RxInt(-1));
 
   void setSelectedSlotIndex(int tabIndex, int index) {
     selectedSlotIndices[tabIndex].value = index;
@@ -83,6 +83,10 @@ class AppointmentBookingScreenController extends GetxController {
         return 'Thursday';
       case 4:
         return 'Friday';
+      case 5:
+        return 'Saturday';
+      case 6:
+        return 'Sunday';
       default:
         return '';
     }

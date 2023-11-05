@@ -18,7 +18,7 @@ class DoctorSchedulingScreen extends GetView<DoctorSchedulingScreenController> {
     final screenHeight = MediaQuery.of(context).size.height;
 
     return DefaultTabController(
-      length: 5,
+      length: 7,
       child: Scaffold(
         backgroundColor: AppColors.backgroundColor,
         body: SafeArea(
@@ -81,6 +81,12 @@ class DoctorSchedulingScreen extends GetView<DoctorSchedulingScreenController> {
                       Tab(
                         text: "Friday",
                       ),
+                      Tab(
+                        text: "Saturday",
+                      ),
+                      Tab(
+                        text: "Sunday",
+                      ),
                     ],
                     indicatorColor: AppColors.primaryBlue,
                     // Color of the indicator line
@@ -101,6 +107,9 @@ class DoctorSchedulingScreen extends GetView<DoctorSchedulingScreenController> {
                       _doctorScheduler(2 , context, controller),
                       _doctorScheduler(3, context, controller),
                       _doctorScheduler(4, context, controller),
+                      _doctorScheduler(5, context, controller),
+                      _doctorScheduler(6, context, controller),
+
                     ],
                   ),
                 ),
@@ -231,9 +240,9 @@ Widget _doctorScheduler(int tabIndex, BuildContext context, DoctorSchedulingScre
                               subtitle: Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
-                                  Text('Date: ${controller.formatDate(slot!.date)}'),
-                                  Text('Start Time: ${slot.startTime.format(context)}'),
-                                  Text('End Time: ${slot.endTime.format(context)}'),
+                                  Text('Date: ${slot?.date != null ? controller.formatDate(slot!.date) : ''}'),
+                                  Text('Start Time: ${slot?.startTime != null ? slot?.startTime.format(context) : ''}'),
+                                  Text('End Time: ${slot?.endTime != null ? slot?.endTime.format(context) : ''}'),
                                 ],
                               ),
                               trailing: controller.selectedSlotIndex.value == index // Check if radio button is selected
