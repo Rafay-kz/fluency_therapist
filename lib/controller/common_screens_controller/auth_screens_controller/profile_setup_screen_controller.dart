@@ -1,20 +1,23 @@
 import 'dart:io';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:fluency_therapist/controller/doctor_screens_controller/doctor_home_screen_controller.dart';
+import 'package:fluency_therapist/utils/app_constants.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 
-import '../../custom widgets/progress_indicator.dart';
-import '../../model/doctor_model.dart';
-import '../../utils/app_constants.dart';
-import '../../utils/user_session.dart';
+
+
 import 'package:firebase_storage/firebase_storage.dart';
 
-import 'doctor_home_screen_controller.dart';
+import '../../../custom widgets/progress_indicator.dart';
+import '../../../model/doctor_model.dart';
+import '../../../utils/user_session.dart';
 
-class DoctorEditProfileScreenController extends GetxController {
+
+class ProfileSetUpScreenController extends GetxController {
   Rx<TextEditingController> nameTEController = TextEditingController().obs;
   Rx< TextEditingController> emailTEController = TextEditingController().obs;
   Rx<TextEditingController >specialityTEController = TextEditingController().obs;
@@ -196,37 +199,40 @@ class DoctorEditProfileScreenController extends GetxController {
   }
   Future<void> editProfile() async {
     pd.showDialog();
-    String uniqueFileName = DateTime.now().millisecondsSinceEpoch.toString();
-    Reference referenceRoot = FirebaseStorage.instance.ref();
-    Reference referenceDirImages = referenceRoot.child('images');
-    Reference referenceImageToUpload = referenceDirImages.child(uniqueFileName);
-
-    try {
+    String uniqueFileName=DateTime.now().millisecondsSinceEpoch.toString();
+    Reference referenceRoot=FirebaseStorage.instance.ref();
+    Reference referenceDirImages=referenceRoot.child('images');
+    Reference referenceImageToUpload=referenceDirImages.child(uniqueFileName);
+    try{
       await referenceImageToUpload.putFile(File(imagePath.value));
-      imageUrl.value = await referenceImageToUpload.getDownloadURL();
-    } catch (error) {}
-
+      imageUrl.value= await referenceImageToUpload.getDownloadURL();
+    }catch(error){}
     FirebaseFirestore firebaseFireStore = FirebaseFirestore.instance;
     await firebaseFireStore.collection('doctor_users').doc(doctorModel.value.id).update({
       'image': imageUrl.value,
-      'firstName': nameTEController.value.text,
-      'location': locationTEController.value.text,
-      'speciality': specialityTEController.value.text,
-      'bio': bioTEController.value.text,
-    }).then((value) async {
+      'username': nameTEController.value.text,
+      'location':locationTEController.value.text,
+      'speciality' :specialityTEController.value.text,
+      'bio ':bioTEController.value.text,
+    }).then((value) async{
       DocumentSnapshot userSnapshot = await FirebaseFirestore.instance
           .collection('doctor_users')
           .doc(doctorModel.value.id)
           .get();
       Map<String, dynamic> map = userSnapshot.data() as Map<String, dynamic>;
       if (userSnapshot.data() is Map) {
-        DoctorModel doctorModelX = DoctorModel.fromJson(map, '', doctorModel.value.id);
-        userSession.doctorInformation(doctorModel: doctorModelX);
-        doctorhomeScreenController.doctorModel.value = doctorModelX;
+        DoctorModel doctorModelX = DoctorModel.fromJson(map,'',doctorModel.value.id);
+        userSession.doctorInformation(doctorModel: doctorModelX );
+        doctorhomeScreenController.doctorModel.value=doctorModelX;
       }
       pd.dismissDialog();
       Get.offAllNamed(kDoctorHomeScreen);
-    });
+    }
+
+
+    );
+
   }
+
 
 }

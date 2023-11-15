@@ -137,12 +137,15 @@ class AppointmentCard extends StatelessWidget {
                   top: 30, bottom: 20, left: 5, right: 0),
               child: Column(
                 children: [
-                  CircleAvatar(
-                    radius: screenWidth * 0.13,
-                    backgroundImage: doctor.image.isNotEmpty
-                        ? CachedNetworkImageProvider(doctor.image)
-                        : const AssetImage('assets/images/person.png')
-                            as ImageProvider,
+                  Obx(
+                        () => CircleAvatar(
+                      radius: 25,
+                      backgroundImage: controller.doctorModel.value.image != ''
+                          ? CachedNetworkImageProvider(controller.doctorModel.value.image)
+                          : (controller.userModel.value.image != ''
+                          ? CachedNetworkImageProvider(controller.userModel.value.image)
+                          : const AssetImage('assets/images/person.png') as ImageProvider),
+                    ),
                   ),
                 ],
               ),
@@ -155,7 +158,7 @@ class AppointmentCard extends StatelessWidget {
                   child: Row(
                     children: [
                       Text(
-                        'Dr. ${doctor.fullName}',
+                        'Dr. ${doctor.firstName}',
                         style:
                             Theme.of(context).textTheme.displayLarge!.copyWith(
                                   fontSize: screenWidth * 0.035,
@@ -170,7 +173,7 @@ class AppointmentCard extends StatelessWidget {
                   child: Row(
                     children: [
                       Text(
-                        doctor.speciality,
+                        doctor.specialization,
                         style:
                             Theme.of(context).textTheme.headlineSmall!.copyWith(
                                   fontSize: screenWidth * 0.032,
@@ -230,7 +233,7 @@ class AppointmentCard extends StatelessWidget {
                 TextButton(
                   onPressed: () {
                     //bookedSlot.callId
-                    Get.toNamed(kVideoCallScreen,arguments: 1234);
+                    controller.CallOptions();
                   },
                   child: Container(
                     width: screenWidth * 0.27,

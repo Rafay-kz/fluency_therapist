@@ -1,12 +1,13 @@
 class DoctorModel {
   String id = '';
+  bool isProfileSetUp=false;
   String image = '';
   String age = '';
   String email = '';
-  String userName = '';
+  String firstName = '';
+  String lastName = '';
   String errorMsg = '';
-  String fullName = '';
-  String speciality = '';
+  String specialization = '';
   String bio = '';
   String location = '';
 
@@ -18,25 +19,27 @@ class DoctorModel {
     required this.image,
     required this.age,
     required this.email,
-    required this.userName,
+    required this.firstName,
+    required this.lastName,
     required this.errorMsg,
-    required this.fullName,
-    required this.speciality,
+    required this.specialization,
     required this.bio,
     required this.location,
+    this.isProfileSetUp= false,
 
   });
 
   factory DoctorModel.fromJsonForSession(Map<String, dynamic> json, String errorMessage) {
     return DoctorModel(
       id: json["id"] ?? "",
+      isProfileSetUp: json['isProfileSetUp'] ?? false,
       errorMsg: errorMessage,
       age: json["age"].toString() ?? '',
       email: json['email'] ?? '',
-      userName: json['username'] ?? '',
+      firstName: json['firstName'] ?? '',
+      lastName: json['lastName'] ?? '',
       image: json['image'] ?? '',
-      fullName: json["fullName"].toString() ?? '',
-      speciality: json["speciality"].toString() ?? '',
+      specialization: json["specialization"].toString() ?? '',
       bio: json["bio"].toString() ?? '',
       location: json["location"].toString() ?? '',
 
@@ -47,11 +50,12 @@ class DoctorModel {
     return DoctorModel(
       id: id,
       errorMsg: errorMessage,
+      isProfileSetUp: json['isProfileSetUp'] ?? false,
       age: json["age"].toString() ?? '',
       email: json['email'] ?? '',
-      userName: json['username'] ?? '',
-      fullName: json['fullName'] ?? '',
-      speciality: json['speciality'] ?? '',
+      firstName: json['firstName'] ?? '',
+      lastName: json['lastName'] ?? '',
+      specialization: json['specialization'] ?? '',
       bio: json['bio'] ?? '',
       location: json['location'] ?? '',
       image: json['image'] ?? '',
@@ -61,12 +65,13 @@ class DoctorModel {
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = <String, dynamic>{};
     data['id'] = id;
+    data['isProfileSetUp'] = isProfileSetUp;
     data['image'] = image;
     data['age'] = age;
     data['email'] = email;
-    data['username'] = userName;
-    data['fullName'] = fullName;
-    data['speciality'] = speciality;
+    data['firstName'] = firstName;
+    data['lastName'] = lastName;
+    data['specialization'] = specialization;
     data['bio'] = bio;
     data['location'] = location;
     return data;
@@ -74,6 +79,6 @@ class DoctorModel {
 
   @override
   String toString() {
-    return 'DoctorModel{age: $age, email: $email, userName: $userName, fullName: $fullName, speciality: $speciality, bio: $bio, location: $location,  id: $id, image: $image}';
+    return 'DoctorModel{age: $age, email: $email, firstName: $firstName,lastName: $lastName,specialization: $specialization, bio: $bio, location: $location,  id: $id, image: $image,isProfileSetUp:$isProfileSetUp}';
   }
 }

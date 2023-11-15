@@ -49,10 +49,10 @@ class VideoCallScreenController extends GetxController {
   Future<void> setUserIdAndUserName() async {
     if (userModel.value != null && userModel.value.id.isNotEmpty) {
       userId = userModel.value.id;
-      userName = userModel.value.userName;
+      userName = userModel.value.firstName;
     } else if (doctorModel.value != null && doctorModel.value.id.isNotEmpty) {
       userId = doctorModel.value.id;
-      userName = doctorModel.value.userName;
+      userName = doctorModel.value.firstName;
     }
   }
 

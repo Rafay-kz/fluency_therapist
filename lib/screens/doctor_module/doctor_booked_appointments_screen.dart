@@ -158,7 +158,7 @@ class AppointmentCard extends StatelessWidget {
                   child: Row(
                     children: [
                       Text(
-                        user.userName,
+                        user.firstName,
                         style:
                             Theme.of(context).textTheme.displayLarge!.copyWith(
                                   fontSize: screenWidth * 0.035,
@@ -168,21 +168,7 @@ class AppointmentCard extends StatelessWidget {
                     ],
                   ),
                 ),
-                Padding(
-                  padding: const EdgeInsets.only(top: 2, left: 8),
-                  child: Row(
-                    children: [
-                      Text(
-                       'Age: ${user.age}',
-                        style:
-                            Theme.of(context).textTheme.headlineSmall!.copyWith(
-                                  fontSize: screenWidth * 0.032,
-                                  color: AppColors.descriptionColor,
-                                ),
-                      ),
-                    ],
-                  ),
-                ),
+
                 Padding(
                   padding: const EdgeInsets.only(top: 2, left: 8),
                   child: Row(
@@ -232,8 +218,7 @@ class AppointmentCard extends StatelessWidget {
                 ),
                 TextButton(
                   onPressed: () {
-                    //bookedSlot.callId
-                    Get.toNamed(kVideoCallScreen,arguments: 1234);
+                    controller.CallOptions();
                   },
                   child: Container(
                     width: screenWidth * 0.27,

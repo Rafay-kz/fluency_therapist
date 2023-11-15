@@ -75,7 +75,7 @@ class ConsultantProfileScreen extends GetView<ConsultantProfileScreenController>
               Padding(
                 padding: const EdgeInsets.only(top: 20),
                 child: Text(
-                  "\n Dr.${controller.doctorModel.value.fullName}",
+                  "\n Dr.${controller.doctorModel.value.firstName} ${controller.doctorModel.value.lastName}",
                   style: Theme.of(context).textTheme.displayLarge!.copyWith(
                         fontSize: screenWidth*0.050,
                         color: AppColors.textColor,
@@ -83,7 +83,7 @@ class ConsultantProfileScreen extends GetView<ConsultantProfileScreenController>
                 ),
               ),
               Text(
-                controller.doctorModel.value.speciality,
+                controller.doctorModel.value.specialization,
                 style: Theme.of(context).textTheme.headlineSmall!.copyWith(
                       fontSize: screenWidth*0.035,
                       color: AppColors.descriptionColor,

@@ -19,6 +19,7 @@ class DoctorEditProfileScreen extends GetView<DoctorEditProfileScreenController>
 
   @override
   Widget build(BuildContext context) {
+    print(   "\n Dr.${controller.doctorModel.value.firstName}");
     final screenWidth = MediaQuery.of(context).size.width;
     TimeOfDay? startTime;
     TimeOfDay? endTime;
@@ -74,7 +75,7 @@ class DoctorEditProfileScreen extends GetView<DoctorEditProfileScreenController>
                       Padding(
                         padding: const EdgeInsets.only(top: 20, bottom: 15),
                         child: Text(
-                          "\n Dr.${controller.doctorModel.value.userName}",
+                          "\n Dr.${controller.doctorModel.value.firstName}",
                           style: Theme.of(context)
                               .textTheme
                               .displayLarge!

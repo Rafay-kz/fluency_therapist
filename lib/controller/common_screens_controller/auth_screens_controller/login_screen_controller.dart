@@ -19,6 +19,7 @@ import '../../../utils/utills.dart';
 
 class LoginScreenController extends GetxController {
   final GoogleSignIn _googleSignIn = GoogleSignIn();
+  Rx<DoctorModel> doctorModel = DoctorModel.empty().obs;
 
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
   final formKey = GlobalKey<FormState>();
@@ -57,40 +58,44 @@ class LoginScreenController extends GetxController {
           emailTEController.text.toString(),
           passwordTEController.text.toString());
       pd.dismissDialog();
+
+      print('Login Response: $response'); // Add this line
+
       if (response is UserModel) {
-        // User is a normal user
-        if (response.errorMsg == '') {
+        print('User Login');
+        if (response.errorMsg == 'Email is Not Verified') {
+          print('Email is Not Verified');
+          Get.toNamed(kEmailVerificationScreen);
+        } else if (response.errorMsg == '') {
+          print('Login successful');
           await userSession.setLogin();
           userSession.userInformation(userModel: response);
           Get.offAllNamed(kHomeScreen);
-        } else if (response.errorMsg == 'Email is Not Verified') {
-          Utils().toastMessage(response.errorMsg);
-          Get.toNamed(kEmailVerificationScreen);
         } else {
-          Utils().toastMessage(response.errorMsg);
+          print('Login failed: ${response.errorMsg}');
+          Utils().toastMessage('Login failed. Please try again later.');
         }
       } else if (response is DoctorModel) {
-        // User is a doctor
-        if (response.errorMsg == '') {
-          await userSession.setLogin();
-          userSession.setIsDoctor();
-          userSession.doctorInformation(doctorModel: response);
+        print('Doctor Login');
+        // Note: No need to check for 'Profile not set up' or 'Email is Not Verified'
+        // as the modified loginUser method always returns DoctorModel
+        print('Login successful');
+        await userSession.setLogin();
+        userSession.setIsDoctor();
+        userSession.doctorInformation(doctorModel: response);
+        if (response.isProfileSetUp == true) {
+          print('Doctor Profile is set up');
           Get.offAllNamed(kDoctorHomeScreen);
-        } else if (response.errorMsg == 'Email is Not Verified') {
-          // Email not verified, navigate to verification screen
-          Utils().toastMessage(response.errorMsg);
-          Get.toNamed(kEmailVerificationScreen);
         } else {
-          Utils().toastMessage(response.errorMsg);
+          print('Doctor Profile is not set up');
+          Get.toNamed(kDoctorProfileSetUpScreen);
         }
       } else {
-        // This means neither UserModel nor DoctorModel was returned, handle the case accordingly
+        print('Login failed. Unexpected response: $response');
         Utils().toastMessage('Login failed. Please try again later.');
       }
-
     }
   }
-
 
   Future<void> signInWithGoogle(BuildContext context) async {
     try {
@@ -121,7 +126,8 @@ class LoginScreenController extends GetxController {
           userModel.email=user.email??'';
           userModel.id=user.uid??'';
           userModel.image=user.photoURL??'';
-          userModel.userName=user.displayName??'';
+          userModel.firstName=user.displayName??'';
+          userModel.lastName=user.displayName??'';
 
           userSession.userInformation(userModel:userModel);
           Get.offAllNamed(kHomeScreen);

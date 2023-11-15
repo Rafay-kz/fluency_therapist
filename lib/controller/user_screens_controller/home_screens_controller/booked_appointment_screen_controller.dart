@@ -1,4 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 
@@ -49,11 +51,11 @@ class BookedAppointmentScreenController extends GetxController {
       final List<DoctorModel> users = querySnapshot.docs.map((doc) {
         final data = doc.data() as Map<String, dynamic>;
         return DoctorModel(
-          userName: data['username'] ?? '',
+          firstName: data['FirstName'] ?? '',
+          lastName: data['lastName'] ?? '',
           age: data['age'] ?? '',
           email: data['email'] ?? '',
-          fullName: data['fullName'] ?? '',
-          speciality: data['speciality'] ?? '',
+          specialization: data['speciality'] ?? '',
           bio: data['bio'] ?? '',
           location: data['location'] ?? '',
           image: data['image'] ?? '',
@@ -120,5 +122,63 @@ class BookedAppointmentScreenController extends GetxController {
       print('Error fetching booked slots for $dayName: $e');
       return [];
     }
+  }
+  void CallOptions() {
+    Get.bottomSheet(
+      SingleChildScrollView(
+        child: ClipRRect(
+          borderRadius: const BorderRadius.only(
+            topLeft: Radius.circular(10.0),
+            topRight: Radius.circular(10.0),
+          ),
+          child: Container(
+            color: Colors.white,
+            height: 200,
+            child: Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                children: [
+                  const Text(
+                    "Select an action",
+                    style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                    textAlign: TextAlign.center,
+                  ),
+                  const SizedBox(
+                    height: 10,
+                  ),
+                  ElevatedButton.icon(
+                    onPressed: () {
+                      Get.toNamed(kOngoingCallScreen,arguments: 1234);
+                    },
+                    icon: const Icon(Icons.phone),
+                    label: const Text("VOICE CALL"),
+                  ),
+                  ElevatedButton.icon(
+                    onPressed: () {
+                      Get.toNamed(kVideoCallScreen,arguments: 1234);
+
+                    },
+                    icon: const Icon(Icons.video_call_sharp),
+                    label: const Text("VIDEO CALL"),
+                  ),
+                  const SizedBox(
+                    height: 10,
+                  ),
+                  ElevatedButton.icon(
+                    onPressed: () {
+                      Get.back();
+                    },
+                    icon: const Icon(Icons.close),
+                    label: const Text("CANCEL"),
+                  ),
+                ],
+              ),
+            ),
+          ),
+        ),
+      ),
+    );
+
   }
 }

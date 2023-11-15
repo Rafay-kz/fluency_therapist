@@ -1,28 +1,35 @@
-import 'package:firebase_storage/firebase_storage.dart';
+import 'package:fluency_therapist/core/database.dart';
 import 'package:get/get.dart';
-import 'package:firebase_storage/firebase_storage.dart' as firebase_storage;
-import 'package:video_player/video_player.dart';
 
-import '../../../custom widgets/progress_indicator.dart';
 import '../../../model/user_model.dart';
 import '../../../utils/user_session.dart';
 import '../../model/doctor_model.dart';
+import '../../utils/video_services.dart';
 
 class ExercisesScreenOneController extends GetxController {
+
+  final VideoServices videoServices = VideoServices();
   UserSession userSession = UserSession();
   Rx<UserModel> userModel = UserModel.empty().obs;
   Rx<DoctorModel> doctorModel = DoctorModel.empty().obs;
-  ProgressDialog progressDialog = ProgressDialog(); // Add this line
-  RxInt unlockedVideoIndex = 0.obs;
-  RxBool isPlaying = false.obs; // Track the unlocked video index
+  Database database = Database();
+  // ProgressDialog progressDialog = ProgressDialog(); // Add this line
+  // RxList<String> videoUrls = <String>[].obs;
+  // RxInt unlockedVideoIndex = 0.obs;
+  // RxBool isPlaying = false.obs; // Track the unlocked video index
+  // RxList<String> completedVideos = <String>[].obs;
+
 
   @override
-  void onInit() {
-    getUserInfo();
-    getDoctorInfo();
-    fetchVideoUrls(); // Combine both initialization tasks here
+  void onInit() async {
+    await fetchMetadataForFolder('Exercises for kids');
+    await getUserInfo();
+    await getDoctorInfo();
+    await loadVideoIndex();
     super.onInit();
+
   }
+
   Future<void> getDoctorInfo() async {
     doctorModel.value = await userSession.getDoctorInformation();
   }
@@ -31,41 +38,27 @@ class ExercisesScreenOneController extends GetxController {
     userModel.value = await userSession.getUserInformation();
   }
 
-  RxList<String> videoUrls = <String>[].obs;
-
-  Future<void> fetchVideoUrls() async {
-    try {
-      final List<String> urls = [];
-      final ListResult result = await firebase_storage.FirebaseStorage.instance
-          .ref(
-          'videos/exercises/Speech Disorders in Children')
-          .listAll();
-
-      for (final Reference ref in result.items) {
-        final url = await ref.getDownloadURL();
-        urls.add(url);
-      }
-
-      videoUrls.assignAll(urls);
-    } catch (error) {
-      // Handle error
-    }
+  Future<void> fetchMetadataForFolder(folderName) async {
+    videoServices.fetchMetadataForFolder(folderName);
   }
 
 
-  // Function to unlock the next video
   void unlockNextVideo() {
-    if (unlockedVideoIndex < videoUrls.length - 1) {
-      unlockedVideoIndex++;
-    }
+   videoServices.unlockedVideoIndex();
   }
 
   void onVideoComplete() {
-    if (unlockedVideoIndex < videoUrls.length - 1) {
-      unlockedVideoIndex++;
-      isPlaying.value = true; // Set playing state to true for next video
-    }
+    videoServices.onVideoComplete(userModel.value.id);
   }
 
+  Future<void> loadVideoIndex () async {
+    videoServices.loadUnlockedVideoIndex(userModel.value.id);
+  }
 
 }
+
+
+
+
+
+

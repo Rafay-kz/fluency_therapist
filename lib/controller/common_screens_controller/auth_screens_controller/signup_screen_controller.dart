@@ -1,4 +1,5 @@
 import 'package:fluency_therapist/core/database.dart';
+import 'package:fluency_therapist/utils/app_constants.dart';
 import 'package:get/get.dart';
 import 'package:flutter/material.dart';
 
@@ -13,17 +14,18 @@ class SignupScreenController extends GetxController {
 
 
   //Regular users controllers
-  TextEditingController nameTEController = TextEditingController();
+  TextEditingController firstNameController = TextEditingController();
+  TextEditingController lastNameController = TextEditingController();
   TextEditingController emailTEController = TextEditingController();
   TextEditingController passwordTEController = TextEditingController();
   TextEditingController confirmPasswordTEController = TextEditingController();
-  TextEditingController ageTEController = TextEditingController();
+
 
   //Doctor users controllers
-  TextEditingController fullNameController = TextEditingController();
-  TextEditingController specialityController = TextEditingController();
-  TextEditingController bioTEController = TextEditingController();
-  TextEditingController locationController = TextEditingController();
+  // TextEditingController fullNameController = TextEditingController();
+  // TextEditingController specialityController = TextEditingController();
+  // TextEditingController bioTEController = TextEditingController();
+  // TextEditingController locationController = TextEditingController();
 
  //Checkbox method
   var isDoctor = false.obs;
@@ -33,32 +35,30 @@ class SignupScreenController extends GetxController {
 
 
     //variables to store regular users controller data
-  var name = '';
+  var firstName = '';
+  var lastName = '';
   var email = '';
   var password = '';
   var confirmPassword = '';
-  var age = '';
 
-  //variables to store doctor users controller data'
-  var fullName = '';
-  var speciality = '';
-  var bio = '';
 
-  var location = '';
+  // //variables to store doctor users controller data'
+  // var fullName = '';
+  // var speciality = '';
+  // var bio = '';
+  //
+  // var location = '';
 
 
 
   @override
   void onClose() {
-    nameTEController.dispose();
-    ageTEController.dispose();
+    firstNameController.dispose();
+    lastNameController.dispose();
     emailTEController.dispose();
     passwordTEController.dispose();
     confirmPasswordTEController.dispose();
-    fullNameController.dispose();
-    specialityController.dispose();
-    bioTEController.dispose();
-    locationController.dispose();
+
   }
 
   //Validators for text fields
@@ -156,21 +156,16 @@ class SignupScreenController extends GetxController {
 
         if (isDoctor.value) {
           await database.saveDoctorUserDetails(
-            nameTEController.text.toString(),
-            ageTEController.text.toString(),
+            firstNameController.text.toString(),
+            lastNameController.text.toString(),
             emailTEController.text.toString(),
-            fullNameController.text.toString(),
-            specialityController.text.toString(),
-            bioTEController.text.toString(),
-            locationController.text.toString(),
-
 
           );
         }
         else {
           database.saveUserDetails(
-            nameTEController.text.toString(),
-            ageTEController.text.toString(),
+            firstNameController.text.toString(),
+            lastNameController.text.toString(),
             emailTEController.text.toString(),
           );
         }

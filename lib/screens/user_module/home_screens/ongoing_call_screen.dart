@@ -1,6 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:zego_uikit_prebuilt_call/zego_uikit_prebuilt_call.dart';
 
 import '../../../controller/user_screens_controller/home_screens_controller/ongoing_call_screen_controller.dart';
 import '../../../utils/app_colors.dart';
@@ -18,144 +19,29 @@ class OngoingCallScreen extends GetView<OngoingCallScreenController> {
     return  Scaffold(
       backgroundColor: AppColors.backgroundColor,
       body: SafeArea(
-        child: Padding(
-          padding: const EdgeInsets.only(top: 25, left: 25, right: 25),
-          child: Column(children: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                InkWell(
-                  onTap: () {
-                    Get.back();
-                  },
-                  child: Icon(
-                    Icons.arrow_back,
-                    size: screenWidth*0.10,
-                  ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.only(top: 10, right: 38, left: 38),
-                  child: Center(
-                    child: Image(
-                      image: const AssetImage(logoIcon),
-                      width: screenWidth * 0.42,
-                      height: screenHeight * 0.075,
-                    ),
-                  ),
-                ),
-                Obx(
-                      () => CircleAvatar(
-                    radius: 25,
-                    backgroundImage: controller.doctorModel.value.image != ''
-                        ? CachedNetworkImageProvider(controller.doctorModel.value.image)
-                        : (controller.userModel.value.image != ''
-                        ? CachedNetworkImageProvider(controller.userModel.value.image)
-                        : const AssetImage('assets/images/person.png') as ImageProvider),
-                  ),
-                ),
-              ],
-            ),
-            Padding(
-              padding: const EdgeInsets.only(top: 30),
-              child: Text(
-                "Connected",
-                style: Theme.of(context).textTheme.displayLarge!.copyWith(
-                  fontSize: screenWidth*0.045,
-                  color: AppColors.textColor,
-                ),
-              ),
-            ),
-             Padding(
-              padding: EdgeInsets.only(top: 20),
-              child: CircleAvatar(
-                radius: screenWidth*0.15,
-              ),
-            ),
-            Padding(
-              padding: const EdgeInsets.only(top: 25),
-              child: Text(
-                "Dr M Ali\nNizamani",
-                style: Theme.of(context).textTheme.displayLarge!.copyWith(
-                  fontSize: screenWidth*0.055,
-                  color: AppColors.textColor,
-                ),
-                textAlign: TextAlign.center,
-              ),
-            ), Padding(
-              padding: const EdgeInsets.only(top: 20),
-              child: Text(
-                "01:00",
-                style: Theme.of(context).textTheme.displayLarge!.copyWith(
-                  fontSize: screenWidth*0.045,
-                  color: AppColors.textColor,
-                ),
-              ),
-            ),
-            Padding(
-              padding:  EdgeInsets.only(top: screenHeight*0.25),
-              child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Padding(
-                      padding: const EdgeInsets.only( right: 25),
-                      child: Container(
-                          width: screenWidth*0.16,
-                          height: screenHeight*0.08,
-                          decoration: BoxDecoration(
-                            color: AppColors.secondaryBlue,
-                            borderRadius: BorderRadius.circular(15),
-                          ),
-                          child: Icon(
-                            Icons.mic_off,
-                            size: screenWidth*0.09,
-                            color: AppColors.primaryBlue,
-                          )),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.only(right: 25),
-                      child: Container(
-                          width: screenWidth*0.16,
-                          height: screenHeight*0.08,
-                          decoration: BoxDecoration(
-                            color: AppColors.secondaryBlue,
-                            borderRadius: BorderRadius.circular(15),
-                          ),
-                          child: Icon(
-                            Icons.video_call,
-                            size: screenWidth*0.09,
-                            color: AppColors.primaryBlue,
-                          )),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.only( right: 25),
-                      child: Container(
-                          width: screenWidth*0.16,
-                          height: screenHeight*0.08,
-                          decoration: BoxDecoration(
-                            color: AppColors.secondaryBlue,
-                            borderRadius: BorderRadius.circular(15),
-                          ),
-                          child: Icon(
-                            Icons.volume_up_rounded,
-                            size: screenWidth*0.09,
-                            color: AppColors.primaryBlue,
-                          )),
-                    ),
-                    Container(
-                        width: screenWidth*0.16,
-                        height: screenHeight*0.08,
-                        decoration: BoxDecoration(
-                          color: Colors.red,
-                          borderRadius: BorderRadius.circular(15),
-                        ),
-                        child: Icon(
-                          Icons.call_end,
-                          size: screenWidth*0.09,
-                          color: AppColors.whiteColor,
-                        )),
-                  ]),
-            ),
-          ]),
+        child: FutureBuilder<void>(
+          future: controller.initializeData(),
+          builder: (context, snapshot) {
+            if (snapshot.connectionState == ConnectionState.waiting) {
+              return Center(
+                child: CircularProgressIndicator(),
+              );
+            } else if (snapshot.hasError) {
+              return Center(
+                child: Text('Error: ${snapshot.error}'),
+              );
+            } else {
+              return ZegoUIKitPrebuiltCall(
+                appSign: "02c7e54412ee3fa49fe967537819ec3afe59d4a76ba99834dec88f87ddc36e67",
+                appID: 718328905,
+                config: ZegoUIKitPrebuiltCallConfig.oneOnOneVoiceCall()
+                  ..onOnlySelfInRoom = (context) => Navigator.pop(context),
+                callID: '${controller.callId}',
+                userName: controller.userName,
+                userID: controller.userId,
+              );
+            }
+          },
         ),
       ),
     );

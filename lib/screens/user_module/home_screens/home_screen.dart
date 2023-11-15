@@ -15,6 +15,8 @@ class HomeScreen extends GetView<HomeScreenController> {
 
   @override
   Widget build(BuildContext context) {
+    print('UserModel Value: ${controller.userModel.value}');
+
     return Scaffold(
       backgroundColor: AppColors.backgroundColor,
       body: SingleChildScrollView(
@@ -28,6 +30,7 @@ class HomeScreen extends GetView<HomeScreenController> {
                 Row(
                   children: [
                     Obx(
+
                       () => RichText(
                         text: TextSpan(
                           style: Theme.of(context)
@@ -40,7 +43,7 @@ class HomeScreen extends GetView<HomeScreenController> {
                           children: [
                             const TextSpan(text: "Hello,"),
                             TextSpan(
-                              text: "\n${controller.userModel.value.userName}",
+                              text: "\n${controller.userModel.value.firstName}",
                               style: Theme.of(context)
                                   .textTheme
                                   .displayLarge!
@@ -49,10 +52,12 @@ class HomeScreen extends GetView<HomeScreenController> {
                                     color: AppColors.textColor,
                                   ),
                             ),
+
                           ],
                         ),
                       ),
                     ),
+
                     Padding(
                       padding: const EdgeInsets.only(left: 150),
                       child: PopupMenuButton(
@@ -356,5 +361,6 @@ class HomeScreen extends GetView<HomeScreenController> {
         ),
       ),
     );
+
   }
 }

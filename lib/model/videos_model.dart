@@ -4,13 +4,13 @@ class VideosModel {
   final String name;
   final String category;
   final String url;
-  final bool isCompleted;
+  final double progress;
 
   VideosModel({
     required this.name,
     required this.category,
     required this.url,
-    this.isCompleted = false,
+    this.progress = 0.0,
   });
 
   // You can add a factory method to convert a JSON map to a VideosModel
@@ -19,7 +19,7 @@ class VideosModel {
       name: json['name'],
       category: json['category'],
       url: json['url'],
-      isCompleted: json['isCompleted'] ?? false,
+      progress: json['progress'] ?? false,
     );
   }
 
@@ -29,7 +29,7 @@ class VideosModel {
       'name': name,
       'category': category,
       'url': url,
-      'isCompleted': isCompleted,
+      'progress': progress,
     };
   }
 }

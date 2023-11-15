@@ -10,6 +10,8 @@ const String kEmailVerificationScreen = "/EMAIL_VERIFICATION_SCREEN";
 const String kForgetPassScreen = "/FORGET_PASSWORD_SCREEN";
 const String kOtpVerificationScreen = "/OTP_VERIFICATION_SCREEN";
 const String kCreateNewPasswordScreen = "/CREATE_NEW_PASSWORD_SCREEN";
+const String kProfileSetUpScreen = "/PROFILE_SETUP_SCREEN";
+const String kDoctorProfileSetUpScreen = "/DOCTOR_PROFILE_SETUP_SCREEN";
 
 //home Screens
 const String kHomeScreen = "/HOME_SCREEN";

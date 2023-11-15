@@ -124,7 +124,7 @@ HomeScreenController homeScreenController=Get.find(tag:kHomeScreenController);
 
   Future<void> getUserInfo() async{
     userModel.value=await userSession.getUserInformation();
-    nameTEController.value.text=userModel.value.userName;
+    nameTEController.value.text=userModel.value.firstName;
     emailTEController.value.text=userModel.value.email;
     imageUrl.value=userModel.value.image;
   }
@@ -142,7 +142,7 @@ HomeScreenController homeScreenController=Get.find(tag:kHomeScreenController);
     FirebaseFirestore firebaseFireStore = FirebaseFirestore.instance;
     await firebaseFireStore.collection('users').doc(userModel.value.id).update({
       'image': imageUrl.value,
-      'username': nameTEController.value.text,
+      'firstName': nameTEController.value.text,
     }).then((value) async{
       DocumentSnapshot userSnapshot = await FirebaseFirestore.instance
           .collection('users')
