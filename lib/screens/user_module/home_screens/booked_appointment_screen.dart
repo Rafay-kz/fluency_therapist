@@ -1,3 +1,4 @@
+
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:fluency_therapist/model/booked_slot_model.dart';
 import 'package:flutter/material.dart';
@@ -157,7 +158,7 @@ class AppointmentCard extends StatelessWidget {
                   child: Row(
                     children: [
                       Text(
-                        'Dr. ${doctor.fullName}',
+                        'Dr. ${doctor.firstName}',
                         style:
                             Theme.of(context).textTheme.displayLarge!.copyWith(
                                   fontSize: screenWidth * 0.035,
@@ -183,7 +184,7 @@ class AppointmentCard extends StatelessWidget {
                   child: Row(
                     children: [
                       Text(
-                        doctor.speciality,
+                        doctor.specialization,
                         style:
                             Theme.of(context).textTheme.headlineSmall!.copyWith(
                                   fontSize: screenWidth * 0.032,

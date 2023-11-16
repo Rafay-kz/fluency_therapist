@@ -1185,10 +1185,10 @@ packages:
     dependency: transitive
     description:
       name: zego_express_engine
-      sha256: "3cba66a7924640022ac781230d552e93f7062a295915fffd7b4f4af132d7b252"
+      sha256: afe542ac73e4231bfbeea16f33be15f64543774e3c16119a37a264ff82e2658b
       url: "https://pub.dev"
     source: hosted
-    version: "3.8.1"
+    version: "3.10.2"
   zego_plugin_adapter:
     dependency: transitive
     description:

@@ -149,7 +149,7 @@ class DoctorUserCard extends StatelessWidget {
                   child: Row(
                     children: [
                       Text(
-                        'Dr. ${doctor.fullName}',
+                        'Dr. ${doctor.firstName} ${doctor.lastName}',
                         style: Theme.of(context).textTheme.displayLarge!.copyWith(
                           fontSize: screenWidth * 0.035,
                           color: AppColors.textColor,
@@ -163,7 +163,7 @@ class DoctorUserCard extends StatelessWidget {
                   child: Row(
                     children: [
                       Text(
-                        doctor.speciality,
+                        doctor.specialization,
                         style: Theme.of(context).textTheme.headlineSmall!.copyWith(
                           fontSize: screenWidth * 0.032,
                           color: AppColors.descriptionColor,

@@ -14,8 +14,6 @@ class SignUpScreen extends GetView<SignupScreenController> {
   @override
   Widget build(BuildContext context) {
     final width = MediaQuery.of(context).size.width;
-    TimeOfDay? startTime;
-    TimeOfDay? endTime;
 
     return Scaffold(
       backgroundColor: AppColors.backgroundColor,
@@ -67,7 +65,7 @@ class SignUpScreen extends GetView<SignupScreenController> {
                             children: [
                               Padding(
                                 padding: const EdgeInsets.all(8.0),
-                                child: Text('Username',
+                                child: Text('First name',
                                     style: Theme.of(context)
                                         .textTheme
                                         .headlineSmall),
@@ -78,9 +76,9 @@ class SignUpScreen extends GetView<SignupScreenController> {
                                 child: SizedBox(
                                   width: width * 0.89, // Set the width here
                                   child: TextFormField(
-                                    controller: controller.nameTEController,
+                                    controller: controller.firstNameController,
                                     onSaved: (value) {
-                                      controller.name = value!;
+                                      controller.firstName = value!;
                                     },
                                     validator: (value) {
                                       return controller.validateName(value!);
@@ -102,10 +100,9 @@ class SignUpScreen extends GetView<SignupScreenController> {
                                   ),
                                 ),
                               ),
-                              const SizedBox(height: 5),
                               Padding(
                                 padding: const EdgeInsets.all(8.0),
-                                child: Text('Age',
+                                child: Text('Last name',
                                     style: Theme.of(context)
                                         .textTheme
                                         .headlineSmall),
@@ -116,19 +113,19 @@ class SignUpScreen extends GetView<SignupScreenController> {
                                 child: SizedBox(
                                   width: width * 0.89, // Set the width here
                                   child: TextFormField(
-                                    controller: controller.ageTEController,
+                                    controller: controller.lastNameController,
                                     onSaved: (value) {
-                                      controller.age = value!;
+                                      controller.lastName = value!;
                                     },
                                     validator: (value) {
-                                      return controller.validateAge(value!);
+                                      return controller.validateName(value!);
                                     },
-                                    style: TextStyle(color: AppColors.textColor),
-
+                                    style:
+                                    TextStyle(color: AppColors.textColor),
                                     decoration: InputDecoration(
                                       fillColor: AppColors.textfieldColor,
                                       filled: true,
-                                      hintText: 'Enter your age',
+                                      hintText: 'Enter your name',
                                       hintStyle: Theme.of(context)
                                           .textTheme
                                           .titleMedium,
@@ -140,6 +137,7 @@ class SignUpScreen extends GetView<SignupScreenController> {
                                   ),
                                 ),
                               ),
+
                               const SizedBox(
                                 height: 5,
                               ),
@@ -323,208 +321,208 @@ class SignUpScreen extends GetView<SignupScreenController> {
                                   activeColor: AppColors.textfieldColor,
                                 ),
                               ),
-                              Obx(() {
-                                if (controller.isDoctor.value) {
-                                  return Column(
-                                    mainAxisAlignment: MainAxisAlignment.start,
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      Padding(
-                                          padding: const EdgeInsets.all(8.0),
-                                          child: Text('Full name',
-                                              style: Theme.of(context)
-                                                  .textTheme
-                                                  .headlineSmall)),
-                                      const SizedBox(
-                                        height: 2,
-                                      ),
-                                      Padding(
-                                        padding: const EdgeInsets.all(8.0),
-                                        child: Center(
-                                          child: SizedBox(
-                                            width: width * 0.89,
-                                            child: TextFormField(
-                                              controller:
-                                                  controller.fullNameController,
-                                              onSaved: (value) {
-                                                controller.fullName = value!;
-                                              },
-                                              validator: (value) {
-                                                return controller
-                                                    .validateFullName(value!);
-                                              },
-                                              style: TextStyle(color: AppColors.textColor),
-                                              decoration: InputDecoration(
-                                                fillColor:
-                                                    AppColors.textfieldColor,
-                                                filled: true,
-                                                contentPadding:
-                                                    const EdgeInsets.only(
-                                                        left: 15),
-                                                hintText:
-                                                    'Enter your full name',
-                                                hintStyle: Theme.of(context)
-                                                    .textTheme
-                                                    .titleMedium,
-                                                border: OutlineInputBorder(
-                                                    borderRadius:
-                                                        BorderRadius.circular(
-                                                            30),
-                                                    borderSide:
-                                                        BorderSide.none),
-                                              ),
-                                            ),
-                                          ),
-                                        ),
-                                      ),
-                                      Padding(
-                                          padding: const EdgeInsets.all(8.0),
-                                          child: Text('Speciality',
-                                              style: Theme.of(context)
-                                                  .textTheme
-                                                  .headlineSmall)),
-                                      const SizedBox(
-                                        height: 2,
-                                      ),
-                                      Padding(
-                                        padding: const EdgeInsets.all(8.0),
-                                        child: Center(
-                                          child: SizedBox(
-                                            width: width * 0.89,
-                                            child: TextFormField(
-                                              controller: controller
-                                                  .specialityController,
-                                              onSaved: (value) {
-                                                controller.speciality = value!;
-                                              },
-                                              validator: (value) {
-                                                return controller
-                                                    .validateSpeciality(value!);
-                                              },
-                                              style: TextStyle(color: AppColors.textColor),
-                                              decoration: InputDecoration(
-                                                fillColor:
-                                                    AppColors.textfieldColor,
-                                                filled: true,
-                                                contentPadding:
-                                                    const EdgeInsets.only(
-                                                        left: 15),
-                                                hintText:
-                                                    'Enter your Speciality',
-                                                hintStyle: Theme.of(context)
-                                                    .textTheme
-                                                    .titleMedium,
-                                                border: OutlineInputBorder(
-                                                    borderRadius:
-                                                        BorderRadius.circular(
-                                                            30),
-                                                    borderSide:
-                                                        BorderSide.none),
-                                              ),
-                                            ),
-                                          ),
-                                        ),
-                                      ),
-                                      Padding(
-                                        padding: const EdgeInsets.all(8.0),
-                                        child: Text('Bio',
-                                            style: Theme.of(context)
-                                                .textTheme
-                                                .headlineSmall),
-                                      ),
-                                      const SizedBox(
-                                        height: 2,
-                                      ),
-                                      Padding(
-                                        padding: const EdgeInsets.all(8.0),
-                                        child: Center(
-                                          child: SizedBox(
-                                            width: width * 0.89,
-                                            child: TextFormField(
-                                              controller:
-                                                  controller.bioTEController,
-                                              maxLines: 4,
-                                              // Limiting the user to 3 lines for the introduction
-                                              onSaved: (value) {
-                                                controller.bio = value!;
-                                              },
-                                              style: TextStyle(color: AppColors.textColor),
-                                              decoration: InputDecoration(
-                                                fillColor:
-                                                    AppColors.textfieldColor,
-                                                filled: true,
-                                                contentPadding:
-                                                    const EdgeInsets.all(15),
-                                                hintText: 'Enter your bio',
-                                                hintStyle: Theme.of(context)
-                                                    .textTheme
-                                                    .titleMedium,
-                                                border: OutlineInputBorder(
-                                                  borderRadius:
-                                                      BorderRadius.circular(30),
-                                                  borderSide: BorderSide.none,
-                                                ),
-                                              ),
-                                            ),
-                                          ),
-                                        ),
-                                      ),
-
-                                      Padding(
-                                          padding: const EdgeInsets.all(8.0),
-                                          child: Text('Location',
-                                              style: Theme.of(context)
-                                                  .textTheme
-                                                  .headlineSmall)),
-                                      const SizedBox(
-                                        height: 2,
-                                      ),
-                                      Padding(
-                                        padding: const EdgeInsets.all(8.0),
-                                        child: Center(
-                                          child: SizedBox(
-                                            width: width * 0.89,
-                                            child: TextFormField(
-                                              controller:
-                                                  controller.locationController,
-                                              onSaved: (value) {
-                                                controller.fullName = value!;
-                                              },
-                                              validator: (value) {
-                                                return controller
-                                                    .validateLocation(value!);
-                                              },
-                                              style: TextStyle(color: AppColors.textColor),
-                                              decoration: InputDecoration(
-                                                fillColor:
-                                                    AppColors.textfieldColor,
-                                                filled: true,
-                                                contentPadding:
-                                                    const EdgeInsets.only(
-                                                        left: 15),
-                                                hintText:
-                                                    'Add Location or virtual',
-                                                hintStyle: Theme.of(context)
-                                                    .textTheme
-                                                    .titleMedium,
-                                                border: OutlineInputBorder(
-                                                    borderRadius:
-                                                        BorderRadius.circular(
-                                                            30),
-                                                    borderSide:
-                                                        BorderSide.none),
-                                              ),
-                                            ),
-                                          ),
-                                        ),
-                                      ),
-                                    ],
-                                  );
-                                } else {
-                                  return const SizedBox.shrink();
-                                }
-                              }),
+                              // Obx(() {
+                              //   if (controller.isDoctor.value) {
+                              //     return Column(
+                              //       mainAxisAlignment: MainAxisAlignment.start,
+                              //       crossAxisAlignment:
+                              //           CrossAxisAlignment.start,
+                              //       children: [
+                              //         Padding(
+                              //             padding: const EdgeInsets.all(8.0),
+                              //             child: Text('Full name',
+                              //                 style: Theme.of(context)
+                              //                     .textTheme
+                              //                     .headlineSmall)),
+                              //         const SizedBox(
+                              //           height: 2,
+                              //         ),
+                              //         Padding(
+                              //           padding: const EdgeInsets.all(8.0),
+                              //           child: Center(
+                              //             child: SizedBox(
+                              //               width: width * 0.89,
+                              //               child: TextFormField(
+                              //                 controller:
+                              //                     controller.fullNameController,
+                              //                 onSaved: (value) {
+                              //                   controller.fullName = value!;
+                              //                 },
+                              //                 validator: (value) {
+                              //                   return controller
+                              //                       .validateFullName(value!);
+                              //                 },
+                              //                 style: TextStyle(color: AppColors.textColor),
+                              //                 decoration: InputDecoration(
+                              //                   fillColor:
+                              //                       AppColors.textfieldColor,
+                              //                   filled: true,
+                              //                   contentPadding:
+                              //                       const EdgeInsets.only(
+                              //                           left: 15),
+                              //                   hintText:
+                              //                       'Enter your full name',
+                              //                   hintStyle: Theme.of(context)
+                              //                       .textTheme
+                              //                       .titleMedium,
+                              //                   border: OutlineInputBorder(
+                              //                       borderRadius:
+                              //                           BorderRadius.circular(
+                              //                               30),
+                              //                       borderSide:
+                              //                           BorderSide.none),
+                              //                 ),
+                              //               ),
+                              //             ),
+                              //           ),
+                              //         ),
+                              //         Padding(
+                              //             padding: const EdgeInsets.all(8.0),
+                              //             child: Text('Speciality',
+                              //                 style: Theme.of(context)
+                              //                     .textTheme
+                              //                     .headlineSmall)),
+                              //         const SizedBox(
+                              //           height: 2,
+                              //         ),
+                              //         Padding(
+                              //           padding: const EdgeInsets.all(8.0),
+                              //           child: Center(
+                              //             child: SizedBox(
+                              //               width: width * 0.89,
+                              //               child: TextFormField(
+                              //                 controller: controller
+                              //                     .specialityController,
+                              //                 onSaved: (value) {
+                              //                   controller.speciality = value!;
+                              //                 },
+                              //                 validator: (value) {
+                              //                   return controller
+                              //                       .validateSpeciality(value!);
+                              //                 },
+                              //                 style: TextStyle(color: AppColors.textColor),
+                              //                 decoration: InputDecoration(
+                              //                   fillColor:
+                              //                       AppColors.textfieldColor,
+                              //                   filled: true,
+                              //                   contentPadding:
+                              //                       const EdgeInsets.only(
+                              //                           left: 15),
+                              //                   hintText:
+                              //                       'Enter your Speciality',
+                              //                   hintStyle: Theme.of(context)
+                              //                       .textTheme
+                              //                       .titleMedium,
+                              //                   border: OutlineInputBorder(
+                              //                       borderRadius:
+                              //                           BorderRadius.circular(
+                              //                               30),
+                              //                       borderSide:
+                              //                           BorderSide.none),
+                              //                 ),
+                              //               ),
+                              //             ),
+                              //           ),
+                              //         ),
+                              //         Padding(
+                              //           padding: const EdgeInsets.all(8.0),
+                              //           child: Text('Bio',
+                              //               style: Theme.of(context)
+                              //                   .textTheme
+                              //                   .headlineSmall),
+                              //         ),
+                              //         const SizedBox(
+                              //           height: 2,
+                              //         ),
+                              //         Padding(
+                              //           padding: const EdgeInsets.all(8.0),
+                              //           child: Center(
+                              //             child: SizedBox(
+                              //               width: width * 0.89,
+                              //               child: TextFormField(
+                              //                 controller:
+                              //                     controller.bioTEController,
+                              //                 maxLines: 4,
+                              //                 // Limiting the user to 3 lines for the introduction
+                              //                 onSaved: (value) {
+                              //                   controller.bio = value!;
+                              //                 },
+                              //                 style: TextStyle(color: AppColors.textColor),
+                              //                 decoration: InputDecoration(
+                              //                   fillColor:
+                              //                       AppColors.textfieldColor,
+                              //                   filled: true,
+                              //                   contentPadding:
+                              //                       const EdgeInsets.all(15),
+                              //                   hintText: 'Enter your bio',
+                              //                   hintStyle: Theme.of(context)
+                              //                       .textTheme
+                              //                       .titleMedium,
+                              //                   border: OutlineInputBorder(
+                              //                     borderRadius:
+                              //                         BorderRadius.circular(30),
+                              //                     borderSide: BorderSide.none,
+                              //                   ),
+                              //                 ),
+                              //               ),
+                              //             ),
+                              //           ),
+                              //         ),
+                              //
+                              //         Padding(
+                              //             padding: const EdgeInsets.all(8.0),
+                              //             child: Text('Location',
+                              //                 style: Theme.of(context)
+                              //                     .textTheme
+                              //                     .headlineSmall)),
+                              //         const SizedBox(
+                              //           height: 2,
+                              //         ),
+                              //         Padding(
+                              //           padding: const EdgeInsets.all(8.0),
+                              //           child: Center(
+                              //             child: SizedBox(
+                              //               width: width * 0.89,
+                              //               child: TextFormField(
+                              //                 controller:
+                              //                     controller.locationController,
+                              //                 onSaved: (value) {
+                              //                   controller.fullName = value!;
+                              //                 },
+                              //                 validator: (value) {
+                              //                   return controller
+                              //                       .validateLocation(value!);
+                              //                 },
+                              //                 style: TextStyle(color: AppColors.textColor),
+                              //                 decoration: InputDecoration(
+                              //                   fillColor:
+                              //                       AppColors.textfieldColor,
+                              //                   filled: true,
+                              //                   contentPadding:
+                              //                       const EdgeInsets.only(
+                              //                           left: 15),
+                              //                   hintText:
+                              //                       'Add Location or virtual',
+                              //                   hintStyle: Theme.of(context)
+                              //                       .textTheme
+                              //                       .titleMedium,
+                              //                   border: OutlineInputBorder(
+                              //                       borderRadius:
+                              //                           BorderRadius.circular(
+                              //                               30),
+                              //                       borderSide:
+                              //                           BorderSide.none),
+                              //                 ),
+                              //               ),
+                              //             ),
+                              //           ),
+                              //         ),
+                              //       ],
+                              //     );
+                              //   } else {
+                              //     return const SizedBox.shrink();
+                              //   }
+                              // }),
                             ],
                           )),
                       const SizedBox(height: 10),

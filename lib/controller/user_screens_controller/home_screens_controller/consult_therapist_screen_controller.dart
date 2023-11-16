@@ -45,11 +45,11 @@ class ConsultTherapistScreenController extends GetxController {
         final data = doc.data() as Map<String, dynamic>;
 
         return DoctorModel(
-          userName: data['username'] ?? '',
+          firstName: data['firstName'] ?? '',
+          lastName: data['lastName'] ?? '',
           age: data['age'] ?? '',
           email: data['email'] ?? '',
-          fullName: data['fullName'] ?? '',
-          speciality: data['speciality'] ?? '',
+          specialization: data['specialization'] ?? '',
           bio: data['bio'] ?? '',
           location: data['location'] ?? '',
           image: data['image'] ?? '',

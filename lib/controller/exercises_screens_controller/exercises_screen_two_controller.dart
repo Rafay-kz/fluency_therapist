@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:get/get.dart';
 import 'package:firebase_storage/firebase_storage.dart' as firebase_storage;
@@ -16,10 +17,10 @@ class ExercisesScreenTwoController extends GetxController {
   RxBool isPlaying = false.obs; // Track the unlocked video index
 
   @override
-  void onInit() {
-    getUserInfo();
-    getDoctorInfo();
-    fetchVideoUrls(); // Combine both initialization tasks here
+  void onInit() async {
+    await getUserInfo();
+    await getDoctorInfo();
+    await fetchMetadataForFolder('Fluency exercises for clear speak'); // Combine both initialization tasks here
     super.onInit();
   }
   Future<void> getDoctorInfo() async {
@@ -32,26 +33,33 @@ class ExercisesScreenTwoController extends GetxController {
 
   RxList<String> videoUrls = <String>[].obs;
 
-  Future<void> fetchVideoUrls() async {
+  Future<void> fetchMetadataForFolder(String folderName) async {
     try {
-      final List<String> urls = [];
-      final ListResult result = await firebase_storage.FirebaseStorage.instance
-          .ref(
-          'videos/exercises/Exercises for kids')
-          .listAll();
+      // Create a reference for the specific folder's subcollection
+      CollectionReference folderCollection = FirebaseFirestore.instance.collection('videos').doc(folderName).collection('metadata');
 
-      for (final Reference ref in result.items) {
-        final url = await ref.getDownloadURL();
-        urls.add(url);
-      }
+      // Get all documents from the subcollection
+      QuerySnapshot querySnapshot = await folderCollection.get();
 
-      videoUrls.assignAll(urls);
-    } catch (error) {
-      // Handle error
+      // Clear the existing videoUrls list
+      videoUrls.clear();
+
+      // Iterate through the documents
+      querySnapshot.docs.forEach((doc) {
+        // Access the data in each document
+        Map<String, dynamic> data = doc.data() as Map<String, dynamic>;
+
+        // Extract the URL from the data and add it to the videoUrls list
+        if (data.containsKey('url')) {
+          videoUrls.add(data['url'] as String);
+        }
+      });
+    } catch (e) {
+      print('Error fetching metadata: $e');
     }
   }
 
-  // Function to unlock the next video
+
   void unlockNextVideo() {
     if (unlockedVideoIndex < videoUrls.length - 1) {
       unlockedVideoIndex++;

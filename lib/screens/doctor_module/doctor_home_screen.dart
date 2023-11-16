@@ -36,7 +36,7 @@ class DoctorHomeScreen extends GetView<DoctorHomeScreenController> {
                             children: [
                               const TextSpan(text: "Hello,"),
                               TextSpan(
-                                text: "\n Dr.${controller.doctorModel.value.userName}",
+                                text: "\n Dr.${controller.doctorModel.value.firstName}",
                                 style: Theme.of(context).textTheme.displayLarge!.copyWith(
                                   fontSize: Get.width * 0.060,
                                   color: AppColors.textColor,

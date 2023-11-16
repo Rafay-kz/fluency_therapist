@@ -158,7 +158,7 @@ class AppointmentCard extends StatelessWidget {
                   child: Row(
                     children: [
                       Text(
-                        user.userName,
+                        user.firstName,
                         style:
                             Theme.of(context).textTheme.displayLarge!.copyWith(
                                   fontSize: screenWidth * 0.035,
@@ -168,21 +168,7 @@ class AppointmentCard extends StatelessWidget {
                     ],
                   ),
                 ),
-                Padding(
-                  padding: const EdgeInsets.only(top: 2, left: 8),
-                  child: Row(
-                    children: [
-                      Text(
-                       'Age: ${user.age}',
-                        style:
-                            Theme.of(context).textTheme.headlineSmall!.copyWith(
-                                  fontSize: screenWidth * 0.032,
-                                  color: AppColors.descriptionColor,
-                                ),
-                      ),
-                    ],
-                  ),
-                ),
+
                 Padding(
                   padding: const EdgeInsets.only(top: 2, left: 8),
                   child: Row(
@@ -227,49 +213,32 @@ class AppointmentCard extends StatelessWidget {
                                   color: AppColors.descriptionColor,
                                 ),
                       ),
-                      if (bookedSlot.date.isAfter(controller.now))
-                        GestureDetector(
-                          onTap: () {
-                            controller.deleteAppointmentsForUser(controller.doctorModel.value.id);
-                          },
-                          child: Icon(
-                            Icons.delete,
-                            color: AppColors.descriptionColor,
-                            size: screenWidth * 0.05,
-                          ),
-                        )
                     ],
                   ),
                 ),
                 TextButton(
-                  onPressed: controller.isButtonEnabled(bookedSlot)
-                      ? () {
-                    Get.toNamed(kVideoCallScreen,
-                        arguments: bookedSlot.callId);
-                  }
-                      : null,
+                  onPressed: () {
+                    controller.CallOptions();
+                  },
                   child: Container(
                     width: screenWidth * 0.27,
                     height: MediaQuery.of(context).size.height * 0.046,
                     decoration: BoxDecoration(
-                      color: controller.isButtonEnabled(bookedSlot)
-                          ? AppColors.primaryBlue
-                          : AppColors.descriptionColor,
+                      color: AppColors.primaryBlue,
                       borderRadius: BorderRadius.circular(30),
                     ),
                     child: Center(
                       child: Text(
                         "Start",
                         style:
-                        Theme.of(context).textTheme.headlineSmall!.copyWith(
-                          fontSize: screenWidth * 0.035,
-                          color: AppColors.whiteColor,
-                        ),
+                            Theme.of(context).textTheme.headlineSmall!.copyWith(
+                                  fontSize: screenWidth * 0.035,
+                                  color: AppColors.whiteColor,
+                                ),
                       ),
                     ),
                   ),
                 ),
-
               ],
             )
           ],

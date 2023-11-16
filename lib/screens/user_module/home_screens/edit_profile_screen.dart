@@ -70,7 +70,7 @@ class EditProfileScreen extends GetView<EditProfileScreenController> {
                       Padding(
                         padding: const EdgeInsets.only(top: 20, bottom: 15),
                         child: Text(
-                          "\n${controller.userModel.value.userName}",
+                          "\n${controller.userModel.value.firstName}",
                           style: Theme.of(context)
                               .textTheme
                               .displayLarge!

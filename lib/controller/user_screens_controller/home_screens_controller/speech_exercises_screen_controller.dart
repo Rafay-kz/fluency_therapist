@@ -1,71 +1,51 @@
-import 'dart:io';
-
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_storage/firebase_storage.dart';
 import 'package:get/get.dart';
 
 import '../../../model/doctor_model.dart';
 import '../../../model/user_model.dart';
-import '../../../model/videos_model.dart';
-import '../../../utils/app_constants.dart';
 import '../../../utils/user_session.dart';
+import '../../../utils/video_services.dart';
 
 class SpeechExercisesScreenController extends GetxController {
+  final VideoServices videoServices = VideoServices();
   UserSession userSession = UserSession();
   Rx<DoctorModel> doctorModel = DoctorModel.empty().obs;
   Rx<UserModel> userModel = UserModel.empty().obs;
   late int index;
 
+   RxDouble overallProgress = 0.0.obs;
+
   @override
-  void onInit() {
-    getUserInfo();
+  void onInit() async {
+    await getUserInfo();
     getDoctorInfo();
+    await checkAndUploadMetadata('/videos/exercises/Exercises for kids');
+    await checkAndUploadMetadata(
+        '/videos/exercises/Fluency exercises for clear speak');
+    await checkAndUploadMetadata(
+        '/videos/exercises/Speech Disorders in Children');
     super.onInit();
   }
 
   Future<void> getUserInfo() async {
     userModel.value = await userSession.getUserInformation();
-
-    print('============>>${userModel.toString()}');
   }
 
   Future<void> getDoctorInfo() async {
     doctorModel.value = await userSession.getDoctorInformation();
   }
 
+  Future<void> checkAndUploadMetadata(String folderPath) async {
+    videoServices.checkAndUploadMetadata(folderPath);
+  }
+
+  Future<void> uploadMetadataForVideosInFolder(String folderPath) async {
+    videoServices.uploadMetadataForVideosInFolder(folderPath);
+  }
+
   Future<void> uploadVideos(String folderName, List<String> kidsVideos,
       List<String> fluencyVideos, List<String> speechDisorderVideos) async {
-    final storage = FirebaseStorage.instance;
-    final firestore = FirebaseFirestore.instance;
-    final storageRef = storage.ref().child('videos/$folderName');
-
-    Future<void> _uploadAndStore(String subfolder, String videoPath) async {
-      final videoFile = File(videoPath);
-      final videoName = videoFile.path.split('/').last;
-      final videoReference = storageRef.child('$subfolder/$videoName');
-      await videoReference.putFile(videoFile);
-
-      final downloadUrl = await videoReference.getDownloadURL();
-      final videoModel = VideosModel(
-        name: videoName,
-        category: subfolder,
-        url: downloadUrl,
-      );
-
-      await firestore.collection('videos').add(videoModel.toJson());
-    }
-
-    for (final videoPath in kidsVideos) {
-      await _uploadAndStore('Exercises for Kids', videoPath);
-    }
-
-    for (final videoPath in fluencyVideos) {
-      await _uploadAndStore('Fluency Exercises for Clear Speak', videoPath);
-    }
-
-    for (final videoPath in speechDisorderVideos) {
-      await _uploadAndStore('Speech Disorder in Children', videoPath);
-    }
+    videoServices.uploadVideos(
+        folderName, kidsVideos, fluencyVideos, speechDisorderVideos);
   }
 
   final List<ExerciseData> exerciseData = [

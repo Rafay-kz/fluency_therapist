@@ -73,15 +73,15 @@ class ExcerisesScreenOne
                     ],
                   )),
               Obx(() {
-                if (controller.videoUrls.isEmpty) {
+                if (controller.videoServices.videoUrls.isEmpty) {
                   return const Center(child: CircularProgressIndicator(),);
                 }
 
                 return Expanded(child: ListView.builder(
-                  itemCount: controller.videoUrls.length,
+                  itemCount: controller.videoServices.videoUrls.length,
                   itemBuilder: (BuildContext context, int index) {
                     return Padding(
-                      padding: EdgeInsets.only(bottom: 20), // Add some space between containers
+                      padding: const EdgeInsets.only(bottom: 20), // Add some space between containers
                       child: Container(
                         width: screenWidth * 0.8, // Adjusted width for responsiveness
                         height: screenHeight * 0.23, // Adjusted height for responsiveness
@@ -89,13 +89,15 @@ class ExcerisesScreenOne
                           color: AppColors.secondaryBlue,
                           borderRadius: BorderRadius.circular(40),
                         ),
-                        child: VideoWidget(
-                          videoUrl: controller.videoUrls[index],
-                          unlocked: index <= controller.unlockedVideoIndex.value,
-                          isPlaying: index == controller.unlockedVideoIndex.value,
-                          onVideoComplete: () {
-                            controller.onVideoComplete();
-                          },
+                        child: Obx(() =>
+                           VideoWidget(
+                            videoUrl: controller.videoServices.videoUrls[index],
+                            unlocked: index <= controller.videoServices.unlockedVideoIndex.value,
+                            isPlaying: index == controller.videoServices.unlockedVideoIndex.value,
+                            onVideoComplete: () {
+                              controller.onVideoComplete();
+                            },
+                          ),
                         ),
                       ),
                     );
