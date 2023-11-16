@@ -38,7 +38,7 @@ class DoctorSchedulingScreenController extends GetxController {
   void onInit() async {
     await getDoctorInfo();
     // To initialize all lists of the map as empty.
-    for (int i = 0; i < 5; i++) {
+    for (int i = 0; i < 7; i++) {
       timeSlotsMap[i] = <TimeSlot>[].obs;
       loadTimeSlotsFromLocal(i);
       await loadTimeSlotsFromFirestore(i);

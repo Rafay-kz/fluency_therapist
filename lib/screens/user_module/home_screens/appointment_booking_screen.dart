@@ -18,7 +18,7 @@ class AppointmentBookingScreen
     final screenHeight = MediaQuery.of(context).size.height;
 
     return DefaultTabController(
-      length: 5,
+      length: 7,
       child: Scaffold(
         backgroundColor: AppColors.backgroundColor,
         body: SafeArea(
@@ -80,6 +80,12 @@ class AppointmentBookingScreen
                       Tab(
                         text: "Friday",
                       ),
+                      Tab(
+                        text: "Saturday",
+                      ),
+                      Tab(
+                        text: "Sunday",
+                      ),
                     ],
                     indicatorColor: AppColors.primaryBlue,
                     labelColor: AppColors.primaryBlue,
@@ -97,6 +103,9 @@ class AppointmentBookingScreen
                       _doctorAppointments(2, context, controller),
                       _doctorAppointments(3, context, controller),
                       _doctorAppointments(4, context, controller),
+                      _doctorAppointments(5, context, controller),
+                      _doctorAppointments(6, context, controller),
+
                     ],
                   ),
                 ),

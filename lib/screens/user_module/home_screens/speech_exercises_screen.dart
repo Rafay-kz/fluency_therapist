@@ -1,5 +1,3 @@
-import 'dart:io';
-
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -7,7 +5,6 @@ import 'package:get/get.dart';
 import '../../../controller/user_screens_controller/home_screens_controller/speech_exercises_screen_controller.dart';
 import '../../../utils/app_colors.dart';
 import '../../../utils/app_constants.dart';
-import 'home_screen.dart';
 
 class SpeechExercisesScreen extends GetView<SpeechExercisesScreenController> {
   const SpeechExercisesScreen({super.key});
@@ -94,7 +91,6 @@ class SpeechExercisesScreen extends GetView<SpeechExercisesScreenController> {
                     itemCount: controller.exerciseData.length,
                     itemBuilder: (BuildContext context, int index) {
                       ExerciseData data = controller.exerciseData[index];
-
                       {
                         return Padding(
                           padding: const EdgeInsets.only(top: 32),
@@ -163,21 +159,16 @@ class SpeechExercisesScreen extends GetView<SpeechExercisesScreenController> {
                                       SizedBox(
                                         width: screenWidth * 0.29,
                                         height: screenHeight * 0.011,
-                                        child: Obx(
-                                          () => ClipRRect(
-                                            borderRadius:
-                                                const BorderRadius.all(
-                                                    Radius.circular(10)),
-                                            child: LinearProgressIndicator(
-                                              value: controller
-                                                  .overallProgress.value,
-                                              // Replace 0.3 with the actual progress value
-                                              valueColor:
-                                                  AlwaysStoppedAnimation<Color>(
-                                                      AppColors.primaryBlue),
-                                              backgroundColor:
-                                                  AppColors.textfieldColor,
-                                            ),
+                                        child: ClipRRect(
+                                          borderRadius: const BorderRadius.all(
+                                              Radius.circular(10)),
+                                          child: LinearProgressIndicator(
+                                            value: 0.3,
+                                            valueColor:
+                                                AlwaysStoppedAnimation<Color>(
+                                                    AppColors.primaryBlue),
+                                            backgroundColor:
+                                                AppColors.textfieldColor,
                                           ),
                                         ),
                                       ),
