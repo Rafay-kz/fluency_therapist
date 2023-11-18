@@ -19,6 +19,8 @@ import '../screens/common_screens/auth_screens/signup_screen.dart';
 import '../screens/common_screens/auth_screens/splash_screen.dart';
 import '../screens/common_screens/auth_screens/welcome_screen.dart';
 
+import '../screens/doctor_module/doctor_inbox_screen.dart';
+import '../screens/doctor_module/doctor_profile_screen.dart';
 import '../screens/doctor_module/doctor_profile_setup_screen.dart';
 import '../screens/user_module/home_screens/appointment_booking_screen.dart';
 import '../screens/user_module/home_screens/call_log_screen.dart';
@@ -228,7 +230,16 @@ class RouteGenerator {
         name: kDoctorProfileSetUpScreen,
         page: () => DoctorProfileSetUpScreen(),
         binding: ScreenBindings(),
+      ),GetPage(
+        name: kDoctorInboxScreen,
+        page: () => DoctorInboxScreen(),
+        binding: ScreenBindings(),
+      ),GetPage(
+        name: kDoctorProfileScreen,
+        page: () => DoctorProfileScreen(),
+        binding: ScreenBindings(),
       ),
+
 
     ];
   }

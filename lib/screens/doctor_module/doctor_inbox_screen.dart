@@ -5,12 +5,14 @@ import 'package:get/get.dart';
 
 import '../../../controller/user_screens_controller/home_screens_controller/inbox_screen_controller.dart';
 import '../../../utils/app_constants.dart';
-import 'call_log_screen.dart';
+import '../../controller/doctor_screens_controller/doctor_inbox_screen_controller.dart';
+import '../user_module/home_screens/call_log_screen.dart';
 
 
 
-class InboxScreen extends GetView<InboxScreenController> {
-  const InboxScreen({Key? key}) : super(key: key);
+
+class DoctorInboxScreen extends GetView<DoctorInboxScreenController> {
+  const DoctorInboxScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -60,7 +62,7 @@ class InboxScreen extends GetView<InboxScreenController> {
               ),
               Padding(
                 padding:
-                    EdgeInsets.only(top: 16, left: 16, right: 16, bottom: 20),
+                EdgeInsets.only(top: 16, left: 16, right: 16, bottom: 20),
                 child: TextField(
                   decoration: InputDecoration(
                     hintText: "Search...",
@@ -134,7 +136,7 @@ class InboxScreen extends GetView<InboxScreenController> {
         ),
           BottomNavigationBarItem(
             icon: InkWell(
-              onTap:() { Get.to(CallLogScreen()); },
+                onTap:() { Get.to(CallLogScreen()); },
                 child: Icon(Icons.phone)),
             label: 'Phone',
           ),

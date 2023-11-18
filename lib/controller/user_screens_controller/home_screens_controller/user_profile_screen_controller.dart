@@ -2,7 +2,9 @@
 import 'package:get/get.dart';
 
 
+import '../../../model/doctor_model.dart';
 import '../../../model/user_model.dart';
+import '../../../utils/app_constants.dart';
 import '../../../utils/user_session.dart';
 
 
@@ -20,6 +22,7 @@ class UserProfileScreenController extends GetxController {
   Future<void> getUserInfo() async{
     userModel.value=await userSession.getUserInformation();
   }
+
 
 
 }
