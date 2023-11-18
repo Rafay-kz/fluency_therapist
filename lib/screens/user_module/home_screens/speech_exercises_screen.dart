@@ -156,14 +156,15 @@ class SpeechExercisesScreen extends GetView<SpeechExercisesScreenController> {
                                     crossAxisAlignment:
                                         CrossAxisAlignment.center,
                                     children: [
-                                      SizedBox(
+                                      Container(
                                         width: screenWidth * 0.29,
                                         height: screenHeight * 0.011,
                                         child: ClipRRect(
                                           borderRadius: const BorderRadius.all(
                                               Radius.circular(10)),
                                           child: LinearProgressIndicator(
-                                            value: 0.3,
+                                              value:controller.exerciseData[index].progress, // Assuming the progress ranges from 0 to 100
+                                              semanticsLabel: '${controller.exerciseData[0].progress}%',
                                             valueColor:
                                                 AlwaysStoppedAnimation<Color>(
                                                     AppColors.primaryBlue),
@@ -171,6 +172,12 @@ class SpeechExercisesScreen extends GetView<SpeechExercisesScreenController> {
                                                 AppColors.textfieldColor,
                                           ),
                                         ),
+                                      ),
+                                      Text(
+                                        '${controller.exerciseData[index].progress.toStringAsFixed(2)}%',
+                                        style: Theme.of(context).textTheme.displayLarge!.copyWith(
+                                            fontSize: screenWidth * 0.030,
+                                            color: AppColors.textColor),
                                       ),
                                       TextButton(
                                         onPressed: () {
