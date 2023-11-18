@@ -74,12 +74,12 @@ class ExcerisesScreenTwo
                   )),
               Expanded(
                 child: Obx(() {
-                  if (controller.videoUrls.isEmpty) {
+                  if (controller.videoServices.videoUrls.isEmpty) {
                     return Center(child: CircularProgressIndicator(),);
                   }
 
                   return ListView.builder(
-                    itemCount: controller.videoUrls.length,
+                    itemCount: controller.videoServices.videoUrls.length,
                     itemBuilder: (BuildContext context, int index) {
                       return Padding(
                         padding: EdgeInsets.only(bottom: 20), // Add some space between containers
@@ -90,10 +90,10 @@ class ExcerisesScreenTwo
                             color: AppColors.secondaryBlue,
                             borderRadius: BorderRadius.circular(40),
                           ),
-                          child: VideoWidget(
-                            videoUrl: controller.videoUrls[index],
-                            unlocked: index <= controller.unlockedVideoIndex.value,
-                            isPlaying: index == controller.unlockedVideoIndex.value,
+                          child:  VideoWidget(
+                            videoUrl: controller.videoServices.videoUrls[index],
+                            unlocked: index <= controller.videoServices.unlockedVideoIndex.value,
+                            isPlaying: index == controller.videoServices.unlockedVideoIndex.value,
                             onVideoComplete: () {
                               controller.onVideoComplete();
                             },

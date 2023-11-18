@@ -7,18 +7,12 @@ import '../../model/doctor_model.dart';
 import '../../utils/video_services.dart';
 
 class ExercisesScreenOneController extends GetxController {
-
   final VideoServices videoServices = VideoServices();
   UserSession userSession = UserSession();
   Rx<UserModel> userModel = UserModel.empty().obs;
   Rx<DoctorModel> doctorModel = DoctorModel.empty().obs;
   Database database = Database();
-  // ProgressDialog progressDialog = ProgressDialog(); // Add this line
-  // RxList<String> videoUrls = <String>[].obs;
-  // RxInt unlockedVideoIndex = 0.obs;
-  // RxBool isPlaying = false.obs; // Track the unlocked video index
-  // RxList<String> completedVideos = <String>[].obs;
-
+  String exerciseName = "Exercises for kids";
 
   @override
   void onInit() async {
@@ -27,7 +21,6 @@ class ExercisesScreenOneController extends GetxController {
     await getDoctorInfo();
     await loadVideoIndex();
     super.onInit();
-
   }
 
   Future<void> getDoctorInfo() async {
@@ -39,26 +32,22 @@ class ExercisesScreenOneController extends GetxController {
   }
 
   Future<void> fetchMetadataForFolder(folderName) async {
+    print('Fetching metadata for folder: $folderName');
     videoServices.fetchMetadataForFolder(folderName);
   }
 
-
   void unlockNextVideo() {
-   videoServices.unlockedVideoIndex();
+    print('Unlocking next video...');
+    videoServices.unlockNextVideo(userModel.value.id, exerciseName);
   }
 
   void onVideoComplete() {
-    videoServices.onVideoComplete(userModel.value.id);
+    print('Completing video...');
+    videoServices.onVideoComplete(userModel.value.id, exerciseName);
   }
 
-  Future<void> loadVideoIndex () async {
-    videoServices.loadUnlockedVideoIndex(userModel.value.id);
+  Future<void> loadVideoIndex() async {
+    print('Loading video index...');
+    videoServices.loadUnlockedVideoIndex(userModel.value.id, exerciseName);
   }
-
 }
-
-
-
-
-
-

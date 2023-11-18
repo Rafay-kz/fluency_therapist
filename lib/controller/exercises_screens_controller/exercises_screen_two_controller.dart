@@ -7,20 +7,26 @@ import '../../../custom widgets/progress_indicator.dart';
 import '../../../model/user_model.dart';
 import '../../../utils/user_session.dart';
 import '../../model/doctor_model.dart';
+import '../../utils/video_services.dart';
 
 class ExercisesScreenTwoController extends GetxController {
   UserSession userSession = UserSession();
   Rx<UserModel> userModel = UserModel.empty().obs;
   Rx<DoctorModel> doctorModel = DoctorModel.empty().obs;
-  ProgressDialog progressDialog = ProgressDialog(); // Add this line
-  RxInt unlockedVideoIndex = 0.obs;
-  RxBool isPlaying = false.obs; // Track the unlocked video index
+  ProgressDialog progressDialog = ProgressDialog();
+  final VideoServices videoServices = VideoServices();
+  String exerciseName = 'Fluency exercises for clear speak';
+
+
+  // RxInt unlockedVideoIndex = 0.obs;
+  // RxBool isPlaying = false.obs; // Track the unlocked video index
 
   @override
   void onInit() async {
     await getUserInfo();
     await getDoctorInfo();
-    await fetchMetadataForFolder('Fluency exercises for clear speak'); // Combine both initialization tasks here
+    await fetchMetadataForFolder('Fluency exercises for clear speak');
+    await loadVideoIndex();
     super.onInit();
   }
   Future<void> getDoctorInfo() async {
@@ -31,45 +37,24 @@ class ExercisesScreenTwoController extends GetxController {
     userModel.value = await userSession.getUserInformation();
   }
 
-  RxList<String> videoUrls = <String>[].obs;
+  Future<void> fetchMetadataForFolder(folderName) async {
+    videoServices.fetchMetadataForFolder(folderName);
 
-  Future<void> fetchMetadataForFolder(String folderName) async {
-    try {
-      // Create a reference for the specific folder's subcollection
-      CollectionReference folderCollection = FirebaseFirestore.instance.collection('videos').doc(folderName).collection('metadata');
-
-      // Get all documents from the subcollection
-      QuerySnapshot querySnapshot = await folderCollection.get();
-
-      // Clear the existing videoUrls list
-      videoUrls.clear();
-
-      // Iterate through the documents
-      querySnapshot.docs.forEach((doc) {
-        // Access the data in each document
-        Map<String, dynamic> data = doc.data() as Map<String, dynamic>;
-
-        // Extract the URL from the data and add it to the videoUrls list
-        if (data.containsKey('url')) {
-          videoUrls.add(data['url'] as String);
-        }
-      });
-    } catch (e) {
-      print('Error fetching metadata: $e');
-    }
   }
 
-
   void unlockNextVideo() {
-    if (unlockedVideoIndex < videoUrls.length - 1) {
-      unlockedVideoIndex++;
-    }
+    print('Unlocking next video...');
+    videoServices.unlockedVideoIndex();
   }
 
   void onVideoComplete() {
-    if (unlockedVideoIndex < videoUrls.length - 1) {
-      unlockedVideoIndex++;
-      isPlaying.value = true; // Set playing state to true for next video
-    }
+    print('Completing video...');
+    videoServices.onVideoComplete(userModel.value.id, exerciseName);
   }
+
+  Future<void> loadVideoIndex () async {
+    print('Loading video index...');
+    videoServices.loadUnlockedVideoIndex(userModel.value.id, exerciseName);
+  }
+
 }

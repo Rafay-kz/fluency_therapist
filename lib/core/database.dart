@@ -311,18 +311,18 @@ class Database {
     }
   }
 
-  Future<void> saveUnlockedVideoIndex(String userId, int index) async {
+  Future<void> saveUnlockedVideoIndex(String userId, int index, String exerciseName) async {
     try {
       await FirebaseFirestore.instance
           .collection('users')
           .doc(userId)
-          .update({'unlockedVideoIndex': index});
+          .update({'$exerciseName-Index': index});
     } catch (e) {
-      print('Error saving unlocked video index: $e');
+      print('Error saving unlocked video index for $exerciseName: $e');
     }
   }
 
-   Future<int?> loadUnlockedVideoIndex(String userId) async {
+  Future<int?> loadUnlockedVideoIndex(String userId, String exerciseName) async {
     try {
       DocumentSnapshot snapshot = await FirebaseFirestore.instance
           .collection('users')
@@ -330,12 +330,18 @@ class Database {
           .get();
 
       if (snapshot.exists) {
-        return snapshot['unlockedVideoIndex'];
+        Map<String, dynamic> data = snapshot.data() as Map<String, dynamic>;
+        if (data.containsKey('$exerciseName-Index')) {
+          return data['$exerciseName-Index'];
+        } else {
+          print('Field does not exist');
+        }
       }
     } catch (e) {
-      print('Error loading unlocked video index: $e');
+      print('Error loading unlocked video index for $exerciseName: $e');
     }
     return null;
   }
+
 }
 
