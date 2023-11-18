@@ -161,7 +161,7 @@ class DoctorBookedAppointmentsScreenController extends GetxController {
           ),
           child: Container(
             color: Colors.white,
-            height: 200,
+            height: 250,
             child: Padding(
               padding: const EdgeInsets.all(8.0),
               child: Column(
@@ -189,6 +189,13 @@ class DoctorBookedAppointmentsScreenController extends GetxController {
                     },
                     icon: const Icon(Icons.video_call_sharp),
                     label: const Text("VIDEO CALL"),
+                  ), ElevatedButton.icon(
+                    onPressed: () {
+                      Get.toNamed(kChatWithConsultantScreen,arguments: 1234);
+
+                    },
+                    icon: const Icon(Icons.message_outlined),
+                    label: const Text("CHAT"),
                   ),
                   const SizedBox(
                     height: 5,

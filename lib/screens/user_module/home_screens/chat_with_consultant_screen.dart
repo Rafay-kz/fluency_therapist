@@ -1,4 +1,3 @@
-
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -6,16 +5,16 @@ import 'package:get/get.dart';
 import '../../../controller/user_screens_controller/home_screens_controller/chat_with_consultant_screen.dart';
 import '../../../utils/app_colors.dart';
 import '../../../utils/app_constants.dart';
-
-
+import '../../../utils/chat_message.dart';
 
 class ChatWithConsultantScreen extends GetView<ChatWithConsultantScreenController> {
-  const ChatWithConsultantScreen({super.key});
+  const ChatWithConsultantScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     final screenWidth = MediaQuery.of(context).size.width;
     final screenHeight = MediaQuery.of(context).size.height;
+
     return Scaffold(
       backgroundColor: AppColors.backgroundColor,
       body: SafeArea(
@@ -23,6 +22,7 @@ class ChatWithConsultantScreen extends GetView<ChatWithConsultantScreenControlle
           padding: const EdgeInsets.only(top: 20),
           child: Column(
             children: [
+              // Header Section
               Material(
                 elevation: 2,
                 color: AppColors.backgroundColor,
@@ -30,7 +30,7 @@ class ChatWithConsultantScreen extends GetView<ChatWithConsultantScreenControlle
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: [
                     SizedBox(
-                      height: screenHeight*0.078,
+                      height: screenHeight * 0.078,
                       child: InkWell(
                         onTap: () {
                           Get.back();
@@ -46,21 +46,19 @@ class ChatWithConsultantScreen extends GetView<ChatWithConsultantScreenControlle
                     ),
                     Padding(
                       padding: const EdgeInsets.only(left: 30),
-                      child:Obx(
-                            () => CircleAvatar(
-                          radius: 25,
-                          backgroundImage: controller.doctorModel.value.image != ''
-                              ? CachedNetworkImageProvider(controller.doctorModel.value.image)
-                              : (controller.userModel.value.image != ''
-                              ? CachedNetworkImageProvider(controller.userModel.value.image)
-                              : const AssetImage('assets/images/person.png') as ImageProvider),
-                        ),
+                      child: Obx(
+                            () =>CircleAvatar(
+                              radius: 25,
+                              backgroundImage: _getImageProvider(),
+                            ),
+
                       ),
                     ),
                     Padding(
                       padding: const EdgeInsets.only(left: 15, right: 45),
                       child: Text(
-                        "Dr M Ali\nNizamani",
+                        "${controller.doctorModel.value.firstName} ${controller.doctorModel.value.lastName}",
+                        // Use the doctor's full name from the controller
                         style: Theme.of(context).textTheme.displayLarge!.copyWith(
                           fontSize: screenWidth * 0.035,
                         ),
@@ -68,6 +66,7 @@ class ChatWithConsultantScreen extends GetView<ChatWithConsultantScreenControlle
                     ),
                     InkWell(
                       onTap: () {
+                        // Handle phone icon tap
                         Get.toNamed(kCallingConsultantScreen);
                       },
                       child: Icon(
@@ -80,6 +79,7 @@ class ChatWithConsultantScreen extends GetView<ChatWithConsultantScreenControlle
                       padding: const EdgeInsets.only(left: 30),
                       child: InkWell(
                         onTap: () {
+                          // Handle video call icon tap
                           Get.toNamed(kVideoCallScreen);
                         },
                         child: Icon(
@@ -92,26 +92,36 @@ class ChatWithConsultantScreen extends GetView<ChatWithConsultantScreenControlle
                   ],
                 ),
               ),
+              // Chat Messages Section
               Expanded(
-                child: ListView.builder(
-                  itemCount: 10,
-                  itemBuilder: (context, index) {
-                    // Build your chat message items here
-                    return ListTile(
-                      title: Text('Message $index'),
-                    );
-                  },
+                child: Obx(
+                      () => ListView.builder(
+                    itemCount: controller.messages.length,
+                    itemBuilder: (context, index) {
+                      ChatMessage message = controller.messages[index];
+                      return ListTile(
+                        title: Text(message.text),
+                        subtitle: Text('${message.senderFirstName}'), // Use senderFirstName
+                        trailing: Text(
+                          '${message.timestamp.hour}:${message.timestamp.minute}',
+                        ),
+                      );
+                    },
+                  ),
                 ),
               ),
+              // Message Input Section
               Container(
-                padding:const EdgeInsets.only(left: 10, bottom: 10, top: 10),
+                padding: const EdgeInsets.only(left: 10, bottom: 10, top: 10),
                 height: 60,
                 width: double.infinity,
                 color: Colors.white,
                 child: Row(
                   children: [
                     GestureDetector(
-                      onTap: () {},
+                      onTap: () {
+                        // Handle add icon tap
+                      },
                       child: Container(
                         height: 30,
                         width: 30,
@@ -127,9 +137,14 @@ class ChatWithConsultantScreen extends GetView<ChatWithConsultantScreenControlle
                       ),
                     ),
                     const SizedBox(width: 15),
-                    const Expanded(
+                    Expanded(
                       child: TextField(
-                        decoration: InputDecoration(
+                        controller: controller.textFieldController,
+                        onChanged: (text) {
+                          // Update the messageText property in the controller
+                          controller.messageText = text;
+                        },
+                        decoration: const InputDecoration(
                           hintText: "Write message...",
                           hintStyle: TextStyle(color: Colors.black54),
                           border: InputBorder.none,
@@ -138,7 +153,12 @@ class ChatWithConsultantScreen extends GetView<ChatWithConsultantScreenControlle
                     ),
                     const SizedBox(width: 15),
                     FloatingActionButton(
-                      onPressed: () {},
+                      onPressed: () {
+                        // Use the messageText property from the controller
+                        if (controller.messageText.isNotEmpty) {
+                          controller.sendMessage(controller.messageText);
+                        }
+                      },
                       backgroundColor: AppColors.primaryBlue,
                       elevation: 0,
                       child: const Icon(
@@ -156,4 +176,14 @@ class ChatWithConsultantScreen extends GetView<ChatWithConsultantScreenControlle
       ),
     );
   }
+  ImageProvider _getImageProvider() {
+    if (controller.userModel.value.image != '') {
+      return CachedNetworkImageProvider(controller.userModel.value.image);
+    } else if (controller.doctorModel.value.image != '') {
+      return CachedNetworkImageProvider(controller.doctorModel.value.image);
+    } else {
+      return const AssetImage('assets/images/person.png');
+    }
+  }
+
 }

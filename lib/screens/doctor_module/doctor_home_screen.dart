@@ -56,7 +56,7 @@ class DoctorHomeScreen extends GetView<DoctorHomeScreenController> {
                               controller.logout();
                               }
                             else if (value == 'profile') {
-                              Get.toNamed(kDoctorEditProfileScreen);
+                              Get.toNamed(kDoctorProfileScreen);
                             }
 
                           },

@@ -22,6 +22,8 @@ import '../controller/common_screens_controller/auth_screens_controller/splash_s
 import '../controller/common_screens_controller/auth_screens_controller/welcome_screen_controller.dart';
 import '../controller/doctor_screens_controller/doctor_edit_profile_screen_controller.dart';
 import '../controller/doctor_screens_controller/doctor_home_screen_controller.dart';
+import '../controller/doctor_screens_controller/doctor_inbox_screen_controller.dart';
+import '../controller/doctor_screens_controller/doctor_profile_screen_controller.dart';
 import '../controller/doctor_screens_controller/doctor_profile_setup_screen_controller.dart';
 import '../controller/exercises_screens_controller/exercises_screen_three_controller.dart';
 import '../controller/exercises_screens_controller/exercises_screen_two_controller.dart';
@@ -85,6 +87,8 @@ class ScreenBindings extends Bindings {
     Get.lazyPut(() => DoctorBookedAppointmentsScreenController());
     Get.lazyPut(() => ProfileSetUpScreenController());
     Get.lazyPut(() => DoctorProfileSetUpScreenController());
+    Get.lazyPut(() => DoctorInboxScreenController());
+    Get.lazyPut(() => DoctorProfileScreenController());
 
 
 
