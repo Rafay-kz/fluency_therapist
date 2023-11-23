@@ -8,8 +8,6 @@ import '../../../custom widgets/button.dart';
 import '../../../utils/app_colors.dart';
 import '../../../utils/app_constants.dart';
 
-
-
 class UserProfileScreen extends GetView<UserProfileScreenController> {
   const UserProfileScreen({super.key});
 
@@ -22,9 +20,8 @@ class UserProfileScreen extends GetView<UserProfileScreenController> {
       body: SafeArea(
         child: Padding(
           padding: const EdgeInsets.only(top: 25, left: 25, right: 25),
-          child: Column(children: [
+          child: Column(mainAxisAlignment: MainAxisAlignment.start, children: [
             Row(
-              mainAxisAlignment: MainAxisAlignment.start,
               children: [
                 InkWell(
                   onTap: () {
@@ -38,23 +35,20 @@ class UserProfileScreen extends GetView<UserProfileScreenController> {
               ],
             ),
             Column(
-                children: [
-                  Center(
-                    child: Obx(()=> CircleAvatar(
-                        radius: 25,
-                        backgroundImage: controller.userModel.value.image!=''
+              children: [
+                Center(
+                  child: Obx(
+                    () => CircleAvatar(
+                        radius: 40,
+                        backgroundImage: controller.userModel.value.image != ''
                             ? CachedNetworkImageProvider(
-                            controller.userModel.value.image
-                        )
-                            : const AssetImage('assets/images/person.png') as ImageProvider
-                    ),
-                    ),
+                                controller.userModel.value.image)
+                            : const AssetImage('assets/images/person.png')
+                                as ImageProvider),
                   ),
-
-                ],
-              ),
-
-
+                ),
+              ],
+            ),
             InkWell(
               onTap: () {
                 Get.toNamed(kEditProfileScreen);
@@ -117,121 +111,6 @@ class UserProfileScreen extends GetView<UserProfileScreenController> {
                 color: AppColors.textHintColor,
               ),
             ),
-            Row(
-              children: [
-                Column(
-                  children: [
-                    Padding(
-                      padding: const EdgeInsets.only(top: 20),
-                      child: Icon(Icons.messenger_outline_sharp,
-                          size: screenWidth * 0.078,
-                          color: AppColors.primaryBlue),
-                    ),
-                  ],
-                ),
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    GestureDetector(
-                      onTap: () {
-                        Get.toNamed(kInboxScreen);
-                      },
-                      child: Padding(
-                        padding: const EdgeInsets.only(left: 15, top: 16),
-                        child: Text(
-                          "Inbox",
-                          style: Theme.of(context)
-                              .textTheme
-                              .displayLarge!
-                              .copyWith(
-                                fontSize: screenWidth * 0.038,
-                                color: AppColors.textColor,
-                              ),
-                        ),
-                      ),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.only(left: 15),
-                      child: Text(
-                        'Conversations with Consultants ',
-                        style: Theme.of(context)
-                            .textTheme
-                            .headlineSmall!
-                            .copyWith(
-                                fontSize: screenWidth * 0.030,
-                                color: AppColors.descriptionColor),
-                      ),
-                    ),
-                  ],
-                )
-              ],
-            ),
-            SizedBox(
-              width: screenWidth * 0.95,
-              child: Padding(
-                padding: const EdgeInsets.only(top: 10),
-                child: Divider(
-                  color: AppColors.textHintColor,
-                ),
-              ),
-            ),
-            Row(
-              children: [
-                Column(
-                  children: [
-                    Padding(
-                      padding: const EdgeInsets.only(top: 15),
-                      child: Image(
-                        image: const AssetImage(billingDetailsIcon),
-                        width: screenWidth * 0.075,
-                        height: screenHeight * 0.075,
-                      ),
-                    ),
-                  ],
-                ),
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    GestureDetector(
-                      onTap: () {
-                        Get.toNamed(kEditProfileScreen);
-                      },
-                      child: Padding(
-                        padding: const EdgeInsets.only(left: 15, top: 16),
-                        child: Text(
-                          "Billing Details",
-                          style: Theme.of(context)
-                              .textTheme
-                              .displayLarge!
-                              .copyWith(
-                                fontSize: screenWidth * 0.038,
-                                color: AppColors.textColor,
-                              ),
-                        ),
-                      ),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.only(left: 15),
-                      child: Text(
-                        'Payment and billing details',
-                        style: Theme.of(context)
-                            .textTheme
-                            .headlineSmall!
-                            .copyWith(
-                                fontSize: screenWidth * 0.030,
-                                color: AppColors.descriptionColor),
-                      ),
-                    ),
-                  ],
-                )
-              ],
-            ),
-            SizedBox(
-              width: screenWidth * 0.9,
-              child: Divider(
-                color: AppColors.textHintColor,
-              ),
-            ),
             InkWell(
               onTap: () {
                 Get.toNamed(kProgressTrackingScreen);
@@ -254,7 +133,7 @@ class UserProfileScreen extends GetView<UserProfileScreenController> {
                     children: [
                       GestureDetector(
                         onTap: () {
-                          Get.toNamed(kEditProfileScreen);
+                          Get.toNamed(kProgressTrackingScreen);
                         },
                         child: Padding(
                           padding: const EdgeInsets.only(left: 15, top: 25),
@@ -300,7 +179,7 @@ class UserProfileScreen extends GetView<UserProfileScreenController> {
               padding: const EdgeInsets.only(top: 25),
               child: Button(
                   onPressed: () {
-                    Get.toNamed(kLoginScreen);
+                 controller.logout();
                   },
                   text: "Logout"),
             )

@@ -1,6 +1,4 @@
 
-import 'package:fluency_therapist/exercises/exercises_screen_three.dart';
-import 'package:fluency_therapist/exercises/exercises_screen_two.dart';
 import 'package:fluency_therapist/screens/common_screens/auth_screens/profile_setup_screen.dart';
 import 'package:fluency_therapist/screens/doctor_module/doctor_booked_appointments_screen.dart';
 import 'package:fluency_therapist/screens/doctor_module/doctor_edit_profile_screen.dart';
@@ -202,15 +200,6 @@ class RouteGenerator {
       GetPage(
         name: kExercisesScreenOne,
         page: () =>  ExcerisesScreenOne(),
-        binding: ScreenBindings(),
-      ),GetPage(
-        name: kExercisesScreenTwo,
-        page: () =>  ExcerisesScreenTwo(),
-        binding: ScreenBindings(),
-      ),
-    GetPage(
-        name: kExercisesScreenThree,
-        page: () =>  ExcerisesScreenThree(),
         binding: ScreenBindings(),
       ),
       GetPage(

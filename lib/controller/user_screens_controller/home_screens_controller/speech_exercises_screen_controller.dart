@@ -50,24 +50,23 @@ class SpeechExercisesScreenController extends GetxController {
         folderName, kidsVideos, fluencyVideos, speechDisorderVideos);
   }
 
-  final List<ExerciseData> exerciseData = [
+  final RxList<ExerciseData> exerciseData = [
     ExerciseData(
-      "Recognition",
-      "Recognition of disease\nand Speech Disorders\nin Children",
-      0, // Initial progress for the first exercise
+      title: "Exercises for kids",
+      description: "Recognition of disease\nand Speech Disorders\nin Children",
+      progress: 0, // Initial progress for the first exercise
     ),
     ExerciseData(
-      "Exercises",
-      "Fluency exercises for clear speak",
-      0, // Initial progress for the second exercise
+      title: "Fluency exercises for clear speak",
+      description: "Fluency exercises for clear speak",
+      progress: 0, // Initial progress for the second exercise
     ),
     ExerciseData(
-      "Exercises",
-      "Speech Disorders in Children",
-      0, // Initial progress for the third exercise
+      title: "Speech Disorders in Children",
+      description: "There are videos Speech Disorders in Children",
+      progress: 0, // Initial progress for the third exercise
     ),
-    // Add more ExerciseData objects as needed
-  ];
+  ].obs;
 
   Future<void> calculateAndDisplayProgress() async {
     try {
@@ -109,19 +108,19 @@ class SpeechExercisesScreenController extends GetxController {
     if (index >= 0 && index < exerciseData.length) {
       // Update the progress value at the specified index
       exerciseData[index] = ExerciseData(
-        exerciseData[index].title,
-        exerciseData[index].description,
-        progress,
+       title: exerciseData[index].title,
+        description:exerciseData[index].description,
+        progress: progress,
       );
     }
   }
 }
 
 class ExerciseData {
-  final String title;
-  final String description;
-  final double progress;
+   String title="";
+   String description="";
+   double progress=0.0;
 
-  ExerciseData(this.title, this.description, this.progress);
+  ExerciseData({required this.title, required this.description, required this.progress});
 }
 

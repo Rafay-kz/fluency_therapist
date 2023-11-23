@@ -23,6 +23,11 @@ class UserProfileScreenController extends GetxController {
     userModel.value=await userSession.getUserInformation();
   }
 
+  Future<void> logout () async {
+     userSession.logOut();
+     Get.offAllNamed(kLoginScreen);
+
+     }
 
 
 }

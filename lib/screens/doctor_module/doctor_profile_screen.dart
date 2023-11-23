@@ -42,7 +42,7 @@ class DoctorProfileScreen extends GetView<DoctorProfileScreenController> {
               children: [
                 Center(
                   child: Obx(()=> CircleAvatar(
-                      radius: 25,
+                      radius: 40,
                       backgroundImage: controller.doctorModel.value.image!=''
                           ? CachedNetworkImageProvider(
                           controller.doctorModel.value.image
@@ -58,7 +58,7 @@ class DoctorProfileScreen extends GetView<DoctorProfileScreenController> {
 
             InkWell(
               onTap: () {
-                Get.toNamed(kDoctorInboxScreen);
+                Get.toNamed(kDoctorEditProfileScreen);
               },
               child: Row(
                 children: [
@@ -118,121 +118,8 @@ class DoctorProfileScreen extends GetView<DoctorProfileScreenController> {
                 color: AppColors.textHintColor,
               ),
             ),
-            Row(
-              children: [
-                Column(
-                  children: [
-                    Padding(
-                      padding: const EdgeInsets.only(top: 20),
-                      child: Icon(Icons.messenger_outline_sharp,
-                          size: screenWidth * 0.078,
-                          color: AppColors.primaryBlue),
-                    ),
-                  ],
-                ),
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    GestureDetector(
-                      onTap: () {
-                        Get.toNamed(kDoctorInboxScreen);
-                      },
-                      child: Padding(
-                        padding: const EdgeInsets.only(left: 15, top: 16),
-                        child: Text(
-                          "Inbox",
-                          style: Theme.of(context)
-                              .textTheme
-                              .displayLarge!
-                              .copyWith(
-                            fontSize: screenWidth * 0.038,
-                            color: AppColors.textColor,
-                          ),
-                        ),
-                      ),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.only(left: 15),
-                      child: Text(
-                        'Conversations with Consultants ',
-                        style: Theme.of(context)
-                            .textTheme
-                            .headlineSmall!
-                            .copyWith(
-                            fontSize: screenWidth * 0.030,
-                            color: AppColors.descriptionColor),
-                      ),
-                    ),
-                  ],
-                )
-              ],
-            ),
-            SizedBox(
-              width: screenWidth * 0.95,
-              child: Padding(
-                padding: const EdgeInsets.only(top: 10),
-                child: Divider(
-                  color: AppColors.textHintColor,
-                ),
-              ),
-            ),
-            Row(
-              children: [
-                Column(
-                  children: [
-                    Padding(
-                      padding: const EdgeInsets.only(top: 15),
-                      child: Image(
-                        image: const AssetImage(billingDetailsIcon),
-                        width: screenWidth * 0.075,
-                        height: screenHeight * 0.075,
-                      ),
-                    ),
-                  ],
-                ),
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    GestureDetector(
-                      onTap: () {
 
-                      },
-                      child: Padding(
-                        padding: const EdgeInsets.only(left: 15, top: 16),
-                        child: Text(
-                          "Billing Details",
-                          style: Theme.of(context)
-                              .textTheme
-                              .displayLarge!
-                              .copyWith(
-                            fontSize: screenWidth * 0.038,
-                            color: AppColors.textColor,
-                          ),
-                        ),
-                      ),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.only(left: 15),
-                      child: Text(
-                        'Payment and billing details',
-                        style: Theme.of(context)
-                            .textTheme
-                            .headlineSmall!
-                            .copyWith(
-                            fontSize: screenWidth * 0.030,
-                            color: AppColors.descriptionColor),
-                      ),
-                    ),
-                  ],
-                )
-              ],
-            ),
-            SizedBox(
-              width: screenWidth * 0.9,
-              child: Divider(
-                color: AppColors.textHintColor,
-              ),
-            ),
+
             InkWell(
               onTap: () {
                 Get.toNamed(kProgressTrackingScreen);
@@ -301,7 +188,7 @@ class DoctorProfileScreen extends GetView<DoctorProfileScreenController> {
               padding: const EdgeInsets.only(top: 25),
               child: Button(
                   onPressed: () {
-                    Get.toNamed(kLoginScreen);
+                    controller.logout();
                   },
                   text: "Logout"),
             )
