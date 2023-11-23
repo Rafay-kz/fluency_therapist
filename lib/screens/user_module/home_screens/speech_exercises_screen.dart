@@ -13,11 +13,6 @@ class SpeechExercisesScreen extends GetView<SpeechExercisesScreenController> {
   Widget build(BuildContext context) {
     final screenWidth = MediaQuery.of(context).size.width;
     final screenHeight = MediaQuery.of(context).size.height;
-    List<String> screenNames = [
-      kExercisesScreenOne,
-      kExercisesScreenTwo,
-      kExercisesScreenThree // Add more screen names as needed
-    ];
 
     return Scaffold(
       backgroundColor: AppColors.backgroundColor,
@@ -87,138 +82,135 @@ class SpeechExercisesScreen extends GetView<SpeechExercisesScreenController> {
                 ),
               ),
               Expanded(
-                child: ListView.builder(
-                    itemCount: controller.exerciseData.length,
-                    itemBuilder: (BuildContext context, int index) {
-                      ExerciseData data = controller.exerciseData[index];
-                      {
-                        return Padding(
-                          padding: const EdgeInsets.only(top: 32),
-                          child: Container(
-                            padding: const EdgeInsets.symmetric(
-                                horizontal: 15, vertical: 8),
-                            decoration: BoxDecoration(
-                                color: AppColors.secondaryBlue,
-                                borderRadius: BorderRadius.circular(35)),
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              mainAxisAlignment: MainAxisAlignment.start,
-                              children: [
-                                Row(
-                                  mainAxisAlignment: MainAxisAlignment.start,
-                                  crossAxisAlignment: CrossAxisAlignment.center,
-                                  children: [
-                                    Image(
-                                      image: const AssetImage(parrotImage),
-                                      width: screenWidth * 0.30,
-                                      height: screenHeight * 0.20,
-                                    ),
-                                    const SizedBox(
-                                      width: 10,
-                                    ),
-                                    Expanded(
-                                      child: Column(
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.start,
-                                        children: [
-                                          Text(
-                                            data.title,
-                                            // Use the title from ExerciseData
-                                            style: Theme.of(context)
-                                                .textTheme
-                                                .displayLarge!
-                                                .copyWith(
-                                                  fontSize: screenWidth * 0.055,
-                                                ),
-                                          ),
-                                          const SizedBox(
-                                            height: 5,
-                                          ),
-                                          Text(
-                                            data.description,
-                                            // Use the description from ExerciseData
-                                            style: Theme.of(context)
-                                                .textTheme
-                                                .headlineSmall!
-                                                .copyWith(
-                                                  fontSize: screenWidth * 0.030,
-                                                  color: AppColors.textColor,
-                                                ),
-                                          ),
-                                        ],
-                                      ),
-                                    )
-                                  ],
-                                ),
-                                Row(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceBetween,
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.center,
+                child: Obx(()=> ListView.builder(
+                      itemCount: controller.exerciseData.length,
+                      itemBuilder: (BuildContext context, int index) {
+                        {
+                          return Padding(
+                            padding: const EdgeInsets.only(top: 32),
+                            child: Container(
+                              padding: const EdgeInsets.symmetric(
+                                  horizontal: 15, vertical: 8),
+                              decoration: BoxDecoration(
+                                  color: AppColors.secondaryBlue,
+                                  borderRadius: BorderRadius.circular(35)),
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                mainAxisAlignment: MainAxisAlignment.start,
+                                children: [
+                                  Row(
+                                    mainAxisAlignment: MainAxisAlignment.start,
+                                    crossAxisAlignment: CrossAxisAlignment.center,
                                     children: [
-                                      Container(
-                                        width: screenWidth * 0.29,
-                                        height: screenHeight * 0.011,
-                                        child: ClipRRect(
-                                          borderRadius: const BorderRadius.all(
-                                              Radius.circular(10)),
-                                          child: LinearProgressIndicator(
-                                              value:controller.exerciseData[index].progress, // Assuming the progress ranges from 0 to 100
-                                              semanticsLabel: '${controller.exerciseData[0].progress}%',
-                                            valueColor:
-                                                AlwaysStoppedAnimation<Color>(
-                                                    AppColors.primaryBlue),
-                                            backgroundColor:
-                                                AppColors.textfieldColor,
-                                          ),
-                                        ),
+                                      Image(
+                                        image: const AssetImage(parrotImage),
+                                        width: screenWidth * 0.30,
+                                        height: screenHeight * 0.20,
                                       ),
-                                      Text(
-                                        '${controller.exerciseData[index].progress.toStringAsFixed(2)}%',
-                                        style: Theme.of(context).textTheme.displayLarge!.copyWith(
-                                            fontSize: screenWidth * 0.030,
-                                            color: AppColors.textColor),
+                                      const SizedBox(
+                                        width: 10,
                                       ),
-                                      TextButton(
-                                        onPressed: () {
-                                          if (index < screenNames.length) {
-                                            String screenName =
-                                                screenNames[index];
-                                            Get.toNamed(screenName);
-                                          } else {
-                                            // Handle index out of bounds error
-                                          }
-                                        },
-                                        child: Container(
-                                          width: screenWidth * 0.19,
-                                          height: screenHeight * 0.044,
-                                          decoration: BoxDecoration(
-                                            color: AppColors.primaryBlue,
-                                            borderRadius:
-                                                BorderRadius.circular(30),
-                                          ),
-                                          child: Center(
-                                            child: Text(
-                                              "Start",
+                                      Expanded(
+                                        child: Column(
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
+                                          children: [
+                                            Text(
+                                              controller.exerciseData[index].title,
+                                              // Use the title from ExerciseData
+                                              style: Theme.of(context)
+                                                  .textTheme
+                                                  .displayLarge!
+                                                  .copyWith(
+                                                    fontSize: screenWidth * 0.055,
+                                                  ),
+                                            ),
+                                            const SizedBox(
+                                              height: 5,
+                                            ),
+                                            Text(
+                                              controller.exerciseData[index].description,
+                                              // Use the description from ExerciseData
                                               style: Theme.of(context)
                                                   .textTheme
                                                   .headlineSmall!
                                                   .copyWith(
-                                                    fontSize:
-                                                        screenWidth * 0.035,
-                                                    color: AppColors.whiteColor,
+                                                    fontSize: screenWidth * 0.030,
+                                                    color: AppColors.textColor,
                                                   ),
+                                            ),
+                                          ],
+                                        ),
+                                      )
+                                    ],
+                                  ),
+                                  Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.center,
+                                      children: [
+                                        Container(
+                                          width: screenWidth * 0.29,
+                                          height: screenHeight * 0.011,
+                                          child: ClipRRect(
+                                            borderRadius: const BorderRadius.all(
+                                                Radius.circular(10)),
+                                            child: Obx(()=> LinearProgressIndicator(
+                                                  value:controller.exerciseData[index].progress/100, // Assuming the progress ranges from 0 to 100
+                                                  semanticsLabel: '${controller.exerciseData[0].progress}%',
+                                                valueColor:
+                                                    AlwaysStoppedAnimation<Color>(
+                                                        AppColors.primaryBlue),
+                                                backgroundColor:
+                                                    AppColors.textfieldColor,
+                                              ),
                                             ),
                                           ),
                                         ),
-                                      )
-                                    ]),
-                              ],
+                                        Obx(()=>Text(
+                                            '${controller.exerciseData[index].progress.toStringAsFixed(2)}%',
+                                            style: Theme.of(context).textTheme.displayLarge!.copyWith(
+                                                fontSize: screenWidth * 0.030,
+                                                color: AppColors.textColor),
+                                          ),
+                                        ),
+                                        TextButton(
+                                          onPressed: () {
+                                              Get.toNamed(kExercisesScreenOne,arguments: controller.exerciseData[index].title);
+
+                                          },
+                                          child: Container(
+                                            width: screenWidth * 0.19,
+                                            height: screenHeight * 0.044,
+                                            decoration: BoxDecoration(
+                                              color: AppColors.primaryBlue,
+                                              borderRadius:
+                                                  BorderRadius.circular(30),
+                                            ),
+                                            child: Center(
+                                              child: Text(
+                                                "Start",
+                                                style: Theme.of(context)
+                                                    .textTheme
+                                                    .headlineSmall!
+                                                    .copyWith(
+                                                      fontSize:
+                                                          screenWidth * 0.035,
+                                                      color: AppColors.whiteColor,
+                                                    ),
+                                              ),
+                                            ),
+                                          ),
+                                        )
+                                      ]),
+                                ],
+                              ),
                             ),
-                          ),
-                        );
-                      }
-                    }),
+                          );
+                        }
+                      }),
+                ),
               )
             ],
           ),

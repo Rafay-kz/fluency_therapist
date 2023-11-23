@@ -12,14 +12,14 @@ class ForgetPassScreenController extends GetxController {
   final auth = FirebaseAuth.instance;
 
 
+
+
   String? validateEmail(String value) {
     if (!GetUtils.isEmail(value)) {
-      return 'Please provide a valid email';
+      Get.snackbar('Error', 'Please provide a valid email');
     }
     return null;
   }
-
-
 
 
 Future<void> onTap () async {

@@ -12,11 +12,12 @@ class ExercisesScreenOneController extends GetxController {
   Rx<UserModel> userModel = UserModel.empty().obs;
   Rx<DoctorModel> doctorModel = DoctorModel.empty().obs;
   Database database = Database();
-  String exerciseName = "Exercises for kids";
+  String exerciseName = "";
 
   @override
   void onInit() async {
-    await fetchMetadataForFolder('Exercises for kids');
+    exerciseName=Get.arguments??'';
+    await fetchMetadataForFolder(exerciseName);
     await getUserInfo();
     await getDoctorInfo();
     await loadVideoIndex();

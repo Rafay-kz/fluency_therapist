@@ -9,8 +9,6 @@ import 'package:fluency_therapist/controller/exercises_screens_controller/exerci
 import 'package:fluency_therapist/controller/user_screens_controller/home_screens_controller/appointment_booking_screen_controller.dart';
 import 'package:fluency_therapist/utils/app_constants.dart';
 import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
-import 'package:get/get_instance/src/bindings_interface.dart';
 
 import '../controller/common_screens_controller/auth_screens_controller/create_new_password_screen_controller.dart';
 import '../controller/common_screens_controller/auth_screens_controller/email_verification_screen_controller.dart';
@@ -25,8 +23,6 @@ import '../controller/doctor_screens_controller/doctor_home_screen_controller.da
 import '../controller/doctor_screens_controller/doctor_inbox_screen_controller.dart';
 import '../controller/doctor_screens_controller/doctor_profile_screen_controller.dart';
 import '../controller/doctor_screens_controller/doctor_profile_setup_screen_controller.dart';
-import '../controller/exercises_screens_controller/exercises_screen_three_controller.dart';
-import '../controller/exercises_screens_controller/exercises_screen_two_controller.dart';
 import '../controller/user_screens_controller/home_screens_controller/booked_appointment_screen_controller.dart';
 import '../controller/user_screens_controller/home_screens_controller/call_log_screen_controller.dart';
 import '../controller/user_screens_controller/home_screens_controller/calling_consultant_screen_controller.dart';
@@ -81,8 +77,6 @@ class ScreenBindings extends Bindings {
     Get.lazyPut(() => DoctorSchedulingScreenController());
     Get.lazyPut(() => AppointmentBookingScreenController());
     Get.lazyPut(() => ExercisesScreenOneController());
-    Get.lazyPut(() => ExercisesScreenTwoController());
-    Get.lazyPut(() => ExercisesScreenThreeController());
     Get.lazyPut(() => BookedAppointmentScreenController());
     Get.lazyPut(() => DoctorBookedAppointmentsScreenController());
     Get.lazyPut(() => ProfileSetUpScreenController());

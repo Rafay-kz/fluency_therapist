@@ -25,108 +25,69 @@ class DoctorHomeScreen extends GetView<DoctorHomeScreenController> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+
                   children: [
-                    Expanded(
-                      child: Obx(()=> RichText(
-                          text: TextSpan(
-                            style: Theme.of(context).textTheme.headlineSmall!.copyWith(
-                              fontSize: Get.width * 0.055,
-                              color: AppColors.primaryBlue,
-                            ),
-                            children: [
-                              const TextSpan(text: "Hello,"),
-                              TextSpan(
-                                text: "\n Dr.${controller.doctorModel.value.firstName}",
-                                style: Theme.of(context).textTheme.displayLarge!.copyWith(
-                                  fontSize: Get.width * 0.060,
-                                  color: AppColors.textColor,
-                                ),
-                              ),
-                            ],
+                    Obx(
+
+                          () => RichText(
+                        text: TextSpan(
+                          style: Theme.of(context)
+                              .textTheme
+                              .headlineSmall!
+                              .copyWith(
+                            fontSize: Get.width * 0.055,
+                            color: AppColors.primaryBlue,
                           ),
+                          children: [
+                            const TextSpan(text: "Hello,"),
+                            TextSpan(
+                              text: "\n${controller.doctorModel.value.firstName}",
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .displayLarge!
+                                  .copyWith(
+                                fontSize: Get.width * 0.060,
+                                color: AppColors.textColor,
+                              ),
+                            ),
+
+                          ],
                         ),
                       ),
                     ),
-                    Expanded(
-                      child: Padding(
-                        padding: const EdgeInsets.only(left: 150),
-                        child: PopupMenuButton(
-                          onSelected: (value) {
-                            if (value == 'logout') {
-                              controller.logout();
-                              }
-                            else if (value == 'profile') {
-                              Get.toNamed(kDoctorProfileScreen);
-                            }
 
-                          },
-                          itemBuilder: (context) => [
-                            const PopupMenuItem(
-                              value: 'logout',
-                              child: ListTile(
-                                leading: Icon(Icons.logout),
-                                title: Text("logout"),
-                              ),
-                            ),
-                            const PopupMenuItem(
-                              value: 'profile',
-                              child: ListTile(
-                                leading: Icon(Icons.photo),
-                                title: Text("profile"),
-                              ),
-                            ),
-                          ],
-                          child:Obx(()=>  CircleAvatar(
-                              radius: 30,
-                              backgroundImage: controller.doctorModel.value.image!=''
-                                  ? CachedNetworkImageProvider(
-                                  controller.doctorModel.value.image
-                              )
-                                  : const AssetImage('assets/images/person.png') as ImageProvider
-                          ),
+                    PopupMenuButton(
+                      onSelected: (value) {
+                        if (value == 'Account') {
+                          Get.toNamed(kDoctorProfileScreen);
+                        }
+                      },
+                      itemBuilder: (context) => [
+
+                        const PopupMenuItem(
+                          value: 'Account',
+                          child: ListTile(
+                            leading: Icon(Icons.person),
+                            title: Text("Account"),
                           ),
                         ),
+                      ],
+                      child: Obx(
+                            () => CircleAvatar(
+                            radius: 25,
+                            backgroundImage: controller
+                                .doctorModel.value.image !=
+                                ''
+                                ? CachedNetworkImageProvider(
+                                controller.doctorModel.value.image)
+                                : const AssetImage('assets/images/person.png')
+                            as ImageProvider),
                       ),
                     ),
                   ],
                 ),
-                Padding(
-                  padding: const EdgeInsets.only(top: 30),
-                  child: Center(
-                    child: SizedBox(
-                      width: Get.width * 0.9,
-                      height: Get.height * 0.076,
-                      child: TextField(
-                        decoration: InputDecoration(
-                          fillColor: AppColors.textfieldColor,
-                          filled: true,
-                          hintText: 'Search exercise...',
-                          hintStyle: Theme.of(context).textTheme.headlineSmall!.copyWith(
-                            fontSize: Get.width * 0.042,
-                            color: AppColors.textHintColor,
-                          ),
-                          border: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(30),
-                            borderSide: BorderSide.none,
-                          ),
-                          prefixIcon: GestureDetector(
-                            onTap: () {
-                              Get.toNamed(kSearchScreen);
-                            },
-                            child: Padding(
-                              padding: const EdgeInsets.only(left: 20, right: 10),
-                              child: Icon(
-                                Icons.search_sharp,
-                                size: Get.width * 0.085,
-                                color: AppColors.textHintColor,
-                              ),
-                            ),
-                          ),
-                        ),
-                      ),
-                    ),
-                  ),
-                ),
+
                 Padding(
                   padding: const EdgeInsets.only(top: 32),
                   child: Container(
@@ -149,21 +110,7 @@ class DoctorHomeScreen extends GetView<DoctorHomeScreenController> {
                                   height: Get.height * 0.20,
                                 ),
                               ),
-                              Padding(
-                                padding: const EdgeInsets.only(left: 30),
-                                child: SizedBox(
-                                  width: Get.width * 0.29,
-                                  height: Get.height * 0.011,
-                                  child: ClipRRect(
-                                    borderRadius: const BorderRadius.all(Radius.circular(10)),
-                                    child: LinearProgressIndicator(
-                                      value: 0.3,
-                                      valueColor: AlwaysStoppedAnimation<Color>(AppColors.primaryBlue),
-                                      backgroundColor: AppColors.textfieldColor,
-                                    ),
-                                  ),
-                                ),
-                              ),
+
                             ],
                           ),
                         ),
@@ -222,20 +169,23 @@ class DoctorHomeScreen extends GetView<DoctorHomeScreenController> {
                     ),
                   ),
                 ),
-                Align(
-                  alignment: Alignment.topLeft,
-                  child: Padding(
-                    padding: const EdgeInsets.only(top: 13, left: 2),
-                    child: Text(
-                      "Features",
-                      style: Theme.of(context).textTheme.displayLarge!.copyWith(
-                        fontSize: Get.width * 0.045,
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Align(
+                    alignment: Alignment.topLeft,
+                    child: Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Text(
+                        "Features",
+                        style: Theme.of(context).textTheme.displayLarge!.copyWith(
+                          fontSize: Get.width * 0.045,
+                        ),
                       ),
                     ),
                   ),
                 ),
                 Padding(
-                  padding: const EdgeInsets.symmetric(vertical: 20),
+                  padding: const EdgeInsets.all(8.0),
                   child: Row(
                     children: [
                       cardWidget(
@@ -254,22 +204,25 @@ class DoctorHomeScreen extends GetView<DoctorHomeScreenController> {
                     ],
                   ),
                 ),
-                Row(
-                  children: [
-                    cardWidget(
-                      context: context,
-                      title: "View\nExercises",
-                      image: progressTrackingIcon,
-                      routeName: kProgressTrackingScreen,
-                    ),
-                    const SizedBox(width: 20),
-                    cardWidget(
-                      context: context,
-                      title: "Other\nConsultants",
-                      image: consultingIcon,
-                      routeName: kConsultTherapistScreen,
-                    ),
-                  ],
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Row(
+                    children: [
+                      cardWidget(
+                        context: context,
+                        title: "View\nExercises",
+                        image: progressTrackingIcon,
+                        routeName: kProgressTrackingScreen,
+                      ),
+                      const SizedBox(width: 20),
+                      cardWidget(
+                        context: context,
+                        title: "Other\nConsultants",
+                        image: consultingIcon,
+                        routeName: kConsultTherapistScreen,
+                      ),
+                    ],
+                  ),
                 ),
               ],
             ),

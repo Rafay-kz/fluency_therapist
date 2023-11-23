@@ -27,4 +27,11 @@ class DoctorProfileScreenController extends GetxController {
   Future<void> getDoctorInfo() async{
     doctorModel.value=await userSession.getDoctorInformation();
   }
-}
+
+  Future<void> logout () async {
+    userSession.logOut();
+    Get.offAllNamed(kLoginScreen);
+
+  }
+
+  }

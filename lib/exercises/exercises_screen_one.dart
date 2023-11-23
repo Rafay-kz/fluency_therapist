@@ -64,8 +64,7 @@ class ExcerisesScreenOne
                     mainAxisAlignment: MainAxisAlignment.start,
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text(
-                        "Recognition of disease",
+                      Text(controller.exerciseName,
                         style:
                         Theme.of(context).textTheme.displayLarge!.copyWith(
                           fontSize: screenWidth * 0.038,
