@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:get/get.dart';
 
 import '../../../model/doctor_model.dart';
@@ -10,9 +11,14 @@ class SpeechExercisesScreenController extends GetxController {
   UserSession userSession = UserSession();
   Rx<DoctorModel> doctorModel = DoctorModel.empty().obs;
   Rx<UserModel> userModel = UserModel.empty().obs;
+  List<String> folderNames = [
+    'Exercises for kids',
+    'Fluency exercises for clear speak',
+    'Speech Disorders in Children'
+  ];
   late int index;
 
-   RxDouble overallProgress = 0.0.obs;
+  RxDouble overallProgress = 0.0.obs;
 
   @override
   void onInit() async {
@@ -24,7 +30,8 @@ class SpeechExercisesScreenController extends GetxController {
     await checkAndUploadMetadata(
         '/videos/exercises/Speech Disorders in Children');
     await calculateAndDisplayProgress();
-
+    overallProgress.value =
+        await calculateOverallProgress(userModel.value.id, folderNames);
     super.onInit();
   }
 
@@ -78,49 +85,116 @@ class SpeechExercisesScreenController extends GetxController {
         "Exercises for kids",
       );
 
-      double progressSpeechDisorders = await videoServices.calculateUserProgress(
-        userId,
-        "Speech Disorders in Children",
-      );
-
       double progressFluency = await videoServices.calculateUserProgress(
         userId,
         "Fluency exercises for clear speak",
       );
 
+      double progressSpeechDisorders =
+          await videoServices.calculateUserProgress(
+        userId,
+        "Speech Disorders in Children",
+      );
+
       // Update the exerciseData list with the retrieved progress values
-      updateProgress(progressRecognition, 0); // Update the progress of the first exercise
-      updateProgress(progressSpeechDisorders, 1); // Update the progress of the second exercise
-      updateProgress(progressFluency, 2); // Update the progress of the third exercise
+      updateProgress(progressRecognition, 0);
+      updateProgress(
+          progressFluency, 1); // Update the progress of the first exercise
+      updateProgress(progressSpeechDisorders,
+          2); // Update the progress of the second exercise
+      // Update the progress of the third exercise
 
       // Display the updated progress for verification
       print('Progress for Recognition: $progressRecognition');
-      print('Progress for Speech Disorders: $progressSpeechDisorders');
       print('Progress for Fluency: $progressFluency');
+      print('Progress for Speech Disorders: $progressSpeechDisorders');
       print('Updated Exercise Data: $exerciseData');
     } catch (e) {
       print('Error calculating and displaying progress: $e');
     }
   }
 
-
   void updateProgress(double progress, int index) {
     if (index >= 0 && index < exerciseData.length) {
       // Update the progress value at the specified index
       exerciseData[index] = ExerciseData(
-       title: exerciseData[index].title,
-        description:exerciseData[index].description,
+        title: exerciseData[index].title,
+        description: exerciseData[index].description,
         progress: progress,
       );
     }
   }
+
+  Future<double> calculateOverallProgress(
+      String userId, List<String> folderNames) async {
+    try {
+      int totalVideoCount = 0;
+      int totalUserVideoIndex = 0;
+
+      for (String folderName in folderNames) {
+        DocumentSnapshot userSnapshot = await FirebaseFirestore.instance
+            .collection('users')
+            .doc(userId)
+            .get();
+
+        if (userSnapshot.exists) {
+          Map<String, dynamic>? userData =
+              userSnapshot.data() as Map<String, dynamic>?;
+
+          if (userData != null && userData.containsKey('$folderName-Index')) {
+            int userVideoIndex = userData['$folderName-Index'] as int;
+            int videoCount =
+                await videoServices.getVideoCountForFolder(folderName);
+
+            totalUserVideoIndex += userVideoIndex;
+            totalVideoCount += videoCount;
+          } else {
+            // Set progress to 0% if progress data is not found
+            totalVideoCount +=
+                await videoServices.getVideoCountForFolder(folderName);
+          }
+        } else {
+          throw Exception('User document does not exist');
+        }
+      }
+
+      double calculatedOverallProgress =
+          totalUserVideoIndex / totalVideoCount * 100;
+
+      print('Overall Progress: $calculatedOverallProgress');
+
+      // Update the overallProgress value in the controller
+      updateOverallProgress(calculatedOverallProgress);
+
+      return calculatedOverallProgress;
+    } catch (e) {
+      print('Error calculating overall progress: $e');
+      return 0.0;
+    }
+  }
+
+  void updateOverallProgress(double calculateOverallProgress) {
+    overallProgress.value = calculateOverallProgress;
+  }
+
+  RxBool isLoading = true.obs;
+
+  Future<void> loadData() async {
+    isLoading.value = true;
+
+    await Future.delayed(const Duration(seconds: 1));
+
+    isLoading.value = false;
+  }
+
+
 }
 
 class ExerciseData {
-   String title="";
-   String description="";
-   double progress=0.0;
+  String title = "";
+  String description = "";
+  double progress = 0.0;
 
-  ExerciseData({required this.title, required this.description, required this.progress});
+  ExerciseData(
+      {required this.title, required this.description, required this.progress});
 }
-

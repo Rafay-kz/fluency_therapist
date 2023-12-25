@@ -1,9 +1,7 @@
-import 'dart:io';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-import '../../../controller/user_screens_controller/home_screens_controller/user_profile_screen_controller.dart';
 import '../../../custom widgets/button.dart';
 import '../../../utils/app_colors.dart';
 import '../../../utils/app_constants.dart';
@@ -41,14 +39,15 @@ class DoctorProfileScreen extends GetView<DoctorProfileScreenController> {
             Column(
               children: [
                 Center(
-                  child: Obx(()=> CircleAvatar(
-                      radius: 40,
-                      backgroundImage: controller.doctorModel.value.image!=''
-                          ? CachedNetworkImageProvider(
-                          controller.doctorModel.value.image
-                      )
-                          : const AssetImage('assets/images/person.png') as ImageProvider
-                  ),
+                  child: Obx(
+                        () => CircleAvatar(
+                      radius: 25,
+                      backgroundImage: controller.doctorModel.value.image != ''
+                          ? CachedNetworkImageProvider(controller.doctorModel.value.image)
+                          : (controller.userModel.value.image != ''
+                          ? CachedNetworkImageProvider(controller.userModel.value.image)
+                          : const AssetImage('assets/images/person.png') as ImageProvider),
+                    ),
                   ),
                 ),
 

@@ -97,7 +97,8 @@ class BookedAppointmentScreen
                           return AppointmentCard(
                               doctor: doctor,
                               bookedSlot: bookedSlot,
-                              controller: controller);
+                              controller: controller,
+                              callId: bookedSlot.callId, );
                         }),
                   );
                 }),
@@ -113,12 +114,15 @@ class BookedAppointmentScreen
 class AppointmentCard extends StatelessWidget {
   final DoctorModel doctor;
   final BookedSlot bookedSlot;
+  final int callId;
+
   final BookedAppointmentScreenController controller;
 
   const AppointmentCard(
       {super.key,
       required this.doctor,
       required this.bookedSlot,
+        required this.callId,
       required this.controller});
 
   @override
@@ -168,7 +172,7 @@ class AppointmentCard extends StatelessWidget {
                       if (bookedSlot.date.isBefore(controller.now))
                         GestureDetector(
                           onTap: () {
-                                controller.deleteAppointmentsForUser(controller.userModel.value.id);
+                                controller.deleteAppointmentsForUser();
                           },
                           child: Icon(
                             Icons.delete,
@@ -244,8 +248,7 @@ class AppointmentCard extends StatelessWidget {
                 TextButton(
                   onPressed: controller.isButtonEnabled(bookedSlot)
                       ? () {
-                          Get.toNamed(kVideoCallScreen,
-                              arguments: bookedSlot.callId);
+                    controller.callOptions(bookedSlot.callId);
                         }
                       : null,
                   child: Container(

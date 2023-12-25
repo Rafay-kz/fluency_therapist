@@ -1,4 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 
@@ -21,6 +23,7 @@ class BookedAppointmentScreenController extends GetxController {
   Future<void> getUserInfo() async {
     userModel.value = await userSession.getUserInformation();
   }
+
   Future<void> getDoctorInfo() async {
     doctorModel.value = await userSession.getDoctorInformation();
   }
@@ -28,8 +31,8 @@ class BookedAppointmentScreenController extends GetxController {
   @override
   void onInit() async {
     await getUserInfo();
-    getDoctorInfo();
-    fetchDoctorUsers();
+    await getDoctorInfo();
+    await fetchDoctorUsers();
     await fetchDay();
     isLoading.value = false;
 
@@ -70,7 +73,15 @@ class BookedAppointmentScreenController extends GetxController {
   }
 
   Future<void> fetchDay() async {
-    final daysOfWeek = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday'];
+    final daysOfWeek = [
+      'Monday',
+      'Tuesday',
+      'Wednesday',
+      'Thursday',
+      'Friday',
+      'Saturday',
+      'Sunday'
+    ];
     for (final dayName in daysOfWeek) {
       List<BookedSlot> slots =
           await fetchBookedSlots(userModel.value.id, dayName);
@@ -79,10 +90,12 @@ class BookedAppointmentScreenController extends GetxController {
       }
     }
   }
+
   String formatDate(DateTime date) {
     final formatter = DateFormat('yyyy-MM-dd');
     return formatter.format(date);
   }
+
   Future<List<BookedSlot>> fetchBookedSlots(
       String userId, String dayName) async {
     try {
@@ -99,12 +112,13 @@ class BookedAppointmentScreenController extends GetxController {
 
         return BookedSlot(
           callId: data['callId'],
-          doctorId: data['doctorId'], // Retrieve doctorId
+          doctorId: data['doctorId'],
+          // Retrieve doctorId
           date: data['date'].toDate() as DateTime,
           startTime: database.parseTimeOfDay(data['start_time'] as String),
           endTime: database.parseTimeOfDay(data['end_time'] as String),
           doctor: doctorUsers.firstWhere(
-                (doc) => doc.id == data['doctorId'],
+            (doc) => doc.id == data['doctorId'],
             orElse: () => DoctorModel.empty(),
           ),
         );
@@ -121,19 +135,30 @@ class BookedAppointmentScreenController extends GetxController {
       return [];
     }
   }
+
   bool isButtonEnabled(BookedSlot bookedSlot) {
     final startTime = DateTime(
-        bookedSlot.date.year, bookedSlot.date.month, bookedSlot.date.day,
-        bookedSlot.startTime.hour, bookedSlot.startTime.minute);
+        bookedSlot.date.year,
+        bookedSlot.date.month,
+        bookedSlot.date.day,
+        bookedSlot.startTime.hour,
+        bookedSlot.startTime.minute);
     final endTime = DateTime(
-        bookedSlot.date.year, bookedSlot.date.month, bookedSlot.date.day,
-        bookedSlot.endTime.hour, bookedSlot.endTime.minute);
+        bookedSlot.date.year,
+        bookedSlot.date.month,
+        bookedSlot.date.day,
+        bookedSlot.endTime.hour,
+        bookedSlot.endTime.minute);
 
     // Enable the button if the current time is between the start and end times
     return now.isAfter(startTime) && now.isBefore(endTime);
   }
+
   final now = DateTime.now();
-  Future<void> deleteAppointmentsForUser(String userId) async {
+
+  Future<void> deleteAppointmentsForUser() async {
+    final userId = userModel.value.id;
+
     final QuerySnapshot querySnapshot = await FirebaseFirestore.instance
         .collection('booked_appointments')
         .where('userId', isEqualTo: userId)
@@ -146,8 +171,77 @@ class BookedAppointmentScreenController extends GetxController {
             .collection('booked_appointments')
             .doc(appointmentId)
             .delete();
+        print("DELETED");
+        // Remove the deleted appointments from bookedSlots
+        bookedSlots.removeWhere((slot) => slot.callId == appointmentId);
       }
 
+
     }
+  }
+
+  void callOptions(int callId) {
+    print('Selected Call ID: $callId');
+    Get.bottomSheet(
+      SingleChildScrollView(
+        child: ClipRRect(
+          borderRadius: const BorderRadius.only(
+            topLeft: Radius.circular(10.0),
+            topRight: Radius.circular(10.0),
+          ),
+          child: Container(
+            color: Colors.white,
+            height: 250,
+            child: Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                children: [
+                  const Text(
+                    "Select an action",
+                    style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                    textAlign: TextAlign.center,
+                  ),
+                  const SizedBox(
+                    height: 10,
+                  ),
+                  ElevatedButton.icon(
+                    onPressed: () {
+                      Get.toNamed(kOngoingCallScreen, arguments: callId);
+                    },
+                    icon: const Icon(Icons.phone),
+                    label: const Text("VOICE CALL"),
+                  ),
+                  ElevatedButton.icon(
+                    onPressed: () {
+                      Get.toNamed(kVideoCallScreen, arguments: callId);
+                    },
+                    icon: const Icon(Icons.video_call_sharp),
+                    label: const Text("VIDEO CALL"),
+                  ),
+                  ElevatedButton.icon(
+                    onPressed: () {
+                      Get.toNamed(kChatWithConsultantScreen, arguments: callId);
+                    },
+                    icon: const Icon(Icons.message_outlined),
+                    label: const Text("CHAT"),
+                  ),
+                  const SizedBox(
+                    height: 5,
+                  ),
+                  ElevatedButton.icon(
+                    onPressed: () {
+                      Get.back();
+                    },
+                    icon: const Icon(Icons.close),
+                    label: const Text("CANCEL"),
+                  ),
+                ],
+              ),
+            ),
+          ),
+        ),
+      ),
+    );
   }
 }

@@ -49,13 +49,17 @@ class AppointmentBookingScreen
                       ),
                     ),
                     Obx(
-                          () => CircleAvatar(
+                      () => CircleAvatar(
                         radius: 25,
-                        backgroundImage: controller.doctorModel.value.image != ''
-                            ? CachedNetworkImageProvider(controller.doctorModel.value.image)
+                        backgroundImage: controller.doctorModel.value.image !=
+                                ''
+                            ? CachedNetworkImageProvider(
+                                controller.doctorModel.value.image)
                             : (controller.userModel.value.image != ''
-                            ? CachedNetworkImageProvider(controller.userModel.value.image)
-                            : const AssetImage('assets/images/person.png') as ImageProvider),
+                                ? CachedNetworkImageProvider(
+                                    controller.userModel.value.image)
+                                : const AssetImage('assets/images/person.png')
+                                    as ImageProvider),
                       ),
                     ),
                   ],
@@ -105,7 +109,6 @@ class AppointmentBookingScreen
                       _doctorAppointments(4, context, controller),
                       _doctorAppointments(5, context, controller),
                       _doctorAppointments(6, context, controller),
-
                     ],
                   ),
                 ),
@@ -141,16 +144,17 @@ class AppointmentBookingScreen
                   itemCount: controller.timeSlotsMap[tabIndex]?.length,
                   itemBuilder: (context, index) {
                     final slot = controller.timeSlotsMap[tabIndex]?[index];
-                    debugPrint('Slot $index - isAvailable: ${slot!.isAvailable}'); // Add this line
+                    debugPrint(
+                        'Slot $index - isAvailable: ${slot!.isAvailable}'); // Add this line
                     return Padding(
                       padding: const EdgeInsets.symmetric(vertical: 8),
                       child: Container(
                         decoration: BoxDecoration(
-                          color: slot!.isAvailable ? AppColors.secondaryBlue : AppColors.textfieldColor,
+                          color: slot!.isAvailable
+                              ? AppColors.secondaryBlue
+                              : AppColors.textfieldColor,
                           borderRadius: BorderRadius.circular(15),
-
                         ),
-
                         child: Padding(
                           padding: const EdgeInsets.all(10.0),
                           child: Column(
@@ -158,19 +162,21 @@ class AppointmentBookingScreen
                               ListTile(
                                 leading: slot.isAvailable
                                     ? Obx(
-                                      () => Radio(
-                                    value: index,
-                                    groupValue: controller
-                                        .selectedSlotIndices[tabIndex].value,
-                                    onChanged: (value) {
-                                      controller.setSelectedSlotIndex(tabIndex, value!);
-                                    },
-                                    activeColor: Colors.green,
-                                    fillColor: MaterialStateProperty.all(
-                                      AppColors.primaryBlue,
-                                    ),
-                                  ),
-                                )
+                                        () => Radio(
+                                          value: index,
+                                          groupValue: controller
+                                              .selectedSlotIndices[tabIndex]
+                                              .value,
+                                          onChanged: (value) {
+                                            controller.setSelectedSlotIndex(
+                                                tabIndex, value!);
+                                          },
+                                          activeColor: Colors.green,
+                                          fillColor: MaterialStateProperty.all(
+                                            AppColors.primaryBlue,
+                                          ),
+                                        ),
+                                      )
                                     : null,
                                 subtitle: Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -181,20 +187,14 @@ class AppointmentBookingScreen
                                         'Start Time: ${slot.startTime.format(context)}'),
                                     Text(
                                         'End Time: ${slot.endTime.format(context)}'),
-
                                   ],
                                 ),
                                 // Hide the delete icon if radio button is not selected
-
                               ),
-
                             ],
                           ),
-
                         ),
-
                       ),
-
                     );
                   });
             } else {
@@ -206,19 +206,26 @@ class AppointmentBookingScreen
         ),
         Padding(
           padding: const EdgeInsets.only(bottom: 40),
-          child: Button(
-            onPressed: () {
-              Utils utils = Utils();
-              if (controller.selectedSlotIndices[tabIndex].value != -1) {
-                controller.bookAppointment(tabIndex);
-                utils.toastMessage2("Appointment Booked!");
-                Get.toNamed(kBookedAppointmentScreen);
-              } else {
-                utils.toastMessage("Please select a slot");
-              }
-            },
-            text: "Book Appointment",
-          ),
+          child: Obx(() {
+            if (controller.userModel.value == null ||
+                controller.userModel.value.id.isEmpty) {
+              return const SizedBox(); // Return an empty widget when userModel is empty or null
+            } else {
+              return Button(
+                onPressed: () {
+                  Utils utils = Utils();
+                  if (controller.selectedSlotIndices[tabIndex].value != -1) {
+                    controller.bookAppointment(tabIndex);
+                    utils.toastMessage2("Appointment Booked!");
+                    Get.toNamed(kBookedAppointmentScreen);
+                  } else {
+                    utils.toastMessage("Please select a slot");
+                  }
+                },
+                text: "Book Appointment",
+              );
+            }
+          }),
         )
       ],
     );

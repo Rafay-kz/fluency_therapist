@@ -151,7 +151,8 @@ class DoctorBookedAppointmentsScreenController extends GetxController {
 
     }
   }
-  void CallOptions() {
+  void callOptions(int callId) {
+    print('Selected Call ID: $callId');
     Get.bottomSheet(
       SingleChildScrollView(
         child: ClipRRect(
@@ -177,21 +178,21 @@ class DoctorBookedAppointmentsScreenController extends GetxController {
                   ),
                   ElevatedButton.icon(
                     onPressed: () {
-                      Get.toNamed(kOngoingCallScreen,arguments: 1234);
+                      Get.toNamed(kOngoingCallScreen,arguments: callId);
                     },
                     icon: const Icon(Icons.phone),
                     label: const Text("VOICE CALL"),
                   ),
                   ElevatedButton.icon(
                     onPressed: () {
-                      Get.toNamed(kVideoCallScreen,arguments: 1234);
+                      Get.toNamed(kVideoCallScreen,arguments: callId);
 
                     },
                     icon: const Icon(Icons.video_call_sharp),
                     label: const Text("VIDEO CALL"),
                   ), ElevatedButton.icon(
                     onPressed: () {
-                      Get.toNamed(kChatWithConsultantScreen,arguments: 1234);
+                      Get.toNamed(kChatWithConsultantScreen,arguments: callId);
 
                     },
                     icon: const Icon(Icons.message_outlined),

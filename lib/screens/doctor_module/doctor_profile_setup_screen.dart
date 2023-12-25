@@ -2,13 +2,10 @@ import 'dart:io';
 
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:fluency_therapist/screens/doctor_module/doctor_home_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-import '../../../controller/common_screens_controller/auth_screens_controller/profile_setup_screen_controller.dart';
 import '../../../custom widgets/button.dart';
-import '../../../custom widgets/time_picker.dart';
 import '../../../utils/app_colors.dart';
 import '../../controller/doctor_screens_controller/doctor_profile_setup_screen_controller.dart';
 
@@ -84,7 +81,7 @@ class DoctorProfileSetUpScreen
                       child: SizedBox(
                         width: screenWidth * 0.89,
                         child: TextFormField(
-                          controller: controller.locationTEController.value,
+                          controller: controller.specialityTEController.value,
                           onSaved: (value) {
                             controller.speciality = value!;
                           },
@@ -126,12 +123,12 @@ class DoctorProfileSetUpScreen
                       child: SizedBox(
                         width: screenWidth * 0.89,
                         child: TextFormField(
-                          controller: controller.specialityTEController.value,
+                          controller: controller.locationTEController.value,
                           onSaved: (value) {
-                            controller.speciality = value!;
+                            controller.location = value!;
                           },
                           validator: (value) {
-                            return controller.validateSpeciality(value!);
+                            return controller.validateLocation(value!);
                           },
                           style: TextStyle(color: AppColors.textColor),
                           decoration: InputDecoration(
@@ -199,7 +196,7 @@ class DoctorProfileSetUpScreen
                         onPressed: () {
                           controller.editProfile();
                         },
-                        text: "Add"),
+                        text: "Submit"),
                   ),
                 ],
               ),

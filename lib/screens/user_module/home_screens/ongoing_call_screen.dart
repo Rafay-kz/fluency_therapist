@@ -1,11 +1,9 @@
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:zego_uikit_prebuilt_call/zego_uikit_prebuilt_call.dart';
 
 import '../../../controller/user_screens_controller/home_screens_controller/ongoing_call_screen_controller.dart';
 import '../../../utils/app_colors.dart';
-import '../../../utils/app_constants.dart';
 
 
 
@@ -32,8 +30,8 @@ class OngoingCallScreen extends GetView<OngoingCallScreenController> {
               );
             } else {
               return ZegoUIKitPrebuiltCall(
-                appSign: "02c7e54412ee3fa49fe967537819ec3afe59d4a76ba99834dec88f87ddc36e67",
-                appID: 718328905,
+                appSign: "57980cf4eac1538c81fa3dc9b778cd584c0b2984a4c1012a40c552b437772922",
+                appID: 1906240297,
                 config: ZegoUIKitPrebuiltCallConfig.oneOnOneVoiceCall()
                   ..onOnlySelfInRoom = (context) => Navigator.pop(context),
                 callID: '${controller.callId}',

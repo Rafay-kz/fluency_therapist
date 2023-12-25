@@ -72,8 +72,7 @@ class LoginScreenController extends GetxController {
           userSession.userInformation(userModel: response);
           Get.offAllNamed(kHomeScreen);
         } else {
-          print('Login failed: ${response.errorMsg}');
-          Utils().toastMessage('Login failed. Please try again later.');
+          Utils().toastMessage(response.errorMsg);
         }
       } else if (response is DoctorModel) {
         print('Doctor Login');
@@ -83,16 +82,18 @@ class LoginScreenController extends GetxController {
         await userSession.setLogin();
         userSession.setIsDoctor();
         userSession.doctorInformation(doctorModel: response);
-        if (response.isProfileSetUp == true) {
+        if (response.errorMsg == 'Email is Not Verified') {
+          print('Email is Not Verified');
+          Get.toNamed(kEmailVerificationScreen); }
+        else if (response.isProfileSetUp == true) {
           print('Doctor Profile is set up');
           Get.offAllNamed(kDoctorHomeScreen);
         } else {
           print('Doctor Profile is not set up');
           Get.toNamed(kDoctorProfileSetUpScreen);
-        }
-      } else {
-        print('Login failed. Unexpected response: $response');
-        Utils().toastMessage('Login failed. Please try again later.');
+        }}
+       else {
+        Utils().toastMessage(response.errorMsg);
       }
     }
   }
