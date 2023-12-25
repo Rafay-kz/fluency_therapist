@@ -10,49 +10,55 @@ import '../../../custom widgets/button.dart';
 //created by Bilal on 6-5-2023
 
 class LoginScreen extends GetView<LoginScreenController> {
-    LoginScreen({super.key});
+  LoginScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
-    var mediaQuery = MediaQuery.of(context);
+    final double screenWidth = MediaQuery.of(context).size.width * 0.88;
+    final double screenHeight = MediaQuery.of(context).size.height * 0.88;
     return Scaffold(
       backgroundColor: AppColors.backgroundColor,
       body: SafeArea(
         child: SingleChildScrollView(
           child: Padding(
-            padding: const EdgeInsets.all(15),
+            padding: EdgeInsets.all(screenWidth * 0.05),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
-                const Padding(
-                  padding: EdgeInsets.only(top: 3),
+                Padding(
+                  padding: EdgeInsets.only(top: screenWidth * 0.020),
                   child: Center(
                     child: Image(
-                        image: AssetImage(fluencyTherapistLogo),
-                        width: 168,
-                        height: 72),
+                      image: const AssetImage(fluencyTherapistLogo),
+                      width: screenWidth * 0.38,
+                    ),
                   ),
                 ),
+                SizedBox(height: screenHeight * 0.025),
                 Padding(
-                  padding: const EdgeInsets.only(
-                      top: 20, left: 8, right: 8, bottom: 8.0),
+                  padding: EdgeInsets.symmetric(
+                    horizontal: screenWidth * 0.02,
+                  ),
                   child: Text(
                     'Login',
                     style: Theme.of(context)
                         .textTheme
                         .displayLarge!
-                        .copyWith(fontSize: 24),
+                        .copyWith(fontSize: screenWidth * 0.058),
                   ),
                 ),
                 Padding(
-                  padding: const EdgeInsets.only(top: 5, left: 8),
-                  child: Text("Welcome back! Let's continue",
-                      style: Theme.of(context).textTheme.titleLarge),
+                  padding: EdgeInsets.symmetric(
+                      horizontal: screenWidth * 0.02,
+                      vertical: screenHeight * 0.007),
+                  child: Text("Welcome back! Let's continue.",
+                      style: Theme.of(context)
+                          .textTheme
+                          .titleLarge!
+                          .copyWith(fontSize: screenWidth * 0.041)),
                 ),
-                const SizedBox(
-                  height: 20,
-                ),
+                SizedBox(height: screenHeight * 0.025),
                 Form(
                   autovalidateMode: AutovalidateMode.onUserInteraction,
                   key: controller.formKey,
@@ -61,124 +67,135 @@ class LoginScreen extends GetView<LoginScreenController> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Padding(
-                          padding: const EdgeInsets.all(8.0),
+                          padding: EdgeInsets.all(screenWidth * 0.02),
                           child: Text('Email',
-                              style:
-                                  Theme.of(context).textTheme.headlineSmall)),
-                      const SizedBox(
-                        height: 5,
-                      ),
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .headlineSmall!
+                                  .copyWith(fontSize: screenWidth * 0.042))),
                       Padding(
-                        padding: const EdgeInsets.all(8.0),
+                        padding: EdgeInsets.all(screenWidth * 0.02),
                         child: Center(
-                          child: SizedBox(
-                            width: 400,
-                            child: TextFormField(
-                              // cursorColor: Colors.black,
-                              controller: controller.emailTEController,
-                              onSaved: (value) {
-                                controller.email = value!;
-                              },
-                              validator: (value) {
-                                return controller.validateEmail(value!);
-                              },
-                              style: TextStyle(color: AppColors.textColor),
-                              decoration: InputDecoration(
-                                  fillColor: AppColors.textfieldColor,
-                                  filled: true,
-                                  hintText: 'Enter your email',
-                                  hintStyle:
-                                      Theme.of(context).textTheme.titleMedium,
-                                  border: OutlineInputBorder(
-                                      borderRadius: BorderRadius.circular(30),
-                                      borderSide: BorderSide.none),
-                                  ),
+                          child: TextFormField(
+                            // cursorColor: Colors.black,
+                            controller: controller.emailTEController,
+                            onSaved: (value) {
+                              controller.email = value!;
+                            },
+                            validator: (value) {
+                              return controller.validateEmail(value!);
+                            },
+                            style: TextStyle(color: AppColors.textColor),
+                            decoration: InputDecoration(
+                              fillColor: AppColors.textfieldColor,
+                              filled: true,
+                              hintText: 'Enter your email',
+                              contentPadding:
+                                  EdgeInsets.all(screenWidth * 0.045),
+                              hintStyle: Theme.of(context)
+                                  .textTheme
+                                  .titleMedium!
+                                  .copyWith(fontSize: screenWidth * 0.034),
+                              border: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(30),
+                                  borderSide: BorderSide.none),
                             ),
                           ),
                         ),
                       ),
-                      const SizedBox(
-                        height: 2,
+                      SizedBox(
+                        height: screenHeight * 0.01,
                       ),
                       Padding(
-                        padding: const EdgeInsets.all(8.0),
+                        padding: EdgeInsets.all(screenWidth * 0.02),
                         child: Text('Password',
-                            style: Theme.of(context).textTheme.headlineSmall),
-                      ),
-                      const SizedBox(
-                        height: 2,
+                            style: Theme.of(context)
+                                .textTheme
+                                .headlineSmall!
+                                .copyWith(fontSize: screenWidth * 0.042)),
                       ),
                       Padding(
-                        padding: const EdgeInsets.all(8.0),
+                        padding: EdgeInsets.all(screenWidth * 0.02),
                         child: Center(
-                          child: SizedBox(
-                            width: 400,
-                            child: Obx(() => TextFormField(
-                                // cursorColor: Colors.black,
-                                controller: controller.passwordTEController,
-                                onSaved: (value) {
-                                  controller.password = value!;
-                                },
-                                validator: (value) {
-                                  return controller.validatePassword(value!);
-                                },
-                                style: TextStyle(color: AppColors.textColor),
-                                decoration: InputDecoration(
-                                  fillColor: AppColors.textfieldColor,
-                                  filled: true,
-                                  hintText: 'Enter your password',
-                                  hintStyle:
-                                      Theme.of(context).textTheme.titleMedium,
-                                  border: OutlineInputBorder(
-                                      borderRadius: BorderRadius.circular(30),
-                                      borderSide: BorderSide.none),
-                                  suffixIcon: GestureDetector(
-                                    onTap: () {
-                                      controller.obscureText.value =
-                                          !controller.obscureText.value;
-                                    },
-                                    child: Icon(
-                                        controller.obscureText.value
-                                            ? Icons.visibility_off
-                                            : Icons.visibility,
-                                        color: AppColors.textHintColor),
-                                  ),
-
+                          child: Obx(() => TextFormField(
+                              // cursorColor: Colors.black,
+                              controller: controller.passwordTEController,
+                              onSaved: (value) {
+                                controller.password = value!;
+                              },
+                              validator: (value) {
+                                return controller.validatePassword(value!);
+                              },
+                              style: TextStyle(color: AppColors.textColor),
+                              decoration: InputDecoration(
+                                fillColor: AppColors.textfieldColor,
+                                filled: true,
+                                hintText: 'Enter your password',
+                                contentPadding:
+                                    EdgeInsets.all(screenWidth * 0.045),
+                                hintStyle: Theme.of(context)
+                                    .textTheme
+                                    .titleMedium!
+                                    .copyWith(fontSize: screenWidth * 0.034),
+                                border: OutlineInputBorder(
+                                    borderRadius: BorderRadius.circular(30),
+                                    borderSide: BorderSide.none),
+                                suffixIcon: GestureDetector(
+                                  onTap: () {
+                                    controller.obscureText.value =
+                                        !controller.obscureText.value;
+                                  },
+                                  child: Icon(
+                                      controller.obscureText.value
+                                          ? Icons.visibility_off
+                                          : Icons.visibility,
+                                      color: AppColors.textHintColor),
                                 ),
-                                keyboardType: TextInputType.visiblePassword,
-                                obscureText: controller.obscureText.value)),
-                          ),
+                              ),
+                              keyboardType: TextInputType.visiblePassword,
+                              obscureText: controller.obscureText.value)),
                         ),
                       ),
                     ],
                   ),
                 ),
                 Padding(
-                  padding: const EdgeInsets.only(top: 8, left: 190, bottom: 20),
-                  child: GestureDetector(
-                    onTap: () {
-                      Get.toNamed(kForgetPassScreen);
-                    },
-                    child: Text("Forgot Password?",
-                        style: Theme.of(context)
-                            .textTheme
-                            .titleLarge!
-                            .copyWith(fontSize: 14)),
+                  padding: EdgeInsets.symmetric(
+                      horizontal: screenWidth * 0.03,
+                      vertical: screenHeight * 0.01),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    children: [
+                      GestureDetector(
+                        onTap: () {
+                          Get.toNamed(kForgetPassScreen);
+                        },
+                        child: Text("Forgot Password?",
+                            style: Theme.of(context)
+                                .textTheme
+                                .titleLarge!
+                                .copyWith(fontSize: screenWidth * 0.034)),
+                      ),
+                    ],
                   ),
                 ),
-                Button(
-                    onPressed: () {
-                      controller.onLoginTap();
-
-                    },
-                    text: "Login"),
-                const SizedBox(height: 20),
+                SizedBox(
+                  height: screenHeight * 0.04,
+                ),
+                Center(
+                  child: Button(
+                      onPressed: () {
+                        controller.onLoginTap();
+                      },
+                      text: "Login"),
+                ),
+                SizedBox(height: screenHeight * 0.040),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Flexible(
                       child: SizedBox(
-                        width: 130,
+                        width: screenWidth * 0.42,
                         child: Divider(
                           color: AppColors.descriptionColor,
                           thickness: 1,
@@ -186,16 +203,17 @@ class LoginScreen extends GetView<LoginScreenController> {
                       ),
                     ),
                     Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 10),
+                      padding:
+                          EdgeInsets.symmetric(horizontal: screenWidth * 0.015),
                       child: Text("OR",
                           style: Theme.of(context)
                               .textTheme
                               .titleLarge!
-                              .copyWith(fontSize: 14)),
+                              .copyWith(fontSize: screenWidth * 0.040)),
                     ),
                     Flexible(
                       child: SizedBox(
-                        width: 130,
+                        width: screenWidth * 0.42,
                         child: Divider(
                           color: AppColors.descriptionColor,
                           thickness: 1,
@@ -205,12 +223,11 @@ class LoginScreen extends GetView<LoginScreenController> {
                   ],
                 ),
                 Padding(
-                  padding: const EdgeInsets.only(
-                      left: 10, right: 10, top: 10, bottom: 10),
+                  padding: EdgeInsets.only(top: screenHeight * 0.04),
                   child: Center(
                     child: Container(
-                      height: mediaQuery.size.height * 0.08,
-                      width: mediaQuery.size.height * 0.8,
+                      height: screenHeight * 0.085,
+                      width: screenWidth * 0.95,
                       decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(30),
                           color: AppColors.textfieldColor),
@@ -220,7 +237,7 @@ class LoginScreen extends GetView<LoginScreenController> {
                             showDialog(
                                 context: context,
                                 builder: (context) {
-                                  return Center(
+                                  return const Center(
                                       child: CircularProgressIndicator());
                                 });
                             //GetUtils.isLengthGreaterThan(EmailController.text, 6) ? print('email is valid') : print('email is invalid');
@@ -230,17 +247,17 @@ class LoginScreen extends GetView<LoginScreenController> {
                             crossAxisAlignment: CrossAxisAlignment.center,
                             children: [
                               Padding(
-                                padding: const EdgeInsets.all(8.0),
+                                padding: EdgeInsets.all(screenWidth * 0.02),
                                 child: Image.asset(googleIcon),
                               ),
                               Padding(
-                                padding: const EdgeInsets.all(8.0),
+                                padding: EdgeInsets.all(screenWidth * 0.02),
                                 child: Text("Login with google",
                                     style: Theme.of(context)
                                         .textTheme
                                         .displayLarge!
                                         .copyWith(
-                                          fontSize: 15,
+                                          fontSize: screenWidth * 0.043,
                                         )),
                               ),
                             ],
@@ -248,38 +265,35 @@ class LoginScreen extends GetView<LoginScreenController> {
                     ),
                   ),
                 ),
+                SizedBox(
+                  height: screenHeight * 0.017,
+                ),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
-                    Padding(
-                      padding: const EdgeInsets.only(top: 8.0, right: 5),
-                      child: Center(
-                          child: Text(
-                        'New User?',
-                        style: Theme.of(context)
-                            .textTheme
-                            .titleLarge!
-                            .copyWith(fontSize: 14),
-                      )),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.only(top: 8.0),
-                      child: Center(
-                          child: GestureDetector(
-                              onTap: () {
-                                Get.toNamed(kSignUpScreen);
-                              },
-                              child: Text(
-                                'Register Here',
-                                style: Theme.of(context)
-                                    .textTheme
-                                    .displayLarge!
-                                    .copyWith(
-                                        fontSize: 14,
-                                        color: AppColors.primaryBlue),
-                              ))),
-                    ),
+                    Center(
+                        child: Text(
+                      'New User?',
+                      style: Theme.of(context)
+                          .textTheme
+                          .titleLarge!
+                          .copyWith(fontSize: screenWidth * 0.034),
+                    )),
+                    Center(
+                        child: GestureDetector(
+                            onTap: () {
+                              Get.toNamed(kSignUpScreen);
+                            },
+                            child: Text(
+                              ' Register Here',
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .displayLarge!
+                                  .copyWith(
+                                      fontSize: screenWidth * 0.034,
+                                      color: AppColors.primaryBlue),
+                            ))),
                   ],
                 ),
               ],

@@ -8,6 +8,7 @@ import '../../../utils/app_constants.dart';
 
 
 class SplashScreenController extends GetxController {
+
   final RxDouble splashLoading = 0.0.obs;
   String logo = fluencyTherapistLogo;
 

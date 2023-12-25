@@ -4,7 +4,7 @@ class Button extends StatelessWidget {
   final VoidCallback onPressed;
   final Color color;
   final String text;
-  final TextStyle textStyle;
+  final TextStyle? textStyle;
   final BorderSide side;
 
   Button({
@@ -16,12 +16,7 @@ class Button extends StatelessWidget {
         strokeAlign: BorderSide.strokeAlignInside),
     this.color = const Color(0xff7FB2F0),
     required this.text,
-    this.textStyle = const TextStyle(
-      fontFamily: "Montserrat",
-      fontSize: 20,
-      color: Colors.white,
-      fontWeight: FontWeight.w600,
-    ),
+    this.textStyle,
   });
 
   @override
@@ -30,7 +25,7 @@ class Button extends StatelessWidget {
     final height = MediaQuery.of(context).size.height;
     return Center(
       child: SizedBox(
-        width: width * 0.89,
+        width: width * 0.84,
         height: height * 0.075,
         child: ElevatedButton(
           onPressed: onPressed,
@@ -43,7 +38,13 @@ class Button extends StatelessWidget {
             backgroundColor: color,
           ),
           child: Center(
-                  child: Text(text, style: textStyle),
+                  child: Text(text, style: textStyle ??  TextStyle(
+                  fontFamily: "Montserrat",
+                    fontSize: width*0.043,
+                    color: Colors.white,
+                    fontWeight: FontWeight.w600,
+
+                  ),),
                 ),
 
         ),

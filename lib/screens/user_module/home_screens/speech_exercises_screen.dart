@@ -14,6 +14,7 @@ class SpeechExercisesScreen extends GetView<SpeechExercisesScreenController> {
     final screenWidth = MediaQuery.of(context).size.width;
     final screenHeight = MediaQuery.of(context).size.height;
 
+
     return Scaffold(
       backgroundColor: AppColors.backgroundColor,
       body: SafeArea(
@@ -158,7 +159,7 @@ class SpeechExercisesScreen extends GetView<SpeechExercisesScreenController> {
                                                 Radius.circular(10)),
                                             child: Obx(()=> LinearProgressIndicator(
                                                   value:controller.exerciseData[index].progress/100, // Assuming the progress ranges from 0 to 100
-                                                  semanticsLabel: '${controller.exerciseData[0].progress}%',
+                                                  semanticsLabel: '${controller.exerciseData[index].progress}%',
                                                 valueColor:
                                                     AlwaysStoppedAnimation<Color>(
                                                         AppColors.primaryBlue),
@@ -217,5 +218,6 @@ class SpeechExercisesScreen extends GetView<SpeechExercisesScreenController> {
         ),
       ),
     );
+
   }
 }

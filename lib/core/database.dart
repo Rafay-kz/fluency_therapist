@@ -1,4 +1,3 @@
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:fluency_therapist/utils/user_session.dart';
@@ -34,7 +33,8 @@ class Database {
   //To Log in users and Doctor users
   Future<dynamic> loginUser(String email, String password) async {
     try {
-      final userCredential = await FirebaseAuth.instance.signInWithEmailAndPassword(
+      final userCredential =
+          await FirebaseAuth.instance.signInWithEmailAndPassword(
         email: email,
         password: password,
       );
@@ -47,15 +47,18 @@ class Database {
             .get();
 
         if (userSnapshot.exists) {
-          Map<String, dynamic> map = userSnapshot.data() as Map<String, dynamic>;
+          Map<String, dynamic> map =
+              userSnapshot.data() as Map<String, dynamic>;
           if (userSnapshot.data() is Map) {
-            UserModel userModel = UserModel.fromJson(map, '', userCredential.user!.uid);
+            UserModel userModel =
+                UserModel.fromJson(map, '', userCredential.user!.uid);
 
             // Check if the user's email is verified
             if (userCredential.user!.emailVerified) {
               return userModel;
             } else {
-              userModel.errorMsg = 'Email is Not Verified'; // Set the error message
+              userModel.errorMsg =
+                  'Email is Not Verified'; // Set the error message
               return userModel;
             }
           }
@@ -67,22 +70,30 @@ class Database {
               .get();
 
           if (doctorSnapshot.exists) {
-            Map<String, dynamic> map = doctorSnapshot.data() as Map<String, dynamic>;
+            Map<String, dynamic> map =
+                doctorSnapshot.data() as Map<String, dynamic>;
             if (doctorSnapshot.data() is Map) {
-              DoctorModel doctorModel = DoctorModel.fromJson(map, '', userCredential.user!.uid);
+              DoctorModel doctorModel =
+                  DoctorModel.fromJson(map, '', userCredential.user!.uid);
 
-              // Check if the doctor has set up their profile
-              bool isProfileSetUp = doctorModel.isProfileSetUp ?? false;
-              if (isProfileSetUp) {
-                return doctorModel;
+              if (userCredential.user!.emailVerified) {
+                // If email is verified, proceed with DoctorModel login
+                bool isProfileSetUp = doctorModel.isProfileSetUp ?? false;
+                if (isProfileSetUp) {
+                  return doctorModel;
+                } else {
+                  doctorModel.errorMsg = 'Profile not set up';
+                  return doctorModel;
+                }
               } else {
-                doctorModel.errorMsg = 'Profile not set up'; // Set the error message
+                doctorModel.errorMsg = 'Email is Not Verified';
                 return doctorModel;
               }
             }
           } else {
             return 'User not found';
           }
+        
         }
       }
     } catch (error) {
@@ -99,7 +110,6 @@ class Database {
     }
     return UserModel.empty();
   }
-
 
   //Forget Password
   Future<void> passwordReset(email) async {
@@ -120,8 +130,12 @@ class Database {
       if (user != null) {
         String userId =
             user.uid; // User ID obtained from Firebase Authentication
-        await _firestore.collection('users').doc(userId).set(
-            {'firstName': firstName,'lastName': lastName, 'email': email, 'image': ''});
+        await _firestore.collection('users').doc(userId).set({
+          'firstName': firstName,
+          'lastName': lastName,
+          'email': email,
+          'image': ''
+        });
         // Data saved successfully
       } else {
         print('No user is currently logged in.');
@@ -137,8 +151,6 @@ class Database {
     String firstName,
     String lastName,
     String email,
-
-
   ) async {
     try {
       User? user = FirebaseAuth.instance.currentUser;
@@ -149,7 +161,6 @@ class Database {
           'firstName': firstName,
           'lastName': lastName,
           'email': email,
-
         });
         // Data saved successfully
       } else {
@@ -160,19 +171,22 @@ class Database {
       print('Error saving user details: $e');
     }
   }
+
   Future<void> updateDoctorUserData(
-      String doctorId,
-      Map<String, dynamic> dataToUpdate,
-      ) async {
+    String doctorId,
+    Map<String, dynamic> dataToUpdate,
+  ) async {
     try {
-      await _firestore.collection('doctor_users').doc(doctorId).update(dataToUpdate);
+      await _firestore
+          .collection('doctor_users')
+          .doc(doctorId)
+          .update(dataToUpdate);
       // Data updated successfully
     } catch (e) {
       // Handle error
       print('Error updating user data: $e');
     }
   }
-
 
 //To store doctors time slots on firestore.
   String _getDayName(int dayIndex) {
@@ -258,7 +272,6 @@ class Database {
             startTime: parseTimeOfDay(data['start_time'] as String),
             endTime: parseTimeOfDay(data['end_time'] as String),
             isAvailable: data['is_available'] as bool? ?? true,
-
           );
         }).toList();
 
@@ -311,7 +324,8 @@ class Database {
     }
   }
 
-  Future<void> saveUnlockedVideoIndex(String userId, int index, String exerciseName) async {
+  Future<void> saveUnlockedVideoIndex(
+      String userId, int index, String exerciseName) async {
     try {
       await FirebaseFirestore.instance
           .collection('users')
@@ -322,7 +336,8 @@ class Database {
     }
   }
 
-  Future<int?> loadUnlockedVideoIndex(String userId, String exerciseName) async {
+  Future<int?> loadUnlockedVideoIndex(
+      String userId, String exerciseName) async {
     try {
       DocumentSnapshot snapshot = await FirebaseFirestore.instance
           .collection('users')
@@ -342,6 +357,4 @@ class Database {
     }
     return null;
   }
-
 }
-

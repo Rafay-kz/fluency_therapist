@@ -50,13 +50,23 @@ class ConsultantProfileScreen extends GetView<ConsultantProfileScreenController>
                   Obx(
                         () => CircleAvatar(
                       radius: 25,
-                      backgroundImage: controller.doctorModel.value.image != ''
-                          ? CachedNetworkImageProvider(controller.doctorModel.value.image)
-                          : (controller.userModel.value.image != ''
-                          ? CachedNetworkImageProvider(controller.userModel.value.image)
-                          : const AssetImage('assets/images/person.png') as ImageProvider),
+                      backgroundImage: () {
+                        // Check if userModel is empty, indicating doctorModel is active
+                        if (controller.userModel.value.image.isEmpty) {
+                          return controller.currentDoctorModel.value.image.isNotEmpty
+                              ? CachedNetworkImageProvider(controller.currentDoctorModel.value.image)
+                              : const AssetImage('assets/images/person.png') as ImageProvider;
+                        } else {
+                          // userModel is present, indicating a non-doctor user
+                          return controller.userModel.value.image.isNotEmpty
+                              ? CachedNetworkImageProvider(controller.userModel.value.image)
+                              : const AssetImage('assets/images/person.png') as ImageProvider;
+                        }
+                      }(),
                     ),
                   ),
+
+
                 ],
               ),
                Padding(
@@ -75,7 +85,7 @@ class ConsultantProfileScreen extends GetView<ConsultantProfileScreenController>
               Padding(
                 padding: const EdgeInsets.only(top: 20),
                 child: Text(
-                  "\n Dr.${controller.doctorModel.value.firstName} ${controller.doctorModel.value.lastName}",
+                  "\n Dr. ${controller.doctorModel.value.firstName} ${controller.doctorModel.value.lastName}",
                   style: Theme.of(context).textTheme.displayLarge!.copyWith(
                         fontSize: screenWidth*0.050,
                         color: AppColors.textColor,
@@ -131,7 +141,7 @@ class ConsultantProfileScreen extends GetView<ConsultantProfileScreenController>
                 ),
               ),
               Obx(()=>Text(
-                'Bio: ${controller.doctorModel.value.bio}',
+                controller.doctorModel.value.bio,
                 style: Theme.of(context).textTheme.headlineSmall!.copyWith(
                       fontSize: screenWidth*0.032,
                       color: AppColors.textHintColor,
@@ -247,10 +257,20 @@ class ConsultantProfileScreen extends GetView<ConsultantProfileScreenController>
                   ],),
                 ),
               ),
-              Button(onPressed: () {
-                Get.toNamed(kAppointmentBookingScreen,
-                    arguments:controller.doctorModel.value );
-              }, text: "Book an Appointment"),
+              Obx(
+                    () {
+                  if (controller.userModel.value == null || controller.userModel.value.id.isEmpty) {
+                    return const SizedBox(); // Return an empty widget when userModel is empty or null
+                  } else {
+                    return Button(
+                      onPressed: () {
+                        Get.toNamed(kAppointmentBookingScreen, arguments: controller.doctorModel.value);
+                      },
+                      text: "Book an Appointment",
+                    );
+                  }
+                },
+              )
             ],
           ),
         ),

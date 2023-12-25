@@ -15,12 +15,8 @@ class VideoServices {
   RxInt unlockedVideoIndex = 0.obs;
   RxBool isPlaying = false.obs;
   UserSession userSession = UserSession();
-  Rx<UserModel> userModel = UserModel
-      .empty()
-      .obs;
-  Rx<DoctorModel> doctorModel = DoctorModel
-      .empty()
-      .obs;
+  Rx<UserModel> userModel = UserModel.empty().obs;
+  Rx<DoctorModel> doctorModel = DoctorModel.empty().obs;
   Database database = Database();
   FirebaseFirestore firestore = FirebaseFirestore.instance;
 
@@ -176,6 +172,7 @@ class VideoServices {
 
     if (unlockedIndex < videoCount - 1) {
       unlockedIndex++;
+      unlockedVideoIndex.value = unlockedIndex;
       print('After unlocking $exerciseName - New Unlocked Index: $unlockedIndex');
       await database.saveUnlockedVideoIndex(userId, unlockedIndex, exerciseName);
       print('$exerciseName Video unlocked: $unlockedIndex');
@@ -184,22 +181,42 @@ class VideoServices {
     }
   }
 
+  bool isCompletionInProgress = false;
+
   Future<void> onVideoComplete(String userId, String exerciseName) async {
+    if (isCompletionInProgress) {
+      print('Completion already in progress...');
+      return;
+    }
+
+    isCompletionInProgress = true;
+
     int videoCount = await getVideoCountForFolder(exerciseName);
     int unlockedIndex = await database.loadUnlockedVideoIndex(userId, exerciseName) ?? 0;
 
     print('Before completion of $exerciseName - Unlocked Index: $unlockedIndex, Video Count: $videoCount');
 
-    if (unlockedIndex < videoCount - 1) {
+    if (unlockedIndex < videoCount) {
+      // Update completion status or perform any video completion logic here
+
+      // Save the current index before incrementing (to maintain the correct completion status)
+      await database.saveUnlockedVideoIndex(userId, unlockedIndex + 1, exerciseName);
+
+      // Increment the index after saving the completion status
       unlockedIndex++;
+      unlockedVideoIndex.value = unlockedIndex;
       isPlaying.value = true;
+
       print('After completion of $exerciseName - New Unlocked Index: $unlockedIndex');
-      await database.saveUnlockedVideoIndex(userId, unlockedIndex, exerciseName);
       print('$exerciseName Video complete. Playing next: $unlockedIndex');
     } else {
       print('$exerciseName Video already at maximum unlocked index');
     }
+
+    isCompletionInProgress = false; // Reset flag after completion logic
   }
+
+
 
 
   Future<void> loadUnlockedVideoIndex(String userId, String exerciseName) async {
@@ -228,29 +245,48 @@ class VideoServices {
     }
   }
 
+  Future<int> getTotalVideoCount(List<String> folderNames) async {
+    try {
+      int totalCount = 0;
+
+      for (String folderName in folderNames) {
+        QuerySnapshot folderSnapshot = await firestore
+            .collection('videos')
+            .doc(folderName)
+            .collection('metadata')
+            .get();
+
+        int count = folderSnapshot.size; // Get the count of documents in the folder
+        totalCount += count;
+      }
+
+      return totalCount;
+    } catch (e) {
+      print('Error getting total video counts: $e');
+      return 0;
+    }
+  }
+
+
 
   Future<double> calculateUserProgress(String userId, String folderName) async {
     try {
-      DocumentSnapshot userSnapshot =
-      await firestore.collection('users').doc(userId).get();
+      DocumentSnapshot userSnapshot = await firestore.collection('users').doc(userId).get();
 
       if (userSnapshot.exists) {
-        int videoCount = await getVideoCountForFolder(folderName);
-        print('Video Count for $folderName: $videoCount'); // Add this line
+        Map<String, dynamic>? userData = userSnapshot.data() as Map<String, dynamic>?;
 
-        int userVideoIndex = 1;
-        Map<String, dynamic>? userData =
-        userSnapshot.data() as Map<String, dynamic>?;
+        if (userData != null && userData.containsKey('$folderName-Index')) {
+          int userVideoIndex = userData['$folderName-Index'] as int;
+          int videoCount = await getVideoCountForFolder(folderName);
 
-        if (userData != null && userData.containsKey('unlockedVideoIndex')) {
-          userVideoIndex = userData['unlockedVideoIndex'] as int;
-          print('User Video Index: $userVideoIndex'); // Add this line
+          double percentageProgress = userVideoIndex / videoCount * 100;
+          print('Percentage Progress for $folderName: $percentageProgress');
+
+          return percentageProgress;
+        } else {
+          throw Exception('No progress found for $folderName');
         }
-
-        double percentageProgress = userVideoIndex / videoCount * 100;
-        print('Percentage Progress: $percentageProgress'); // Add this line
-
-        return percentageProgress;
       } else {
         throw Exception('User document does not exist');
       }

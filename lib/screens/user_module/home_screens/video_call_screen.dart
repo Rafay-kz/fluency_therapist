@@ -19,7 +19,7 @@ class VideoCallScreen extends GetView<VideoCallScreenController> {
           future: controller.initializeData(),
           builder: (context, snapshot) {
             if (snapshot.connectionState == ConnectionState.waiting) {
-              return Center(
+              return  const Center(
                 child: CircularProgressIndicator(),
               );
             } else if (snapshot.hasError) {
@@ -28,8 +28,8 @@ class VideoCallScreen extends GetView<VideoCallScreenController> {
               );
             } else {
               return ZegoUIKitPrebuiltCall(
-                appSign: "02c7e54412ee3fa49fe967537819ec3afe59d4a76ba99834dec88f87ddc36e67",
-                appID: 718328905,
+                appSign: "57980cf4eac1538c81fa3dc9b778cd584c0b2984a4c1012a40c552b437772922",
+                appID: 1906240297,
                 config: ZegoUIKitPrebuiltCallConfig.oneOnOneVideoCall()
                   ..onOnlySelfInRoom = (context) => Navigator.pop(context),
                 callID: '${controller.callId}',

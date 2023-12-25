@@ -13,7 +13,6 @@ import 'package:firebase_storage/firebase_storage.dart';
 import '../../../custom widgets/progress_indicator.dart';
 import '../../../model/doctor_model.dart';
 import '../../../utils/user_session.dart';
-import '../../utils/utills.dart';
 import 'doctor_home_screen_controller.dart';
 
 class DoctorProfileSetUpScreenController extends GetxController {
@@ -180,7 +179,8 @@ class DoctorProfileSetUpScreenController extends GetxController {
   }
 
   Future<void> editProfile() async {
-    pd.showDialog();
+    if (formKey.currentState!.validate()) {
+      pd.showDialog();
 
     try {
       // Check if imagePath is not empty
@@ -225,7 +225,7 @@ class DoctorProfileSetUpScreenController extends GetxController {
       // Handle the error, show a message, or log it as needed.
       // You might want to display an error message to the user.
     }
-  }
+  } }
 
   // Future<void> profileDataUpdate() async {
   //   String doctorId = doctorModel.value.id; // Replace with the actual doctor ID

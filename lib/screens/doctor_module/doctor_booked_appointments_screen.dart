@@ -1,9 +1,7 @@
-
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:fluency_therapist/model/booked_slot_model.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-
 
 import '../../../utils/app_colors.dart';
 import '../../../utils/app_constants.dart';
@@ -97,7 +95,8 @@ class DoctorBookedAppointmentsScreen
                           return AppointmentCard(
                               user: regularUser,
                               bookedSlot: bookedSlot,
-                              controller: controller);
+                              controller: controller,
+                              callId: bookedSlot.callId);
                         }),
                   );
                 }),
@@ -113,12 +112,14 @@ class DoctorBookedAppointmentsScreen
 class AppointmentCard extends StatelessWidget {
   final UserModel user;
   final BookedSlot bookedSlot;
+  final int callId;
   final DoctorBookedAppointmentsScreenController controller;
 
   const AppointmentCard(
       {super.key,
       required this.user,
       required this.bookedSlot,
+      required this.callId,
       required this.controller});
 
   @override
@@ -168,7 +169,6 @@ class AppointmentCard extends StatelessWidget {
                     ],
                   ),
                 ),
-
                 Padding(
                   padding: const EdgeInsets.only(top: 2, left: 8),
                   child: Row(
@@ -217,14 +217,18 @@ class AppointmentCard extends StatelessWidget {
                   ),
                 ),
                 TextButton(
-                  onPressed: () {
-                    controller.CallOptions();
-                  },
+                  onPressed: controller.isButtonEnabled(bookedSlot)
+                      ? () {
+                          controller.callOptions(bookedSlot.callId);
+                        }
+                      : null,
                   child: Container(
                     width: screenWidth * 0.27,
                     height: MediaQuery.of(context).size.height * 0.046,
                     decoration: BoxDecoration(
-                      color: AppColors.primaryBlue,
+                      color: controller.isButtonEnabled(bookedSlot)
+                          ? AppColors.primaryBlue
+                          : AppColors.descriptionColor,
                       borderRadius: BorderRadius.circular(30),
                     ),
                     child: Center(

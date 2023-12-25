@@ -97,6 +97,8 @@ class ExcerisesScreenOne
                             isPlaying: index == controller.videoServices.unlockedVideoIndex.value,
                             onVideoComplete: () {
                               controller.onVideoComplete();
+
+
                             },
                           ),
                         ),
