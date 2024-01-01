@@ -106,7 +106,13 @@ class AppointmentBookingScreenController extends GetxController {
 
       if (selectedSlot?.isAvailable == true) {
         final userId = userModel.value.id;
-        final doctorId = doctorModel.value.id; // Get the doctor's ID
+        final userFirstName = userModel.value.firstName;
+        final userLastName = userModel.value.lastName;
+        final userImage = userModel.value.image;
+        final doctorId = doctorModel.value.id; // Get the doctor's
+        final doctorFistName = doctorModel.value.firstName;
+        final doctorLastName = doctorModel.value.lastName;
+        final doctorImage = doctorModel.value.image;
 
         final dayName = _getDayName(tabIndex);
 
@@ -125,6 +131,13 @@ class AppointmentBookingScreenController extends GetxController {
           'doctorId': doctorId, // Associate the slot with the doctor
           'userId': userId, // Associate the slot with the user
           'dayName': dayName,
+          'userFirstName': userFirstName,
+          'userLastName': userLastName,
+          'userImage': userImage,
+          'doctorFirstName': doctorFistName,
+          'doctorLastName': doctorLastName,
+          'doctorImage': doctorImage,
+
           // Add other slot details if needed.
         };
 

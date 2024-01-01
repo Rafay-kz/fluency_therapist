@@ -26,7 +26,7 @@ import '../controller/doctor_screens_controller/doctor_profile_setup_screen_cont
 import '../controller/user_screens_controller/home_screens_controller/booked_appointment_screen_controller.dart';
 import '../controller/user_screens_controller/home_screens_controller/call_log_screen_controller.dart';
 import '../controller/user_screens_controller/home_screens_controller/calling_consultant_screen_controller.dart';
-import '../controller/user_screens_controller/home_screens_controller/chat_with_consultant_screen.dart';
+import '../controller/user_screens_controller/home_screens_controller/chat_with_consultant_screen_controller.dart';
 import '../controller/user_screens_controller/home_screens_controller/consult_therapist_screen_controller.dart';
 import '../controller/user_screens_controller/home_screens_controller/consultant_calling_screen_controller.dart';
 import '../controller/user_screens_controller/home_screens_controller/consultant_profile_screen_controller.dart';
