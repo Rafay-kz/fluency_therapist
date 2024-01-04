@@ -3,8 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../../../controller/user_screens_controller/home_screens_controller/chat_with_consultant_screen_controller.dart';
-import '../../../model/doctor_model.dart';
-import '../../../model/user_model.dart';
 import '../../../utils/app_colors.dart';
 import '../../../utils/app_constants.dart';
 import '../../../utils/chat_message.dart';
@@ -54,25 +52,66 @@ class ChatWithConsultantScreen extends GetView<ChatWithConsultantScreenControlle
                     ),
                     Padding(
                       padding: const EdgeInsets.only(left: 30),
-                      child: Obx(
-                            () => CircleAvatar(
-                          radius: 25,
-                          backgroundImage: _getImageProvider(),
-                        ),
+                      child: FutureBuilder<String>(
+                        future: controller.determineReceiverImage(),
+                        builder: (context, snapshot) {
+                          if (snapshot.connectionState == ConnectionState.waiting) {
+                            return CircleAvatar(
+                              // Placeholder or loading indicator while waiting for the image
+                              backgroundImage: AssetImage('assets/images/person.png'),
+                            );
+                          } else if (snapshot.hasError) {
+                            return CircleAvatar(
+                              // Placeholder or default avatar in case of an error
+                              backgroundImage: AssetImage('assets/images/person.png'),
+                            );
+                          } else {
+                            // Data fetched successfully, convert the URL string to ImageProvider
+                            ImageProvider<Object>? imageProvider;
+                            if (snapshot.data != null) {
+                              // Check if the snapshot data is a valid URL and convert it to ImageProvider
+                              imageProvider = NetworkImage(snapshot.data!);
+                            } else {
+                              // Assign a default avatar if no URL is available
+                              imageProvider = AssetImage('assets/images/person.png');
+                            }
+
+                            return CircleAvatar(
+                              backgroundImage: imageProvider, // Assign the converted ImageProvider
+                            );
+                          }
+                        },
                       ),
                     ),
                     Padding(
                       padding: const EdgeInsets.only(left: 15, right: 45),
-                      child: Text(
-                        "${controller.doctorModel.value.firstName} ${controller.doctorModel.value.lastName}",
-                        style: Theme.of(context).textTheme.headline6!.copyWith(
-                          fontSize: screenWidth * 0.035,
-                        ),
+                      child: FutureBuilder<String>(
+                        future: controller.determineReceiverName(),
+                        builder: (context, snapshot) {
+                          if (snapshot.connectionState == ConnectionState.waiting) {
+                            return Text('Loading...'); // Or any loading indicator while waiting for data
+                          } else if (snapshot.hasError) {
+                            return Text('Error: ${snapshot.error}');
+                          } else {
+                            // Data fetched successfully, display the name
+                            return Padding(
+                              padding: const EdgeInsets.only(left: 15, right: 45),
+                              child: Text(
+                                snapshot.data ?? '',
+                                style: Theme.of(context).textTheme.headline6!.copyWith(
+                                  fontSize: screenWidth * 0.035,
+                                ),
+                              ),
+                            );
+                          }
+                        },
                       ),
+
                     ),
                     InkWell(
                       onTap: () {
-                        Get.toNamed(kCallingConsultantScreen);
+                        Get.toNamed(kOngoingCallScreen, arguments: controller.callId);
+
                       },
                       child: Icon(
                         Icons.phone,

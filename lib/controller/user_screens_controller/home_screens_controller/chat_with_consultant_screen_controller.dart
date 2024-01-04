@@ -111,6 +111,53 @@ class ChatWithConsultantScreenController extends GetxController {
     }
   }
 
+  Future<String> determineReceiverName() async {
+    try {
+      QuerySnapshot<Map<String, dynamic>> querySnapshot =
+      await FirebaseFirestore.instance
+          .collection('booked_appointments')
+          .where('callId', isEqualTo: callId)
+          .get();
+
+      if (querySnapshot.docs.isNotEmpty) {
+        String userName = "${querySnapshot.docs.first.get('userFirstName')} ${querySnapshot.docs.first.get('userLastName')}";
+        String doctorName = "${querySnapshot.docs.first.get('doctorFirstName')} ${querySnapshot.docs.first.get('doctorLastName')}";
+
+        return userModel.value.id.isEmpty ? userName : doctorName;
+      } else {
+        print('No appointment found for the given callId');
+        return '';
+      }
+    } catch (e) {
+      print('Error fetching receiverId: $e');
+      return '';
+    }
+  }
+
+  Future<String> determineReceiverImage() async {
+    try {
+      QuerySnapshot<Map<String, dynamic>> querySnapshot =
+      await FirebaseFirestore.instance
+          .collection('booked_appointments')
+          .where('callId', isEqualTo: callId)
+          .get();
+
+      if (querySnapshot.docs.isNotEmpty) {
+        String userImage = querySnapshot.docs.first.get('userImage');
+        String doctorImage = querySnapshot.docs.first.get('doctorImage');
+
+        return userModel.value.id.isEmpty ? userImage : doctorImage;
+      } else {
+        print('No appointment found for the given callId');
+        return '';
+      }
+    } catch (e) {
+      print('Error fetching receiverId: $e');
+      return '';
+    }
+  }
+
+
   String formatTimestamp(DateTime timestamp) {
     final now = DateTime.now();
     final today = DateTime(now.year, now.month, now.day);
@@ -136,13 +183,13 @@ class ChatWithConsultantScreenController extends GetxController {
         senderFirstName = doctorModel.value.firstName;
         receiverId = await determineReceiverId(); // Fetch receiverId
         receiverFirstName =
-            "await determineReceiverFirstName"; // Fetch receiver's first name
+            await determineReceiverName(); // Fetch receiver's first name
       } else {
         senderId = userModel.value.id;
         senderFirstName = userModel.value.firstName;
         receiverId = await determineReceiverId(); // Fetch receiverId
         receiverFirstName =
-            await "determineReceiverFirstName"; // Fetch receiver's first name
+            await determineReceiverName(); // Fetch receiver's first name
       }
 
       await _sendAndReceiveMessage(
