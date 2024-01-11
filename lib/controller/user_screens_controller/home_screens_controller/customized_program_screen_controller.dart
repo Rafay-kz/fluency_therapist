@@ -1,5 +1,6 @@
 
 
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../../../model/doctor_model.dart';
@@ -29,8 +30,14 @@ void checkAnswer() {
   if (validateAnswer()) {
     Get.toNamed(kReminderScreen);
   } else {
-    Get.snackbar('Error', 'Please select an answer.');
+    Get.snackbar(
+      'Error',
+      'Please select an answer.',
+      backgroundColor: Colors.white,
+      colorText: Colors.red,
+    );
   }
+
 }
   UserSession userSession = UserSession();
   Rx<UserModel> userModel=UserModel.empty().obs;

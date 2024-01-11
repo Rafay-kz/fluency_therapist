@@ -3,6 +3,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:fluency_therapist/core/database.dart';
 import 'package:fluency_therapist/model/user_model.dart';
+import 'package:fluency_therapist/utils/notification_services.dart';
 import 'package:fluency_therapist/utils/user_session.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -35,6 +36,7 @@ class LoginScreenController extends GetxController {
   Database database = Database();
   UserModel userModel = UserModel.empty();
   UserSession userSession = UserSession();
+  NotificationServices notificationServices = NotificationServices();
 
   String? validateEmail(String value) {
     if (!GetUtils.isEmail(value)) {
@@ -63,6 +65,11 @@ class LoginScreenController extends GetxController {
 
       if (response is UserModel) {
         print('User Login');
+        String? newToken = await notificationServices.getDeviceToken();
+        if (newToken != null) {
+          // Update the database with the new device token for the logged-in doctor
+          await notificationServices.updateUserToken(response.id, newToken);
+        }
         if (response.errorMsg == 'Email is Not Verified') {
           print('Email is Not Verified');
           Get.toNamed(kEmailVerificationScreen);
@@ -76,6 +83,12 @@ class LoginScreenController extends GetxController {
         }
       } else if (response is DoctorModel) {
         print('Doctor Login');
+
+        String? newToken = await notificationServices.getDeviceToken();
+        if (newToken != null) {
+          // Update the database with the new device token for the logged-in doctor
+          await notificationServices.updateDoctorToken(response.id, newToken);
+        }
         // Note: No need to check for 'Profile not set up' or 'Email is Not Verified'
         // as the modified loginUser method always returns DoctorModel
         print('Login successful');
@@ -107,7 +120,7 @@ class LoginScreenController extends GetxController {
       }
 
       final GoogleSignInAuthentication googleAuth =
-          await googleUser.authentication;
+      await googleUser.authentication;
 
       final AuthCredential credential = GoogleAuthProvider.credential(
         accessToken: googleAuth.accessToken,
@@ -115,7 +128,7 @@ class LoginScreenController extends GetxController {
       );
 
       final UserCredential userCredential =
-          await FirebaseAuth.instance.signInWithCredential(credential);
+      await FirebaseAuth.instance.signInWithCredential(credential);
 
       final User? user = userCredential.user;
 
@@ -124,34 +137,42 @@ class LoginScreenController extends GetxController {
           // User is verified
           UserSession userSession = UserSession();
           await userSession.setLogin();
-          userModel.email=user.email??'';
-          userModel.id=user.uid??'';
-          userModel.image=user.photoURL??'';
-          userModel.firstName=user.displayName??'';
-          userModel.lastName=user.displayName??'';
+          userModel.email = user.email ?? '';
+          userModel.id = user.uid ?? '';
+          userModel.image = user.photoURL ?? '';
+          userModel.firstName = user.displayName ?? '';
+          userModel.lastName = user.displayName ?? '';
 
-          userSession.userInformation(userModel:userModel);
+          userSession.userInformation(userModel: userModel);
           Get.offAllNamed(kHomeScreen);
         } else {
           Get.toNamed(kEmailVerificationScreen);
         }
 
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(
-              content: Text(
-                  'Signed in successfully: ${user.displayName ?? 'User'}')),
+        // Show success snackbar
+        Get.snackbar(
+          'Success',
+          'Signed in successfully: ${user.displayName ?? 'User'}',
+          backgroundColor: Colors.white,
+          colorText: Colors.green,
         );
       } else {
         // Handle null user
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text('Failed to sign in. Please try again later.')),
+        Get.snackbar(
+          'Error',
+          'Failed to sign in. Please try again later.',
+          backgroundColor: Colors.red,
+          colorText: Colors.white,
         );
       }
     } catch (error) {
       // Handle specific exceptions here
       print('Exception occurred: $error');
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text('Failed to sign in: $error')),
+      Get.snackbar(
+        'Error',
+        'Failed to sign in: $error',
+        backgroundColor: Colors.red,
+        colorText: Colors.white,
       );
     }
   }

@@ -23,6 +23,7 @@ class DoctorProfileSetUpScreenController extends GetxController {
   DoctorHomeScreenController doctorhomeScreenController=Get.find(tag:kDoctorHomeScreenController);
 
 
+
   RxString imageUrl = ''.obs;
   Database database = Database();
   final formKey = GlobalKey<FormState>();

@@ -245,11 +245,15 @@ class AppointmentCard extends StatelessWidget {
                     ],
                   ),
                 ),
-                TextButton(
-                  onPressed: controller.isButtonEnabled(bookedSlot)
-                      ? () {
+                    TextButton(
+                    onPressed: controller.isButtonEnabled(bookedSlot)
+                    ? () {
                     controller.callOptions(bookedSlot.callId);
-                        }
+
+                    // Send notification to the doctor if device token is available
+
+                    }
+
                       : null,
                   child: Container(
                     width: screenWidth * 0.27,
@@ -263,15 +267,16 @@ class AppointmentCard extends StatelessWidget {
                     child: Center(
                       child: Text(
                         "Start",
-                        style:
-                            Theme.of(context).textTheme.headlineSmall!.copyWith(
-                                  fontSize: screenWidth * 0.035,
-                                  color: AppColors.whiteColor,
-                                ),
+                        style: Theme.of(context).textTheme.headlineSmall!.copyWith(
+                          fontSize: screenWidth * 0.035,
+                          color: AppColors.whiteColor,
+                        ),
                       ),
                     ),
                   ),
                 ),
+
+
 
               ],
             )

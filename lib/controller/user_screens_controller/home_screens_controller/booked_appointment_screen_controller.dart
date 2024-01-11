@@ -9,6 +9,7 @@ import '../../../model/booked_slot_model.dart';
 import '../../../model/doctor_model.dart';
 import '../../../model/user_model.dart';
 import '../../../utils/app_constants.dart';
+import '../../../utils/notification_services.dart';
 import '../../../utils/user_session.dart';
 
 class BookedAppointmentScreenController extends GetxController {
@@ -19,6 +20,7 @@ class BookedAppointmentScreenController extends GetxController {
   RxList<DoctorModel> doctorUsers = <DoctorModel>[].obs;
   RxList<BookedSlot> bookedSlots = <BookedSlot>[].obs;
   RxBool isLoading = true.obs;
+  NotificationServices notificationservices = NotificationServices();
 
   Future<void> getUserInfo() async {
     userModel.value = await userSession.getUserInformation();
@@ -35,7 +37,8 @@ class BookedAppointmentScreenController extends GetxController {
     await fetchDoctorUsers();
     await fetchDay();
     isLoading.value = false;
-
+    notificationservices.requestNotificationPermission();
+    notificationservices.firebaseInit();
     super.onInit();
   }
 
@@ -47,7 +50,7 @@ class BookedAppointmentScreenController extends GetxController {
   Future<void> fetchDoctorUsers() async {
     try {
       final QuerySnapshot querySnapshot =
-          await FirebaseFirestore.instance.collection('doctor_users').get();
+      await FirebaseFirestore.instance.collection('doctor_users').get();
 
       final List<DoctorModel> users = querySnapshot.docs.map((doc) {
         final data = doc.data() as Map<String, dynamic>;
@@ -61,6 +64,7 @@ class BookedAppointmentScreenController extends GetxController {
           location: data['location'] ?? '',
           image: data['image'] ?? '',
           id: doc.id ?? '',
+          deviceToken: data['deviceToken'] ?? '',
           errorMsg: '',
         );
       }).toList();
@@ -84,7 +88,7 @@ class BookedAppointmentScreenController extends GetxController {
     ];
     for (final dayName in daysOfWeek) {
       List<BookedSlot> slots =
-          await fetchBookedSlots(userModel.value.id, dayName);
+      await fetchBookedSlots(userModel.value.id, dayName);
       if (slots.isNotEmpty) {
         bookedSlots.insertAll(0, slots);
       }
@@ -118,7 +122,7 @@ class BookedAppointmentScreenController extends GetxController {
           startTime: database.parseTimeOfDay(data['start_time'] as String),
           endTime: database.parseTimeOfDay(data['end_time'] as String),
           doctor: doctorUsers.firstWhere(
-            (doc) => doc.id == data['doctorId'],
+                (doc) => doc.id == data['doctorId'],
             orElse: () => DoctorModel.empty(),
           ),
         );
@@ -175,12 +179,15 @@ class BookedAppointmentScreenController extends GetxController {
         // Remove the deleted appointments from bookedSlots
         bookedSlots.removeWhere((slot) => slot.callId == appointmentId);
       }
-
-
     }
   }
 
-  void callOptions(int callId) {
+
+
+
+
+
+  void callOptions(int callId) async {
     print('Selected Call ID: $callId');
     Get.bottomSheet(
       SingleChildScrollView(
@@ -206,21 +213,75 @@ class BookedAppointmentScreenController extends GetxController {
                     height: 10,
                   ),
                   ElevatedButton.icon(
-                    onPressed: () {
+                    onPressed: () async {
+                      // Wait for the completion of fetchDoctorUsers
+                      await fetchDoctorUsers();
+
+                      // Send notification to the doctor if device token is available
+                      final bookedSlot =
+                      bookedSlots.firstWhere((slot) => slot.callId == callId);
+                      final doctor = bookedSlot.doctor;
+
+                      if (doctor != null && doctor.deviceToken != null) {
+                        print('Doctor Device Token: ${doctor.deviceToken}');
+                        notificationservices.sendAppointmentNotification(
+                            doctor.deviceToken??'');
+                      } else {
+                        // Handle the case where doctor or device token is null
+                        print(
+                            "Doctor data or device token is null. Unable to send notification.");
+                      }
+
                       Get.toNamed(kOngoingCallScreen, arguments: callId);
                     },
                     icon: const Icon(Icons.phone),
                     label: const Text("VOICE CALL"),
                   ),
                   ElevatedButton.icon(
-                    onPressed: () {
+                    onPressed: () async {
+                      // Wait for the completion of fetchDoctorUsers
+                      await fetchDoctorUsers();
+
+                      // Send notification to the doctor if device token is available
+                      final bookedSlot =
+                      bookedSlots.firstWhere((slot) => slot.callId == callId);
+                      final doctor = bookedSlot.doctor;
+
+                      if (doctor != null && doctor.deviceToken != null) {
+                        print('Doctor Device Token: ${doctor.deviceToken}');
+                        notificationservices.sendAppointmentNotification(
+                            doctor.deviceToken??'');
+                      } else {
+                        // Handle the case where doctor or device token is null
+                        print(
+                            "Doctor data or device token is null. Unable to send notification.");
+                      }
+
                       Get.toNamed(kVideoCallScreen, arguments: callId);
                     },
                     icon: const Icon(Icons.video_call_sharp),
                     label: const Text("VIDEO CALL"),
                   ),
                   ElevatedButton.icon(
-                    onPressed: () {
+                    onPressed: () async {
+                      // Wait for the completion of fetchDoctorUsers
+                      await fetchDoctorUsers();
+
+                      // Send notification to the doctor if device token is available
+                      final bookedSlot =
+                      bookedSlots.firstWhere((slot) => slot.callId == callId);
+                      final doctor = bookedSlot.doctor;
+
+                      if (doctor != null && doctor.deviceToken != null) {
+                        print('Doctor Device Token: ${doctor.deviceToken}');
+                        notificationservices.sendAppointmentChatNotification(
+                            doctor.deviceToken??'');
+                      } else {
+                        // Handle the case where doctor or device token is null
+                        print(
+                            "Doctor data or device token is null. Unable to send notification.");
+                      }
+
                       Get.toNamed(kChatWithConsultantScreen, arguments: callId);
                     },
                     icon: const Icon(Icons.message_outlined),

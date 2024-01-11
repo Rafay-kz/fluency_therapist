@@ -124,7 +124,7 @@ class Database {
 
   //To save user details on firestore
   Future<void> saveUserDetails(
-      String firstName, String lastName, String email) async {
+      String firstName, String lastName, String email, String deviceToken) async {
     try {
       User? user = FirebaseAuth.instance.currentUser;
       if (user != null) {
@@ -134,7 +134,8 @@ class Database {
           'firstName': firstName,
           'lastName': lastName,
           'email': email,
-          'image': ''
+          'image': '',
+          'deviceToken' : deviceToken,
         });
         // Data saved successfully
       } else {
@@ -151,6 +152,7 @@ class Database {
     String firstName,
     String lastName,
     String email,
+      String deviceToken,
   ) async {
     try {
       User? user = FirebaseAuth.instance.currentUser;
@@ -161,6 +163,7 @@ class Database {
           'firstName': firstName,
           'lastName': lastName,
           'email': email,
+          'deviceToken': deviceToken,
         });
         // Data saved successfully
       } else {

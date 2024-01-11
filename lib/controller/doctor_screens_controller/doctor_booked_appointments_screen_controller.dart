@@ -10,25 +10,42 @@ import '../../../model/doctor_model.dart';
 import '../../../model/user_model.dart';
 import '../../../utils/app_constants.dart';
 import '../../../utils/user_session.dart';
+import '../../utils/notification_services.dart';
 
 class DoctorBookedAppointmentsScreenController extends GetxController {
   Database database = Database();
   UserSession userSession = UserSession();
   Rx<DoctorModel> doctorModel = DoctorModel.empty().obs;
+  Rx<UserModel> userModel = UserModel.empty().obs;
   RxList<UserModel> regularUsers = <UserModel>[].obs;
   RxList<BookedSlot> bookedSlots = <BookedSlot>[].obs;
   RxBool isLoading = true.obs;
+  NotificationServices notificationservices = NotificationServices();
 
   Future<void> getDoctorInfo() async {
     doctorModel.value = await userSession.getDoctorInformation();
   }
 
+  Future<void> getUserInfo() async {
+    userModel.value = await userSession.getUserInformation();
+  }
+
   @override
   void onInit() async {
+    await getUserInfo();
     await getDoctorInfo();
-     fetchRegularUsers();
+    await fetchRegularUsers();
     await fetchDay();
     isLoading.value = false;
+
+    // Request notification permission and initialize Firebase
+    notificationservices.requestNotificationPermission();
+    notificationservices.getDeviceToken().then((value) {
+      print('DEVICE TOKEN');
+      print(value);
+      notificationservices.isTokenRefresh();
+      notificationservices.firebaseInit();
+    });
 
     super.onInit();
   }
@@ -38,11 +55,11 @@ class DoctorBookedAppointmentsScreenController extends GetxController {
     Get.offAllNamed(kLoginScreen);
   }
 
-
   String formatDate(DateTime date) {
     final formatter = DateFormat('yyyy-MM-dd');
     return formatter.format(date);
   }
+
   Future<void> fetchRegularUsers() async {
     try {
       final QuerySnapshot querySnapshot =
@@ -55,16 +72,16 @@ class DoctorBookedAppointmentsScreenController extends GetxController {
         print('Age: ${data['age']}');
         print('Image: ${data['image']}');
         return UserModel(
-          id: data['id'] ?? '',
-          errorMsg: data['errorMsg'] ?? '',
+          email: data['email'] ?? '',
+          firstName: data['firstName'] ?? '' ,
+          lastName: data['lastName'] ?? '',
+          errorMsg: '',
+          image: data['image'] ?? '',
+          id: doc.id ?? '',
+          deviceToken: data['deviceToken'] ?? '',
 
-            email: data['age'] ?? '',
-            firstName: data['firstName'] ?? '',
-            lastName: data['lastName'] ?? '',
-            image: data['image'] ?? '',
-           );
+        );
       }).toList();
-
       regularUsers.assignAll(users);
       // Data loading is complete, set isLoading to false
     } catch (e) {
@@ -73,7 +90,15 @@ class DoctorBookedAppointmentsScreenController extends GetxController {
   }
 
   Future<void> fetchDay() async {
-    final daysOfWeek = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
+    final daysOfWeek = [
+      'Monday',
+      'Tuesday',
+      'Wednesday',
+      'Thursday',
+      'Friday',
+      'Saturday',
+      'Sunday'
+    ];
     for (final dayName in daysOfWeek) {
       List<BookedSlot> slots =
           await fetchBookedSlots(doctorModel.value.id, dayName);
@@ -98,7 +123,7 @@ class DoctorBookedAppointmentsScreenController extends GetxController {
         print("Booked Slot User ID: ${data['userId']}");
         return BookedSlot(
           callId: data['callId'],
-          doctorId: data['userId'],
+          userId: data['userId'],
           date: data['date'].toDate() as DateTime,
           startTime: database.parseTimeOfDay(data['start_time'] as String),
           endTime: database.parseTimeOfDay(data['end_time'] as String),
@@ -120,15 +145,22 @@ class DoctorBookedAppointmentsScreenController extends GetxController {
       return [];
     }
   }
+
   final now = DateTime.now();
 
   bool isButtonEnabled(BookedSlot bookedSlot) {
     final startTime = DateTime(
-        bookedSlot.date.year, bookedSlot.date.month, bookedSlot.date.day,
-        bookedSlot.startTime.hour, bookedSlot.startTime.minute);
+        bookedSlot.date.year,
+        bookedSlot.date.month,
+        bookedSlot.date.day,
+        bookedSlot.startTime.hour,
+        bookedSlot.startTime.minute);
     final endTime = DateTime(
-        bookedSlot.date.year, bookedSlot.date.month, bookedSlot.date.day,
-        bookedSlot.endTime.hour, bookedSlot.endTime.minute);
+        bookedSlot.date.year,
+        bookedSlot.date.month,
+        bookedSlot.date.day,
+        bookedSlot.endTime.hour,
+        bookedSlot.endTime.minute);
 
     // Enable the button if the current time is between the start and end times
     return now.isAfter(startTime) && now.isBefore(endTime);
@@ -148,10 +180,10 @@ class DoctorBookedAppointmentsScreenController extends GetxController {
             .doc(appointmentId)
             .delete();
       }
-
     }
   }
-  void callOptions(int callId) {
+
+  void callOptions(int callId) async {
     print('Selected Call ID: $callId');
     Get.bottomSheet(
       SingleChildScrollView(
@@ -177,23 +209,75 @@ class DoctorBookedAppointmentsScreenController extends GetxController {
                     height: 10,
                   ),
                   ElevatedButton.icon(
-                    onPressed: () {
-                      Get.toNamed(kOngoingCallScreen,arguments: callId);
+                    onPressed: () async {
+                      // Wait for the completion of fetchDoctorUsers
+                      await fetchRegularUsers();
+
+                      // Send notification to the doctor if device token is available
+                      final bookedSlot = bookedSlots
+                          .firstWhere((slot) => slot.callId == callId);
+                      final user = bookedSlot.user;
+
+                      if (user != null && user.deviceToken != null) {
+                        print('user Device Token: ${user.deviceToken}');
+                        notificationservices.sendAppointmentNotification(
+                            user.deviceToken?? '');
+                      } else {
+                        // Handle the case where doctor or device token is null
+                        print(
+                            "user data or device token is null. Unable to send notification.");
+                      }
+
+                      Get.toNamed(kOngoingCallScreen, arguments: callId);
                     },
                     icon: const Icon(Icons.phone),
                     label: const Text("VOICE CALL"),
                   ),
                   ElevatedButton.icon(
-                    onPressed: () {
-                      Get.toNamed(kVideoCallScreen,arguments: callId);
+                    onPressed: () async {
+                      // Wait for the completion of fetchDoctorUsers
+                      await fetchRegularUsers();
 
+                      // Send notification to the doctor if device token is available
+                      final bookedSlot = bookedSlots
+                          .firstWhere((slot) => slot.callId == callId);
+                      final user = bookedSlot.user;
+
+                      if (user != null && user.deviceToken != null) {
+                        print('Doctor Device Token: ${user.deviceToken}');
+                        notificationservices.sendAppointmentNotification(
+                            user.deviceToken ?? '');
+                      } else {
+                        // Handle the case where doctor or device token is null
+                        print(
+                            "user data or device token is null. Unable to send notification.");
+                      }
+
+                      Get.toNamed(kVideoCallScreen, arguments: callId);
                     },
                     icon: const Icon(Icons.video_call_sharp),
                     label: const Text("VIDEO CALL"),
-                  ), ElevatedButton.icon(
-                    onPressed: () {
-                      Get.toNamed(kChatWithConsultantScreen,arguments: callId);
+                  ),
+                  ElevatedButton.icon(
+                    onPressed: () async {
+                      // Wait for the completion of fetchDoctorUsers
+                      await fetchRegularUsers();
 
+                      // Send notification to the doctor if device token is available
+                      final bookedSlot = bookedSlots
+                          .firstWhere((slot) => slot.callId == callId);
+                      final user = bookedSlot.user;
+
+                      if (user != null && user.deviceToken != null) {
+                        print('User Device Token: ${user.deviceToken}');
+                        notificationservices.sendAppointmentNotification(user.deviceToken ?? '');
+                      } else {
+                        // Handle the case where user or device token is null
+                        print("User data or device token is null. Unable to send notification.");
+                      }
+
+
+                      Get.toNamed(kChatWithConsultantScreen, arguments: callId);
                     },
                     icon: const Icon(Icons.message_outlined),
                     label: const Text("CHAT"),
@@ -215,6 +299,5 @@ class DoctorBookedAppointmentsScreenController extends GetxController {
         ),
       ),
     );
-
   }
 }
