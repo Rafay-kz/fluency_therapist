@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 import 'package:flutter/material.dart';
 
 import '../../../custom widgets/progress_indicator.dart';
+import '../../../utils/notification_services.dart';
 import '../../../utils/utills.dart';
 
 
@@ -11,6 +12,7 @@ class SignupScreenController extends GetxController {
   final formKey = GlobalKey<FormState>();
   late RxBool loading;
   RxBool obscureText = true.obs;
+  NotificationServices notificationServices = NotificationServices ();
 
 
   //Regular users controllers
@@ -153,12 +155,14 @@ class SignupScreenController extends GetxController {
           passwordTEController.text.toString(),
         );
         pd.dismissDialog();
+        String deviceToken = await notificationServices.getDeviceToken() ?? '';
 
         if (isDoctor.value) {
           await database.saveDoctorUserDetails(
             firstNameController.text.toString(),
             lastNameController.text.toString(),
             emailTEController.text.toString(),
+            deviceToken,
 
           );
         }
@@ -167,6 +171,9 @@ class SignupScreenController extends GetxController {
             firstNameController.text.toString(),
             lastNameController.text.toString(),
             emailTEController.text.toString(),
+            deviceToken,
+
+
           );
         }
       } catch (error) {

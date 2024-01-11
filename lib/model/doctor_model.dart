@@ -1,6 +1,6 @@
 class DoctorModel {
   String id = '';
-  bool isProfileSetUp=false;
+  bool isProfileSetUp = false;
   String image = '';
   String age = '';
   String email = '';
@@ -10,7 +10,7 @@ class DoctorModel {
   String specialization = '';
   String bio = '';
   String location = '';
-
+  String? deviceToken = ''; // Add this field to store the device token
 
   DoctorModel.empty();
 
@@ -25,11 +25,12 @@ class DoctorModel {
     required this.specialization,
     required this.bio,
     required this.location,
-    this.isProfileSetUp= false,
-
+    this.isProfileSetUp = false,
+    this.deviceToken,
   });
 
-  factory DoctorModel.fromJsonForSession(Map<String, dynamic> json, String errorMessage) {
+  factory DoctorModel.fromJsonForSession(
+      Map<String, dynamic> json, String errorMessage) {
     return DoctorModel(
       id: json["id"] ?? "",
       isProfileSetUp: json['isProfileSetUp'] ?? false,
@@ -42,11 +43,12 @@ class DoctorModel {
       specialization: json["specialization"].toString() ?? '',
       bio: json["bio"].toString() ?? '',
       location: json["location"].toString() ?? '',
-
+      deviceToken: json['deviceToken'] ?? '', // Add this line
     );
   }
 
-  factory DoctorModel.fromJson(Map<String, dynamic> json, String errorMessage, String id) {
+  factory DoctorModel.fromJson(
+      Map<String, dynamic> json, String errorMessage, String id) {
     return DoctorModel(
       id: id,
       errorMsg: errorMessage,
@@ -59,6 +61,7 @@ class DoctorModel {
       bio: json['bio'] ?? '',
       location: json['location'] ?? '',
       image: json['image'] ?? '',
+      deviceToken: json['deviceToken'] ?? '', // Add this line
     );
   }
 
@@ -74,11 +77,12 @@ class DoctorModel {
     data['specialization'] = specialization;
     data['bio'] = bio;
     data['location'] = location;
+    data['deviceToken'] = deviceToken; // Add this line
     return data;
   }
 
   @override
   String toString() {
-    return 'DoctorModel{age: $age, email: $email, firstName: $firstName,lastName: $lastName,specialization: $specialization, bio: $bio, location: $location,  id: $id, image: $image,isProfileSetUp:$isProfileSetUp}';
+    return 'DoctorModel{age: $age, email: $email, firstName: $firstName,lastName: $lastName,specialization: $specialization, bio: $bio, location: $location,  id: $id, image: $image,isProfileSetUp:$isProfileSetUp,deviceToken: $deviceToken}';
   }
 }
