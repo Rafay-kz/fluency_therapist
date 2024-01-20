@@ -5,6 +5,7 @@
 import 'package:fluency_therapist/controller/common_screens_controller/auth_screens_controller/profile_setup_screen_controller.dart';
 import 'package:fluency_therapist/controller/doctor_screens_controller/doctor_booked_appointments_screen_controller.dart';
 import 'package:fluency_therapist/controller/doctor_screens_controller/doctor_scheduling_screen_controller.dart';
+import 'package:fluency_therapist/controller/doctor_screens_controller/doctor_verification_screen_controller.dart';
 import 'package:fluency_therapist/controller/exercises_screens_controller/exercises_screen_one_controller.dart';
 import 'package:fluency_therapist/controller/user_screens_controller/home_screens_controller/appointment_booking_screen_controller.dart';
 import 'package:fluency_therapist/utils/app_constants.dart';
@@ -36,6 +37,7 @@ import '../controller/user_screens_controller/home_screens_controller/edit_profi
 import '../controller/user_screens_controller/home_screens_controller/home_screen_controller.dart';
 import '../controller/user_screens_controller/home_screens_controller/inbox_screen_controller.dart';
 import '../controller/user_screens_controller/home_screens_controller/ongoing_call_screen_controller.dart';
+import '../controller/user_screens_controller/home_screens_controller/payment_screen_controller.dart';
 import '../controller/user_screens_controller/home_screens_controller/progress_tracking_screen_controller.dart';
 import '../controller/user_screens_controller/home_screens_controller/reminder_screen_controller.dart';
 import '../controller/user_screens_controller/home_screens_controller/search_screen_controller.dart';
@@ -83,6 +85,9 @@ class ScreenBindings extends Bindings {
     Get.lazyPut(() => DoctorProfileSetUpScreenController());
     Get.lazyPut(() => DoctorInboxScreenController());
     Get.lazyPut(() => DoctorProfileScreenController());
+    Get.lazyPut(() => DoctorVerificationScreenController());
+    Get.lazyPut(() => PaymentScreenController());
+
 
 
 

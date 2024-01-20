@@ -14,8 +14,8 @@ class AppointmentBookingScreen
 
   @override
   Widget build(BuildContext context) {
-    final screenWidth = MediaQuery.of(context).size.width;
-    final screenHeight = MediaQuery.of(context).size.height;
+    final screenWidth = MediaQuery.of(context).size.width * 0.88;
+    final screenHeight = MediaQuery.of(context).size.height * 0.88;
 
     return DefaultTabController(
       length: 7,
@@ -23,7 +23,7 @@ class AppointmentBookingScreen
         backgroundColor: AppColors.backgroundColor,
         body: SafeArea(
           child: Padding(
-            padding: const EdgeInsets.only(top: 10, left: 25, right: 25),
+            padding: EdgeInsets.symmetric(horizontal: screenWidth * 0.05),
             child: Column(
               children: [
                 Row(
@@ -39,33 +39,38 @@ class AppointmentBookingScreen
                       ),
                     ),
                     Padding(
-                      padding: const EdgeInsets.only(top: 10),
+                      padding: EdgeInsets.only(top: screenWidth * 0.02),
                       child: Center(
                         child: Image(
                           image: const AssetImage(logoIcon),
                           width: screenWidth * 0.42,
-                          height: screenHeight * 0.075,
+                          height: screenHeight * 0.070,
                         ),
                       ),
                     ),
                     Obx(
                       () => CircleAvatar(
-                        radius: 25,
-                        backgroundImage: controller.doctorModel.value.image !=
-                                ''
-                            ? CachedNetworkImageProvider(
-                                controller.doctorModel.value.image)
-                            : (controller.userModel.value.image != ''
-                                ? CachedNetworkImageProvider(
-                                    controller.userModel.value.image)
-                                : const AssetImage('assets/images/person.png')
-                                    as ImageProvider),
+                        radius: screenWidth * 0.057,
+                        backgroundImage: () {
+                          // Check if userModel is empty, indicating doctorModel is active
+                          if (controller.userModel.value.id.isEmpty) {
+                            return controller.currentDoctorModel.value.image.isNotEmpty
+                                ? CachedNetworkImageProvider(controller.currentDoctorModel.value.image)
+                                : const AssetImage('assets/images/person.png') as ImageProvider;
+                          } else {
+                            // userModel is present, indicating a non-doctor user
+                            return controller.userModel.value.image.isNotEmpty
+                                ? CachedNetworkImageProvider(controller.userModel.value.image)
+                                : const AssetImage('assets/images/person.png') as ImageProvider;
+                          }
+                        }(),
                       ),
+
                     ),
                   ],
                 ),
                 Padding(
-                  padding: const EdgeInsets.symmetric(vertical: 8.0),
+                  padding: EdgeInsets.symmetric(vertical: screenHeight * 0.010),
                   child: TabBar(
                     isScrollable: true,
                     tabs: const [
@@ -94,9 +99,14 @@ class AppointmentBookingScreen
                     indicatorColor: AppColors.primaryBlue,
                     labelColor: AppColors.primaryBlue,
                     unselectedLabelColor: Colors.grey,
-                    labelStyle: Theme.of(context).textTheme.headlineSmall,
-                    unselectedLabelStyle:
-                        Theme.of(context).textTheme.headlineSmall,
+                    labelStyle: Theme.of(context)
+                        .textTheme
+                        .headlineSmall!
+                        .copyWith(fontSize: screenWidth * 0.036),
+                    unselectedLabelStyle: Theme.of(context)
+                        .textTheme
+                        .headlineSmall!
+                        .copyWith(fontSize: screenWidth * 0.035),
                   ),
                 ),
                 Expanded(
@@ -125,17 +135,23 @@ class AppointmentBookingScreen
     return Column(
       children: [
         Padding(
-          padding: const EdgeInsets.symmetric(vertical: 20),
-          child: Text(
-            'Book An Appointment',
-            style: Theme.of(context)
-                .textTheme
-                .headlineSmall!
-                .copyWith(fontSize: 20),
+          padding: EdgeInsets.only(
+              top: Get.height * 0.88 * 0.03, left: Get.width * 0.88 * 0.013),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: [
+              Text(
+                "Book Appointment",
+                style: Theme.of(context)
+                    .textTheme
+                    .displayLarge!
+                    .copyWith(fontSize: Get.width * 0.88 * 0.045),
+              ),
+            ],
           ),
         ),
-        const SizedBox(
-          height: 10,
+        SizedBox(
+          height: Get.height * 0.88 * 0.015,
         ),
         Expanded(
           child: Obx(() {
@@ -145,22 +161,24 @@ class AppointmentBookingScreen
                   itemBuilder: (context, index) {
                     final slot = controller.timeSlotsMap[tabIndex]?[index];
                     debugPrint(
-                        'Slot $index - isAvailable: ${slot!.isAvailable}'); // Add this line
+                        'Slot $index - isAvailable: ${slot!.isAvailable}');
+                    final bool isSlotAvailable = slot.isAvailable && !controller.isDateTimeInPast(slot.date, slot.endTime);
+// Add this line
                     return Padding(
-                      padding: const EdgeInsets.symmetric(vertical: 8),
+                      padding:  EdgeInsets.symmetric(vertical: Get.height * 0.88 * 0.015),
                       child: Container(
                         decoration: BoxDecoration(
-                          color: slot!.isAvailable
+                          color: isSlotAvailable
                               ? AppColors.secondaryBlue
                               : AppColors.textfieldColor,
                           borderRadius: BorderRadius.circular(15),
                         ),
                         child: Padding(
-                          padding: const EdgeInsets.all(10.0),
+                          padding: EdgeInsets.all(Get.width * 0.88 * 0.025),
                           child: Column(
                             children: [
                               ListTile(
-                                leading: slot.isAvailable
+                                leading: isSlotAvailable
                                     ? Obx(
                                         () => Radio(
                                           value: index,
@@ -168,8 +186,9 @@ class AppointmentBookingScreen
                                               .selectedSlotIndices[tabIndex]
                                               .value,
                                           onChanged: (value) {
-                                            controller.setSelectedSlotIndex(
-                                                tabIndex, value!);
+                                            if (isSlotAvailable) {
+                                              controller.setSelectedSlotIndex(tabIndex, value!);
+                                            }
                                           },
                                           activeColor: Colors.green,
                                           fillColor: MaterialStateProperty.all(
@@ -182,11 +201,41 @@ class AppointmentBookingScreen
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
                                     Text(
-                                        'Date: ${controller.formatDate(slot!.date)}'),
+                                      'Date: ${controller.formatDate(slot!.date)}',
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .headlineSmall!
+                                          .copyWith(
+                                            fontSize: Get.width * 0.88 * 0.032,
+                                            color: isSlotAvailable
+                                                ? AppColors.pastelBlack
+                                                : AppColors.descriptionColor,
+                                          ),
+                                    ),
                                     Text(
-                                        'Start Time: ${slot.startTime.format(context)}'),
+                                      'Start Time: ${slot.startTime.format(context)}',
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .headlineSmall!
+                                          .copyWith(
+                                            fontSize: Get.width * 0.88 * 0.032,
+                                            color: isSlotAvailable
+                                                ? AppColors.pastelBlack
+                                                : AppColors.descriptionColor,
+                                          ),
+                                    ),
                                     Text(
-                                        'End Time: ${slot.endTime.format(context)}'),
+                                      'End Time: ${slot.endTime.format(context)}',
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .headlineSmall!
+                                          .copyWith(
+                                            fontSize: Get.width * 0.88 * 0.032,
+                                            color: isSlotAvailable
+                                                ? AppColors.pastelBlack
+                                                : AppColors.descriptionColor,
+                                          ),
+                                    ),
                                   ],
                                 ),
                                 // Hide the delete icon if radio button is not selected
@@ -205,7 +254,7 @@ class AppointmentBookingScreen
           }),
         ),
         Padding(
-          padding: const EdgeInsets.only(bottom: 40),
+          padding:  EdgeInsets.only(bottom:Get.height*0.88*0.045),
           child: Obx(() {
             if (controller.userModel.value == null ||
                 controller.userModel.value.id.isEmpty) {
@@ -216,8 +265,7 @@ class AppointmentBookingScreen
                   Utils utils = Utils();
                   if (controller.selectedSlotIndices[tabIndex].value != -1) {
                     controller.bookAppointment(tabIndex);
-                    utils.toastMessage2("Appointment Booked!");
-                    Get.toNamed(kBookedAppointmentScreen);
+                    Get.toNamed(kPaymentScreen);
                   } else {
                     utils.toastMessage("Please select a slot");
                   }

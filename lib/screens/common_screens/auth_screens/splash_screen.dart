@@ -12,8 +12,8 @@ class SplashScreen extends GetView<SplashScreenController> {
 
   @override
   Widget build(BuildContext context) {
-    final double screenWidth = MediaQuery.of(context).size.width;
-    final double screenHeight = MediaQuery.of(context).size.height;
+    final double screenWidth = MediaQuery.of(context).size.width * 0.88;
+
 
     return GestureDetector(
       onTap: () {
@@ -29,8 +29,7 @@ class SplashScreen extends GetView<SplashScreenController> {
               Center(
                 child: Image.asset(
                   controller.logo,
-                  height: screenHeight * 0.12,
-                  width: screenWidth * 0.42,
+                  width: screenWidth * 0.20,
                 ),
               ),
             ],

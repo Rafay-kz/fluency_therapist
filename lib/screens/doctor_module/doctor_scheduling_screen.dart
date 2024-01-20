@@ -7,15 +7,13 @@ import '../../../utils/app_colors.dart';
 import '../../../utils/app_constants.dart';
 import '../../model/timeslots_model.dart';
 
-
 class DoctorSchedulingScreen extends GetView<DoctorSchedulingScreenController> {
   const DoctorSchedulingScreen({super.key});
 
-
   @override
   Widget build(BuildContext context) {
-    final screenWidth = MediaQuery.of(context).size.width;
-    final screenHeight = MediaQuery.of(context).size.height;
+    final screenWidth = MediaQuery.of(context).size.width * 0.88;
+    final screenHeight = MediaQuery.of(context).size.height * 0.88;
 
     return DefaultTabController(
       length: 7,
@@ -23,11 +21,11 @@ class DoctorSchedulingScreen extends GetView<DoctorSchedulingScreenController> {
         backgroundColor: AppColors.backgroundColor,
         body: SafeArea(
           child: Padding(
-            padding: const EdgeInsets.only(right: 25, left: 25, top: 10),
+            padding: EdgeInsets.symmetric(horizontal: screenWidth * 0.05),
             child: Column(
               children: [
                 Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     InkWell(
                       onTap: () {
@@ -39,8 +37,7 @@ class DoctorSchedulingScreen extends GetView<DoctorSchedulingScreenController> {
                       ),
                     ),
                     Padding(
-                      padding:
-                      const EdgeInsets.only(top: 10, right: 38, left: 38),
+                      padding: EdgeInsets.only(top: screenWidth * 0.02),
                       child: Center(
                         child: Image(
                           image: const AssetImage(logoIcon),
@@ -50,19 +47,19 @@ class DoctorSchedulingScreen extends GetView<DoctorSchedulingScreenController> {
                       ),
                     ),
                     Obx(
-                          () => CircleAvatar(
-                          radius: 25,
+                      () => CircleAvatar(
+                          radius: screenWidth * 0.057,
                           backgroundImage:
-                          controller.doctorModel.value.image != ''
-                              ? CachedNetworkImageProvider(
-                              controller.doctorModel.value.image)
-                              : const AssetImage('assets/images/person.png')
-                          as ImageProvider),
+                              controller.doctorModel.value.image != ''
+                                  ? CachedNetworkImageProvider(
+                                      controller.doctorModel.value.image)
+                                  : const AssetImage('assets/images/person.png')
+                                      as ImageProvider),
                     ),
                   ],
                 ),
                 Padding(
-                  padding: const EdgeInsets.symmetric(vertical: 8.0),
+                  padding: EdgeInsets.symmetric(vertical: screenHeight * 0.010),
                   child: TabBar(
                     isScrollable: true,
                     tabs: const [
@@ -94,9 +91,14 @@ class DoctorSchedulingScreen extends GetView<DoctorSchedulingScreenController> {
                     // Color of the selected tab label
                     unselectedLabelColor: Colors.grey,
                     // Color of unselected tab labels
-                    labelStyle: Theme.of(context).textTheme.headlineSmall,
-                    unselectedLabelStyle:
-                    Theme.of(context).textTheme.headlineSmall,
+                    labelStyle: Theme.of(context)
+                        .textTheme
+                        .headlineSmall!
+                        .copyWith(fontSize: screenWidth * 0.036),
+                    unselectedLabelStyle: Theme.of(context)
+                        .textTheme
+                        .headlineSmall!
+                        .copyWith(fontSize: screenWidth * 0.035),
                   ),
                 ),
                 Expanded(
@@ -104,12 +106,11 @@ class DoctorSchedulingScreen extends GetView<DoctorSchedulingScreenController> {
                     children: [
                       _doctorScheduler(0, context, controller),
                       _doctorScheduler(1, context, controller),
-                      _doctorScheduler(2 , context, controller),
+                      _doctorScheduler(2, context, controller),
                       _doctorScheduler(3, context, controller),
                       _doctorScheduler(4, context, controller),
                       _doctorScheduler(5, context, controller),
                       _doctorScheduler(6, context, controller),
-
                     ],
                   ),
                 ),
@@ -121,21 +122,25 @@ class DoctorSchedulingScreen extends GetView<DoctorSchedulingScreenController> {
     );
   }
 }
-Widget _doctorScheduler(int tabIndex, BuildContext context, DoctorSchedulingScreenController controller) {
+
+Widget _doctorScheduler(int tabIndex, BuildContext context,
+    DoctorSchedulingScreenController controller) {
   return Column(
     children: [
       Padding(
-        padding: const EdgeInsets.symmetric(vertical: 20),
+        padding: EdgeInsets.only(
+            top: Get.height * 0.88 * 0.03, left: Get.width * 0.88 * 0.013),
         child: Text(
           'Set Consultation Time',
-          style: Theme.of(context).textTheme.displayLarge!.copyWith(fontSize: 20),
+          style:
+              Theme.of(context).textTheme.displayLarge!.copyWith(fontSize: 20),
         ),
       ),
-      const SizedBox(
-        height: 10,
+      SizedBox(
+        height: Get.height * 0.88 * 0.015,
       ),
       Row(
-        mainAxisAlignment: MainAxisAlignment.center,
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           TextButton(
             onPressed: () async {
@@ -151,9 +156,13 @@ Widget _doctorScheduler(int tabIndex, BuildContext context, DoctorSchedulingScre
                 controller.selectedDate = pickedDate;
               }
             },
-            child: const Text("Select Date"),
+            child: Text(
+              "Select Date",
+              style: Theme.of(context).textTheme.headlineSmall!.copyWith(
+                  fontSize: Get.width * 0.88 * 0.036,
+                  color: AppColors.primaryBlue),
+            ),
           ),
-          const SizedBox(width: 20,),
           TextButton(
             onPressed: () async {
               final pickedTime = await showTimePicker(
@@ -165,9 +174,13 @@ Widget _doctorScheduler(int tabIndex, BuildContext context, DoctorSchedulingScre
                 controller.selectedStartTime = pickedTime;
               }
             },
-            child: const Text("Select Start Time"),
+            child: Text(
+              "Select Start Time",
+              style: Theme.of(context).textTheme.headlineSmall!.copyWith(
+                  fontSize: Get.width * 0.88 * 0.036,
+                  color: AppColors.primaryBlue),
+            ),
           ),
-          const SizedBox(width: 20,),
           TextButton(
             onPressed: () async {
               final pickedEndTime = await showTimePicker(
@@ -179,15 +192,26 @@ Widget _doctorScheduler(int tabIndex, BuildContext context, DoctorSchedulingScre
                 controller.selectedEndTime = pickedEndTime;
               }
             },
-            child: const Text("Select End Time"),
+            child: Text(
+              "Select End Time",
+              style: Theme.of(context).textTheme.headlineSmall!.copyWith(
+                  fontSize: Get.width * 0.88 * 0.036,
+                  color: AppColors.primaryBlue),
+            ),
           ),
         ],
       ),
+      SizedBox(
+        height: 10,
+      ),
       ElevatedButton(
         onPressed: () {
-          if (controller.selectedStartTime.hour < controller.selectedEndTime.hour ||
-              (controller.selectedStartTime.hour == controller.selectedEndTime.hour &&
-                  controller.selectedStartTime.minute < controller.selectedEndTime.minute)) {
+          if (controller.selectedStartTime.hour <
+                  controller.selectedEndTime.hour ||
+              (controller.selectedStartTime.hour ==
+                      controller.selectedEndTime.hour &&
+                  controller.selectedStartTime.minute <
+                      controller.selectedEndTime.minute)) {
             final newSlot = TimeSlot(
               date: controller.selectedDate,
               startTime: controller.selectedStartTime,
@@ -203,9 +227,15 @@ Widget _doctorScheduler(int tabIndex, BuildContext context, DoctorSchedulingScre
             );
           }
         },
-        child: const Text("Add Slot"),
+        child: Text(
+          "Add Slot",
+          style: Theme.of(context).textTheme.headlineSmall!.copyWith(
+              fontSize: Get.width * 0.88 * 0.032, color: Colors.white),
+        ),
       ),
-      const SizedBox(height: 20,),
+      SizedBox(
+        height: Get.height * 0.88 * 0.040,
+      ),
       Expanded(
         child: Obx(() {
           if (controller.isInitialized.value) {
@@ -214,44 +244,84 @@ Widget _doctorScheduler(int tabIndex, BuildContext context, DoctorSchedulingScre
               itemBuilder: (context, index) {
                 final slot = controller.timeSlotsMap[tabIndex]?[index];
                 return Padding(
-                  padding: const EdgeInsets.symmetric(vertical: 8.0),
-                  child: Obx(() =>
-                     Container(
+                  padding:
+                      EdgeInsets.symmetric(vertical: Get.height * 0.88 * 0.015),
+                  child: Obx(
+                    () => Container(
                       decoration: BoxDecoration(
-                        color: AppColors.textfieldColor,
+                        color: slot!.isAvailable
+                            ? AppColors.secondaryBlue
+                            : AppColors.textfieldColor,
                         borderRadius: BorderRadius.circular(15),
                       ),
                       child: Padding(
-                        padding: const EdgeInsets.all(10.0),
+                        padding: EdgeInsets.all(Get.width * 0.88 * 0.025),
                         child: Column(
                           children: [
                             ListTile(
-                              leading: Obx(() =>
-                                 Radio(
+                              leading: Obx(
+                                () => Radio(
                                   value: index,
-                                  groupValue: controller.selectedSlotIndex.value,
+                                  groupValue:
+                                      controller.selectedSlotIndex.value,
                                   onChanged: (value) {
                                     controller.selectedSlotIndex.value = value!;
                                   },
                                   activeColor: Colors.green,
-                                  fillColor: MaterialStateProperty.all(AppColors.primaryBlue),
+                                  fillColor: MaterialStateProperty.all(
+                                      AppColors.primaryBlue),
                                 ),
                               ),
                               subtitle: Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
-                                  Text('Date: ${slot?.date != null ? controller.formatDate(slot!.date) : ''}'),
-                                  Text('Start Time: ${slot?.startTime != null ? slot?.startTime.format(context) : ''}'),
-                                  Text('End Time: ${slot?.endTime != null ? slot?.endTime.format(context) : ''}'),
+                                  Text(
+                                    'Date: ${slot?.date != null ? controller.formatDate(slot!.date) : ''}',
+                                    style: Theme.of(context)
+                                        .textTheme
+                                        .headlineSmall!
+                                        .copyWith(
+                                          fontSize: Get.width * 0.88 * 0.032,
+                                          color: slot!.isAvailable
+                                              ? AppColors.pastelBlack
+                                              : AppColors.descriptionColor,
+                                        ),
+                                  ),
+                                  Text(
+                                    'Start Time: ${slot?.startTime != null ? slot?.startTime.format(context) : ''}',
+                                    style: Theme.of(context)
+                                        .textTheme
+                                        .headlineSmall!
+                                        .copyWith(
+                                          fontSize: Get.width * 0.88 * 0.032,
+                                          color: slot!.isAvailable
+                                              ? AppColors.pastelBlack
+                                              : AppColors.descriptionColor,
+                                        ),
+                                  ),
+                                  Text(
+                                    'End Time: ${slot?.endTime != null ? slot?.endTime.format(context) : ''}',
+                                    style: Theme.of(context)
+                                        .textTheme
+                                        .headlineSmall!
+                                        .copyWith(
+                                          fontSize: Get.width * 0.88 * 0.032,
+                                          color: slot!.isAvailable
+                                              ? AppColors.pastelBlack
+                                              : AppColors.descriptionColor,
+                                        ),
+                                  ),
                                 ],
                               ),
-                              trailing: controller.selectedSlotIndex.value == index // Check if radio button is selected
+                              trailing: controller.selectedSlotIndex.value ==
+                                      index // Check if radio button is selected
                                   ? IconButton(
-                                icon: const Icon(Icons.delete),
-                                onPressed: () {
-                                  controller.removeTimeSlot(tabIndex, index);
-                                },
-                              )
+                                      icon: const Icon(Icons.delete),
+                                      onPressed: () {
+                                        controller.removeTimeSlot(
+                                            tabIndex, index);
+                                      },
+                                    )
                                   : const SizedBox(), // Hide the delete icon if radio button is not selected
                             ),
                           ],

@@ -13,15 +13,17 @@ class UserProfileScreen extends GetView<UserProfileScreenController> {
 
   @override
   Widget build(BuildContext context) {
-    final screenWidth = MediaQuery.of(context).size.width;
-    final screenHeight = MediaQuery.of(context).size.height;
+    final screenWidth = MediaQuery.of(context).size.width*0.88;
+    final screenHeight = MediaQuery.of(context).size.height*0.88;
     return Scaffold(
       backgroundColor: AppColors.backgroundColor,
       body: SafeArea(
         child: Padding(
-          padding: const EdgeInsets.only(top: 25, left: 25, right: 25),
-          child: Column(mainAxisAlignment: MainAxisAlignment.start, children: [
+          padding:  EdgeInsets.symmetric(horizontal: screenWidth*0.05, vertical: screenHeight*0.02),
+          child: Column(
+              children: [
             Row(
+              mainAxisAlignment: MainAxisAlignment.start,
               children: [
                 InkWell(
                   onTap: () {
@@ -39,7 +41,7 @@ class UserProfileScreen extends GetView<UserProfileScreenController> {
                 Center(
                   child: Obx(
                     () => CircleAvatar(
-                        radius: 40,
+                        radius: screenWidth*0.18,
                         backgroundImage: controller.userModel.value.image != ''
                             ? CachedNetworkImageProvider(
                                 controller.userModel.value.image)
@@ -58,11 +60,10 @@ class UserProfileScreen extends GetView<UserProfileScreenController> {
                   Column(
                     children: [
                       Padding(
-                        padding: const EdgeInsets.only(top: 20),
+                        padding: EdgeInsets.only(top: screenHeight * 0.040, left:5),
                         child: Image(
                           image: const AssetImage(editProfileIcon),
                           width: screenWidth * 0.075,
-                          height: screenHeight * 0.075,
                         ),
                       ),
                     ],
@@ -75,7 +76,7 @@ class UserProfileScreen extends GetView<UserProfileScreenController> {
                           Get.toNamed(kEditProfileScreen);
                         },
                         child: Padding(
-                          padding: const EdgeInsets.only(left: 15, top: 16),
+                          padding:  EdgeInsets.only(left: screenWidth*0.034, top: screenHeight*0.04,),
                           child: Text(
                             "Edit Profile",
                             style: Theme.of(context)
@@ -89,7 +90,7 @@ class UserProfileScreen extends GetView<UserProfileScreenController> {
                         ),
                       ),
                       Padding(
-                        padding: const EdgeInsets.only(left: 15),
+                        padding:  EdgeInsets.only(left: screenWidth*0.034,),
                         child: Text(
                           'Name, photo, email etc. ',
                           style: Theme.of(context)
@@ -105,10 +106,13 @@ class UserProfileScreen extends GetView<UserProfileScreenController> {
                 ],
               ),
             ),
-            SizedBox(
-              width: screenWidth * 0.9,
-              child: Divider(
-                color: AppColors.textHintColor,
+            Padding(
+              padding:  const EdgeInsets.only(top:10),
+              child: SizedBox(
+                width: screenWidth,
+                child: Divider(
+                  color: AppColors.textHintColor,
+                ),
               ),
             ),
             InkWell(
@@ -136,7 +140,7 @@ class UserProfileScreen extends GetView<UserProfileScreenController> {
                           Get.toNamed(kProgressTrackingScreen);
                         },
                         child: Padding(
-                          padding: const EdgeInsets.only(left: 15, top: 25),
+                          padding:  EdgeInsets.only(left: screenWidth*0.034, top: screenHeight*0.040),
                           child: Text(
                             "Progress Tracking",
                             style: Theme.of(context)
@@ -150,15 +154,15 @@ class UserProfileScreen extends GetView<UserProfileScreenController> {
                         ),
                       ),
                       Padding(
-                        padding: const EdgeInsets.only(left: 15),
+                        padding:  EdgeInsets.only(left: screenWidth*0.034),
                         child: Text(
                           'Exercise progress and tracking ',
                           style: Theme.of(context)
                               .textTheme
                               .headlineSmall!
                               .copyWith(
-                                  fontSize: screenWidth * 0.030,
-                                  color: AppColors.descriptionColor),
+                              fontSize: screenWidth * 0.032,
+                              color: AppColors.descriptionColor),
                         ),
                       ),
                     ],
@@ -166,24 +170,24 @@ class UserProfileScreen extends GetView<UserProfileScreenController> {
                 ],
               ),
             ),
-            Padding(
-              padding: const EdgeInsets.only(top: 10),
-              child: SizedBox(
-                width: screenWidth * 0.95,
-                child: Divider(
-                  color: AppColors.textHintColor,
+                Padding(
+                  padding: const EdgeInsets.only(top: 10),
+                  child: SizedBox(
+                    width: screenWidth,
+                    child: Divider(
+                      color: AppColors.textHintColor,
+                    ),
+                  ),
                 ),
-              ),
-            ),
-            Padding(
-              padding: const EdgeInsets.only(top: 25),
-              child: Button(
-                  onPressed: () {
-                 controller.logout();
-                  },
-                  text: "Logout"),
-            )
-          ]),
+                Padding(
+                  padding:  EdgeInsets.only(top: screenHeight*0.080),
+                  child: Button(
+                      onPressed: () {
+                        controller.logout();
+                      },
+                      text: "Logout"),
+                )
+              ]),
         ),
       ),
     );

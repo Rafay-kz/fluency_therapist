@@ -56,12 +56,13 @@ class ChatWithConsultantScreen extends GetView<ChatWithConsultantScreenControlle
                         future: controller.determineReceiverImage(),
                         builder: (context, snapshot) {
                           if (snapshot.connectionState == ConnectionState.waiting) {
-                            return CircleAvatar(
+                            return const CircleAvatar(
                               // Placeholder or loading indicator while waiting for the image
                               backgroundImage: AssetImage('assets/images/person.png'),
                             );
                           } else if (snapshot.hasError) {
-                            return CircleAvatar(
+                            print('Error fetching receiver image: ${snapshot.error}');
+                            return const CircleAvatar(
                               // Placeholder or default avatar in case of an error
                               backgroundImage: AssetImage('assets/images/person.png'),
                             );
@@ -70,6 +71,7 @@ class ChatWithConsultantScreen extends GetView<ChatWithConsultantScreenControlle
                             ImageProvider<Object>? imageProvider;
                             if (snapshot.data != null) {
                               // Check if the snapshot data is a valid URL and convert it to ImageProvider
+                              print('Receiver image URL: ${snapshot.data}');
                               imageProvider = NetworkImage(snapshot.data!);
                             } else {
                               // Assign a default avatar if no URL is available
@@ -82,6 +84,7 @@ class ChatWithConsultantScreen extends GetView<ChatWithConsultantScreenControlle
                           }
                         },
                       ),
+
                     ),
                     Padding(
                       padding: const EdgeInsets.only(left: 15, right: 45),

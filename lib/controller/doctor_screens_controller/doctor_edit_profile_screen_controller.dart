@@ -15,19 +15,20 @@ import 'package:firebase_storage/firebase_storage.dart';
 import 'doctor_home_screen_controller.dart';
 
 class DoctorEditProfileScreenController extends GetxController {
-  Rx<TextEditingController> nameTEController = TextEditingController().obs;
+  Rx<TextEditingController> firstNameTEController = TextEditingController().obs;
+  Rx<TextEditingController> lastNameTEController = TextEditingController().obs;
   Rx< TextEditingController> emailTEController = TextEditingController().obs;
   Rx<TextEditingController >specialityTEController = TextEditingController().obs;
   Rx<TextEditingController> bioTEController = TextEditingController().obs;
   Rx<TextEditingController> locationTEController = TextEditingController().obs;
   DoctorHomeScreenController doctorhomeScreenController=Get.find(tag:kDoctorHomeScreenController);
   RxString imageUrl=''.obs;
-  var fullName = '';
+  var firstName = '';
+  var lastName = '';
   var speciality = '';
   var bio = '';
   var location = '';
-  var availabilityStart = TimeOfDay(hour: 9, minute: 0);
-  var availabilityEnd = TimeOfDay(hour: 22, minute: 0);
+
 
   // Drop down button values updater
   final RxString startDay = RxString('');
@@ -158,7 +159,7 @@ class DoctorEditProfileScreenController extends GetxController {
 
     void onRegisterTap() {
       GetUtils.isAlphabetOnly(
-        nameTEController.value.text,
+        firstNameTEController.value.text,
       )
           ? print('valid')
           : print('invalid Name');
@@ -181,7 +182,8 @@ class DoctorEditProfileScreenController extends GetxController {
 
   Future<void> getDoctorInfo() async{
     doctorModel.value=await userSession.getDoctorInformation();
-    nameTEController.value.text=doctorModel.value.firstName;
+    firstNameTEController.value.text=doctorModel.value.firstName;
+    lastNameTEController.value.text=doctorModel.value.lastName;
     emailTEController.value.text=doctorModel.value.email;
     specialityTEController.value.text=doctorModel.value.specialization;
     bioTEController.value.text=doctorModel.value.bio;
@@ -209,7 +211,8 @@ class DoctorEditProfileScreenController extends GetxController {
     FirebaseFirestore firebaseFireStore = FirebaseFirestore.instance;
     await firebaseFireStore.collection('doctor_users').doc(doctorModel.value.id).update({
       'image': imageUrl.value,
-      'firstName': nameTEController.value.text,
+      'firstName': firstNameTEController.value.text,
+      'lastName':  lastNameTEController.value.text,
       'location': locationTEController.value.text,
       'speciality': specialityTEController.value.text,
       'bio': bioTEController.value.text,

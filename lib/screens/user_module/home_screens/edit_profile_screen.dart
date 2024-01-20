@@ -18,149 +18,148 @@ class EditProfileScreen extends GetView<EditProfileScreenController> {
 
   @override
   Widget build(BuildContext context) {
-    final screenWidth = MediaQuery.of(context).size.width;
+    final screenWidth = MediaQuery.of(context).size.width*0.88;
+    final double screenHeight = MediaQuery.of(context).size.height * 0.88;
     return Scaffold(
         backgroundColor: AppColors.backgroundColor,
         body: SafeArea(
           child: Padding(
-            padding: const EdgeInsets.only(top: 25, left: 25, right: 25),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  children: [
-                    InkWell(
-                      onTap: () {
-                        Get.back();
-                      },
-                      child: Icon(
-                        Icons.arrow_back,
-                        size: screenWidth * 0.10,
-                      ),
-                    ),
-                  ],
-                ),
-                const SizedBox(height: 10),
-                Obx(() {
-                  return Column(
+            padding:  EdgeInsets.symmetric(horizontal: screenWidth*0.05, vertical: screenHeight*0.02),
+            child: SingleChildScrollView(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.start,
                     children: [
-                      Center(
-                        child: CircleAvatar(
-                            radius: screenWidth * 0.15,
-                            backgroundImage: controller.userModel.value.image!=''
-                                ? CachedNetworkImageProvider(
-                                controller.userModel.value.image
-                            ):controller.userModel.value.image==''&&controller.imagePath.isEmpty?const AssetImage('assets/images/person.png'):controller.imagePath.isNotEmpty
-                                ? FileImage(
-                                    File(controller.imagePath.toString())) as ImageProvider
-                                : null),
-                      ),
-                      TextButton(
-                          onPressed: () {
-                            controller.imagePickerOption();
-                          },
-                          child: const Text("Change Photo"))
-                    ],
-                  );
-                }),
-               Obx(()=> Center(
-                  child: Column(
-                    children: [
-                      Padding(
-                        padding: const EdgeInsets.only(top: 20, bottom: 15),
-                        child: Text(
-                          "\n${controller.userModel.value.firstName}",
-                          style: Theme.of(context)
-                              .textTheme
-                              .displayLarge!
-                              .copyWith(
-                                fontSize: screenWidth * 0.050,
-                                color: AppColors.textColor,
-                              ),
+                      InkWell(
+                        onTap: () {
+                          Get.back();
+                        },
+                        child: Icon(
+                          Icons.arrow_back,
+                          size: screenWidth * 0.10,
                         ),
                       ),
                     ],
                   ),
-                ),
-               ),
-                Padding(
-                  padding: const EdgeInsets.only(top: 20, bottom: 10),
-                  child: Text(
-                    'Username',
-                    style: Theme.of(context).textTheme.headlineSmall,
-                    textAlign: TextAlign.start,
+                  const SizedBox(height: 10),
+                  Obx(() {
+                    return Column(
+                      children: [
+                        Center(
+                          child: CircleAvatar(
+                              radius: screenWidth * 0.15,
+                              backgroundImage: controller.userModel.value.image!=''
+                                  ? CachedNetworkImageProvider(
+                                  controller.userModel.value.image
+                              ):controller.userModel.value.image==''&&controller.imagePath.isEmpty?const AssetImage('assets/images/person.png'):controller.imagePath.isNotEmpty
+                                  ? FileImage(
+                                      File(controller.imagePath.toString())) as ImageProvider
+                                  : null),
+                        ),
+                        TextButton(
+                            onPressed: () {
+                              controller.imagePickerOption();
+                            },
+                            child:  Text("Change Photo", style: Theme.of(context).textTheme.displayLarge!.copyWith(
+                                fontSize: screenWidth*0.032,
+                                color: AppColors.primaryBlue),), )
+                      ],
+                    );
+                  }),
+                  Padding(
+                    padding: const EdgeInsets.only(top: 20, bottom: 10),
+                    child: Text(
+                      'First Name',
+                      style: Theme.of(context).textTheme.headlineSmall,
+                      textAlign: TextAlign.start,
+                    ),
                   ),
-                ),
-              Obx(()=>  Center(
-                  child: SizedBox(
-                    width: screenWidth * 0.9,
-                    child: TextFormField(
-                      controller: controller.nameTEController.value,
-                      style: TextStyle(color: AppColors.textColor),
+                  Obx(()=>TextFormField(
+                    controller: controller.firstNameTEController.value,
+                    style: TextStyle(color: AppColors.textColor),
+                    decoration: InputDecoration(
+                      fillColor: AppColors.textfieldColor,
+                      filled: true,
 
-                      decoration: InputDecoration(
-                        fillColor: AppColors.textfieldColor,
-                        filled: true,
-                        border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(30),
-                          borderSide: BorderSide.none,
-                        ),
-                        prefixIcon: Icon(
-                          Icons.perm_identity_rounded,
-                          color: AppColors.textHintColor,
-                        ),
+                      hintStyle: Theme.of(context).textTheme.titleMedium,
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(30),
+                        borderSide: BorderSide.none,
+                      ),
+
+                    ),
+                  ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.only(top: 20, bottom: 10),
+                    child: Text(
+                      'Last Name',
+                      style: Theme.of(context).textTheme.headlineSmall,
+                      textAlign: TextAlign.start,
+                    ),
+                  ),
+                  Obx(()=>TextFormField(
+                    controller: controller.lastNameTEController.value,
+                    style: TextStyle(color: AppColors.textColor),
+                    decoration: InputDecoration(
+                      fillColor: AppColors.textfieldColor,
+                      filled: true,
+
+                      hintStyle: Theme.of(context).textTheme.titleMedium,
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(30),
+                        borderSide: BorderSide.none,
+                      ),
+
+                    ),
+                  ),
+                  ),
+                  const SizedBox(
+                    height: 5,
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.only(top: 10, bottom: 10),
+                    child: Text(
+                      'Email',
+                      style: Theme.of(context).textTheme.headlineSmall,
+                      textAlign: TextAlign.start,
+                    ),
+                  ),
+                  Obx(()=>TextFormField(
+                    readOnly: true,
+                    controller: controller.emailTEController.value,
+                    style: TextStyle(color: AppColors.textColor),
+                    decoration: InputDecoration(
+                      fillColor: AppColors.textfieldColor,
+                      filled: true,
+
+                      hintStyle: Theme.of(context).textTheme.titleMedium,
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(30),
+                        borderSide: BorderSide.none,
+                      ),
+                      prefixIcon: Icon(
+                        Icons.email_outlined,
+                        color: AppColors.textHintColor,
                       ),
                     ),
                   ),
-                ),
+                  ),
+                  const SizedBox(
+                    height: 10,
+                  ),
+
+                  Padding(
+                    padding: const EdgeInsets.only(top: 30),
+                    child: Button(onPressed: () {
+                      controller.editProfile();
+
+                      }, text: "Update"),
+                  ),
+                ],
               ),
-                const SizedBox(
-                  height: 5,
-                ),
-                Padding(
-                  padding: const EdgeInsets.only(top: 10, bottom: 10),
-                  child: Text(
-                    'Email',
-                    style: Theme.of(context).textTheme.headlineSmall,
-                    textAlign: TextAlign.start,
-                  ),
-                ),
-               Obx(()=> Center(
-                  child: SizedBox(
-                    width: screenWidth * 0.9,
-                    child: TextFormField(
-                      readOnly: true,
-                      controller: controller.emailTEController.value,
-                      style: TextStyle(color: AppColors.textColor),
-                      decoration: InputDecoration(
-                        fillColor: AppColors.textfieldColor,
-                        filled: true,
-                        border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(30),
-                          borderSide: BorderSide.none,
-                        ),
-                        prefixIcon: Icon(
-                          Icons.email_outlined,
-                          color: AppColors.textHintColor,
-                        ),
-                      ),
-                    ),
-                  ),
-                ),
-               ),
-                const SizedBox(
-                  height: 10,
-                ),
-
-                Padding(
-                  padding: const EdgeInsets.only(top: 30),
-                  child: Button(onPressed: () {
-                    controller.editProfile();
-
-                    }, text: "Update"),
-                ),
-              ],
             ),
           ),
         ));

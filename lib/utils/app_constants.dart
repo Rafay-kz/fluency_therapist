@@ -41,11 +41,14 @@ const String kBookedAppointmentScreen = "/BOOKED_APPOINTMENT_SCREEN";
 const String kDoctorBookedAppointmentsScreen = "/DOCTOR_BOOKED_APPOINTMENTS_SCREEN";
 const String kDoctorInboxScreen = "/DOCTOR_INBOX_SCREEN";
 const String kDoctorProfileScreen = "/DOCTOR_PROFILE_SCREEN";
+const String kDoctorVerificationScreen = "/DOCTOR_VERIFICATION_SCREEN";
 const String kDoctorChatScreen = "/DOCTOR_CHAT_SCREEN";
+const String kPaymentScreen = "/PAYMENT_SCREEN";
 
 
 
 //Images
+const String fluencyTherapistIcon = 'assets/images/logoIcon.png';
 const String fluencyTherapistLogo = 'assets/images/fluencyTherapistLogo.png';
 const String splashScreenImage = 'assets/images/splashScreenImage.png';
 const String forgotPasswordImage = 'assets/images/forgotPasswordImage.png';
@@ -63,6 +66,7 @@ const String editProfileIcon = 'assets/images/editProfileIcon.png';
 const String progressIcon = 'assets/images/progressIcon.png';
 const String billingDetailsIcon = 'assets/images/billingDetailsIcon.png';
 const String privacyPolicyIcon = 'assets/images/privacyPolicyIcon.png';
+const String bookedAppointmentIcon = 'assets/images/bookedAppointmentIcon.png';
 
 //Controllers
 const String kHomeScreenController = 'kHomeScreenController';

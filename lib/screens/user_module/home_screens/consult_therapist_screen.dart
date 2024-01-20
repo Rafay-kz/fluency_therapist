@@ -12,13 +12,13 @@ class ConsultTherapistScreen extends GetView<ConsultTherapistScreenController> {
 
   @override
   Widget build(BuildContext context) {
-    final screenWidth = MediaQuery.of(context).size.width;
-    final screenHeight = MediaQuery.of(context).size.height;
+    final screenWidth = MediaQuery.of(context).size.width * 0.88;
+    final screenHeight = MediaQuery.of(context).size.height * 0.88;
     return Scaffold(
       backgroundColor: AppColors.backgroundColor,
       body: SafeArea(
         child: Padding(
-          padding: const EdgeInsets.only(right: 25, left: 25),
+          padding: EdgeInsets.symmetric(horizontal: screenWidth * 0.05),
           child: Column(
             children: [
               Row(
@@ -34,41 +34,46 @@ class ConsultTherapistScreen extends GetView<ConsultTherapistScreenController> {
                     ),
                   ),
                   Padding(
-                    padding: const EdgeInsets.only(top: 10),
+                    padding: EdgeInsets.only(top: screenWidth * 0.02),
                     child: Center(
                       child: Image(
                         image: const AssetImage(logoIcon),
                         width: screenWidth * 0.42,
-                        height: screenHeight * 0.075,
+                        height: screenHeight * 0.070,
                       ),
                     ),
                   ),
                   Obx(
-                        () => CircleAvatar(
-                      radius: 25,
+                    () => CircleAvatar(
+                      radius: screenWidth * 0.057,
                       backgroundImage: controller.doctorModel.value.image != ''
-                          ? CachedNetworkImageProvider(controller.doctorModel.value.image)
+                          ? CachedNetworkImageProvider(
+                              controller.doctorModel.value.image)
                           : (controller.userModel.value.image != ''
-                          ? CachedNetworkImageProvider(controller.userModel.value.image)
-                          : const AssetImage('assets/images/person.png') as ImageProvider),
+                              ? CachedNetworkImageProvider(
+                                  controller.userModel.value.image)
+                              : const AssetImage('assets/images/person.png')
+                                  as ImageProvider),
                     ),
                   ),
                 ],
               ),
-              Row(
-                children: [
-                  Padding(
-                    padding:
-                    const EdgeInsets.only(top: 20, left: 12, bottom: 20),
-                    child: Text(
+              Padding(
+                padding: EdgeInsets.only(
+                    top: screenHeight * 0.03,
+                    bottom: screenHeight * 0.02,
+                    left: screenWidth * 0.013),
+                child: Row(
+                  children: [
+                    Text(
                       "Consult Therapists",
                       style: Theme.of(context)
                           .textTheme
                           .displayLarge!
-                          .copyWith(fontSize: screenWidth*0.045),
+                          .copyWith(fontSize: screenWidth * 0.045),
                     ),
-                  ),
-                ],
+                  ],
+                ),
               ),
               Expanded(
                 child: Obx(() {
@@ -102,142 +107,108 @@ class DoctorUserCard extends StatelessWidget {
   final DoctorModel doctor;
   final ConsultTherapistScreenController controller;
 
-
-  const DoctorUserCard({super.key,
+  const DoctorUserCard({
+    super.key,
     required this.doctor,
     required this.controller,
   });
 
   @override
   Widget build(BuildContext context) {
-    final screenWidth = MediaQuery.of(context).size.width;
+    final screenWidth = MediaQuery.of(context).size.width * 0.88;
+    final screenHeight = MediaQuery.of(context).size.height * 0.88;
 
     return Padding(
-      padding: const EdgeInsets.only(bottom: 30),
+      padding: EdgeInsets.only(bottom: screenHeight * 0.03),
       child: Container(
-        width: screenWidth * 0.9,
-        height: MediaQuery.of(context).size.height * 0.23,
+        width: screenWidth,
         decoration: BoxDecoration(
           color: AppColors.secondaryBlue,
-          borderRadius: BorderRadius.circular(40),
+          borderRadius: BorderRadius.circular(30),
         ),
-        child: Row(
-          children: [
-            Padding(
-              padding: const EdgeInsets.only(
-                top: 30,
-                bottom: 30,
-                left: 20,
-                right: 10,
+        child: Padding(
+          padding: EdgeInsets.only(
+              top: screenHeight * 0.012, bottom: screenHeight * 0.012),
+          child: Row(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Padding(
+                padding: EdgeInsets.all(screenWidth * 0.035),
+                child: CircleAvatar(
+                  radius: screenWidth * 0.14,
+                  backgroundImage: doctor.image.isNotEmpty
+                      ? CachedNetworkImageProvider(doctor.image)
+                      : const AssetImage('assets/images/person.png')
+                          as ImageProvider,
+                ),
               ),
-              child: Column(
-                children: [
-                  CircleAvatar(
-                    radius: screenWidth * 0.13,
-                    backgroundImage: doctor.image.isNotEmpty
-                        ? CachedNetworkImageProvider(doctor.image)
-                        : const AssetImage('assets/images/person.png') as ImageProvider,
-                  ),
-                ],
-              ),
-            ),
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Padding(
-                  padding: const EdgeInsets.only(top: 30, left: 8),
-                  child: Row(
-                    children: [
-                      Text(
-                        'Dr. ${doctor.firstName} ${doctor.lastName}',
-                        style: Theme.of(context).textTheme.displayLarge!.copyWith(
-                          fontSize: screenWidth * 0.035,
-                          color: AppColors.textColor,
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.only(top: 2, left: 8),
-                  child: Row(
-                    children: [
-                      Text(
-                        doctor.specialization,
-                        style: Theme.of(context).textTheme.headlineSmall!.copyWith(
-                          fontSize: screenWidth * 0.032,
-                          color: AppColors.descriptionColor,
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.only(top: 2, left: 8),
-                  child: Row(
-                    children: [
-                      Icon(
-                        Icons.star,
-                        color: Colors.orange,
-                        size: screenWidth * 0.07,
-                      ),
-                      Icon(
-                        Icons.star,
-                        color: Colors.orange,
-                        size: screenWidth * 0.07,
-                      ),
-                      Icon(
-                        Icons.star,
-                        color: Colors.orange,
-                        size: screenWidth * 0.07,
-                      ),
-                      Icon(
-                        Icons.star,
-                        color: Colors.orange,
-                        size: screenWidth * 0.07,
-                      ),
-                      const Icon(
-                        Icons.star_half,
-                        color: Colors.orange,
-                        size: 28,
-                      ),
-                      const SizedBox(width: 2),
-                      Text(
-                        "109 reviews",
-                        style: Theme.of(context).textTheme.headlineSmall!.copyWith(
-                          color: AppColors.descriptionColor,
-                          fontSize: screenWidth * 0.020,
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-                TextButton(
-                  onPressed: () {
-                    Get.toNamed(kConsultantProfileScreen,
-                        arguments: doctor);
-                  },
-                  child: Container(
-                    width: screenWidth * 0.27,
-                    height: MediaQuery.of(context).size.height * 0.046,
-                    decoration: BoxDecoration(
-                      color: AppColors.primaryBlue,
-                      borderRadius: BorderRadius.circular(30),
-                    ),
-                    child: Center(
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Padding(
+                      padding: EdgeInsets.only(top: screenHeight * 0.030),
                       child: Text(
-                        "View Profile",
-                        style: Theme.of(context).textTheme.headlineSmall!.copyWith(
-                          fontSize: screenWidth * 0.035,
-                          color: AppColors.whiteColor,
+                        'Dr. ${doctor.firstName} ${doctor.lastName}',
+                        style:
+                            Theme.of(context).textTheme.displayLarge!.copyWith(
+                                  fontSize: screenWidth * 0.037,
+                                  color: AppColors.textColor,
+                                ),
+                      ),
+                    ),
+                    Padding(
+                      padding:
+                          EdgeInsets.symmetric(vertical: screenWidth * 0.015),
+                      child: Text(
+                        doctor.specialization,
+                        style:
+                            Theme.of(context).textTheme.headlineSmall!.copyWith(
+                                  fontSize: screenWidth * 0.034,
+                                  color: AppColors.descriptionColor,
+                                ),
+                      ),
+                    ),
+                    Align(
+                      alignment: Alignment.bottomLeft,
+                      child: TextButton(
+                        onPressed: () {
+                          Get.toNamed(kConsultantProfileScreen,
+                              arguments: doctor);
+                        },
+                        style: TextButton.styleFrom(
+                          backgroundColor: AppColors.primaryBlue,
+
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(30),
+                          ),
+                          padding: EdgeInsets.symmetric(
+                            horizontal: screenWidth * 0.010,
+                          ),
+                          // Set a smaller minimum size for the button
+                          minimumSize:
+                              Size(screenWidth * 0.1, screenWidth * 0.0015),
+                        ),
+                        child: Padding(
+                          padding: EdgeInsets.symmetric(horizontal: screenWidth * 0.018, vertical: screenWidth*0.022),
+                          child: Text(
+                            "View Profile",
+                            style: Theme.of(context)
+                                .textTheme
+                                .headlineSmall!
+                                .copyWith(
+                                  fontSize: screenWidth * 0.030,
+                                  color: AppColors.whiteColor,
+                                ),
+                          ),
                         ),
                       ),
                     ),
-                  ),
+                  ],
                 ),
-              ],
-            ),
-          ],
+              ),
+            ],
+          ),
         ),
       ),
     );
