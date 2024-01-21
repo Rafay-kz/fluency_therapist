@@ -67,7 +67,7 @@ class _VideoWidgetState extends State<VideoWidget> {
               controller: _chewieController,
             ),
           ),
-          if (!widget.unlocked && !widget.isPlaying)
+          if (!widget.unlocked && !widget.isPlaying )
             Container(
               color: Colors.black.withOpacity(0.5),
               child: const Center(

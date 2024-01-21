@@ -165,21 +165,53 @@ class DoctorBookedAppointmentsScreenController extends GetxController {
     // Enable the button if the current time is between the start and end times
     return now.isAfter(startTime) && now.isBefore(endTime);
   }
+  bool isAppointmentTimePassed(BookedSlot bookedSlot, DateTime now) {
+    final startTime = DateTime(
+      bookedSlot.date.year,
+      bookedSlot.date.month,
+      bookedSlot.date.day,
+      bookedSlot.startTime.hour,
+      bookedSlot.startTime.minute,
+    );
 
-  Future<void> deleteAppointmentsForUser(String doctorId) async {
-    final QuerySnapshot querySnapshot = await FirebaseFirestore.instance
-        .collection('booked_appointments')
-        .where('doctorId', isEqualTo: doctorId)
-        .get();
+    final endTime = DateTime(
+      bookedSlot.date.year,
+      bookedSlot.date.month,
+      bookedSlot.date.day,
+      bookedSlot.endTime.hour,
+      bookedSlot.endTime.minute,
+    );
 
-    if (querySnapshot.docs.isNotEmpty) {
-      for (QueryDocumentSnapshot document in querySnapshot.docs) {
-        final appointmentId = document.id;
+    // Check if the current time is after the end time of the appointment
+    return now.isAfter(endTime);
+  }
+
+
+  Future<void> deleteAppointment(String doctorId, int callId) async {
+    try {
+      final QuerySnapshot querySnapshot = await FirebaseFirestore.instance
+          .collection('booked_appointments')
+          .where('doctorId', isEqualTo: doctorId)
+          .where('callId', isEqualTo: callId)
+          .get();
+
+      if (querySnapshot.docs.isNotEmpty) {
+        final appointmentId = querySnapshot.docs.first.id;
+
         await FirebaseFirestore.instance
             .collection('booked_appointments')
             .doc(appointmentId)
             .delete();
+
+        print("Appointment with userId $doctorId and callId $callId DELETED");
+
+        // Remove the deleted appointment from bookedSlots
+        bookedSlots.removeWhere((slot) => slot.callId == callId);
+      } else {
+        print("Appointment with userId $doctorId and callId $callId not found");
       }
+    } catch (e) {
+      print('Error deleting appointment: $e');
     }
   }
 

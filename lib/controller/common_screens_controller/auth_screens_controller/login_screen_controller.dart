@@ -89,27 +89,33 @@ class LoginScreenController extends GetxController {
           // Update the database with the new device token for the logged-in doctor
           await notificationServices.updateDoctorToken(response.id, newToken);
         }
-        // Note: No need to check for 'Profile not set up' or 'Email is Not Verified'
-        // as the modified loginUser method always returns DoctorModel
         print('Login successful');
-        await userSession.setLogin();
-        userSession.setIsDoctor();
         userSession.doctorInformation(doctorModel: response);
         if (response.errorMsg == 'Email is Not Verified') {
           print('Email is Not Verified');
-          Get.toNamed(kEmailVerificationScreen); }
-        else if (response.isProfileSetUp == true) {
+          Get.toNamed(kEmailVerificationScreen);
+        } else if (response.isProfileSetUp == true) {
           print('Doctor Profile is set up');
-          Get.offAllNamed(kDoctorHomeScreen);
-        } else {
+          if (response.isDoctorVerified == true) {
+            print('Doctor is verified');
+            await userSession.setLogin();
+            userSession.setIsDoctor();
+            Get.offAllNamed(kDoctorHomeScreen);
+          } else {
+            print('Doctor is not verified');
+            // Navigate to a screen for unverified doctors
+            Get.toNamed(kDoctorVerificationScreen);
+          }
+        } else if (response.isProfileSetUp == false) {
           print('Doctor Profile is not set up');
           Get.toNamed(kDoctorProfileSetUpScreen);
-        }}
-       else {
-        Utils().toastMessage(response.errorMsg);
+        } else {
+          // Handle other errors and display a toast message
+          Utils().toastMessage(response.errorMsg);
+        }
       }
     }
-  }
+      }
 
   Future<void> signInWithGoogle(BuildContext context) async {
     try {

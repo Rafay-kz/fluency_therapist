@@ -139,7 +139,7 @@ class BookedAppointmentScreenController extends GetxController {
       return [];
     }
   }
-
+  final now = DateTime.now();
   bool isButtonEnabled(BookedSlot bookedSlot) {
     final startTime = DateTime(
         bookedSlot.date.year,
@@ -158,30 +158,55 @@ class BookedAppointmentScreenController extends GetxController {
     return now.isAfter(startTime) && now.isBefore(endTime);
   }
 
-  final now = DateTime.now();
 
-  Future<void> deleteAppointmentsForUser() async {
-    final userId = userModel.value.id;
+  Future<void> deleteAppointment(String userId, int callId) async {
+    try {
+      final QuerySnapshot querySnapshot = await FirebaseFirestore.instance
+          .collection('booked_appointments')
+          .where('userId', isEqualTo: userId)
+          .where('callId', isEqualTo: callId)
+          .get();
 
-    final QuerySnapshot querySnapshot = await FirebaseFirestore.instance
-        .collection('booked_appointments')
-        .where('userId', isEqualTo: userId)
-        .get();
+      if (querySnapshot.docs.isNotEmpty) {
+        final appointmentId = querySnapshot.docs.first.id;
 
-    if (querySnapshot.docs.isNotEmpty) {
-      for (QueryDocumentSnapshot document in querySnapshot.docs) {
-        final appointmentId = document.id;
         await FirebaseFirestore.instance
             .collection('booked_appointments')
             .doc(appointmentId)
             .delete();
-        print("DELETED");
-        // Remove the deleted appointments from bookedSlots
-        bookedSlots.removeWhere((slot) => slot.callId == appointmentId);
+
+        print("Appointment with userId $userId and callId $callId DELETED");
+
+        // Remove the deleted appointment from bookedSlots
+        bookedSlots.removeWhere((slot) => slot.callId == callId);
+      } else {
+        print("Appointment with userId $userId and callId $callId not found");
       }
+    } catch (e) {
+      print('Error deleting appointment: $e');
     }
   }
 
+  bool isAppointmentTimePassed(BookedSlot bookedSlot, DateTime now) {
+    final startTime = DateTime(
+      bookedSlot.date.year,
+      bookedSlot.date.month,
+      bookedSlot.date.day,
+      bookedSlot.startTime.hour,
+      bookedSlot.startTime.minute,
+    );
+
+    final endTime = DateTime(
+      bookedSlot.date.year,
+      bookedSlot.date.month,
+      bookedSlot.date.day,
+      bookedSlot.endTime.hour,
+      bookedSlot.endTime.minute,
+    );
+
+    // Check if the current time is after the end time of the appointment
+    return now.isAfter(endTime);
+  }
 
 
 

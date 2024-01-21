@@ -8,6 +8,9 @@ import '../../../utils/video_services.dart';
 
 class SpeechExercisesScreenController extends GetxController {
   final VideoServices videoServices = VideoServices();
+  RxString doctorImageUrl = ''.obs;
+  RxString userModelImageUrl = ''.obs;
+
   UserSession userSession = UserSession();
   Rx<DoctorModel> doctorModel = DoctorModel.empty().obs;
   Rx<UserModel> userModel = UserModel.empty().obs;
@@ -37,10 +40,12 @@ class SpeechExercisesScreenController extends GetxController {
 
   Future<void> getUserInfo() async {
     userModel.value = await userSession.getUserInformation();
+    userModelImageUrl.value = userModel.value.image;
   }
 
   Future<void> getDoctorInfo() async {
     doctorModel.value = await userSession.getDoctorInformation();
+    doctorImageUrl.value = doctorModel.value.image;
   }
 
   Future<void> checkAndUploadMetadata(String folderPath) async {
@@ -60,7 +65,7 @@ class SpeechExercisesScreenController extends GetxController {
   final RxList<ExerciseData> exerciseData = [
     ExerciseData(
       title: "Exercises for kids",
-      description: "Recognition of disease\nand Speech Disorders\nin Children",
+      description: "Recognition of disease and Speech Disorders in Children",
       progress: 0, // Initial progress for the first exercise
     ),
     ExerciseData(

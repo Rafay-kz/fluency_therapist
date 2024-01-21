@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'dart:math';
@@ -16,6 +17,7 @@ class AppointmentBookingScreenController extends GetxController {
   UserSession userSession = UserSession();
   Rx<UserModel> userModel = UserModel.empty().obs;
   Rx<DoctorModel> doctorModel = DoctorModel.empty().obs;
+  Rx<DoctorModel> currentDoctorModel =DoctorModel.empty().obs;
   RxBool isInitialized = false.obs;
 
 
@@ -179,6 +181,12 @@ class AppointmentBookingScreenController extends GetxController {
       // No slot is selected
       // You can display an error message or handle it as needed
     }
+  }
+
+  bool isDateTimeInPast(DateTime date, TimeOfDay time) {
+    final now = DateTime.now();
+    final appointmentDateTime = DateTime(date.year, date.month, date.day, time.hour, time.minute);
+    return appointmentDateTime.isBefore(now);
   }
 
 

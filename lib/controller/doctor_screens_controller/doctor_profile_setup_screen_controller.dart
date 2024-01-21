@@ -183,50 +183,75 @@ class DoctorProfileSetUpScreenController extends GetxController {
     if (formKey.currentState!.validate()) {
       pd.showDialog();
 
-    try {
+      // Print the value of imagePath
+      print('ImagePath: ${imagePath.value}');
+
+      // Check if imagePath is not empty
       // Check if imagePath is not empty
       if (imagePath.value.isNotEmpty) {
         String uniqueFileName =
-        DateTime.now().millisecondsSinceEpoch.toString();
+        DateTime
+            .now()
+            .millisecondsSinceEpoch
+            .toString();
         Reference referenceRoot = FirebaseStorage.instance.ref();
         Reference referenceDirImages = referenceRoot.child('images');
         Reference referenceImageToUpload =
         referenceDirImages.child(uniqueFileName);
 
-        // Upload the image file
-        await referenceImageToUpload.putFile(File(imagePath.value));
-        imageUrl.value =
-        await referenceImageToUpload.getDownloadURL();
-      }
+        // Check if the doctorModel ID is not empty
+        if (doctorModel.value.id.isNotEmpty) {
+          FirebaseFirestore firebaseFirestore =
+              FirebaseFirestore.instance;
+          CollectionReference doctorCollectionRef =
+          firebaseFirestore.collection('doctor_users');
+          // Check if imagePath is not empty
+          if (imagePath.value.isNotEmpty) {
+            // Upload the image file
+            await referenceImageToUpload.putFile(File(imagePath.value));
+            imageUrl.value = await referenceImageToUpload.getDownloadURL();
 
-      // Check if the doctorModel ID is not empty
-      if (doctorModel.value.id.isNotEmpty) {
-        // Update other data in Firestore
-        FirebaseFirestore firebaseFirestore = FirebaseFirestore.instance;
-        CollectionReference doctorCollectionRef =
-        firebaseFirestore.collection('doctor_users');
+            await doctorCollectionRef
+                .doc(doctorModel.value.id)
+                .update({
+              'documentImage': imageUrl.value,
+              'specialization': specialityTEController.value.text,
+              'location': locationTEController.value.text,
+              'bio': bioTEController.value.text,
+              'isProfileSetUp': true,
+            });
 
-        await doctorCollectionRef.doc(doctorModel.value.id).update({
-          'image': imageUrl.value,
-          'specialization': specialityTEController.value.text,
-          'location': locationTEController.value.text,
-          'bio': bioTEController.value.text,
-          'isProfileSetUp' : true,
-        });
+            pd.dismissDialog();
+            Get.offAllNamed(kDoctorVerificationScreen);
+          } else {
+            pd.dismissDialog();
+            Get.snackbar(
+              'Error',
+              'Please add a document image',
+              snackPosition: SnackPosition.BOTTOM,
+              duration: Duration(seconds: 3),
+              backgroundColor: Colors.red,
+              colorText: Colors.white,
+            );
+          }
+        } else {
+          // Handle the case where the doctorModel ID is empty or null
+          print('Error: doctorModel ID is empty or null');
+          pd.dismissDialog();
+        }
       } else {
-        // Handle the case where the doctorModel ID is empty or null
-        print('Error: doctorModel ID is empty or null');
+        pd.dismissDialog();
+        Get.snackbar(
+          'Error',
+          'Please add a document image',
+          snackPosition: SnackPosition.BOTTOM,
+          duration: Duration(seconds: 3),
+          backgroundColor: Colors.red,
+          colorText: Colors.white,
+        );
       }
-
-      pd.dismissDialog();
-      Get.offAllNamed(kDoctorHomeScreen);
-    } catch (error) {
-      print('Error during editProfile: $error');
-      pd.dismissDialog();
-      // Handle the error, show a message, or log it as needed.
-      // You might want to display an error message to the user.
     }
-  } }
+    }
 
   // Future<void> profileDataUpdate() async {
   //   String doctorId = doctorModel.value.id; // Replace with the actual doctor ID

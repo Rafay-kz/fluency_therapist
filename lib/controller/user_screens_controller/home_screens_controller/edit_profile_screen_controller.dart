@@ -14,8 +14,10 @@ import '../../../utils/user_session.dart';
 
 class EditProfileScreenController extends GetxController{
 
-  Rx<TextEditingController> nameTEController = TextEditingController().obs;
- Rx< TextEditingController> emailTEController = TextEditingController().obs;
+  Rx<TextEditingController> firstNameTEController = TextEditingController().obs;
+  Rx<TextEditingController> lastNameTEController = TextEditingController().obs;
+
+  Rx< TextEditingController> emailTEController = TextEditingController().obs;
   RxString imageUrl=''.obs;
 HomeScreenController homeScreenController=Get.find(tag:kHomeScreenController);
 
@@ -102,7 +104,7 @@ HomeScreenController homeScreenController=Get.find(tag:kHomeScreenController);
 
     void onRegisterTap() {
       GetUtils.isAlphabetOnly(
-        nameTEController.value.text,
+        firstNameTEController.value.text,
       )
           ? print('valid')
           : print('invalid Name');
@@ -124,7 +126,8 @@ HomeScreenController homeScreenController=Get.find(tag:kHomeScreenController);
 
   Future<void> getUserInfo() async{
     userModel.value=await userSession.getUserInformation();
-    nameTEController.value.text=userModel.value.firstName;
+    firstNameTEController.value.text=userModel.value.firstName;
+    lastNameTEController.value.text=userModel.value.lastName;
     emailTEController.value.text=userModel.value.email;
     imageUrl.value=userModel.value.image;
   }
@@ -142,7 +145,8 @@ HomeScreenController homeScreenController=Get.find(tag:kHomeScreenController);
     FirebaseFirestore firebaseFireStore = FirebaseFirestore.instance;
     await firebaseFireStore.collection('users').doc(userModel.value.id).update({
       'image': imageUrl.value,
-      'firstName': nameTEController.value.text,
+      'firstName': firstNameTEController.value.text,
+      'lastName': lastNameTEController.value.text,
     }).then((value) async{
       DocumentSnapshot userSnapshot = await FirebaseFirestore.instance
           .collection('users')

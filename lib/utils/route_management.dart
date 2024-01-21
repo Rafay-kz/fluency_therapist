@@ -1,9 +1,9 @@
-
 import 'package:fluency_therapist/screens/common_screens/auth_screens/profile_setup_screen.dart';
 import 'package:fluency_therapist/screens/doctor_module/doctor_booked_appointments_screen.dart';
 import 'package:fluency_therapist/screens/doctor_module/doctor_edit_profile_screen.dart';
 import 'package:fluency_therapist/screens/doctor_module/doctor_home_screen.dart';
 import 'package:fluency_therapist/screens/doctor_module/doctor_scheduling_screen.dart';
+import 'package:fluency_therapist/screens/doctor_module/doctor_verification_screen.dart';
 import 'package:fluency_therapist/screens/user_module/home_screens/booked_appointment_screen.dart';
 
 import 'package:get/get.dart';
@@ -33,6 +33,7 @@ import '../screens/user_module/home_screens/edit_profile_screen.dart';
 import '../screens/user_module/home_screens/home_screen.dart';
 import '../screens/user_module/home_screens/inbox_screen.dart';
 import '../screens/user_module/home_screens/ongoing_call_screen.dart';
+import '../screens/user_module/home_screens/payment_screen.dart';
 import '../screens/user_module/home_screens/progress_tracking_screen.dart';
 import '../screens/user_module/home_screens/reminder_screen.dart';
 import '../screens/user_module/home_screens/search_screen.dart';
@@ -199,7 +200,7 @@ class RouteGenerator {
       ),
       GetPage(
         name: kExercisesScreenOne,
-        page: () =>  ExcerisesScreenOne(),
+        page: () => ExcerisesScreenOne(),
         binding: ScreenBindings(),
       ),
       GetPage(
@@ -211,25 +212,37 @@ class RouteGenerator {
         name: kDoctorBookedAppointmentsScreen,
         page: () => const DoctorBookedAppointmentsScreen(),
         binding: ScreenBindings(),
-      ), GetPage(
+      ),
+      GetPage(
         name: kProfileSetUpScreen,
         page: () => ProfileSetUpScreen(),
         binding: ScreenBindings(),
-      ),GetPage(
+      ),
+      GetPage(
         name: kDoctorProfileSetUpScreen,
         page: () => DoctorProfileSetUpScreen(),
         binding: ScreenBindings(),
-      ),GetPage(
+      ),
+      GetPage(
         name: kDoctorInboxScreen,
         page: () => DoctorInboxScreen(),
         binding: ScreenBindings(),
-      ),GetPage(
+      ),
+      GetPage(
         name: kDoctorProfileScreen,
         page: () => DoctorProfileScreen(),
         binding: ScreenBindings(),
       ),
-
-
+      GetPage(
+        name: kDoctorVerificationScreen,
+        page: () => DoctorVerificationScreen(),
+        binding: ScreenBindings(),
+      ),
+      GetPage(
+        name: kPaymentScreen,
+        page: () => const PaymentScreen(),
+        binding: ScreenBindings(),
+      ),
     ];
   }
 }

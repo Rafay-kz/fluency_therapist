@@ -10,7 +10,9 @@ class DoctorModel {
   String specialization = '';
   String bio = '';
   String location = '';
-  String? deviceToken = ''; // Add this field to store the device token
+  String? deviceToken = '';
+  bool isDoctorVerified = false;
+  String? documentImage;
 
   DoctorModel.empty();
 
@@ -27,6 +29,8 @@ class DoctorModel {
     required this.location,
     this.isProfileSetUp = false,
     this.deviceToken,
+    this.isDoctorVerified = false,
+    this.documentImage,
   });
 
   factory DoctorModel.fromJsonForSession(
@@ -43,7 +47,11 @@ class DoctorModel {
       specialization: json["specialization"].toString() ?? '',
       bio: json["bio"].toString() ?? '',
       location: json["location"].toString() ?? '',
-      deviceToken: json['deviceToken'] ?? '', // Add this line
+      deviceToken: json['deviceToken'] ?? '',
+      isDoctorVerified: json['isDoctorVerified'] ?? false,
+      documentImage: json['documentImage'],
+
+      // Add this line
     );
   }
 
@@ -61,7 +69,10 @@ class DoctorModel {
       bio: json['bio'] ?? '',
       location: json['location'] ?? '',
       image: json['image'] ?? '',
-      deviceToken: json['deviceToken'] ?? '', // Add this line
+      deviceToken: json['deviceToken'] ?? '',
+      isDoctorVerified: json['isDoctorVerified'] ?? false,
+      documentImage: json['documentImage'],
+// Add this line
     );
   }
 
@@ -77,12 +88,14 @@ class DoctorModel {
     data['specialization'] = specialization;
     data['bio'] = bio;
     data['location'] = location;
-    data['deviceToken'] = deviceToken; // Add this line
+    data['deviceToken'] = deviceToken;
+    data['isDoctorVerified'] = isDoctorVerified;
+    data['documentImage'] = documentImage;
     return data;
   }
 
   @override
   String toString() {
-    return 'DoctorModel{age: $age, email: $email, firstName: $firstName,lastName: $lastName,specialization: $specialization, bio: $bio, location: $location,  id: $id, image: $image,isProfileSetUp:$isProfileSetUp,deviceToken: $deviceToken}';
+    return 'DoctorModel{age: $age, email: $email, firstName: $firstName,lastName: $lastName,specialization: $specialization, bio: $bio, location: $location,  id: $id, image: $image,isProfileSetUp:$isProfileSetUp,deviceToken: $deviceToken, isDoctorVerified: $isDoctorVerified,  documentImage: $documentImage}';
   }
 }

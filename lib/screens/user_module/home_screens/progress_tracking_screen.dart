@@ -12,19 +12,19 @@ class ProgressTrackingScreen extends GetView<ProgressTrackingScreenController> {
 
   @override
   Widget build(BuildContext context) {
-    final screenWidth = MediaQuery.of(context).size.width;
-    final screenHeight = MediaQuery.of(context).size.height;
+    final screenWidth = MediaQuery.of(context).size.width*0.88;
+    final screenHeight = MediaQuery.of(context).size.height*0.88;
 
 
     return Scaffold(
       backgroundColor: AppColors.backgroundColor,
       body: SafeArea(
         child: Padding(
-          padding: const EdgeInsets.only(top: 15, right: 25, left: 25),
+          padding: EdgeInsets.symmetric(horizontal: screenWidth * 0.05),
           child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   InkWell(
                     onTap: () {
@@ -36,45 +36,53 @@ class ProgressTrackingScreen extends GetView<ProgressTrackingScreenController> {
                     ),
                   ),
                   Padding(
-                    padding:
-                        const EdgeInsets.only(top: 10, right: 38, left: 38),
+                    padding: EdgeInsets.only(top: screenWidth * 0.02),
                     child: Center(
                       child: Image(
                         image: const AssetImage(logoIcon),
-                        height: screenHeight * 0.075,
                         width: screenWidth * 0.42,
+                        height: screenHeight * 0.070,
                       ),
                     ),
                   ),
-                  Obx(() => CircleAvatar(
-                        radius: 25,
-                        backgroundImage: controller.doctorModel.value.image !=
-                                ''
-                            ? CachedNetworkImageProvider(
-                                controller.doctorModel.value.image)
-                            : (controller.userModel.value.image != ''
-                                ? CachedNetworkImageProvider(
-                                    controller.userModel.value.image)
-                                : const AssetImage('assets/images/person.png')
-                                    as ImageProvider),
-                      )),
+                  Obx(
+                        () => CircleAvatar(
+                      radius: screenWidth * 0.057,
+                      backgroundImage: controller.doctorModel.value.image != ''
+                          ? CachedNetworkImageProvider(
+                          controller.doctorModel.value.image)
+                          : (controller.userModel.value.image != ''
+                          ? CachedNetworkImageProvider(
+                          controller.userModel.value.image)
+                          : const AssetImage('assets/images/person.png')
+                      as ImageProvider),
+                    ),
+                  ),
                 ],
               ),
-              const SizedBox(height: 20),
-              Text(
-                "Progress Tracking",
-                style: Theme.of(context)
-                    .textTheme
-                    .displayLarge!
-                    .copyWith(fontSize: 18),
-              ),
-              const SizedBox(height: 20),
               Padding(
-                padding: const EdgeInsets.only(bottom: 20),
+                padding: EdgeInsets.only(
+                    top: screenHeight * 0.03,
+                    bottom: screenHeight * 0.02,
+                    left: screenWidth * 0.013),
+                child: Row(
+                  children: [
+                    Text(
+                      "Progress Tracking",
+                      style: Theme.of(context)
+                          .textTheme
+                          .displayLarge!
+                          .copyWith(fontSize: screenWidth * 0.045),
+                    ),
+                  ],
+                ),
+              ),
+              Padding(
+                padding:  EdgeInsets.only(bottom: screenHeight*0.030),
                 child: Center(
                   child: Container(
-                      width: screenWidth * 0.89,
-                      height: screenHeight * 0.32,
+                      width: screenWidth,
+                      height: screenHeight*0.35,
                       decoration: BoxDecoration(
                         color: AppColors.secondaryBlue,
                         borderRadius: BorderRadius.circular(40),
@@ -82,39 +90,45 @@ class ProgressTrackingScreen extends GetView<ProgressTrackingScreenController> {
                       child: Obx(() => controller.isLoading.value
                           ? const Center(child: CircularProgressIndicator())
                           :
-                        Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            CircularPercentIndicator(
-                              radius: screenWidth * 0.24,
-                              lineWidth: 18.0,
-                              animation: true,
-                              percent: 0.7,
+                        Padding(
+                          padding:  EdgeInsets.symmetric(vertical: screenHeight*0.028),
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              CircularPercentIndicator(
+                                radius: screenWidth * 0.24,
+                                lineWidth: 18.0,
+                                animation: true,
+                                percent: controller.speechExercisesScreenController.overallProgress.value / 100,
 
-                              center: Column(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  Text(
-                                    '${controller.speechExercisesScreenController.overallProgress.value.toStringAsFixed(2)}%', // Display the overallProgress value here
+                                center: Column(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    Text(
+                                      '${controller.speechExercisesScreenController.overallProgress.value.toStringAsFixed(1)}%', // Display the overallProgress value here
 
-                                    style: Theme.of(context)
-                                        .textTheme
-                                        .displayLarge!
-                                        .copyWith(fontSize: screenWidth * 0.092),
-                                  ),
-                                  Text(
-                                    "Total Progress%",
-                                    style: Theme.of(context)
-                                        .textTheme
-                                        .displayLarge!
-                                        .copyWith(fontSize: screenWidth * 0.034),
-                                  ),
-                                ],
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .displayLarge!
+                                          .copyWith(fontSize: screenWidth * 0.092),
+                                      textAlign: TextAlign.center,
+                                    ),
+                                    Text(
+                                      "Total Progress",
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .displayLarge!
+                                          .copyWith(fontSize: screenWidth * 0.034),
+                                      textAlign: TextAlign.center,
+
+                                    ),
+                                  ],
+                                ),
+                                circularStrokeCap: CircularStrokeCap.round,
+                                progressColor: AppColors.primaryBlue,
                               ),
-                              circularStrokeCap: CircularStrokeCap.round,
-                              progressColor: AppColors.primaryBlue,
-                            ),
-                          ],
+                            ],
+                          ),
                         ),
                       ),
                     ),
@@ -124,6 +138,8 @@ class ProgressTrackingScreen extends GetView<ProgressTrackingScreenController> {
               Obx(
                 () => Expanded(
                   child: GridView.builder(
+                    padding: EdgeInsets.symmetric(horizontal: screenWidth * 0.02), // Adjust the horizontal padding
+
                     gridDelegate:
                         const SliverGridDelegateWithFixedCrossAxisCount(
                       crossAxisCount: 2,
@@ -137,6 +153,8 @@ class ProgressTrackingScreen extends GetView<ProgressTrackingScreenController> {
                     itemBuilder: (context, index) {
                       // Replace the below placeholder widgets with your actual data logic
                       return Container(
+                        padding: EdgeInsets.symmetric(horizontal: screenWidth * 0.02), // Adjust the horizontal padding
+
                         decoration: BoxDecoration(
                           color: AppColors.secondaryBlue,
                           borderRadius: BorderRadius.circular(30),
@@ -169,7 +187,7 @@ class ProgressTrackingScreen extends GetView<ProgressTrackingScreenController> {
                                 ), /* Your percent value based on data */
                                 // Center contents for the CircularPercentIndicator
                               ),
-                              const SizedBox(height: 10),
+                               SizedBox(height: screenHeight*0.010),
                               Text(
                                 controller.speechExercisesScreenController
                                     .exerciseData[index].title,
