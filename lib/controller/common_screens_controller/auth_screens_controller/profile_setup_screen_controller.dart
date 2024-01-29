@@ -26,7 +26,7 @@ class ProfileSetUpScreenController extends GetxController {
   DoctorHomeScreenController doctorhomeScreenController=Get.find(tag:kDoctorHomeScreenController);
   RxString imageUrl=''.obs;
   var fullName = '';
-  var speciality = '';
+  var specialization = '';
   var bio = '';
   var location = '';
   var availabilityStart = TimeOfDay(hour: 9, minute: 0);
@@ -212,7 +212,7 @@ class ProfileSetUpScreenController extends GetxController {
       'image': imageUrl.value,
       'username': nameTEController.value.text,
       'location':locationTEController.value.text,
-      'speciality' :specialityTEController.value.text,
+      'specialization' :specialityTEController.value.text,
       'bio ':bioTEController.value.text,
     }).then((value) async{
       DocumentSnapshot userSnapshot = await FirebaseFirestore.instance

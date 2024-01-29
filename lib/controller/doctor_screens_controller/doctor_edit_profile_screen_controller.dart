@@ -25,7 +25,7 @@ class DoctorEditProfileScreenController extends GetxController {
   RxString imageUrl=''.obs;
   var firstName = '';
   var lastName = '';
-  var speciality = '';
+  var specialization = '';
   var bio = '';
   var location = '';
 
@@ -214,7 +214,7 @@ class DoctorEditProfileScreenController extends GetxController {
       'firstName': firstNameTEController.value.text,
       'lastName':  lastNameTEController.value.text,
       'location': locationTEController.value.text,
-      'speciality': specialityTEController.value.text,
+      'specialization': specialityTEController.value.text,
       'bio': bioTEController.value.text,
     }).then((value) async {
       DocumentSnapshot userSnapshot = await FirebaseFirestore.instance

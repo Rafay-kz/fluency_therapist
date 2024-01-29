@@ -167,7 +167,7 @@ class DoctorEditProfileScreen extends GetView<DoctorEditProfileScreenController>
                   child: Obx(()=>TextFormField(
                     controller: controller.specialityTEController.value,
                     onSaved: (value) {
-                      controller.speciality = value!;
+                      controller.specialization = value!;
                     },
                     validator: (value) {
                       return controller.validateSpeciality(value!);
