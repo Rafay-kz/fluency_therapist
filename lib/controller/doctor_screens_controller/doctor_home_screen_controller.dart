@@ -9,6 +9,7 @@ class DoctorHomeScreenController extends GetxController {
   UserSession userSession = UserSession();
   Rx<DoctorModel> doctorModel=DoctorModel.empty().obs;
 
+
   @override
   void onInit(){
     getDoctorInfo();

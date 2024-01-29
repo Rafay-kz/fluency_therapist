@@ -74,8 +74,8 @@ class ScreenBindings extends Bindings {
     Get.lazyPut(() => UserProfileScreenController());
     Get.lazyPut(() => InboxScreenController());
     Get.lazyPut(() => CallLogScreenController());
-    Get.lazyPut(() => DoctorHomeScreenController(),tag: kDoctorHomeScreenController);
     Get.lazyPut(() => DoctorEditProfileScreenController());
+    Get.lazyPut(() => DoctorHomeScreenController(),tag: kDoctorHomeScreenController);
     Get.lazyPut(() => DoctorSchedulingScreenController());
     Get.lazyPut(() => AppointmentBookingScreenController());
     Get.lazyPut(() => ExercisesScreenOneController());

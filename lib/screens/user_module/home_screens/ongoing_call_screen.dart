@@ -30,8 +30,8 @@ class OngoingCallScreen extends GetView<OngoingCallScreenController> {
               );
             } else {
               return ZegoUIKitPrebuiltCall(
-                appSign: "57980cf4eac1538c81fa3dc9b778cd584c0b2984a4c1012a40c552b437772922",
-                appID: 1906240297,
+                appSign: "5d75b32dc520b58092df25c969b2e8ee8e33de816f00263c6ffac52864cfecd5",
+                appID: 888106837,
                 config: ZegoUIKitPrebuiltCallConfig.oneOnOneVoiceCall()
                   ..onOnlySelfInRoom = (context) => Navigator.pop(context),
                 callID: '${controller.callId}',

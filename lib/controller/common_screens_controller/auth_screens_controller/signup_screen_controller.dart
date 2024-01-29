@@ -66,10 +66,22 @@ class SignupScreenController extends GetxController {
   //Validators for text fields
   String? validateName(String value) {
     if (value.isEmpty) {
-      return 'Please enter your name';
+      return 'Name cannot be empty';
     }
-    if (value.length < 4) {
-      return 'Username must be at least 4 letters';
+    if (value.length < 3) {
+      return 'Name must be at least 3 characters';
+    }
+    if (!RegExp(r'^[A-Z]').hasMatch(value.substring(0, 1))) {
+      return 'The first letter of the name must be a capital letter';
+    }
+    if (RegExp(r'[A-Z]').hasMatch(value.substring(1))) {
+      return 'The rest of the name cannot contain capital letters';
+    }
+    if (RegExp(r'\s').hasMatch(value)) {
+      return 'Name cannot contain spaces';
+    }
+    if (RegExp(r'[0-9]').hasMatch(value)) {
+      return 'Name cannot contain numbers';
     }
     return null;
   }
@@ -88,15 +100,30 @@ class SignupScreenController extends GetxController {
   }
 
   String? validateEmail(String value) {
-    if (!GetUtils.isEmail(value)) {
-      return 'Please provide a valid email';
+    if (value.isEmpty) {
+      return 'Email cannot be empty';
+    }
+    if (!RegExp(r"^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$").hasMatch(value)) {
+      return 'Please provide a valid email address';
     }
     return null;
   }
 
   String? validatePassword(String value) {
-    if (value.length < 6) {
-      return 'Password must be at least 6 characters';
+    if (value.length < 8) {
+      return 'Password must be at least 8 characters';
+    }
+    if (!RegExp(r'[A-Z]').hasMatch(value)) {
+      return 'Password must contain at least one uppercase letter';
+    }
+    if (!RegExp(r'[a-z]').hasMatch(value)) {
+      return 'Password must contain at least one lowercase letter';
+    }
+    if (!RegExp(r'[0-9]').hasMatch(value)) {
+      return 'Password must contain at least one digit';
+    }
+    if (!RegExp(r'[!@#$%^&*(),.?":{}|<>]').hasMatch(value)) {
+      return 'Password must contain at least one special character';
     }
     return null;
   }
@@ -163,23 +190,21 @@ class SignupScreenController extends GetxController {
             lastNameController.text.toString(),
             emailTEController.text.toString(),
             deviceToken,
-
           );
-        }
-        else {
+        } else {
           database.saveUserDetails(
             firstNameController.text.toString(),
             lastNameController.text.toString(),
             emailTEController.text.toString(),
             deviceToken,
-
-
           );
         }
       } catch (error) {
         pd.dismissDialog();
         Utils().toastMessage(error.toString());
       }
+    } else {
+      Utils().toastMessage("Error Signing up");
     }
   }
 

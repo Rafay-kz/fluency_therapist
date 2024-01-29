@@ -38,15 +38,6 @@ class DoctorBookedAppointmentsScreenController extends GetxController {
     await fetchDay();
     isLoading.value = false;
 
-    // Request notification permission and initialize Firebase
-    notificationservices.requestNotificationPermission();
-    notificationservices.getDeviceToken().then((value) {
-      print('DEVICE TOKEN');
-      print(value);
-      notificationservices.isTokenRefresh();
-      notificationservices.firebaseInit();
-    });
-
     super.onInit();
   }
 
@@ -253,14 +244,15 @@ class DoctorBookedAppointmentsScreenController extends GetxController {
                       if (user != null && user.deviceToken != null) {
                         print('user Device Token: ${user.deviceToken}');
                         notificationservices.sendAppointmentNotification(
-                            user.deviceToken?? '');
+                            user.deviceToken?? '',callId,'audioCallScreen');
                       } else {
                         // Handle the case where doctor or device token is null
                         print(
                             "user data or device token is null. Unable to send notification.");
                       }
-
                       Get.toNamed(kOngoingCallScreen, arguments: callId);
+
+
                     },
                     icon: const Icon(Icons.phone),
                     label: const Text("VOICE CALL"),
@@ -278,14 +270,15 @@ class DoctorBookedAppointmentsScreenController extends GetxController {
                       if (user != null && user.deviceToken != null) {
                         print('Doctor Device Token: ${user.deviceToken}');
                         notificationservices.sendAppointmentNotification(
-                            user.deviceToken ?? '');
+                            user.deviceToken ?? '',callId,'videoCallScreen');
                       } else {
                         // Handle the case where doctor or device token is null
                         print(
                             "user data or device token is null. Unable to send notification.");
                       }
-
                       Get.toNamed(kVideoCallScreen, arguments: callId);
+
+
                     },
                     icon: const Icon(Icons.video_call_sharp),
                     label: const Text("VIDEO CALL"),
@@ -302,14 +295,15 @@ class DoctorBookedAppointmentsScreenController extends GetxController {
 
                       if (user != null && user.deviceToken != null) {
                         print('User Device Token: ${user.deviceToken}');
-                        notificationservices.sendAppointmentNotification(user.deviceToken ?? '');
+                        notificationservices.sendAppointmentNotification(user.deviceToken ?? '',callId,'chat');
                       } else {
                         // Handle the case where user or device token is null
                         print("User data or device token is null. Unable to send notification.");
                       }
+                      Get.toNamed(kChatWithConsultantScreen, arguments: callId,);
 
 
-                      Get.toNamed(kChatWithConsultantScreen, arguments: callId);
+
                     },
                     icon: const Icon(Icons.message_outlined),
                     label: const Text("CHAT"),

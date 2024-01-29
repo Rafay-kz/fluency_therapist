@@ -87,7 +87,7 @@ class ChatWithConsultantScreen extends GetView<ChatWithConsultantScreenControlle
 
                     ),
                     Padding(
-                      padding: const EdgeInsets.only(left: 15, right: 45),
+                      padding: const EdgeInsets.only(left: 15, right: 20),
                       child: FutureBuilder<String>(
                         future: controller.determineReceiverName(),
                         builder: (context, snapshot) {
@@ -123,7 +123,7 @@ class ChatWithConsultantScreen extends GetView<ChatWithConsultantScreenControlle
                       ),
                     ),
                     Padding(
-                      padding: const EdgeInsets.only(left: 30),
+                      padding: const EdgeInsets.only(left: 10),
                       child: InkWell(
                         onTap: () {
                           Get.toNamed(kVideoCallScreen);

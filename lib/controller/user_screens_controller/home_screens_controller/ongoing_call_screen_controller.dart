@@ -32,6 +32,7 @@ class OngoingCallScreenController extends GetxController {
     await getUserInfo();
     await getDoctorInfo();
     await setUserIdAndUserName();
+    callId;
   }
 
   Future<void> getUserInfo() async {

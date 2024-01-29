@@ -30,6 +30,8 @@ class BookedAppointmentScreenController extends GetxController {
     doctorModel.value = await userSession.getDoctorInformation();
   }
 
+  static bool notificationsSent = false;
+
   @override
   void onInit() async {
     await getUserInfo();
@@ -37,10 +39,16 @@ class BookedAppointmentScreenController extends GetxController {
     await fetchDoctorUsers();
     await fetchDay();
     isLoading.value = false;
-    notificationservices.requestNotificationPermission();
-    notificationservices.firebaseInit();
+
+    // Only send notifications if they haven't been sent globally
+    if (!notificationsSent) {
+      sendReminderAppointmentNotifications();
+      notificationsSent = true; // Set the global flag to true after sending notifications
+    }
+
     super.onInit();
   }
+
 
   Future<void> logout() async {
     userSession.logOut();
@@ -139,6 +147,7 @@ class BookedAppointmentScreenController extends GetxController {
       return [];
     }
   }
+
   final now = DateTime.now();
   bool isButtonEnabled(BookedSlot bookedSlot) {
     final startTime = DateTime(
@@ -157,7 +166,6 @@ class BookedAppointmentScreenController extends GetxController {
     // Enable the button if the current time is between the start and end times
     return now.isAfter(startTime) && now.isBefore(endTime);
   }
-
 
   Future<void> deleteAppointment(String userId, int callId) async {
     try {
@@ -208,9 +216,38 @@ class BookedAppointmentScreenController extends GetxController {
     return now.isAfter(endTime);
   }
 
+  Future<void> sendReminderAppointmentNotifications() async {
+    for (final bookedSlot in bookedSlots) {
+      final startTime = DateTime(
+          bookedSlot.date.year,
+          bookedSlot.date.month,
+          bookedSlot.date.day,
+          bookedSlot.startTime.hour,
+          bookedSlot.startTime.minute);
+      final endTime = DateTime(
+          bookedSlot.date.year,
+          bookedSlot.date.month,
+          bookedSlot.date.day,
+          bookedSlot.endTime.hour,
+          bookedSlot.endTime.minute);
 
+      print('Now: $now, StartTime: $startTime, EndTime: $endTime');
 
+      if (isButtonEnabled(bookedSlot) && !isAppointmentTimePassed(bookedSlot, now)) {
+        print('Sending Reminder for Call ID: ${bookedSlot.callId}');
 
+        final doctor = bookedSlot.doctor;
+
+        if (doctor != null && doctor.deviceToken != null) {
+          print('Doctor Device Token: ${doctor.deviceToken}');
+          notificationservices.sendReminderAppointmentNotification(
+              doctor.deviceToken ?? '', bookedSlot.callId);
+        } else {
+          print("Doctor data or device token is null. Unable to send notification.");
+        }
+      }
+    }
+  }
 
   void callOptions(int callId) async {
     print('Selected Call ID: $callId');
@@ -250,7 +287,7 @@ class BookedAppointmentScreenController extends GetxController {
                       if (doctor != null && doctor.deviceToken != null) {
                         print('Doctor Device Token: ${doctor.deviceToken}');
                         notificationservices.sendAppointmentNotification(
-                            doctor.deviceToken??'');
+                            doctor.deviceToken??'',callId,'audioCallScreen');
                       } else {
                         // Handle the case where doctor or device token is null
                         print(
@@ -275,7 +312,7 @@ class BookedAppointmentScreenController extends GetxController {
                       if (doctor != null && doctor.deviceToken != null) {
                         print('Doctor Device Token: ${doctor.deviceToken}');
                         notificationservices.sendAppointmentNotification(
-                            doctor.deviceToken??'');
+                            doctor.deviceToken??'',callId,'videoCallScreen');
                       } else {
                         // Handle the case where doctor or device token is null
                         print(
@@ -300,7 +337,7 @@ class BookedAppointmentScreenController extends GetxController {
                       if (doctor != null && doctor.deviceToken != null) {
                         print('Doctor Device Token: ${doctor.deviceToken}');
                         notificationservices.sendAppointmentChatNotification(
-                            doctor.deviceToken??'');
+                            doctor.deviceToken??'',);
                       } else {
                         // Handle the case where doctor or device token is null
                         print(

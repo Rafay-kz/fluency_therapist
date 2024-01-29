@@ -1,7 +1,6 @@
 import 'package:fluency_therapist/screens/common_screens/auth_screens/profile_setup_screen.dart';
 import 'package:fluency_therapist/screens/doctor_module/doctor_booked_appointments_screen.dart';
 import 'package:fluency_therapist/screens/doctor_module/doctor_edit_profile_screen.dart';
-import 'package:fluency_therapist/screens/doctor_module/doctor_home_screen.dart';
 import 'package:fluency_therapist/screens/doctor_module/doctor_scheduling_screen.dart';
 import 'package:fluency_therapist/screens/doctor_module/doctor_verification_screen.dart';
 import 'package:fluency_therapist/screens/user_module/home_screens/booked_appointment_screen.dart';
@@ -17,6 +16,7 @@ import '../screens/common_screens/auth_screens/signup_screen.dart';
 import '../screens/common_screens/auth_screens/splash_screen.dart';
 import '../screens/common_screens/auth_screens/welcome_screen.dart';
 
+import '../screens/doctor_module/doctor_home_screen.dart';
 import '../screens/doctor_module/doctor_inbox_screen.dart';
 import '../screens/doctor_module/doctor_profile_screen.dart';
 import '../screens/doctor_module/doctor_profile_setup_screen.dart';
