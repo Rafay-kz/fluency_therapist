@@ -146,8 +146,12 @@ class ChatWithConsultantScreenController extends GetxController {
   }
 
   Future<String> determineReceiverName() async {
-    return determineReceiverField('userFirstName' 'userLastName', 'doctorFirstName' 'doctorLastName');
+    String userFirstName = await determineReceiverField('userFirstName', 'doctorFirstName');
+    String userLastName = await determineReceiverField('userLastName', 'doctorLastName');
+
+    return '$userFirstName $userLastName';
   }
+
 
   Future<String> determineReceiverImage() async {
     return determineReceiverField('userImage', 'doctorImage');

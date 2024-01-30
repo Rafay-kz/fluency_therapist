@@ -57,14 +57,12 @@ class EmailVerificationScreen
                   SizedBox(height: screenHeight * 0.025),
                   Padding(
                     padding: EdgeInsets.only(left: screenWidth * 0.07),
-                    child: Flexible(
-                      child: Text(
-                          "An email has been sent to your registered email address. Please verify your email to proceed and tap 'Done' to get started.",
-                          style: Theme.of(context)
-                              .textTheme
-                              .titleLarge!
-                              .copyWith(fontSize: screenWidth * 0.042)),
-                    ),
+                    child: Text(
+                        "An email has been sent to your registered email address. Please verify your email to proceed and tap 'Done' to get started.",
+                        style: Theme.of(context)
+                            .textTheme
+                            .titleLarge!
+                            .copyWith(fontSize: screenWidth * 0.042)),
                   ),
                   SizedBox(height: screenHeight * 0.06),
                   Button(

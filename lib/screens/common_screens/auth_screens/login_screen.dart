@@ -79,11 +79,14 @@ class LoginScreen extends GetView<LoginScreenController> {
                           child: TextFormField(
                             // cursorColor: Colors.black,
                             controller: controller.emailTEController,
-                            onSaved: (value) {
-                              controller.email = value!;
+                            onChanged: (value) {
+                              controller.email = value;
                             },
                             validator: (value) {
-                              return controller.validateEmail(value!);
+                              if (value == null || value.isEmpty) {
+                                return null;
+                              }
+                              return controller.validateEmail(value);
                             },
                             style: TextStyle(color: AppColors.textColor),
                             decoration: InputDecoration(
@@ -120,11 +123,14 @@ class LoginScreen extends GetView<LoginScreenController> {
                           child: Obx(() => TextFormField(
                               // cursorColor: Colors.black,
                               controller: controller.passwordTEController,
-                              onSaved: (value) {
-                                controller.password = value!;
+                              onChanged: (value) {
+                                controller.password = value;
                               },
                               validator: (value) {
-                                return controller.validatePassword(value!);
+                                if (value == null || value.isEmpty) {
+                                  return null;
+                                }
+                                return controller.validatePassword(value);
                               },
                               style: TextStyle(color: AppColors.textColor),
                               decoration: InputDecoration(

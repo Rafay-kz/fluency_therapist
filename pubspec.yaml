@@ -56,10 +56,11 @@ dependencies:
   video_player: ^2.7.2
   chewie: ^1.7.1
   flutter_local_notifications: ^16.3.0
-  firebase_messaging: ^14.7.9
+  firebase_messaging: ^14.7.10
   app_settings: ^5.1.1
   http: ^1.1.0
   awesome_notifications: ^0.8.2
+  timezone: ^0.9.2
 
 
 

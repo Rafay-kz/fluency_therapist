@@ -53,22 +53,12 @@ class HomeScreen extends GetView<HomeScreenController> {
                     ),
                     PopupMenuButton(
                       onSelected: (value) {
-                        if (value == 'Account') {
-                          Get.toNamed(kUserProfileScreen);
-                        }
                         if (value == 'Logout') {
                            controller.logout();
                         }
 
                       },
                       itemBuilder: (context) => [
-                        const PopupMenuItem(
-                          value: 'Account',
-                          child: ListTile(
-                            leading: Icon(Icons.person),
-                            title: Text("Account"),
-                          ),
-                        ),
                         const PopupMenuItem(
                           value: 'Logout',
                             child: ListTile(
@@ -261,7 +251,7 @@ class HomeScreen extends GetView<HomeScreenController> {
                             title: "Account\nSettings",
                             image: customizedProgramsIcon,
 
-                            routeName: kPaymentScreen,
+                            routeName: kUserProfileScreen,
                           ),
 
 

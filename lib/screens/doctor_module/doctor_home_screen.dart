@@ -38,7 +38,7 @@ class DoctorHomeScreen extends GetView<DoctorHomeScreenController> {
                           children: [
                             const TextSpan(text: "Hello,"),
                             TextSpan(
-                              text: "\n${controller.doctorModel.value.firstName}",
+                              text: "\nDr ${controller.doctorModel.value.firstName}",
                               style: Theme.of(context)
                                   .textTheme
                                   .displayLarge!
@@ -53,22 +53,12 @@ class DoctorHomeScreen extends GetView<DoctorHomeScreenController> {
                     ),
                     PopupMenuButton(
                       onSelected: (value) {
-                        if (value == 'Account') {
-                          Get.toNamed(kDoctorProfileScreen);
-                        }
                         if (value == 'Logout') {
                           controller.logout();
                         }
 
                       },
                       itemBuilder: (context) => [
-                        const PopupMenuItem(
-                          value: 'Account',
-                          child: ListTile(
-                            leading: Icon(Icons.person),
-                            title: Text("Account"),
-                          ),
-                        ),
                         const PopupMenuItem(
                             value: 'Logout',
                             child: ListTile(

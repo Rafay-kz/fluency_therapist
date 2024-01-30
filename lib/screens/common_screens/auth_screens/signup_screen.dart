@@ -77,12 +77,16 @@ class SignUpScreen extends GetView<SignupScreenController> {
                                 child: Center(
                                   child: TextFormField(
                                     controller: controller.firstNameController,
-                                    onSaved: (value) {
-                                      controller.firstName = value!;
+                                    onChanged: (value) {
+                                      controller.firstName = value;
                                     },
                                     validator: (value) {
-                                      return controller.validateName(value!);
+                                      if (value == null || value.isEmpty) {
+                                        return null;
+                                      }
+                                      return controller.validateName(value);
                                     },
+
                                     style:
                                         TextStyle(color: AppColors.textColor),
                                     decoration: InputDecoration(
@@ -114,12 +118,16 @@ class SignUpScreen extends GetView<SignupScreenController> {
                                 padding: EdgeInsets.all(screenWidth * 0.018),
                                 child: TextFormField(
                                   controller: controller.lastNameController,
-                                  onSaved: (value) {
-                                    controller.lastName = value!;
+                                  onChanged: (value) {
+                                    controller.lastName = value;
                                   },
                                   validator: (value) {
-                                    return controller.validateName(value!);
+                                    if (value == null || value.isEmpty) {
+                                      return null;
+                                    }
+                                    return controller.validateName(value);
                                   },
+
                                   style:
                                   TextStyle(color: AppColors.textColor),
                                   decoration: InputDecoration(
@@ -155,12 +163,16 @@ class SignUpScreen extends GetView<SignupScreenController> {
                                   child: TextFormField(
                                     // cursorColor: Colors.black,
                                     controller: controller.emailTEController,
-                                    onSaved: (value) {
-                                      controller.email = value!;
+                                    onChanged: (value) {
+                                      controller.email = value;
                                     },
                                     validator: (value) {
-                                      return controller.validateEmail(value!);
+                                      if (value == null || value.isEmpty) {
+                                        return null;
+                                      }
+                                      return controller.validateEmail(value);
                                     },
+
                                     style: TextStyle(color: AppColors.textColor),
                                     decoration: InputDecoration(
                                       fillColor: AppColors.textfieldColor,
@@ -199,13 +211,16 @@ class SignUpScreen extends GetView<SignupScreenController> {
                                       // cursorColor: Colors.black,
                                       controller:
                                           controller.passwordTEController,
-                                      onSaved: (value) {
-                                        controller.password = value!;
+                                      onChanged: (value) {
+                                        controller.password = value;
                                       },
                                       validator: (value) {
-                                        return controller
-                                            .validatePassword(value!);
+                                        if (value == null || value.isEmpty) {
+                                          return null;
+                                        }
+                                        return controller.validatePassword(value);
                                       },
+
                                       style: TextStyle(color: AppColors.textColor),
                                       decoration: InputDecoration(
                                         fillColor: AppColors.textfieldColor,
@@ -259,13 +274,16 @@ class SignUpScreen extends GetView<SignupScreenController> {
                                       // cursorColor: Colors.black,
                                       controller: controller
                                           .confirmPasswordTEController,
-                                      onSaved: (value) {
-                                        controller.confirmPassword = value!;
+                                      onChanged: (value) {
+                                        controller.confirmPassword = value;
                                       },
                                       validator: (value) {
-                                        return controller
-                                            .validateConfirmPassword(value!);
+                                        if (value == null || value.isEmpty) {
+                                          return null;
+                                        }
+                                        return controller.validateConfirmPassword(value);
                                       },
+
                                       style: TextStyle(color: AppColors.textColor),
                                       decoration: InputDecoration(
                                         fillColor: AppColors.textfieldColor,
